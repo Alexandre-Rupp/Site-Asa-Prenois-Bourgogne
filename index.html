@@ -1,0 +1,160 @@
+﻿<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASAC Bourgogne | Commissaires de piste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-bg"></div>
+    <header class="topbar">
+      <div class="logo-wrap">
+        <div class="logo-mark">ASAC</div>
+        <div class="logo-text">
+          <strong>ASAC Bourgogne</strong>
+          <span>Commissaires de piste</span>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="#calendrier">Calendrier</a>
+        <a href="#actualites">Actualites</a>
+        <a href="#resultats">Resultats</a>
+        <a href="#espace">Espace commissaire</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero-shell">
+        <div id="hero-track" class="hero-track-wrap hero-track-side" aria-hidden="true">
+          <svg viewBox="0 0 220 100">
+            <g stroke="none" fill="none" fill-rule="evenodd">
+              <path
+                id="hero-track-path"
+                d="M88 84 L28 84 C21 84 15 84 12 81 C9 78 10 73 13 68 C16 62 21 59 28 59 C35 58 38 55 43 51 C53 41 69 42 79 50 C85 55 93 56 97 50 C102 45 100 38 100 30 C101 22 101 13 108 13 C114 13 115 21 117 30 C118 39 119 47 122 54 C125 59 133 58 139 53 C146 47 147 41 151 37 C157 30 169 30 178 37 C186 43 195 47 200 56 C203 62 203 72 198 78 C192 84 185 84 176 84 L88 84 Z"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </g>
+          </svg>
+          <div class="hero-track-car"></div>
+        </div>
+
+        <section class="hero">
+        <div class="hero-top-row">
+          <p class="eyebrow season-pill">Saison 2026</p>
+        </div>
+        <h1>Plateforme des commissaires de piste</h1>
+        <p class="hero-sub">
+          Inscriptions gerees via Microsoft Forms, avec extraction Excel directe
+          pour la gestion administrative.
+        </p>
+        <div class="hero-cta">
+          <a href="#espace" class="btn btn-primary">Acceder aux formulaires</a>
+          <a href="#calendrier" class="btn btn-ghost">Voir les courses</a>
+        </div>
+        <div class="hero-kpis">
+          <article>
+            <span id="kpi-races">12</span>
+            <small>Courses prevues</small>
+          </article>
+          <article>
+            <span id="kpi-members">200</span>
+            <small>Commissaires cibles</small>
+          </article>
+          <article>
+            <span id="kpi-signups">Forms</span>
+            <small>Mode inscriptions</small>
+          </article>
+        </div>
+        </section>
+      </div>
+
+      <section id="calendrier" class="section">
+        <div class="section-head">
+          <h2>Calendrier des courses</h2>
+          <p>
+            Pour chaque meeting, utilisez le bouton d'inscription Microsoft
+            Forms. Les reponses sont centralisees dans Excel pour la secretaire.
+          </p>
+        </div>
+        <div id="race-grid" class="race-grid"></div>
+      </section>
+
+      <section id="actualites" class="section dual">
+        <div>
+          <div class="section-head">
+            <h2>Actualites association</h2>
+          </div>
+          <div id="news-list" class="feed-list"></div>
+        </div>
+        <div id="resultats">
+          <div class="section-head">
+            <h2>Resultats</h2>
+          </div>
+          <div id="results-list" class="feed-list"></div>
+        </div>
+      </section>
+
+      <section id="espace" class="section">
+        <div class="section-head">
+          <h2>Espace commissaire</h2>
+          <p>
+            Les inscriptions passent desormais par Microsoft Forms pour
+            simplifier la gestion administrative.
+          </p>
+        </div>
+        <div class="panel-grid">
+          <article class="panel cta-card">
+            <h3>Formulaire inscription membre</h3>
+            <p>
+              Nouveau commissaire: remplissez ce formulaire pour creer votre
+              dossier (coordonnees, licence, disponibilites).
+            </p>
+            <a
+              id="member-form-link"
+              class="btn btn-primary"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Ouvrir le formulaire membre</a
+            >
+          </article>
+
+          <article class="panel cta-card">
+            <h3>Formulaire inscription course</h3>
+            <p>
+              Inscription par meeting: envoyez une reponse pour chaque course
+              souhaitee.
+            </p>
+            <a
+              id="race-form-link"
+              class="btn btn-primary"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Ouvrir le formulaire course</a
+            >
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>
+        ASAC Bourgogne 2026. Prototype visuel avec inscriptions Microsoft Forms.
+      </p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
