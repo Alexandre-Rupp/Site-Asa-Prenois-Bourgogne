@@ -61,15 +61,11 @@ body {
   gap: 0.7rem;
 }
 
-.logo-mark {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--white);
-  background: linear-gradient(135deg, var(--blue-700), var(--blue-900));
-  border-radius: 10px;
-  padding: 0.55rem 0.75rem;
+.logo-main {
+  width: 190px;
+  max-width: 42vw;
+  height: auto;
+  object-fit: contain;
 }
 
 .logo-text {
@@ -89,6 +85,18 @@ body {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-ffsa {
+  width: 92px;
+  height: auto;
+  object-fit: contain;
 }
 
 .main-nav {
@@ -141,11 +149,6 @@ main {
   animation: reveal-up 0.7s ease both;
 }
 
-.hero-shell {
-  position: relative;
-  --left-gutter: max(0px, calc((100vw - min(1160px, 94vw)) / 2));
-}
-
 .hero::before,
 .hero::after {
   content: "";
@@ -191,40 +194,6 @@ main {
   background: rgba(8, 38, 83, 0.85);
   color: #d5e3ff;
   border: 1px solid rgba(167, 193, 242, 0.25);
-}
-
-.hero-track-wrap {
-  position: relative;
-  flex: 0 0 auto;
-  width: 220px;
-  padding: 0.24rem 0.36rem;
-  border-radius: 999px;
-  color: var(--blue-900);
-  overflow: hidden;
-}
-
-.hero-track-side {
-  position: absolute;
-  left: calc(-1 * var(--left-gutter) + 8px);
-  width: calc(var(--left-gutter) - 16px);
-  top: 18px;
-}
-
-.hero-track-wrap svg {
-  width: 100%;
-  display: block;
-}
-
-.hero-track-car {
-  position: absolute;
-  width: 14px;
-  height: 7px;
-  left: -7px;
-  top: -4px;
-  border-radius: 999px;
-  background: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
-  display: none;
 }
 
 .hero h1 {
@@ -337,6 +306,26 @@ main {
   color: var(--muted);
 }
 
+.race-toolbar {
+  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.race-toolbar label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue-800);
+}
+
+.race-toolbar select {
+  min-width: 240px;
+}
+
 .race-grid {
   margin-top: 1rem;
   display: grid;
@@ -355,6 +344,15 @@ main {
   overflow: hidden;
 }
 
+.race-card--circuit {
+  border-left: 4px solid #1b5fbf;
+}
+
+.race-card--rallye {
+  border-left: 4px solid #d57a00;
+  background: linear-gradient(180deg, #fffdf9, #fff5e6);
+}
+
 .race-card::before {
   content: "";
   position: absolute;
@@ -364,6 +362,28 @@ main {
   height: 120px;
   border-radius: 999px;
   background: rgba(24, 67, 136, 0.08);
+}
+
+.race-kind {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.2rem 0.52rem;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.race-card--circuit .race-kind {
+  background: #eaf2ff;
+  color: #1b5fbf;
+}
+
+.race-card--rallye .race-kind {
+  background: #fff0db;
+  color: #b56700;
 }
 
 .race-date {
@@ -666,8 +686,10 @@ th {
     grid-template-columns: 1fr;
   }
 
-  .hero-track-side {
-    display: none;
+  .topbar-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.8rem;
   }
 
   .main-nav {
@@ -684,6 +706,19 @@ th {
     position: static;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .logo-main {
+    width: 160px;
+    max-width: 60vw;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .logo-ffsa {
+    width: 74px;
   }
 
   .hero h1 {

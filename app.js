@@ -1,23 +1,3 @@
-import { animate, svg } from "https://esm.sh/animejs";
-const DECOR_PATH_SELECTOR = "#hero-track-path";
-const DECOR_CAR_SELECTOR = ".hero-track-car";
-
-// Animate the transforms properties of .car the motion path values
-const carAnimation = animate(DECOR_CAR_SELECTOR, {
-  ease: "linear",
-  duration: 5000,
-  loop: true,
-  ...svg.createMotionPath(DECOR_PATH_SELECTOR),
-});
-
-// Line drawing animation following the motion path values
-// For demo aesthetic only
-animate(svg.createDrawable(DECOR_PATH_SELECTOR), {
-  draw: "0 1",
-  ease: "linear",
-  duration: 5000,
-  loop: true,
-});
 const TARGET_MEMBERS = 200;
 
 const MEMBER_FORM_RESPONSE_URL =
@@ -31,39 +11,87 @@ const FORM_LINKS = {
 const races = [
   {
     id: "r1",
-    name: "Coupe de France des Circuits",
-    date: "10-12 avril 2026",
-    track: "Circuit Dijon-Prenois",
+    name: "FUN RACING CAR",
+    date: "10-11-12 avril 2026",
+    track: "Meetings Circuit 2026",
   },
   {
     id: "r2",
-    name: "Historic Tour",
-    date: "2-4 mai 2026",
-    track: "Circuit Dijon-Prenois",
+    name: "CATERHAM",
+    date: "17-18-19 avril 2026",
+    track: "Meetings Circuit 2026",
   },
   {
     id: "r3",
-    name: "GT4 France",
-    date: "15-17 mai 2026",
-    track: "Circuit Dijon-Prenois",
+    name: "HISTORIC TOUR",
+    date: "24-25-26 avril 2026",
+    track: "Meetings Circuit 2026",
   },
   {
     id: "r4",
-    name: "TTE Endurance",
-    date: "3-5 juillet 2026",
-    track: "Circuit Dijon-Prenois",
+    name: "CHAMPIONNAT DE France GT",
+    date: "14-15-16-17 mai 2026",
+    track: "Meetings Circuit 2026",
   },
   {
     id: "r5",
-    name: "Course de cote d'Urcy",
-    date: "25-26 juillet 2026",
-    track: "Urcy",
+    name: "PORSCHE SPRINT CHALLENGE France",
+    date: "29-30 mai 2026",
+    track: "Meetings Circuit 2026",
   },
   {
     id: "r6",
-    name: "Grand Prix de l'Age d'Or",
-    date: "5-7 juin 2026",
-    track: "Circuit Dijon-Prenois",
+    name: "GRAND PRIX DE L'AGE D'OR",
+    date: "5-6-7-8 juin 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r7",
+    name: "TROPHEE TOURISME ENDURANCE",
+    date: "26-27-28 juin 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r8",
+    name: "DIJON MOTORS CUP",
+    date: "10-11-12-13 septembre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r9",
+    name: "LAMERA CUP",
+    date: "16-17-18 octobre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r10",
+    name: "COUPE DE France DES CIRCUITS",
+    date: "23-24-25 octobre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r11",
+    name: "2eme RALLYE NATIONAL DE BLIGNY SUR OUCHE",
+    date: "08-09 mai 2026",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r12",
+    name: "64eme COURSE DE COTE D'URCY",
+    date: "25-26 juillet 2026",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r13",
+    name: "24eme RALLYE REGIONAL DE L'AUXOIS",
+    date: "19 septembre 2025",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r14",
+    name: "Tour de Bourgogne Classic",
+    date: "23-24-25 octobre 2026",
+    track: "Meetings Rallye - Cote 2026",
   },
 ];
 
@@ -104,6 +132,20 @@ const resultsFeed = [
 ];
 
 const byId = (id) => document.getElementById(id);
+const MONTH_INDEX = {
+  janvier: 0,
+  fevrier: 1,
+  mars: 2,
+  avril: 3,
+  mai: 4,
+  juin: 5,
+  juillet: 6,
+  aout: 7,
+  septembre: 8,
+  octobre: 9,
+  novembre: 10,
+  decembre: 11,
+};
 
 function escapeHtml(value) {
   return String(value || "")
@@ -118,6 +160,53 @@ function setLink(id, href) {
   const el = byId(id);
   if (!el) return;
   el.href = href;
+}
+
+function getRaceKind(race) {
+  return race.track.includes("Rallye") ? "rallye" : "circuit";
+}
+
+function parseRaceDate(dateLabel) {
+  const lower = String(dateLabel || "").toLowerCase();
+  const firstDayMatch = lower.match(/\d{1,2}/);
+  const yearMatch = lower.match(/\b(20\d{2})\b/);
+  const monthEntry =
+    Object.entries(MONTH_INDEX).find(([name]) => lower.includes(name)) || [];
+  const month = Number.isInteger(monthEntry[1]) ? monthEntry[1] : 11;
+  const day = firstDayMatch ? Number.parseInt(firstDayMatch[0], 10) : 31;
+  const year = yearMatch ? Number.parseInt(yearMatch[1], 10) : 2999;
+  return new Date(year, month, day).getTime();
+}
+
+function getSortedRaces() {
+  const sortMode = byId("race-sort")?.value || "date-asc";
+  const cloned = [...races];
+
+  if (sortMode === "date-asc") {
+    return cloned.sort((a, b) => parseRaceDate(a.date) - parseRaceDate(b.date));
+  }
+
+  if (sortMode === "date-desc") {
+    return cloned.sort((a, b) => parseRaceDate(b.date) - parseRaceDate(a.date));
+  }
+
+  if (sortMode === "name-asc") {
+    return cloned.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+  }
+
+  if (sortMode === "name-desc") {
+    return cloned.sort((a, b) => b.name.localeCompare(a.name, "fr"));
+  }
+
+  if (sortMode === "type-circuit") {
+    return cloned.sort((a, b) => getRaceKind(a).localeCompare(getRaceKind(b)));
+  }
+
+  if (sortMode === "type-rallye") {
+    return cloned.sort((a, b) => getRaceKind(b).localeCompare(getRaceKind(a)));
+  }
+
+  return cloned;
 }
 
 function renderKpis() {
@@ -147,10 +236,16 @@ function renderRaces() {
   const grid = byId("race-grid");
   if (!grid) return;
 
-  grid.innerHTML = races
+  grid.innerHTML = getSortedRaces()
     .map(
-      (race) => `
-        <article class="race-card">
+      (race) => {
+        const isRallye = getRaceKind(race) === "rallye";
+        const kind = isRallye ? "Rallye" : "Circuit";
+        const kindClass = isRallye ? "race-card--rallye" : "race-card--circuit";
+
+        return `
+        <article class="race-card ${kindClass}">
+          <span class="race-kind">${kind}</span>
           <span class="race-date">${escapeHtml(race.date)}</span>
           <h3>${escapeHtml(race.name)}</h3>
           <p>${escapeHtml(race.track)}</p>
@@ -164,10 +259,11 @@ function renderRaces() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            S'inscrire a cette course
+            S'inscrire
           </a>
         </article>
-      `
+      `;
+      }
     )
     .join("");
 }
@@ -177,12 +273,19 @@ function injectMainLinks() {
   setLink("race-form-link", FORM_LINKS.raceForm);
 }
 
+function bindEvents() {
+  const sortInput = byId("race-sort");
+  if (!sortInput) return;
+  sortInput.addEventListener("change", renderRaces);
+}
+
 function mount() {
   renderKpis();
   renderRaces();
   renderFeed("news-list", newsFeed);
   renderFeed("results-list", resultsFeed);
   injectMainLinks();
+  bindEvents();
 }
 
 mount();

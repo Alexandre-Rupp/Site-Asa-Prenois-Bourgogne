@@ -16,47 +16,39 @@
     <div class="site-bg"></div>
     <header class="topbar">
       <div class="logo-wrap">
-        <div class="logo-mark">ASAC</div>
+        <img
+          class="logo-main"
+          src="assets/logo-asa-prenois-bourgogne.png"
+          onerror="this.onerror=null;this.src='assets/logo-asa-prenois-bourgogne.jpg';"
+          alt="Logo ASA Prenois Bourgogne"
+        />
         <div class="logo-text">
           <strong>ASAC Bourgogne</strong>
           <span>Commissaires de piste</span>
         </div>
       </div>
-      <nav class="main-nav">
-        <a href="#calendrier">Calendrier</a>
-        <a href="#actualites">Actualites</a>
-        <a href="#resultats">Resultats</a>
-        <a href="#espace">Espace commissaire</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="main-nav">
+          <a href="#calendrier">Calendrier</a>
+          <a href="#actualites">Actualites</a>
+          <a href="#resultats">Resultats</a>
+          <a href="#espace">Espace commissaire</a>
+        </nav>
+        <img
+          class="logo-ffsa"
+          src="assets/logo-ffsa.png"
+          onerror="this.onerror=null;this.src='assets/logo-ffsa.jpg';"
+          alt="Logo FFSA"
+        />
+      </div>
     </header>
 
     <main>
-      <div class="hero-shell">
-        <div id="hero-track" class="hero-track-wrap hero-track-side" aria-hidden="true">
-          <svg viewBox="0 0 220 100">
-            <g stroke="none" fill="none" fill-rule="evenodd">
-              <path
-                id="hero-track-path"
-                d="M88 84 L28 84 C21 84 15 84 12 81 C9 78 10 73 13 68 C16 62 21 59 28 59 C35 58 38 55 43 51 C53 41 69 42 79 50 C85 55 93 56 97 50 C102 45 100 38 100 30 C101 22 101 13 108 13 C114 13 115 21 117 30 C118 39 119 47 122 54 C125 59 133 58 139 53 C146 47 147 41 151 37 C157 30 169 30 178 37 C186 43 195 47 200 56 C203 62 203 72 198 78 C192 84 185 84 176 84 L88 84 Z"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </g>
-          </svg>
-          <div class="hero-track-car"></div>
-        </div>
-
-        <section class="hero">
+      <section class="hero">
         <div class="hero-top-row">
           <p class="eyebrow season-pill">Saison 2026</p>
         </div>
         <h1>Plateforme des commissaires de piste</h1>
-        <p class="hero-sub">
-          Inscriptions gerees via Microsoft Forms, avec extraction Excel directe
-          pour la gestion administrative.
-        </p>
         <div class="hero-cta">
           <a href="#espace" class="btn btn-primary">Acceder aux formulaires</a>
           <a href="#calendrier" class="btn btn-ghost">Voir les courses</a>
@@ -75,16 +67,22 @@
             <small>Mode inscriptions</small>
           </article>
         </div>
-        </section>
-      </div>
+      </section>
 
       <section id="calendrier" class="section">
         <div class="section-head">
           <h2>Calendrier des courses</h2>
-          <p>
-            Pour chaque meeting, utilisez le bouton d'inscription Microsoft
-            Forms. Les reponses sont centralisees dans Excel pour la secretaire.
-          </p>
+        </div>
+        <div class="race-toolbar">
+          <label for="race-sort">Trier les meetings</label>
+          <select id="race-sort" aria-label="Trier les meetings">
+            <option value="date-asc">Date croissante</option>
+            <option value="date-desc">Date decroissante</option>
+            <option value="name-asc">Nom A-Z</option>
+            <option value="name-desc">Nom Z-A</option>
+            <option value="type-circuit">Type: Circuit puis Rallye</option>
+            <option value="type-rallye">Type: Rallye puis Circuit</option>
+          </select>
         </div>
         <div id="race-grid" class="race-grid"></div>
       </section>
@@ -107,10 +105,6 @@
       <section id="espace" class="section">
         <div class="section-head">
           <h2>Espace commissaire</h2>
-          <p>
-            Les inscriptions passent desormais par Microsoft Forms pour
-            simplifier la gestion administrative.
-          </p>
         </div>
         <div class="panel-grid">
           <article class="panel cta-card">
