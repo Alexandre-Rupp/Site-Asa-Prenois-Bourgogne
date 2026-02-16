@@ -1,5 +1,3 @@
-const TARGET_MEMBERS = 200;
-
 const MEMBER_FORM_RESPONSE_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u";
 
@@ -210,19 +208,22 @@ function getSortedRaces() {
 }
 
 function renderKpis() {
-  byId("kpi-races").textContent = String(races.length);
-  byId("kpi-members").textContent = String(TARGET_MEMBERS);
-  byId("kpi-signups").textContent = "Forms";
+  const racesEl = byId("kpi-races");
+  if (racesEl) {
+    racesEl.textContent = String(races.length);
+  }
 }
 
 function renderFeed(listId, items) {
   const root = byId(listId);
   if (!root) return;
+  const feedLabel = listId === "news-list" ? "Actu" : "Resultat";
 
   root.innerHTML = items
     .map(
       (item) => `
       <article class="feed-item">
+        <p class="feed-label">${feedLabel}</p>
         <p class="small">${escapeHtml(item.date)}</p>
         <h4>${escapeHtml(item.title)}</h4>
         <p>${escapeHtml(item.text)}</p>
@@ -275,8 +276,9 @@ function injectMainLinks() {
 
 function bindEvents() {
   const sortInput = byId("race-sort");
-  if (!sortInput) return;
-  sortInput.addEventListener("change", renderRaces);
+  if (sortInput) {
+    sortInput.addEventListener("change", renderRaces);
+  }
 }
 
 function mount() {
