@@ -62,9 +62,46 @@
             <option value="date-desc">Date decroissante</option>
             <option value="name-asc">Nom A-Z</option>
             <option value="name-desc">Nom Z-A</option>
-            <option value="type-circuit">Type: Circuit puis Rallye</option>
-            <option value="type-rallye">Type: Rallye puis Circuit</option>
           </select>
+          <div
+            id="race-filter"
+            class="race-filter-switch"
+            role="group"
+            aria-label="Filtrer les meetings"
+          >
+            <button
+              type="button"
+              class="race-filter-btn is-active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              TOUT
+            </button>
+            <button
+              type="button"
+              class="race-filter-btn"
+              data-filter="circuit"
+              aria-pressed="false"
+            >
+              CIRCUIT
+            </button>
+            <button
+              type="button"
+              class="race-filter-btn"
+              data-filter="rallye"
+              aria-pressed="false"
+            >
+              RALLYE
+            </button>
+            <button
+              type="button"
+              class="race-filter-btn"
+              data-filter="cote"
+              aria-pressed="false"
+            >
+              COURSE DE COTE
+            </button>
+          </div>
         </div>
         <div id="race-grid" class="race-grid"></div>
       </section>

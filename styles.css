@@ -397,6 +397,48 @@ main {
   min-width: 240px;
 }
 
+.race-filter-switch {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border: 1px solid #c7d7f8;
+  border-radius: 14px;
+  background: #e7efff;
+}
+
+.race-filter-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--blue-800);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.race-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.race-filter-btn.is-active {
+  background: var(--white);
+  color: var(--blue-900);
+  box-shadow: 0 4px 12px rgba(7, 31, 71, 0.18);
+}
+
 .race-grid {
   margin-top: 1rem;
   display: grid;
@@ -433,6 +475,11 @@ main {
   background: linear-gradient(180deg, #fffdf9, #fff5e6);
 }
 
+.race-card--cote {
+  border-left: 4px solid #1d8f53;
+  background: linear-gradient(180deg, #fafffd, #ebfff2);
+}
+
 .race-card::before {
   content: "";
   position: absolute;
@@ -464,6 +511,11 @@ main {
 .race-card--rallye .race-kind {
   background: #fff0db;
   color: #b56700;
+}
+
+.race-card--cote .race-kind {
+  background: #e7ffef;
+  color: #0f7d46;
 }
 
 .race-date {
@@ -820,5 +872,26 @@ th {
 
   .hero-top-row {
     flex-wrap: wrap;
+  }
+
+  .race-toolbar {
+    align-items: stretch;
+  }
+
+  .race-toolbar select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .race-filter-switch {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .race-filter-btn {
+    flex: 1;
+    text-align: center;
+    white-space: normal;
   }
 }

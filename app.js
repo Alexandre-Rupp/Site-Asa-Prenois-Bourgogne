@@ -160,8 +160,38 @@ function setLink(id, href) {
   el.href = href;
 }
 
+function normalizeText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
 function getRaceKind(race) {
-  return race.track.includes("Rallye") ? "rallye" : "circuit";
+  const searchableText = normalizeText(`${race.name} ${race.track}`);
+
+  if (searchableText.includes("course de cote")) {
+    return "cote";
+  }
+
+  if (searchableText.includes("rallye")) {
+    return "rallye";
+  }
+
+  return "circuit";
+}
+
+function getRaceKindDisplay(kind) {
+  if (kind === "rallye") return "Rallye";
+  if (kind === "cote") return "Course de cote";
+  return "Circuit";
+}
+
+function getActiveRaceFilter() {
+  const activeFilter = byId("race-filter")?.querySelector(
+    ".race-filter-btn.is-active"
+  );
+  return activeFilter?.dataset.filter || "all";
 }
 
 function parseRaceDate(dateLabel) {
@@ -178,7 +208,11 @@ function parseRaceDate(dateLabel) {
 
 function getSortedRaces() {
   const sortMode = byId("race-sort")?.value || "date-asc";
-  const cloned = [...races];
+  const filterMode = getActiveRaceFilter();
+  const cloned = races.filter((race) => {
+    if (filterMode === "all") return true;
+    return getRaceKind(race) === filterMode;
+  });
 
   if (sortMode === "date-asc") {
     return cloned.sort((a, b) => parseRaceDate(a.date) - parseRaceDate(b.date));
@@ -194,14 +228,6 @@ function getSortedRaces() {
 
   if (sortMode === "name-desc") {
     return cloned.sort((a, b) => b.name.localeCompare(a.name, "fr"));
-  }
-
-  if (sortMode === "type-circuit") {
-    return cloned.sort((a, b) => getRaceKind(a).localeCompare(getRaceKind(b)));
-  }
-
-  if (sortMode === "type-rallye") {
-    return cloned.sort((a, b) => getRaceKind(b).localeCompare(getRaceKind(a)));
   }
 
   return cloned;
@@ -240,9 +266,9 @@ function renderRaces() {
   grid.innerHTML = getSortedRaces()
     .map(
       (race) => {
-        const isRallye = getRaceKind(race) === "rallye";
-        const kind = isRallye ? "Rallye" : "Circuit";
-        const kindClass = isRallye ? "race-card--rallye" : "race-card--circuit";
+        const raceKind = getRaceKind(race);
+        const kind = getRaceKindDisplay(raceKind);
+        const kindClass = `race-card--${raceKind}`;
 
         return `
         <article class="race-card ${kindClass}">
@@ -278,6 +304,23 @@ function bindEvents() {
   const sortInput = byId("race-sort");
   if (sortInput) {
     sortInput.addEventListener("change", renderRaces);
+  }
+
+  const filterRoot = byId("race-filter");
+  if (filterRoot) {
+    filterRoot.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      const clickedButton = event.target.closest(".race-filter-btn");
+      if (!clickedButton || !filterRoot.contains(clickedButton)) return;
+
+      filterRoot.querySelectorAll(".race-filter-btn").forEach((button) => {
+        const isActive = button === clickedButton;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      renderRaces();
+    });
   }
 }
 
