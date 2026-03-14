@@ -62,8 +62,8 @@ body {
 }
 
 .logo-main {
-  width: 190px;
-  max-width: 42vw;
+  width: 250px;
+  max-width: 56vw;
   height: auto;
   object-fit: contain;
 }
@@ -90,7 +90,11 @@ body {
 .topbar-right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
+  flex: 1;
+  min-height: 42px;
+  position: relative;
 }
 
 .logo-ffsa {
@@ -102,8 +106,12 @@ body {
 .main-nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 130px);
 }
 
 .main-nav a {
@@ -131,9 +139,40 @@ body {
   width: 100%;
 }
 
+.main-nav a.is-active {
+  color: var(--blue-500);
+}
+
+.main-nav a.is-active::after {
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .topbar-right {
+    justify-content: space-between;
+    position: static;
+  }
+
+  .main-nav {
+    position: static;
+    transform: none;
+    max-width: none;
+    justify-content: flex-end;
+  }
+}
+
 main {
   width: min(1160px, 94vw);
   margin: 1.2rem auto 3rem;
+}
+
+.view-stack {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.view-stack .section {
+  margin-top: 0;
 }
 
 .hero {
@@ -215,6 +254,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
+  justify-content: center;
 }
 
 .btn {
@@ -344,6 +384,22 @@ main {
   overflow: hidden;
 }
 
+.race-card--clickable {
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.race-card--clickable:hover,
+.race-card--clickable:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(7, 31, 71, 0.16);
+  border-color: #9db6e8;
+  outline: none;
+}
+
 .race-card--circuit {
   border-left: 4px solid #1b5fbf;
 }
@@ -351,6 +407,11 @@ main {
 .race-card--rallye {
   border-left: 4px solid #d57a00;
   background: linear-gradient(180deg, #fffdf9, #fff5e6);
+}
+
+.race-card--cote {
+  border-left: 4px solid #2f8a4f;
+  background: linear-gradient(180deg, #fbfffc, #ecf9ef);
 }
 
 .race-card::before {
@@ -386,6 +447,11 @@ main {
   color: #b56700;
 }
 
+.race-card--cote .race-kind {
+  background: #e5f5ea;
+  color: #236f3d;
+}
+
 .race-date {
   display: inline-flex;
   padding: 0.26rem 0.5rem;
@@ -414,6 +480,255 @@ main {
   color: var(--blue-800);
   font-weight: 700;
   font-size: 0.84rem;
+}
+
+.race-actions {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: center;
+}
+
+.race-actions .btn {
+  min-width: 180px;
+}
+
+.profile-choice-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profile-choice-card {
+  display: grid;
+  gap: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(180deg, #fcfdff, #f4f8ff);
+  box-shadow: 0 10px 22px rgba(7, 31, 71, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.profile-choice-card:hover,
+.profile-choice-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(7, 31, 71, 0.16);
+  border-color: #9db6e8;
+  outline: none;
+}
+
+.profile-choice-card h3 {
+  margin: 0;
+  color: var(--blue-900);
+  font-size: 1.25rem;
+}
+
+.profile-choice-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.profile-choice-card .btn {
+  pointer-events: none;
+  width: fit-content;
+  justify-self: center;
+}
+
+.home-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.home-card {
+  display: grid;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: #fbfdff;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.home-card:hover,
+.home-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(7, 31, 71, 0.12);
+  border-color: #9db6e8;
+  outline: none;
+}
+
+.home-card h3 {
+  margin: 0;
+  color: var(--blue-900);
+}
+
+.home-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.countdown-panel {
+  margin-top: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  background: linear-gradient(180deg, #fcfdff, #f4f8ff);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.countdown-head .small {
+  margin: 0;
+  color: var(--blue-700);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.countdown-head h3 {
+  margin: 0.2rem 0;
+  color: var(--blue-900);
+  font-size: 1.3rem;
+}
+
+.countdown-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.countdown-grid article {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: #fff;
+  display: grid;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.countdown-grid span {
+  display: block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--blue-900);
+}
+
+.countdown-grid small {
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.countdown-note {
+  margin: 0;
+  color: var(--blue-800);
+  font-weight: 700;
+}
+
+.meeting-timeline {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 0.7rem;
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  margin-top: 0.95rem;
+  background: var(--blue-500);
+  box-shadow: 0 0 0 4px #e8f0ff;
+}
+
+.timeline-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.8rem;
+  background: #fbfdff;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.timeline-date {
+  margin: 0;
+  color: var(--blue-700);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.timeline-card h3 {
+  margin: 0;
+  color: var(--blue-900);
+  font-size: 1.05rem;
+}
+
+.timeline-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.timeline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  color: var(--blue-800);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.kind-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kind-chip--circuit {
+  background: #eaf2ff;
+  color: #1b5fbf;
+}
+
+.kind-chip--rallye {
+  background: #fff0db;
+  color: #b56700;
+}
+
+.kind-chip--cote {
+  background: #e5f5ea;
+  color: #236f3d;
 }
 
 .dual {
@@ -469,6 +784,54 @@ main {
 .panel h3 {
   margin: 0 0 0.7rem;
   color: var(--blue-900);
+}
+
+.narrative-panel {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.narrative-panel p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.hours-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.hours-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: baseline;
+  color: var(--ink);
+}
+
+.contact-panel {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.contact-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.contact-panel .contact-email {
+  color: var(--blue-900);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: #f2f6ff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  width: fit-content;
 }
 
 .cta-card {
@@ -661,6 +1024,59 @@ th {
   gap: 0.45rem;
 }
 
+.meeting-meta-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.meeting-meta-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.85rem;
+  background: #fbfdff;
+}
+
+.meeting-meta-card h3 {
+  margin: 0 0 0.35rem;
+  color: var(--blue-900);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.meeting-meta-card p {
+  margin: 0;
+  color: var(--ink);
+}
+
+.meeting-doc-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.doc-card {
+  border: 1px dashed #b0c5eb;
+  border-radius: 14px;
+  padding: 0.85rem;
+  background: linear-gradient(180deg, #fcfdff, #f6f9ff);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.doc-card h3 {
+  margin: 0;
+  color: var(--blue-900);
+}
+
+.doc-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .footer {
   width: min(1160px, 94vw);
   margin: 0 auto 2rem;
@@ -683,6 +1099,14 @@ th {
 @media (max-width: 980px) {
   .dual,
   .panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profile-choice-grid {
     grid-template-columns: 1fr;
   }
 
@@ -709,8 +1133,8 @@ th {
   }
 
   .logo-main {
-    width: 160px;
-    max-width: 60vw;
+    width: 210px;
+    max-width: 72vw;
   }
 
   .logo-text {
