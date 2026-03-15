@@ -2,7 +2,7 @@ export const TARGET_YEAR = "2026";
 
 export const NAV_ITEMS = [
   { key: "accueil", label: "ACCUEIL", href: "#/accueil" },
-  { key: "meetings", label: "LES MEETINGS", href: "#/meetings" },
+  { key: "meetings", label: "CALENDRIER", href: "#/meetings" },
   { key: "commissaires", label: "COMMISSAIRES", href: "#/commissaires" },
   { key: "pilotes", label: "PILOTES", href: "#/pilotes" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
@@ -167,6 +167,10 @@ export const PROFILE_CONTENT = {
       memberForm:
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
+      raceFormsByMeeting: {
+        r2: "https://forms.office.com/r/FKJZCT2p8K",
+        r3: "https://forms.office.com/r/ncBaNgw8T4",
+      },
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions commissaires",
@@ -313,12 +317,108 @@ export const PAGE_SKELETONS = {
   partenaires: {
     title: "Les partenaires",
     intro:
-      "Page prevue pour valoriser les partenaires, soutiens institutionnels et collaborations.",
+      "Retrouvez les partenaires institutionnels et prives qui soutiennent l'Asa Prenois-Bourgogne.",
+    annualPartnersTitle: "Les partenaires de l'Asa Prenois-Bourgogne",
+    annualPartners: [
+      {
+        name: "Federation Internationale de l'Automobile",
+        short: "FIA",
+        logo: "assets/partners/fia.png",
+      },
+      {
+        name: "Federation Francaise du Sport Automobile",
+        short: "FFSA",
+        logo: "assets/partners/ffsa.svg",
+      },
+      {
+        name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
+        short: "Ligue BFC",
+        logo: "assets/partners/lsabfc.png",
+      },
+      {
+        name: "Circuit Dijon-Prenois",
+        short: "Dijon-Prenois",
+        logo: "assets/partners/dijon-prenois.svg",
+      },
+      { name: "Stand 21", short: "Stand 21", logo: "assets/partners/stand21.png" },
+      { name: "Krys", short: "Krys", logo: "assets/partners/krys.png" },
+      {
+        name: "Planete Communication Dijon",
+        short: "Planete Com",
+        logo: "assets/partners/planete-communication.png",
+      },
+      {
+        name: "Kreativecom",
+        short: "Kreativecom",
+        logo: "assets/partners/kreativecom.png",
+      },
+    ],
+    urcyPartnersTitle: "Les partenaires - Course de Cote Urcy 2025",
+    urcyPartners: [
+      {
+        name: "FFSA Montagne",
+        short: "FFSA Montagne",
+        logo: "assets/partners/ffsa.svg",
+      },
+      {
+        name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
+        short: "Ligue BFC",
+        logo: "assets/partners/lsabfc.png",
+      },
+      {
+        name: "Fromagerie Delin",
+        short: "Delin",
+        logo: "assets/partners/delin.jpg",
+      },
+      {
+        name: "Passion Moto Securite",
+        short: "PMS",
+        logo: "assets/partners/passion-moto-securite.png",
+      },
+      {
+        name: "Ets Bailly et Mr.Bricolage",
+        short: "Mr.Bricolage",
+        logo: "assets/partners/mr-bricolage.svg",
+      },
+      { name: "Gautier", short: "Gautier", logo: "assets/partners/gautier.svg" },
+      { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.png" },
+      {
+        name: "Planete Communication Dijon",
+        short: "Planete Com",
+        logo: "assets/partners/planete-communication.png",
+      },
+      { name: "Bymycar", short: "Bymycar", logo: "assets/partners/bymycar.png" },
+      {
+        name: "Circuit Dijon-Prenois",
+        short: "Dijon-Prenois",
+        logo: "assets/partners/dijon-prenois.svg",
+      },
+      {
+        name: "Cote d'Or Le Departement",
+        short: "Cote d'Or",
+        logo: "assets/partners/cotedor.svg",
+      },
+    ],
   },
   contact: {
     title: "Contactez-nous",
     intro:
       "Page prevue pour les points de contact officiels de l'ASAC Bourgogne.",
+  },
+  "mentions-legales": {
+    title: "Mentions legales",
+    intro:
+      "Page dediee aux informations legales de l'association et du site.",
+  },
+  "politique-confidentialite": {
+    title: "Politique de confidentialite",
+    intro:
+      "Page dediee aux regles de collecte, d'usage et de protection des donnees personnelles.",
+  },
+  "politique-cookies": {
+    title: "Politique de cookies du site",
+    intro:
+      "Page dediee a l'utilisation des cookies et traceurs sur le site.",
   },
 };
 
@@ -333,4 +433,182 @@ export const CONTACT_PAGE_CONTENT = {
   ],
   contactTitle: "Demande de renseignements divers",
   email: "contact@asa-prenois-bourgone.org",
+};
+
+export const LEGAL_PAGE_CONTENT = {
+  "mentions-legales": {
+    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    sections: [
+      {
+        title: "Objet du site",
+        paragraphs: [
+          "Le site presente les activites de l'association, les informations de meetings et les liens d'inscription des commissaires et pilotes.",
+          "Le contenu publie est informatif et peut etre mis a jour en fonction des contraintes sportives, organisationnelles et reglementaires.",
+        ],
+      },
+      {
+        title: "Editeur du service de communication au public en ligne",
+        paragraphs: [
+          "Association Sportive Automobile Club Bourgogne (ASAC Bourgogne / ASA Prenois Bourgogne).",
+          "Siege: Circuit Dijon-Prenois, 21370 Prenois, France.",
+          "Contact: contact@asa-prenois-bourgone.org",
+          "Ces informations sont publiees conformement aux obligations d'identification de l'editeur prevues par l'article 1-1 de la loi ndeg 2004-575 du 21 juin 2004 (LCEN), version en vigueur depuis le 23 mai 2024.",
+        ],
+      },
+      {
+        title: "Direction de la publication",
+        paragraphs: [
+          "Directeur de la publication: le bureau de l'association ASAC Bourgogne.",
+          "Responsable de la redaction: a completer si des fonctions editoriales distinctes sont designees.",
+          "Droit de reponse: toute personne nommee ou designee peut exercer son droit de reponse selon les modalites prevues par l'article 1-1 de la LCEN.",
+        ],
+      },
+      {
+        title: "Hebergement",
+        paragraphs: [
+          "Environnement actuel: version de travail et de test.",
+          "Avant publication internet definitive, l'association doit afficher les informations completes de l'hebergeur (nom ou raison sociale, adresse, telephone), conformement a l'article 1-1 de la LCEN.",
+          "Champ de conformite a renseigner avant mise en ligne publique: hebergeur, adresse postale, numero de telephone, reference contractuelle le cas echeant.",
+        ],
+      },
+      {
+        title: "Propriete intellectuelle",
+        paragraphs: [
+          "Les contenus du site (textes, structure, logo, chartes graphiques, elements visuels, documents) sont proteges par le code de la propriete intellectuelle.",
+          "Sauf mention contraire, toute reproduction, representation, adaptation, extraction ou diffusion, totale ou partielle, sans autorisation ecrite prealable, est interdite.",
+          "Les marques et logos de tiers restent la propriete de leurs titulaires respectifs.",
+        ],
+      },
+      {
+        title: "Liens externes et responsabilite",
+        paragraphs: [
+          "Le site peut contenir des liens vers des services externes (par exemple FFSA ou Microsoft Forms). L'association n'exerce pas de controle editorial sur ces services tiers.",
+          "L'association s'efforce d'assurer l'exactitude des informations publiees, sans garantie d'exhaustivite ni d'absence d'erreur. Les dates, horaires et modalites d'inscription peuvent etre modifies.",
+          "En cas d'indisponibilite, de dysfonctionnement ou d'inexactitude, la responsabilite de l'association ne peut etre engagee que dans les limites permises par la loi francaise.",
+        ],
+      },
+      {
+        title: "Droit applicable",
+        paragraphs: [
+          "Le present site est soumis au droit francais.",
+          "Base juridique principale: loi ndeg 2004-575 du 21 juin 2004 pour la confiance dans l'economie numerique (LCEN), notamment article 1-1.",
+          "Pour toute question juridique relative au site, contactez: contact@asa-prenois-bourgone.org",
+        ],
+      },
+    ],
+  },
+  "politique-confidentialite": {
+    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    sections: [
+      {
+        title: "Responsable du traitement",
+        paragraphs: [
+          "Le responsable du traitement est l'association ASAC Bourgogne, joignable a l'adresse contact@asa-prenois-bourgone.org.",
+          "La presente politique de confidentialite est redigee au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs a l'information des personnes.",
+        ],
+      },
+      {
+        title: "Donnees traitees et source des donnees",
+        paragraphs: [
+          "Lors de la consultation du site, des donnees techniques minimales peuvent etre traitees pour faire fonctionner le service (ex: journaux techniques, securite, routage de pages).",
+          "Lors d'une inscription via les formulaires externes, les donnees sont saisies directement sur le service Microsoft Forms (identite, coordonnees, informations de licence, disponibilites et informations d'engagement).",
+          "Seules les donnees strictement necessaires a la gestion administrative et sportive sont sollicitees.",
+        ],
+      },
+      {
+        title: "Finalites et bases legales",
+        paragraphs: [
+          "Finalites principales: gestion des inscriptions, organisation des meetings, communication d'information operationnelle, suivi associatif, obligations administratives et reglementaires.",
+          "Bases legales mobilisees selon les traitements: consentement (article 6.1.a RGPD), execution de mesures precontractuelles ou contractuelles (article 6.1.b), respect d'obligations legales (article 6.1.c), interet legitime de l'association pour l'organisation et la securisation des epreuves (article 6.1.f).",
+          "Lorsque le consentement est la base legale, il peut etre retire a tout moment.",
+        ],
+      },
+      {
+        title: "Destinataires des donnees",
+        paragraphs: [
+          "Peuvent acceder aux donnees, dans la limite de leurs habilitations: membres autorises du bureau, equipe d'organisation, responsables de meeting et, le cas echeant, instances sportives ou prestataires techniques necessaires au service.",
+          "Les donnees ne sont pas vendues ni cedees a des tiers a des fins commerciales.",
+        ],
+      },
+      {
+        title: "Durees de conservation",
+        paragraphs: [
+          "Les donnees sont conservees pendant une duree proportionnee aux finalites poursuivies.",
+          "Les donnees d'inscription et de suivi sportif sont conservees pendant la saison en cours puis archivees selon les obligations legales, comptables, assurantielles et sportives applicables.",
+          "Les informations inutiles ou obsoletes sont supprimees ou anonymisees dans des delais raisonnables.",
+        ],
+      },
+      {
+        title: "Transferts hors Union europeenne",
+        paragraphs: [
+          "Certains services techniques tiers peuvent impliquer des traitements hors Union europeenne.",
+          "Le cas echeant, ces transferts sont encadres par les mecanismes prevus par le RGPD (ex: clauses contractuelles types de la Commission europeenne) et par les garanties documentees du prestataire.",
+        ],
+      },
+      {
+        title: "Vos droits",
+        paragraphs: [
+          "Conformement au RGPD, vous disposez d'un droit d'acces, de rectification, d'effacement, de limitation, d'opposition et, selon les cas, d'un droit a la portabilite.",
+          "Vous pouvez exercer vos droits en ecrivant a contact@asa-prenois-bourgone.org.",
+          "Vous disposez egalement du droit d'introduire une reclamation aupres de la CNIL (www.cnil.fr).",
+        ],
+      },
+      {
+        title: "Securite et mise a jour",
+        paragraphs: [
+          "L'association met en oeuvre des mesures organisationnelles et techniques raisonnables pour proteger les donnees personnelles contre la perte, l'acces non autorise, l'alteration ou la divulgation.",
+          "La presente politique peut etre mise a jour pour tenir compte des evolutions legales, techniques ou organisationnelles. La date de mise a jour figure en haut de page.",
+        ],
+      },
+    ],
+  },
+  "politique-cookies": {
+    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    sections: [
+      {
+        title: "Cadre legal",
+        paragraphs: [
+          "L'utilisation des cookies et autres traceurs est encadree en France par l'article 82 de la loi Informatique et Libertes et, pour les donnees personnelles, par le RGPD.",
+          "Les regles pratiques appliquees sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL.",
+        ],
+      },
+      {
+        title: "Definition",
+        paragraphs: [
+          "Un cookie (ou traceur) est un fichier ou identifiant depose et/ou lu sur votre terminal lors de la consultation d'un service numerique.",
+          "Il peut etre utilise a des fins techniques, de mesure d'audience, de personnalisation ou de publicite, selon sa finalite.",
+        ],
+      },
+      {
+        title: "Traceurs utilises par ce site",
+        paragraphs: [
+          "En l'etat actuel du site, aucun traceur publicitaire ou de reseaux sociaux n'est depose par defaut par l'editeur lors de la navigation.",
+          "Les traceurs strictement necessaires au fonctionnement technique du service peuvent etre utilises sans consentement prealable, conformement aux exemptions prevues par l'article 82.",
+          "Le site contient des liens vers des services tiers (par exemple Microsoft Forms et FFSA). Lorsque vous ouvrez ces services, leurs propres politiques cookies s'appliquent.",
+        ],
+      },
+      {
+        title: "Consentement et gestion des choix",
+        paragraphs: [
+          "Lorsque des traceurs soumis a consentement seraient actives a l'avenir, votre accord sera recueilli avant tout depot, avec un mecanisme de refus aussi simple que l'acceptation.",
+          "Conformement aux recommandations CNIL, le choix exprime (acceptation ou refus) peut etre conserve pendant 6 mois afin d'eviter de vous solliciter a chaque visite.",
+          "Vous pourrez retirer votre consentement a tout moment via un lien ou un module de gestion accessible depuis le site.",
+        ],
+      },
+      {
+        title: "Durees recommandees par la CNIL",
+        paragraphs: [
+          "Pour les traceurs de mesure d'audience exemptes de consentement sous conditions strictes, la CNIL recommande une duree de vie limitee, par exemple 13 mois, sans prorogation automatique a chaque visite.",
+          "La CNIL recommande egalement une conservation maximale de 25 mois pour les informations collectees via ces traceurs de mesure d'audience exemptes.",
+        ],
+      },
+      {
+        title: "Parametrage navigateur et contact",
+        paragraphs: [
+          "Vous pouvez configurer votre navigateur pour accepter, refuser ou supprimer les cookies. Le blocage de certains traceurs techniques peut degrader le fonctionnement du site.",
+          "Pour toute question relative aux cookies: contact@asa-prenois-bourgone.org",
+        ],
+      },
+    ],
+  },
 };

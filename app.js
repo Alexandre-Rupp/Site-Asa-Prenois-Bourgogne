@@ -1,12 +1,13 @@
 import {
   CONTACT_PAGE_CONTENT,
+  LEGAL_PAGE_CONTENT,
   MEETINGS,
   MEETING_DETAIL_SECTIONS,
   NAV_ITEMS,
   PAGE_SKELETONS,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js";
+} from "./site-data.js?v=20260315-1";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -25,6 +26,12 @@ const MONTH_INDEX = {
 
 const DEFAULT_ROUTE_HASH = "#/accueil";
 const DEFAULT_MEETING_FILTER = "all";
+const MEETING_FILTER_OPTIONS = [
+  { value: "all", label: "Tous" },
+  { value: "circuit", label: "Circuit" },
+  { value: "rallye", label: "Rallye" },
+  { value: "course-de-cote", label: "Course de cote" },
+];
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
   pilote: DEFAULT_MEETING_FILTER,
@@ -52,6 +59,32 @@ function renderFeedItems(items) {
         <p>${escapeHtml(item.text)}</p>
       </article>
     `
+    )
+    .join("");
+}
+
+function renderPartnerCards(partners) {
+  return (partners || [])
+    .map(
+      (partner) => `
+        <article class="partner-card">
+          ${
+            partner.logo
+              ? `
+                <div class="partner-logo-wrap">
+                  <img
+                    class="partner-logo"
+                    src="${escapeHtml(partner.logo)}"
+                    alt="Logo ${escapeHtml(partner.name)}"
+                    loading="lazy"
+                  />
+                </div>
+              `
+              : ""
+          }
+          <h3>${escapeHtml(partner.name)}</h3>
+        </article>
+      `
     )
     .join("");
 }
@@ -173,12 +206,6 @@ function meetingKindLabel(kind) {
   return "Circuit";
 }
 
-function meetingKindBadgeClass(kind) {
-  if (kind === "rallye") return "kind-chip--rallye";
-  if (kind === "course-de-cote") return "kind-chip--cote";
-  return "kind-chip--circuit";
-}
-
 function meetingKindClass(kind) {
   if (kind === "rallye") return "race-card--rallye";
   if (kind === "course-de-cote") return "race-card--cote";
@@ -189,9 +216,15 @@ function meetingDetailHref(profileKey, meetingId) {
   return `#/meetings/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
 
+function getRaceFormUrl(profile, meetingId) {
+  if (!profile || !profile.forms) return "#";
+  return (
+    profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
+  );
+}
+
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
-  const timelineMeetings = getChronologicalMeetings();
 
   return `
     <div class="view-stack">
@@ -205,7 +238,7 @@ function renderAccueilView() {
           espace Meetings structure par profil utilisateur.
         </p>
         <div class="hero-cta">
-          <a href="#/meetings" class="btn btn-primary">Entrer dans les meetings</a>
+          <a href="#/meetings" class="btn btn-primary">Entrer dans le calendrier</a>
           <a href="#/contact" class="btn btn-ghost">Nous contacter</a>
         </div>
       </section>
@@ -254,35 +287,6 @@ function renderAccueilView() {
               </article>
             `
         }
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Timeline des meetings ${escapeHtml(TARGET_YEAR)}</h2>
-          <p>Tous les meetings de l'annee, classes par date.</p>
-        </div>
-        <ol class="meeting-timeline">
-          ${timelineMeetings
-            .map(
-              (meeting) => `
-                <li class="timeline-item">
-                  <span class="timeline-dot" aria-hidden="true"></span>
-                  <article class="timeline-card">
-                    <p class="timeline-date">${escapeHtml(meeting.date)}</p>
-                    <h3>${escapeHtml(meeting.name)}</h3>
-                    <p>${escapeHtml(meeting.location)}</p>
-                    <div class="timeline-meta">
-                      <span class="kind-chip ${meetingKindBadgeClass(meeting.kind)}">${escapeHtml(
-                        meetingKindLabel(meeting.kind)
-                      )}</span>
-                      <span>${escapeHtml(meeting.seasonLabel)}</span>
-                    </div>
-                  </article>
-                </li>
-              `
-            )
-            .join("")}
-        </ol>
       </section>
 
       <section class="section">
@@ -375,9 +379,9 @@ function renderMeetingsChoiceView() {
     <div class="view-stack">
       <section class="hero">
         <div class="hero-top-row">
-          <p class="eyebrow season-pill">LES MEETINGS</p>
+          <p class="eyebrow season-pill">CALENDRIER</p>
         </div>
-        <h1>Choisissez votre parcours</h1>
+        <h1>Calendrier</h1>
         <p class="hero-sub">
           Avant d'acceder au calendrier, selectionnez le profil adapte a votre
           besoin pour afficher les contenus et formulaires correspondants.
@@ -387,24 +391,14 @@ function renderMeetingsChoiceView() {
       <section class="section">
         <div class="section-head">
           <h2>Je suis...</h2>
-          <p>Selection simple et visible pour separer les parcours.</p>
         </div>
         <div class="profile-choice-grid">
           <a class="profile-choice-card" href="#/meetings/commissaire">
-            <h3>Je suis commissaire</h3>
-            <p>
-              Calendrier et formulaires destines aux commissaires de piste.
-            </p>
-            <span class="btn btn-primary">Acceder au parcours commissaire</span>
+            <h3>COMMISSAIRE</h3>
           </a>
 
           <a class="profile-choice-card" href="#/meetings/pilote">
-            <h3>Je suis pilote</h3>
-            <p>
-              Calendrier et formulaires dedies au parcours pilote, avec contenus
-              specifiques.
-            </p>
-            <span class="btn btn-primary">Acceder au parcours pilote</span>
+            <h3>PILOTE</h3>
           </a>
         </div>
       </section>
@@ -454,21 +448,25 @@ function renderMeetingsProfileView(profileKey) {
           <h2>${escapeHtml(profile.sections.calendarTitle)}</h2>
         </div>
         <div class="race-toolbar">
-          <label for="meeting-type-filter">Type de meeting</label>
-          <select id="meeting-type-filter" aria-label="Filtrer les meetings par type">
-            <option value="all" ${
-              currentFilter === "all" ? "selected" : ""
-            }>Tous</option>
-            <option value="circuit" ${
-              currentFilter === "circuit" ? "selected" : ""
-            }>Circuit</option>
-            <option value="rallye" ${
-              currentFilter === "rallye" ? "selected" : ""
-            }>Rallye</option>
-            <option value="course-de-cote" ${
-              currentFilter === "course-de-cote" ? "selected" : ""
-            }>Course de cote</option>
-          </select>
+          <label>Type de meeting</label>
+          <div class="meeting-filter-group" role="group" aria-label="Filtrer les meetings par type">
+            ${MEETING_FILTER_OPTIONS.map(
+              (option) => `
+                <button
+                  type="button"
+                  class="filter-btn js-meeting-filter-btn ${
+                    currentFilter === option.value ? "is-active" : ""
+                  }"
+                  data-filter-value="${escapeHtml(option.value)}"
+                  aria-pressed="${
+                    currentFilter === option.value ? "true" : "false"
+                  }"
+                >
+                  ${escapeHtml(option.label)}
+                </button>
+              `
+            ).join("")}
+          </div>
         </div>
         <div id="race-grid" class="race-grid"></div>
       </section>
@@ -502,6 +500,7 @@ function renderMeetingCards(profileKey) {
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
+      const raceFormUrl = getRaceFormUrl(profile, meeting.id);
 
       return `
         <article
@@ -512,15 +511,18 @@ function renderMeetingCards(profileKey) {
           data-meeting-id="${escapeHtml(meeting.id)}"
           aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
         >
-          <span class="race-kind">${meetingKindLabel(meeting.kind)}</span>
-          <span class="race-date">${escapeHtml(meeting.date)}</span>
+          <p class="race-meta-line">
+            ${escapeHtml(meetingKindLabel(meeting.kind))} · ${escapeHtml(
+              meeting.date
+            )}
+          </p>
           <h3>${escapeHtml(meeting.name)}</h3>
           <p>${escapeHtml(meeting.seasonLabel)}</p>
           <p>${escapeHtml(meeting.location)}</p>
           <div class="race-actions">
             <a
               class="btn btn-primary race-signup-link"
-              href="${escapeHtml(profile.forms.raceForm)}"
+              href="${escapeHtml(raceFormUrl)}"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -537,14 +539,30 @@ function renderMeetingCards(profileKey) {
 }
 
 function bindMeetingsProfileEvents(profileKey) {
-  const typeFilterSelect = byId("meeting-type-filter");
+  const filterButtons = Array.from(
+    document.querySelectorAll(".js-meeting-filter-btn")
+  );
   const raceGrid = byId("race-grid");
 
-  if (typeFilterSelect) {
-    typeFilterSelect.addEventListener("change", () => {
-      meetingFilterState[profileKey] = typeFilterSelect.value;
-      renderMeetingCards(profileKey);
+  const updateFilterButtonsState = () => {
+    const currentFilter = meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER;
+    filterButtons.forEach((button) => {
+      const isActive = button.dataset.filterValue === currentFilter;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
+  };
+
+  if (filterButtons.length) {
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextFilter = button.dataset.filterValue || DEFAULT_MEETING_FILTER;
+        meetingFilterState[profileKey] = nextFilter;
+        updateFilterButtonsState();
+        renderMeetingCards(profileKey);
+      });
+    });
+    updateFilterButtonsState();
   }
 
   if (raceGrid) {
@@ -607,7 +625,7 @@ function renderMeetingDetailView(profileKey, meetingId) {
               Le meeting demande n'existe pas ou son identifiant est invalide.
             </p>
           </div>
-          <a href="#/meetings" class="btn btn-primary">Retour aux meetings</a>
+          <a href="#/meetings" class="btn btn-primary">Retour au calendrier</a>
         </section>
       </div>
     `;
@@ -628,7 +646,7 @@ function renderMeetingDetailView(profileKey, meetingId) {
         <div class="hero-cta">
           <a
             class="btn btn-primary"
-            href="${escapeHtml(profile.forms.raceForm)}"
+            href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -708,9 +726,6 @@ function renderSkeletonPage(pageKey) {
     return `
       <div class="view-stack">
         <section class="hero">
-          <div class="hero-top-row">
-            <p class="eyebrow season-pill">${escapeHtml(page.title)}</p>
-          </div>
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
         </section>
@@ -746,6 +761,40 @@ function renderSkeletonPage(pageKey) {
     `;
   }
 
+  if (LEGAL_PAGE_CONTENT[pageKey]) {
+    const legalPage = LEGAL_PAGE_CONTENT[pageKey];
+    return `
+      <div class="view-stack">
+        <section class="hero">
+          <h1>${escapeHtml(page.title)}</h1>
+          <p class="hero-sub">${escapeHtml(page.intro)}</p>
+          <p class="eyebrow">${escapeHtml(legalPage.updatedAt)}</p>
+        </section>
+
+        ${legalPage.sections
+          .map(
+            (section) => `
+              <section class="section">
+                <div class="section-head">
+                  <h2>${escapeHtml(section.title)}</h2>
+                </div>
+                <article class="panel narrative-panel">
+                  ${(section.paragraphs || [])
+                    .map(
+                      (paragraph) => `
+                        <p>${escapeHtml(paragraph)}</p>
+                      `
+                    )
+                    .join("")}
+                </article>
+              </section>
+            `
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
   if (
     pageKey === "commissaires" &&
     page.commissionerParagraphs &&
@@ -754,9 +803,6 @@ function renderSkeletonPage(pageKey) {
     return `
       <div class="view-stack">
         <section class="hero">
-          <div class="hero-top-row">
-            <p class="eyebrow season-pill">${escapeHtml(page.title)}</p>
-          </div>
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
         </section>
@@ -787,9 +833,6 @@ function renderSkeletonPage(pageKey) {
     return `
       <div class="view-stack">
         <section class="hero">
-          <div class="hero-top-row">
-            <p class="eyebrow season-pill">${escapeHtml(page.title)}</p>
-          </div>
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
         </section>
@@ -812,12 +855,44 @@ function renderSkeletonPage(pageKey) {
     `;
   }
 
+  if (
+    pageKey === "partenaires" &&
+    page.annualPartners &&
+    page.annualPartners.length &&
+    page.urcyPartners &&
+    page.urcyPartners.length
+  ) {
+    return `
+      <div class="view-stack">
+        <section class="hero">
+          <h1>${escapeHtml(page.title)}</h1>
+          <p class="hero-sub">${escapeHtml(page.intro)}</p>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>${escapeHtml(page.annualPartnersTitle)}</h2>
+          </div>
+          <div class="partner-grid">
+            ${renderPartnerCards(page.annualPartners)}
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>${escapeHtml(page.urcyPartnersTitle)}</h2>
+          </div>
+          <div class="partner-grid">
+            ${renderPartnerCards(page.urcyPartners)}
+          </div>
+        </section>
+      </div>
+    `;
+  }
+
   return `
     <div class="view-stack">
       <section class="hero">
-        <div class="hero-top-row">
-          <p class="eyebrow season-pill">${escapeHtml(page.title)}</p>
-        </div>
         <h1>${escapeHtml(page.title)}</h1>
         <p class="hero-sub">${escapeHtml(page.intro)}</p>
       </section>
@@ -858,7 +933,7 @@ function updateDocumentTitle(route) {
   }
 
   if (route.type === "meetings-choice") {
-    document.title = `Les Meetings | ${suffix}`;
+    document.title = `Calendrier | ${suffix}`;
     return;
   }
 
