@@ -5,6 +5,7 @@ import {
   MEETING_DETAIL_SECTIONS,
   NAV_ITEMS,
   PAGE_SKELETONS,
+  PILOT_MEETING_DOCUMENTATION,
   PROFILE_CONTENT,
   TARGET_YEAR,
 } from "./site-data.js?v=20260315-1";
@@ -32,9 +33,20 @@ const MEETING_FILTER_OPTIONS = [
   { value: "rallye", label: "Rallye" },
   { value: "course-de-cote", label: "Course de cote" },
 ];
+const DEFAULT_VEHICLE_TYPE_FILTER = "modernes";
+const VEHICLE_TYPE_FILTER_OPTIONS = [
+  { value: "modernes", label: "MODERNES" },
+  { value: "vhc", label: "VHC" },
+  { value: "vhrs", label: "VHRS" },
+  { value: "vmrs", label: "VMRS" },
+];
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
   pilote: DEFAULT_MEETING_FILTER,
+};
+const pilotMeetingVehicleFilterState = {
+  rallye: DEFAULT_VEHICLE_TYPE_FILTER,
+  "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
 };
 let accueilCountdownIntervalId = null;
 
@@ -221,6 +233,118 @@ function getRaceFormUrl(profile, meetingId) {
   return (
     profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
   );
+}
+
+function canShowSignupForMeeting(profileKey, meeting) {
+  if (!meeting) return false;
+  if (profileKey !== "pilote") return true;
+
+  return (
+    meeting.kind === "rallye" ||
+    meeting.kind === "course-de-cote" ||
+    meeting.id === "r10"
+  );
+}
+
+function isValidVehicleTypeFilter(value) {
+  return VEHICLE_TYPE_FILTER_OPTIONS.some((option) => option.value === value);
+}
+
+function getVehicleTypeFilterForMeetingKind(meetingKind) {
+  const currentValue = pilotMeetingVehicleFilterState[meetingKind];
+  if (isValidVehicleTypeFilter(currentValue)) {
+    return currentValue;
+  }
+  return DEFAULT_VEHICLE_TYPE_FILTER;
+}
+
+function renderListItems(items) {
+  return (items || [])
+    .map((item) => `<li>${escapeHtml(item)}</li>`)
+    .join("");
+}
+
+function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
+  const docsByKind = PILOT_MEETING_DOCUMENTATION[meetingKind];
+  if (!docsByKind) return "";
+
+  const currentVehicleType = isValidVehicleTypeFilter(vehicleType)
+    ? vehicleType
+    : DEFAULT_VEHICLE_TYPE_FILTER;
+  const vehicleDocs =
+    docsByKind.vehicleDocuments?.[currentVehicleType] ||
+    docsByKind.vehicleDocuments?.[DEFAULT_VEHICLE_TYPE_FILTER] ||
+    {};
+
+  return `
+    <div class="meeting-doc-grid">
+      <article class="doc-card">
+        <h3>Documents communs</h3>
+        <ul class="doc-list">
+          ${renderListItems(docsByKind.commonDocuments)}
+        </ul>
+      </article>
+
+      <article class="doc-card">
+        <h3>Documents specifiques - ${escapeHtml(currentVehicleType.toUpperCase())}</h3>
+        <ul class="doc-list">
+          ${renderListItems(vehicleDocs.documents)}
+        </ul>
+      </article>
+
+      ${
+        vehicleDocs.observations && vehicleDocs.observations.length
+          ? `
+            <article class="doc-card">
+              <h3>Observations</h3>
+              <ul class="doc-list">
+                ${renderListItems(vehicleDocs.observations)}
+              </ul>
+            </article>
+          `
+          : ""
+      }
+    </div>
+  `;
+}
+
+function renderPilotMeetingVehicleDocsSection(meetingKind) {
+  const currentVehicleType = getVehicleTypeFilterForMeetingKind(meetingKind);
+
+  return `
+    <p>
+      Selectionnez votre type de vehicule pour afficher les documents dedies.
+    </p>
+    <div class="race-toolbar">
+      <label>Type de vehicule</label>
+      <div
+        id="pilot-vehicle-filter-group"
+        class="meeting-filter-group"
+        role="group"
+        aria-label="Filtrer les documents par type de vehicule"
+      >
+        ${VEHICLE_TYPE_FILTER_OPTIONS.map(
+          (option) => `
+            <button
+              type="button"
+              class="filter-btn js-vehicle-filter-btn ${
+                currentVehicleType === option.value ? "is-active" : ""
+              }"
+              data-filter-value="${escapeHtml(option.value)}"
+              aria-pressed="${
+                currentVehicleType === option.value ? "true" : "false"
+              }"
+            >
+              ${escapeHtml(option.label)}
+            </button>
+          `
+        ).join("")}
+      </div>
+    </div>
+    <div id="pilot-vehicle-doc-content">
+      ${renderPilotMeetingVehicleDocsContent(meetingKind, currentVehicleType)}
+    </div>
+  `;
 }
 
 function renderAccueilView() {
@@ -418,15 +542,6 @@ function renderMeetingsProfileView(profileKey) {
         </div>
         <h1>${escapeHtml(profile.heroTitle)}</h1>
         <p class="hero-sub">${escapeHtml(profile.heroSubtitle)}</p>
-        <div class="hero-cta">
-          <button
-            type="button"
-            class="btn btn-ghost js-scroll-btn"
-            data-target-id="calendrier"
-          >
-            ${escapeHtml(profile.ctaSecondaryLabel)}
-          </button>
-        </div>
         <div class="hero-kpis">
           <article>
             <span>${MEETINGS.length}</span>
@@ -496,11 +611,17 @@ function renderMeetingCards(profileKey) {
 
   const meetings = getVisibleMeetings(
     meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER
+  ).filter((meeting) =>
+    profileKey === "pilote"
+      ? canShowSignupForMeeting(profileKey, meeting)
+      : true
   );
+
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
       const raceFormUrl = getRaceFormUrl(profile, meeting.id);
+      const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
 
       return `
         <article
@@ -520,14 +641,20 @@ function renderMeetingCards(profileKey) {
           <p>${escapeHtml(meeting.seasonLabel)}</p>
           <p>${escapeHtml(meeting.location)}</p>
           <div class="race-actions">
-            <a
-              class="btn btn-primary race-signup-link"
-              href="${escapeHtml(raceFormUrl)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              S'inscrire
-            </a>
+            ${
+              canShowSignup
+                ? `
+                  <a
+                    class="btn btn-primary race-signup-link"
+                    href="${escapeHtml(raceFormUrl)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    S'inscrire
+                  </a>
+                `
+                : ""
+            }
             <a class="btn btn-ghost" href="${escapeHtml(meetingDetailHref(profileKey, meeting.id))}">
               Voir le detail
             </a>
@@ -598,16 +725,6 @@ function bindMeetingsProfileEvents(profileKey) {
     });
   }
 
-  document.querySelectorAll(".js-scroll-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const targetId = button.dataset.targetId;
-      if (!targetId) return;
-      const target = byId(targetId);
-      if (!target) return;
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  });
-
   renderMeetingCards(profileKey);
 }
 
@@ -631,6 +748,10 @@ function renderMeetingDetailView(profileKey, meetingId) {
     `;
   }
 
+  const shouldRenderVehicleTypeDocs =
+    profileKey === "pilote" && Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
+  const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
+
   return `
     <div class="view-stack">
       <section class="hero">
@@ -644,14 +765,20 @@ function renderMeetingDetailView(profileKey, meetingId) {
           )}. Cette base est prete pour accueillir PDF et documents de reference.
         </p>
         <div class="hero-cta">
-          <a
-            class="btn btn-primary"
-            href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Formulaire ${escapeHtml(profile.label.toLowerCase())}
-          </a>
+          ${
+            canShowSignup
+              ? `
+                <a
+                  class="btn btn-primary"
+                  href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Formulaire ${escapeHtml(profile.label.toLowerCase())}
+                </a>
+              `
+              : ""
+          }
           <a href="#/meetings/${escapeHtml(profileKey)}" class="btn btn-ghost"
             >Retour au calendrier</a
           >
@@ -685,25 +812,75 @@ function renderMeetingDetailView(profileKey, meetingId) {
       <section class="section">
         <div class="section-head">
           <h2>Documents et ressources</h2>
-          <p>
-            Cette zone est preparee pour les futurs PDF (roadbooks, horaires,
-            organisation et annexes).
-          </p>
+          ${
+            shouldRenderVehicleTypeDocs
+              ? ""
+              : `
+                <p>
+                  Cette zone est preparee pour les futurs PDF (roadbooks, horaires,
+                  organisation et annexes).
+                </p>
+              `
+          }
         </div>
-        <div class="meeting-doc-grid">
-          ${MEETING_DETAIL_SECTIONS.map(
-            (section) => `
-              <article class="doc-card">
-                <h3>${escapeHtml(section.title)}</h3>
-                <p>${escapeHtml(section.description)}</p>
-                <span class="badge pending">A completer</span>
-              </article>
+        ${
+          shouldRenderVehicleTypeDocs
+            ? renderPilotMeetingVehicleDocsSection(meeting.kind)
+            : `
+              <div class="meeting-doc-grid">
+                ${MEETING_DETAIL_SECTIONS.map(
+                  (section) => `
+                    <article class="doc-card">
+                      <h3>${escapeHtml(section.title)}</h3>
+                      <p>${escapeHtml(section.description)}</p>
+                      <span class="badge pending">A completer</span>
+                    </article>
+                  `
+                ).join("")}
+              </div>
             `
-          ).join("")}
-        </div>
+        }
       </section>
     </div>
   `;
+}
+
+function bindMeetingDetailEvents(profileKey, meetingId) {
+  if (profileKey !== "pilote") return;
+
+  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
+  if (!meeting) return;
+
+  const docsByKind = PILOT_MEETING_DOCUMENTATION[meeting.kind];
+  if (!docsByKind) return;
+
+  const buttons = Array.from(document.querySelectorAll(".js-vehicle-filter-btn"));
+  const contentRoot = byId("pilot-vehicle-doc-content");
+  if (!buttons.length || !contentRoot) return;
+
+  const updateButtonsState = () => {
+    const currentVehicleType = getVehicleTypeFilterForMeetingKind(meeting.kind);
+    buttons.forEach((button) => {
+      const isActive = button.dataset.filterValue === currentVehicleType;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextVehicleType = button.dataset.filterValue;
+      if (!isValidVehicleTypeFilter(nextVehicleType)) return;
+      pilotMeetingVehicleFilterState[meeting.kind] = nextVehicleType;
+      updateButtonsState();
+      contentRoot.innerHTML = renderPilotMeetingVehicleDocsContent(
+        meeting.kind,
+        nextVehicleType
+      );
+    });
+  });
+
+  updateButtonsState();
 }
 
 function renderSkeletonPage(pageKey) {
@@ -988,6 +1165,7 @@ function renderCurrentRoute() {
 
   if (route.type === "meeting-detail") {
     appRoot.innerHTML = renderMeetingDetailView(route.profileKey, route.meetingId);
+    bindMeetingDetailEvents(route.profileKey, route.meetingId);
     return;
   }
 

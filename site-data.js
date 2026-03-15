@@ -152,6 +152,102 @@ export const MEETING_DETAIL_SECTIONS = [
   },
 ];
 
+export const PILOT_MEETING_DOCUMENTATION = {
+  rallye: {
+    commonDocuments: [
+      "Horaires-Timing",
+      "Invitation commissaires",
+      "Parcours general",
+      "Parcours ES",
+      "Roadbook",
+      "Reconnaissances",
+      "Fiches speaker",
+      "Demande accreditation presse",
+    ],
+    vehicleDocuments: {
+      modernes: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "Fiche renseignements des equipements de securite - Pilote",
+          "Fiche renseignements des equipements de securite - Copilote",
+          "Tableau des equipements de securite generaux",
+          "Liste provisoire des engages",
+        ],
+      },
+      vhc: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "Fiche renseignements des equipements de securite - Pilote",
+          "Fiche renseignements des equipements de securite - Copilote",
+          "Tableau des equipements de securite generaux",
+          "Liste provisoire des engages",
+        ],
+      },
+      vhrs: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "EP. Generique (equipements de securite)",
+          "Liste provisoire des engages",
+        ],
+      },
+      vmrs: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "EP. Generique (equipements de securite)",
+          "Liste provisoire des engages",
+        ],
+      },
+    },
+  },
+  "course-de-cote": {
+    commonDocuments: ["Parcours", "Roadbook", "Infos organisationnelles"],
+    vehicleDocuments: {
+      modernes: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "Fiche renseignements des equipements de securite - Pilote",
+          "Tableau des equipements de securite generaux",
+          "Liste provisoire des engages",
+        ],
+        observations: ["Horaire de convocation", "Billetterie"],
+      },
+      vhc: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "Fiche renseignements des equipements de securite - Pilote",
+          "Tableau des equipements de securite generaux",
+          "Liste provisoire des engages",
+        ],
+        observations: ["Horaire de convocation", "Billetterie"],
+      },
+      vhrs: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "EP. Generique (equipements de securite)",
+          "Liste provisoire des engages",
+        ],
+        observations: ["Horaire de convocation", "Billetterie"],
+      },
+      vmrs: {
+        documents: [
+          "Reglement particulier",
+          "Bulletin d'engagement",
+          "EP. Generique (equipements de securite)",
+          "Liste provisoire des engages",
+        ],
+        observations: ["Horaire de convocation", "Billetterie"],
+      },
+    },
+  },
+};
+
 export const PROFILE_CONTENT = {
   commissaire: {
     key: "commissaire",
@@ -338,9 +434,9 @@ export const PAGE_SKELETONS = {
       {
         name: "Circuit Dijon-Prenois",
         short: "Dijon-Prenois",
-        logo: "assets/partners/dijon-prenois.svg",
+        logo: "assets/partners/dijon-prenois.png",
       },
-      { name: "Stand 21", short: "Stand 21", logo: "assets/partners/stand21.png" },
+      { name: "Stand 21", short: "Stand 21", logo: "assets/partners/stand21.webp" },
       { name: "Krys", short: "Krys", logo: "assets/partners/krys.png" },
       {
         name: "Planete Communication Dijon",
@@ -391,7 +487,7 @@ export const PAGE_SKELETONS = {
       {
         name: "Circuit Dijon-Prenois",
         short: "Dijon-Prenois",
-        logo: "assets/partners/dijon-prenois.svg",
+        logo: "assets/partners/dijon-prenois.png",
       },
       {
         name: "Cote d'Or Le Departement",
