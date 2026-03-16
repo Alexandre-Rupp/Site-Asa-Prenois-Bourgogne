@@ -1,36 +1,37 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ASA Prenois Bourgogne | Site officiel</title>
+    <title>ASAC Bourgogne | Commissaires de piste</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260316-16" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="site-bg"></div>
     <header class="topbar">
-      <a class="logo-wrap" href="#/accueil" aria-label="Retour au menu principal">
+      <div class="logo-wrap">
         <img
           class="logo-main"
           src="assets/logo-asa-prenois-bourgogne.jpg"
           alt="Logo ASA Prenois Bourgogne"
         />
-      </a>
+        <div class="logo-text">
+          <strong>ASAC Bourgogne</strong>
+          <span>Commissaires de piste</span>
+        </div>
+      </div>
       <div class="topbar-right">
-        <nav class="main-nav" aria-label="Navigation principale">
-          <a href="#/accueil" data-nav="accueil">ACCUEIL</a>
-          <a href="#/meetings" data-nav="meetings">CALENDRIER</a>
-          <a href="#/commissaires" data-nav="commissaires">COMMISSAIRES</a>
-          <a href="#/pilotes" data-nav="pilotes">PILOTES</a>
-          <a href="#/vie-asa" data-nav="vie-asa">LA VIE DE L'ASA</a>
-          <a href="#/partenaires" data-nav="partenaires">NOS PARTENAIRES</a>
-          <a href="#/contact" data-nav="contact">CONTACTS</a>
+        <nav class="main-nav">
+          <a href="#calendrier">Calendrier</a>
+          <a href="#actualites">Actualites</a>
+          <a href="#resultats">Resultats</a>
+          <a href="#espace">Espace commissaire</a>
         </nav>
         <img class="logo-ffsa" src="assets/logo-ffsa.jpg" alt="Logo FFSA" />
       </div>
@@ -163,16 +164,10 @@
 
     <footer class="footer">
       <p>
-        ASA Prenois Bourgogne 2026. Base evolutive pour les parcours meetings pilote et
-        commissaire.
+        ASAC Bourgogne 2026. Prototype visuel avec inscriptions Microsoft Forms.
       </p>
-      <nav class="footer-links" aria-label="Informations legales">
-        <a href="#/mentions-legales">Mentions legales</a>
-        <a href="#/politique-confidentialite">Politique de confidentialite</a>
-        <a href="#/politique-cookies">Politique de cookies du site</a>
-      </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260316-26"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>

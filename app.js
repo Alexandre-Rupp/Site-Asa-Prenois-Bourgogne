@@ -145,75 +145,6 @@ const MONTH_INDEX = {
   decembre: 11,
 };
 
-const DEFAULT_ROUTE_HASH = "#/accueil";
-const DEFAULT_MEETING_FILTER = "all";
-const MEETING_FILTER_OPTIONS = [
-  { value: "all", label: "Tous" },
-  { value: "circuit", label: "Circuit" },
-  { value: "rallye", label: "Rallye" },
-  { value: "course-de-cote", label: "Course de cote" },
-];
-const DEFAULT_VEHICLE_TYPE_FILTER = "modernes";
-const VEHICLE_TYPE_FILTER_OPTIONS = [
-  { value: "modernes", label: "MODERNES" },
-  { value: "vhc", label: "VHC" },
-  { value: "vhrs", label: "VHRS" },
-  { value: "vmrs", label: "VMRS" },
-];
-const MEETING_BACKGROUND_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "avif"];
-const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
-const MEETING_EXTERNAL_URLS = {
-  r11: "https://rallyedeblignysurouche.fr/",
-};
-const COMMISSAIRE_MEETING_DOCUMENTS = {
-  r3: [
-    {
-      title: "Horaires Historic Tour Dijon 2026",
-      description: "Document horaires officiel - Historic Tour.",
-      href: "assets/documents/horaires-historic-tour-dijon-2026.pdf",
-      ctaLabel: "Ouvrir le document",
-    },
-    {
-      title: "Lettre d'informations concurrents Historic Tour Dijon 2026",
-      description: "Lettre d'informations concurrents - Historic Tour.",
-      href: "assets/documents/lettre-informations-concurrents-historic-tour-dijon-2026.pdf",
-      ctaLabel: "Ouvrir le document",
-    },
-  ],
-};
-const MEETING_PROMOTER_LOGOS = {
-  r1: { src: "assets/promoters/fun-racing-cars.png", alt: "Logo Fun Racing Cars" },
-  r3: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
-  r4: {
-    src: "assets/promoters/gt4.png",
-    alt: "Logo Championnat de France GT4",
-  },
-  r5: {
-    src: "assets/promoters/porsche-driving-emotion.png",
-    alt: "Logo Porsche Sprint Challenge",
-  },
-  r6: { src: "assets/promoters/peter-auto.jpg", alt: "Logo Peter Auto" },
-  r7: { src: "assets/promoters/tte-2016.png", alt: "Logo Trophee Tourisme Endurance" },
-  r8: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
-  r9: { src: "assets/promoters/lamera-cup.png", alt: "Logo Lamera Cup" },
-  r10: {
-    src: "assets/promoters/coupe-de-france-des-circuits.jpg",
-    alt: "Logo Coupe de France des Circuits",
-  },
-};
-const meetingFilterState = {
-  commissaire: DEFAULT_MEETING_FILTER,
-  pilote: DEFAULT_MEETING_FILTER,
-};
-const pilotMeetingVehicleFilterState = {
-  rallye: DEFAULT_VEHICLE_TYPE_FILTER,
-  "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
-};
-const meetingBackgroundPathCache = new Map();
-let accueilCountdownIntervalId = null;
-
-const byId = (id) => document.getElementById(id);
-
 function escapeHtml(value) {
   return String(value || "")
     .replaceAll("&", "&amp;")
@@ -223,44 +154,10 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function renderFeedItems(items) {
-  return items
-    .map(
-      (item) => `
-      <article class="feed-item">
-        <p class="small">${escapeHtml(item.date)}</p>
-        <h4>${escapeHtml(item.title)}</h4>
-        <p>${escapeHtml(item.text)}</p>
-      </article>
-    `
-    )
-    .join("");
-}
-
-function renderPartnerCards(partners) {
-  return (partners || [])
-    .map(
-      (partner) => `
-        <article class="partner-card">
-          ${
-            partner.logo
-              ? `
-                <div class="partner-logo-wrap">
-                  <img
-                    class="partner-logo"
-                    src="${escapeHtml(partner.logo)}"
-                    alt="Logo ${escapeHtml(partner.name)}"
-                    loading="lazy"
-                  />
-                </div>
-              `
-              : ""
-          }
-          <h3>${escapeHtml(partner.name)}</h3>
-        </article>
-      `
-    )
-    .join("");
+function setLink(id, href) {
+  const el = byId(id);
+  if (!el) return;
+  el.href = href;
 }
 
 function normalizeText(value) {
@@ -297,17 +194,15 @@ function getActiveRaceFilter() {
   return activeFilter?.dataset.filter || "all";
 }
 
-function parseMeetingDate(dateLabel) {
+function parseRaceDate(dateLabel) {
   const lower = String(dateLabel || "").toLowerCase();
   const firstDayMatch = lower.match(/\d{1,2}/);
   const yearMatch = lower.match(/\b(20\d{2})\b/);
   const monthEntry =
     Object.entries(MONTH_INDEX).find(([name]) => lower.includes(name)) || [];
-
   const month = Number.isInteger(monthEntry[1]) ? monthEntry[1] : 11;
   const day = firstDayMatch ? Number.parseInt(firstDayMatch[0], 10) : 31;
   const year = yearMatch ? Number.parseInt(yearMatch[1], 10) : 2999;
-
   return new Date(year, month, day).getTime();
 }
 
@@ -319,138 +214,20 @@ function getSortedRaces() {
     return getRaceKind(race) === filterMode;
   });
 
-  if (!typeFilter || typeFilter === "all") {
-    return meetings;
+  if (sortMode === "date-asc") {
+    return cloned.sort((a, b) => parseRaceDate(a.date) - parseRaceDate(b.date));
   }
 
-  return meetings.filter((meeting) => meeting.kind === typeFilter);
-}
-
-function meetingKindLabel(kind) {
-  if (kind === "rallye") return "Rallye";
-  if (kind === "course-de-cote") return "Course de cote";
-  return "Circuit";
-}
-
-function meetingKindClass(kind) {
-  if (kind === "rallye") return "race-card--rallye";
-  if (kind === "course-de-cote") return "race-card--cote";
-  return "race-card--circuit";
-}
-
-function meetingDetailHref(profileKey, meetingId) {
-  return `#/meetings/${profileKey}/${encodeURIComponent(meetingId)}`;
-}
-
-function getMeetingExternalUrl(meetingId) {
-  return MEETING_EXTERNAL_URLS[meetingId] || "";
-}
-
-function getMeetingPromoterLogo(meetingId) {
-  return MEETING_PROMOTER_LOGOS[meetingId] || null;
-}
-
-function slugifyAssetBaseName(value) {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
-}
-
-function compactAssetBaseName(value) {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]/g, "")
-    .toLowerCase();
-}
-
-function getMeetingBackgroundBaseNames(meeting) {
-  const rawName = String(meeting?.name || "").trim();
-  const slugName = slugifyAssetBaseName(rawName);
-  const compactName = compactAssetBaseName(rawName);
-  const hyphenated = rawName.replace(/\s+/g, "-");
-  const underscored = rawName.replace(/\s+/g, "_");
-
-  const names = [
-    meeting?.id || "",
-    rawName,
-    rawName.toLowerCase(),
-    hyphenated,
-    underscored,
-    slugName,
-    compactName,
-    `${meeting?.id || ""}-${slugName}`,
-  ];
-
-  return [...new Set(names.filter(Boolean))];
-}
-
-function getMeetingBackgroundCandidates(meeting) {
-  const baseNames = getMeetingBackgroundBaseNames(meeting);
-  const candidates = [];
-  const folders = ["assets/meetings", "assets"];
-
-  folders.forEach((folder) => {
-    baseNames.forEach((baseName) => {
-      MEETING_BACKGROUND_EXTENSIONS.forEach((ext) => {
-        candidates.push(`${folder}/${baseName}.${ext}`);
-      });
-    });
-  });
-
-  return candidates;
-}
-
-function imageExists(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
-}
-
-async function resolveMeetingBackgroundPath(meeting) {
-  if (!meeting?.id) return null;
-
-  if (meetingBackgroundPathCache.has(meeting.id)) {
-    return meetingBackgroundPathCache.get(meeting.id);
+  if (sortMode === "date-desc") {
+    return cloned.sort((a, b) => parseRaceDate(b.date) - parseRaceDate(a.date));
   }
 
-  const candidates = getMeetingBackgroundCandidates(meeting);
-
-  for (const candidate of candidates) {
-    // Probe local files and keep the first existing image for this meeting.
-    const exists = await imageExists(candidate);
-    if (exists) {
-      meetingBackgroundPathCache.set(meeting.id, candidate);
-      return candidate;
-    }
+  if (sortMode === "name-asc") {
+    return cloned.sort((a, b) => a.name.localeCompare(b.name, "fr"));
   }
 
-  meetingBackgroundPathCache.set(meeting.id, null);
-  return null;
-}
-
-async function applyMeetingHeroBackground(meetingId) {
-  const hero = document.querySelector(".js-meeting-hero");
-  if (!hero) return;
-
-  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
-  if (!meeting) {
-    hero.classList.remove("hero--meeting-has-image");
-    hero.style.removeProperty("--meeting-hero-image");
-    return;
-  }
-
-  hero.dataset.bgMeetingId = meeting.id;
-  const resolvedPath = await resolveMeetingBackgroundPath(meeting);
-
-  if (!hero.isConnected || hero.dataset.bgMeetingId !== meeting.id) {
-    return;
+  if (sortMode === "name-desc") {
+    return cloned.sort((a, b) => b.name.localeCompare(a.name, "fr"));
   }
 
   return cloned;
@@ -477,32 +254,14 @@ function renderFeed(listId, items) {
         <h4>${escapeHtml(item.title)}</h4>
         <p>${escapeHtml(item.text)}</p>
       </article>
-
-      <article class="doc-card">
-        <h3>Documents specifiques - ${escapeHtml(currentVehicleType.toUpperCase())}</h3>
-        <ul class="doc-list">
-          ${renderListItems(vehicleDocs.documents)}
-        </ul>
-      </article>
-
-      ${
-        vehicleDocs.observations && vehicleDocs.observations.length
-          ? `
-            <article class="doc-card">
-              <h3>Observations</h3>
-              <ul class="doc-list">
-                ${renderListItems(vehicleDocs.observations)}
-              </ul>
-            </article>
-          `
-          : ""
-      }
-    </div>
-  `;
+    `
+    )
+    .join("");
 }
 
-function renderPilotMeetingSpecificDocsContent(meetingDocs) {
-  if (!meetingDocs) return "";
+function renderRaces() {
+  const grid = byId("race-grid");
+  if (!grid) return;
 
   grid.innerHTML = getSortedRaces()
     .map(
@@ -529,215 +288,16 @@ function renderPilotMeetingSpecificDocsContent(meetingDocs) {
           >
             S'inscrire
           </a>
-
-          <a class="profile-choice-card profile-choice-card--pilote" href="#/meetings/pilote">
-            <span>PILOTE</span>
-          </a>
-        </div>
-      </section>
-    </div>
-  `;
-}
-
-function renderMeetingsProfileView(profileKey) {
-  const profile = PROFILE_CONTENT[profileKey];
-  const currentFilter = meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER;
-
-  return `
-    <div class="view-stack view-stack--meetings-profile">
-      <section class="hero">
-        <div class="hero-top-row">
-          <p class="eyebrow season-pill">${escapeHtml(profile.seasonPill)}</p>
-        </div>
-        <h1>${escapeHtml(profile.heroTitle)}</h1>
-        <p class="hero-sub">${escapeHtml(profile.heroSubtitle)}</p>
-      </section>
-
-      <section id="calendrier" class="section">
-        <div class="section-head">
-          <h2>${escapeHtml(profile.sections.calendarTitle)}</h2>
-        </div>
-        <div class="race-toolbar">
-          <label>Type de meeting</label>
-          <div class="meeting-filter-group" role="group" aria-label="Filtrer les meetings par type">
-            ${MEETING_FILTER_OPTIONS.map(
-              (option) => `
-                <button
-                  type="button"
-                  class="filter-btn js-meeting-filter-btn ${
-                    currentFilter === option.value ? "is-active" : ""
-                  }"
-                  data-filter-value="${escapeHtml(option.value)}"
-                  aria-pressed="${
-                    currentFilter === option.value ? "true" : "false"
-                  }"
-                >
-                  ${escapeHtml(option.label)}
-                </button>
-              `
-            ).join("")}
-          </div>
-        </div>
-        <div id="race-grid" class="race-grid"></div>
-      </section>
-
-      <section id="actualites" class="section dual">
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(profile.sections.newsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(profile.newsFeed)}</div>
-        </div>
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(profile.sections.resultsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(profile.resultsFeed)}</div>
-        </div>
-      </section>
-    </div>
-  `;
-}
-
-function renderMeetingCards(profileKey) {
-  const profile = PROFILE_CONTENT[profileKey];
-  const root = byId("race-grid");
-  if (!root) return;
-
-  const meetings = getVisibleMeetings(
-    meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER
-  ).filter((meeting) =>
-    profileKey === "pilote"
-      ? canShowSignupForMeeting(profileKey, meeting)
-      : true
-  );
-
-  root.innerHTML = meetings
-    .map((meeting) => {
-      const kindClass = meetingKindClass(meeting.kind);
-      const raceFormUrl = getRaceFormUrl(profile, meeting.id);
-      const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
-      const externalUrl = getMeetingExternalUrl(meeting.id);
-      const detailHref = externalUrl || meetingDetailHref(profileKey, meeting.id);
-      const detailLinkAttrs = externalUrl
-        ? 'target="_blank" rel="noopener noreferrer"'
-        : "";
-
-      return `
-        <article
-          class="race-card ${kindClass} race-card--clickable js-meeting-card"
-          tabindex="0"
-          role="link"
-          data-profile="${escapeHtml(profileKey)}"
-          data-meeting-id="${escapeHtml(meeting.id)}"
-          aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
-        >
-          <p class="race-meta-line">
-            ${escapeHtml(meetingKindLabel(meeting.kind))} · ${escapeHtml(
-              meeting.date
-            )}
-          </p>
-          <h3>${escapeHtml(meeting.name)}</h3>
-          <p>${escapeHtml(meeting.seasonLabel)}</p>
-          <p>${escapeHtml(meeting.location)}</p>
-          <div class="race-actions">
-            ${
-              canShowSignup
-                ? `
-                  <a
-                    class="btn btn-primary race-signup-link"
-                    href="${escapeHtml(raceFormUrl)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    S'inscrire
-                  </a>
-                `
-                : ""
-            }
-            <a class="btn btn-ghost" href="${escapeHtml(detailHref)}" ${detailLinkAttrs}>
-              Voir le detail
-            </a>
-          </div>
         </article>
       `;
-    })
+      }
+    )
     .join("");
 }
 
-function bindMeetingsProfileEvents(profileKey) {
-  const filterButtons = Array.from(
-    document.querySelectorAll(".js-meeting-filter-btn")
-  );
-  const raceGrid = byId("race-grid");
-
-  const updateFilterButtonsState = () => {
-    const currentFilter = meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER;
-    filterButtons.forEach((button) => {
-      const isActive = button.dataset.filterValue === currentFilter;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", isActive ? "true" : "false");
-    });
-  };
-
-  if (filterButtons.length) {
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const nextFilter = button.dataset.filterValue || DEFAULT_MEETING_FILTER;
-        meetingFilterState[profileKey] = nextFilter;
-        updateFilterButtonsState();
-        renderMeetingCards(profileKey);
-      });
-    });
-    updateFilterButtonsState();
-  }
-
-  if (raceGrid) {
-    raceGrid.addEventListener("click", (event) => {
-      const card = event.target.closest(".js-meeting-card");
-      if (!card) return;
-
-      if (event.target.closest("a,button,input,select,textarea")) {
-        return;
-      }
-
-      const cardProfile = card.dataset.profile;
-      const meetingId = card.dataset.meetingId;
-      if (!cardProfile || !meetingId) return;
-
-      const externalUrl = getMeetingExternalUrl(meetingId);
-      if (externalUrl) {
-        window.open(externalUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
-
-      window.location.hash = meetingDetailHref(cardProfile, meetingId);
-    });
-
-    raceGrid.addEventListener("keydown", (event) => {
-      const card = event.target.closest(".js-meeting-card");
-      if (!card) return;
-
-      if (event.key !== "Enter" && event.key !== " ") {
-        return;
-      }
-
-      event.preventDefault();
-      const cardProfile = card.dataset.profile;
-      const meetingId = card.dataset.meetingId;
-      if (!cardProfile || !meetingId) return;
-
-      const externalUrl = getMeetingExternalUrl(meetingId);
-      if (externalUrl) {
-        window.open(externalUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
-
-      window.location.hash = meetingDetailHref(cardProfile, meetingId);
-    });
-  }
-
-  renderMeetingCards(profileKey);
+function injectMainLinks() {
+  setLink("member-form-link", FORM_LINKS.memberForm);
+  setLink("race-form-link", FORM_LINKS.raceForm);
 }
 
 function bindEvents() {
@@ -765,12 +325,12 @@ function bindEvents() {
 }
 
 function mount() {
-  if (!window.location.hash) {
-    window.location.hash = DEFAULT_ROUTE_HASH;
-  }
-
-  renderCurrentRoute();
-  window.addEventListener("hashchange", renderCurrentRoute);
+  renderKpis();
+  renderRaces();
+  renderFeed("news-list", newsFeed);
+  renderFeed("results-list", resultsFeed);
+  injectMainLinks();
+  bindEvents();
 }
 
 mount();
