@@ -1,16 +1,135 @@
-import {
-  CONTACT_PAGE_CONTENT,
-  LEGAL_PAGE_CONTENT,
-  MEETINGS,
-  MEETING_DETAIL_SECTIONS,
-  NAV_ITEMS,
-  PAGE_SKELETONS,
-  PILOT_MEETING_DOCUMENTATION,
-  PILOT_MEETING_DOCUMENTATION_BY_MEETING,
-  PROFILE_CONTENT,
-  TARGET_YEAR,
-} from "./site-data.js?v=20260316-4";
+const MEMBER_FORM_RESPONSE_URL =
+  "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u";
 
+const FORM_LINKS = {
+  memberForm: MEMBER_FORM_RESPONSE_URL,
+  raceForm: "https://forms.office.com/r/5s11Uy4fWP",
+};
+
+const races = [
+  {
+    id: "r1",
+    name: "FUN RACING CAR",
+    date: "10-11-12 avril 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r2",
+    name: "CATERHAM",
+    date: "17-18-19 avril 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r3",
+    name: "HISTORIC TOUR",
+    date: "24-25-26 avril 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r4",
+    name: "CHAMPIONNAT DE France GT",
+    date: "14-15-16-17 mai 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r5",
+    name: "PORSCHE SPRINT CHALLENGE France",
+    date: "29-30 mai 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r6",
+    name: "GRAND PRIX DE L'AGE D'OR",
+    date: "5-6-7-8 juin 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r7",
+    name: "TROPHEE TOURISME ENDURANCE",
+    date: "26-27-28 juin 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r8",
+    name: "DIJON MOTORS CUP",
+    date: "10-11-12-13 septembre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r9",
+    name: "LAMERA CUP",
+    date: "16-17-18 octobre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r10",
+    name: "COUPE DE France DES CIRCUITS",
+    date: "23-24-25 octobre 2026",
+    track: "Meetings Circuit 2026",
+  },
+  {
+    id: "r11",
+    name: "2eme RALLYE NATIONAL DE BLIGNY SUR OUCHE",
+    date: "08-09 mai 2026",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r12",
+    name: "64eme COURSE DE COTE D'URCY",
+    date: "25-26 juillet 2026",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r13",
+    name: "24eme RALLYE REGIONAL DE L'AUXOIS",
+    date: "19 septembre 2025",
+    track: "Meetings Rallye - Cote 2026",
+  },
+  {
+    id: "r14",
+    name: "Tour de Bourgogne Classic",
+    date: "23-24-25 octobre 2026",
+    track: "Meetings Rallye - Cote 2026",
+  },
+];
+
+const newsFeed = [
+  {
+    title: "Ouverture des inscriptions saison 2026",
+    date: "15 fevrier 2026",
+    text: "Les inscriptions sont maintenant centralisees via Microsoft Forms.",
+  },
+  {
+    title: "Session formation drapeaux",
+    date: "22 mars 2026",
+    text: "Formation pratique ouverte aux nouveaux commissaires et recyclage annuel.",
+  },
+  {
+    title: "Partenariat securite piste",
+    date: "4 avril 2026",
+    text: "Nouveau dispositif de coordination radio et pointage numerique.",
+  },
+];
+
+const resultsFeed = [
+  {
+    title: "Meeting Test Pre-Saison",
+    date: "31 janvier 2026",
+    text: "42 officiels mobilises, 100% des postes couverts sur 2 jours.",
+  },
+  {
+    title: "Challenge Club - Manche 1",
+    date: "8 fevrier 2026",
+    text: "Interventions piste: 6, incidents majeurs: 0, coordination operationnelle.",
+  },
+  {
+    title: "Sprint Regional",
+    date: "14 fevrier 2026",
+    text: "Debrief positif de la direction de course sur la rapidite des interventions.",
+  },
+];
+
+const byId = (id) => document.getElementById(id);
 const MONTH_INDEX = {
   janvier: 0,
   fevrier: 1,
@@ -144,75 +263,38 @@ function renderPartnerCards(partners) {
     .join("");
 }
 
-function normalizeHash(hashValue) {
-  const withoutHash = String(hashValue || "").replace(/^#/, "").trim();
-  if (!withoutHash) return "/accueil";
-
-  const withLeadingSlash = withoutHash.startsWith("/")
-    ? withoutHash
-    : `/${withoutHash}`;
-
-  const collapsed = withLeadingSlash.replace(/\/+/g, "/");
-  if (collapsed === "/") return "/accueil";
-
-  return collapsed.endsWith("/") ? collapsed.slice(0, -1) : collapsed;
+function normalizeText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 }
 
-function parseRoute() {
-  const normalizedPath = normalizeHash(window.location.hash);
-  const segments = normalizedPath
-    .split("/")
-    .filter(Boolean)
-    .map((part) => decodeURIComponent(part));
+function getRaceKind(race) {
+  const searchableText = normalizeText(`${race.name} ${race.track}`);
 
-  if (segments.length === 0 || segments[0] === "accueil") {
-    return { type: "accueil", navKey: "accueil" };
+  if (searchableText.includes("course de cote")) {
+    return "cote";
   }
 
-  if (segments[0] === "meetings") {
-    if (!segments[1]) {
-      return { type: "meetings-choice", navKey: "meetings" };
-    }
-
-    if (!PROFILE_CONTENT[segments[1]]) {
-      return { type: "not-found", navKey: "meetings" };
-    }
-
-    if (!segments[2]) {
-      return {
-        type: "meetings-profile",
-        navKey: "meetings",
-        profileKey: segments[1],
-      };
-    }
-
-    return {
-      type: "meeting-detail",
-      navKey: "meetings",
-      profileKey: segments[1],
-      meetingId: segments[2],
-    };
+  if (searchableText.includes("rallye")) {
+    return "rallye";
   }
 
-  if (PAGE_SKELETONS[segments[0]]) {
-    return { type: "page", navKey: segments[0], pageKey: segments[0] };
-  }
-
-  return { type: "not-found", navKey: "accueil" };
+  return "circuit";
 }
 
-function updateActiveNav(navKey) {
-  document.querySelectorAll(".main-nav a[data-nav]").forEach((link) => {
-    const isActive = link.dataset.nav === navKey;
-    link.classList.toggle("is-active", isActive);
+function getRaceKindDisplay(kind) {
+  if (kind === "rallye") return "Rallye";
+  if (kind === "cote") return "Course de cote";
+  return "Circuit";
+}
 
-    if (isActive) {
-      link.setAttribute("aria-current", "page");
-      return;
-    }
-
-    link.removeAttribute("aria-current");
-  });
+function getActiveRaceFilter() {
+  const activeFilter = byId("race-filter")?.querySelector(
+    ".race-filter-btn.is-active"
+  );
+  return activeFilter?.dataset.filter || "all";
 }
 
 function parseMeetingDate(dateLabel) {
@@ -229,24 +311,13 @@ function parseMeetingDate(dateLabel) {
   return new Date(year, month, day).getTime();
 }
 
-function getChronologicalMeetings() {
-  return [...MEETINGS].sort(
-    (a, b) => parseMeetingDate(a.date) - parseMeetingDate(b.date)
-  );
-}
-
-function getNextMeeting() {
-  const now = Date.now();
-  const oneDayMs = 24 * 60 * 60 * 1000;
-  return (
-    getChronologicalMeetings().find(
-      (meeting) => parseMeetingDate(meeting.date) + oneDayMs > now
-    ) || null
-  );
-}
-
-function getVisibleMeetings(typeFilter) {
-  const meetings = getChronologicalMeetings();
+function getSortedRaces() {
+  const sortMode = byId("race-sort")?.value || "date-asc";
+  const filterMode = getActiveRaceFilter();
+  const cloned = races.filter((race) => {
+    if (filterMode === "all") return true;
+    return getRaceKind(race) === filterMode;
+  });
 
   if (!typeFilter || typeFilter === "all") {
     return meetings;
@@ -382,104 +453,29 @@ async function applyMeetingHeroBackground(meetingId) {
     return;
   }
 
-  if (!resolvedPath) {
-    hero.classList.remove("hero--meeting-has-image");
-    hero.style.removeProperty("--meeting-hero-image");
-    return;
-  }
-
-  hero.classList.add("hero--meeting-has-image");
-  hero.style.setProperty(
-    "--meeting-hero-image",
-    `url("${encodeURI(resolvedPath)}?v=${MEETING_BACKGROUND_ASSET_VERSION}")`
-  );
+  return cloned;
 }
 
-function getRaceFormUrl(profile, meetingId) {
-  const externalUrl = getMeetingExternalUrl(meetingId);
-  if (externalUrl) return externalUrl;
-
-  if (!profile || !profile.forms) return "#";
-  return (
-    profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
-  );
-}
-
-function canShowSignupForMeeting(profileKey, meeting) {
-  if (!meeting) return false;
-  if (profileKey !== "pilote") return true;
-
-  return (
-    meeting.kind === "rallye" ||
-    meeting.kind === "course-de-cote" ||
-    meeting.id === "r10"
-  );
-}
-
-function isValidVehicleTypeFilter(value) {
-  return VEHICLE_TYPE_FILTER_OPTIONS.some((option) => option.value === value);
-}
-
-function getVehicleTypeFilterForMeetingKind(meetingKind) {
-  const currentValue = pilotMeetingVehicleFilterState[meetingKind];
-  if (isValidVehicleTypeFilter(currentValue)) {
-    return currentValue;
-  }
-  return DEFAULT_VEHICLE_TYPE_FILTER;
-}
-
-function renderListItems(items) {
-  return (items || [])
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
-    .join("");
-}
-
-function copyTextToClipboard(value) {
-  const text = String(value || "");
-  if (!text) return Promise.resolve(false);
-
-  if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-    return navigator.clipboard
-      .writeText(text)
-      .then(() => true)
-      .catch(() => false);
-  }
-
-  try {
-    const fallbackInput = document.createElement("textarea");
-    fallbackInput.value = text;
-    fallbackInput.setAttribute("readonly", "");
-    fallbackInput.style.position = "absolute";
-    fallbackInput.style.left = "-9999px";
-    document.body.appendChild(fallbackInput);
-    fallbackInput.select();
-    const copied = document.execCommand("copy");
-    document.body.removeChild(fallbackInput);
-    return Promise.resolve(Boolean(copied));
-  } catch (_error) {
-    return Promise.resolve(false);
+function renderKpis() {
+  const racesEl = byId("kpi-races");
+  if (racesEl) {
+    racesEl.textContent = String(races.length);
   }
 }
 
-function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
-  const docsByKind = PILOT_MEETING_DOCUMENTATION[meetingKind];
-  if (!docsByKind) return "";
+function renderFeed(listId, items) {
+  const root = byId(listId);
+  if (!root) return;
+  const feedLabel = listId === "news-list" ? "Actu" : "Resultat";
 
-  const currentVehicleType = isValidVehicleTypeFilter(vehicleType)
-    ? vehicleType
-    : DEFAULT_VEHICLE_TYPE_FILTER;
-  const vehicleDocs =
-    docsByKind.vehicleDocuments?.[currentVehicleType] ||
-    docsByKind.vehicleDocuments?.[DEFAULT_VEHICLE_TYPE_FILTER] ||
-    {};
-
-  return `
-    <div class="meeting-doc-grid">
-      <article class="doc-card">
-        <h3>Documents communs</h3>
-        <ul class="doc-list">
-          ${renderListItems(docsByKind.commonDocuments)}
-        </ul>
+  root.innerHTML = items
+    .map(
+      (item) => `
+      <article class="feed-item">
+        <p class="feed-label">${feedLabel}</p>
+        <p class="small">${escapeHtml(item.date)}</p>
+        <h4>${escapeHtml(item.title)}</h4>
+        <p>${escapeHtml(item.text)}</p>
       </article>
 
       <article class="doc-card">
@@ -508,261 +504,30 @@ function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
 function renderPilotMeetingSpecificDocsContent(meetingDocs) {
   if (!meetingDocs) return "";
 
-  return `
-    <div class="meeting-doc-grid">
-      <article class="doc-card">
-        <h3>Documents communs</h3>
-        <ul class="doc-list">
-          ${renderListItems(meetingDocs.commonDocuments)}
-        </ul>
-      </article>
+  grid.innerHTML = getSortedRaces()
+    .map(
+      (race) => {
+        const raceKind = getRaceKind(race);
+        const kind = getRaceKindDisplay(raceKind);
+        const kindClass = `race-card--${raceKind}`;
 
-      <article class="doc-card">
-        <h3>Documents pilotes</h3>
-        <ul class="doc-list">
-          ${renderListItems(meetingDocs.pilotDocuments)}
-        </ul>
-      </article>
-    </div>
-  `;
-}
-
-function renderCommissaireMeetingDocsContent(documents) {
-  if (!documents || !documents.length) return "";
-
-  return `
-    <div class="meeting-doc-grid">
-      ${documents
-        .map(
-          (documentItem) => `
-            <article class="doc-card">
-              <h3>${escapeHtml(documentItem.title)}</h3>
-              ${
-                documentItem.description
-                  ? `<p>${escapeHtml(documentItem.description)}</p>`
-                  : ""
-              }
-              <a
-                class="btn btn-ghost"
-                href="${escapeHtml(documentItem.href)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ${escapeHtml(documentItem.ctaLabel || "Ouvrir le document")}
-              </a>
-            </article>
-          `
-        )
-        .join("")}
-    </div>
-  `;
-}
-
-function renderPilotMeetingVehicleDocsSection(meetingKind) {
-  const currentVehicleType = getVehicleTypeFilterForMeetingKind(meetingKind);
-
-  return `
-    <p>
-      Selectionnez votre type de vehicule pour afficher les documents dedies.
-    </p>
-    <div class="race-toolbar">
-      <label>Type de vehicule</label>
-      <div
-        id="pilot-vehicle-filter-group"
-        class="meeting-filter-group"
-        role="group"
-        aria-label="Filtrer les documents par type de vehicule"
-      >
-        ${VEHICLE_TYPE_FILTER_OPTIONS.map(
-          (option) => `
-            <button
-              type="button"
-              class="filter-btn js-vehicle-filter-btn ${
-                currentVehicleType === option.value ? "is-active" : ""
-              }"
-              data-filter-value="${escapeHtml(option.value)}"
-              aria-pressed="${
-                currentVehicleType === option.value ? "true" : "false"
-              }"
-            >
-              ${escapeHtml(option.label)}
-            </button>
-          `
-        ).join("")}
-      </div>
-    </div>
-    <div id="pilot-vehicle-doc-content">
-      ${renderPilotMeetingVehicleDocsContent(meetingKind, currentVehicleType)}
-    </div>
-  `;
-}
-
-function renderAccueilView() {
-  const nextMeeting = getNextMeeting();
-
-  return `
-    <div class="view-stack">
-      <section class="hero">
-        <h1>Bienvenue sur le portail ASA Prenois Bourgogne</h1>
-        <p class="hero-sub">
-          Cette base integre maintenant une navigation complete du site et un
-          espace Meetings structure par profil utilisateur.
-        </p>
-        <div class="hero-cta">
-          <a href="#/meetings" class="btn btn-primary">Entrer dans le calendrier</a>
-          <a href="#/contact" class="btn btn-ghost">Nous contacter</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Compte a rebours jusqu'au prochain meeting</h2>
-        </div>
-        ${
-          nextMeeting
-            ? `
-              <article
-                class="countdown-panel"
-                id="accueil-countdown"
-                data-target-ts="${parseMeetingDate(nextMeeting.date)}"
-              >
-                <div class="countdown-head">
-                  <p class="small">Prochain meeting</p>
-                  <h3>${escapeHtml(nextMeeting.name)}</h3>
-                  <p>${escapeHtml(nextMeeting.date)} · ${escapeHtml(nextMeeting.location)}</p>
-                </div>
-                <div class="countdown-grid">
-                  <article>
-                    <span data-countdown-unit="days">00</span>
-                    <small>Jours</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="hours">00</span>
-                    <small>Heures</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="minutes">00</span>
-                    <small>Minutes</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="seconds">00</span>
-                    <small>Secondes</small>
-                  </article>
-                </div>
-                <p class="countdown-note" data-countdown-note></p>
-              </article>
-            `
-            : `
-              <article class="panel">
-                <p>Aucun meeting a venir n'a ete trouve.</p>
-              </article>
-            `
-        }
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Acces rapide</h2>
-          <p>Choisissez une section principale du site.</p>
-        </div>
-        <div class="home-grid">
-          ${NAV_ITEMS.filter((item) => item.key !== "accueil")
-            .map(
-              (item) => `
-                <a class="home-card" href="${escapeHtml(item.href)}">
-                  <h3>${escapeHtml(item.label)}</h3>
-                  <p>Ouvrir la page ${escapeHtml(item.label.toLowerCase())}.</p>
-                </a>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
-    </div>
-  `;
-}
-
-function clearAccueilCountdown() {
-  if (accueilCountdownIntervalId === null) return;
-  clearInterval(accueilCountdownIntervalId);
-  accueilCountdownIntervalId = null;
-}
-
-function bindAccueilCountdown() {
-  const countdownRoot = byId("accueil-countdown");
-  if (!countdownRoot) return;
-
-  const targetTs = Number.parseInt(countdownRoot.dataset.targetTs || "", 10);
-  if (!Number.isFinite(targetTs)) return;
-
-  const daysEl = countdownRoot.querySelector('[data-countdown-unit="days"]');
-  const hoursEl = countdownRoot.querySelector('[data-countdown-unit="hours"]');
-  const minutesEl = countdownRoot.querySelector(
-    '[data-countdown-unit="minutes"]'
-  );
-  const secondsEl = countdownRoot.querySelector(
-    '[data-countdown-unit="seconds"]'
-  );
-  const noteEl = countdownRoot.querySelector("[data-countdown-note]");
-  const oneDayMs = 24 * 60 * 60 * 1000;
-
-  const updateCountdown = () => {
-    const now = Date.now();
-    const remainingMs = targetTs - now;
-
-    if (remainingMs <= 0) {
-      if (daysEl) daysEl.textContent = "00";
-      if (hoursEl) hoursEl.textContent = "00";
-      if (minutesEl) minutesEl.textContent = "00";
-      if (secondsEl) secondsEl.textContent = "00";
-
-      if (noteEl) {
-        if (targetTs + oneDayMs > now) {
-          noteEl.textContent = "Le prochain meeting demarre aujourd'hui.";
-        } else {
-          noteEl.textContent = "Le compte a rebours est termine.";
-        }
-      }
-
-      return;
-    }
-
-    const totalSeconds = Math.floor(remainingMs / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    if (daysEl) daysEl.textContent = String(days).padStart(2, "0");
-    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
-    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
-    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
-    if (noteEl) noteEl.textContent = "";
-  };
-
-  updateCountdown();
-  clearAccueilCountdown();
-  accueilCountdownIntervalId = window.setInterval(updateCountdown, 1000);
-}
-
-function renderMeetingsChoiceView() {
-  return `
-    <div class="view-stack">
-      <section class="hero">
-        <h1>Calendrier</h1>
-        <p class="hero-sub">
-          Avant d'acceder au calendrier, selectionnez le profil adapte a votre
-          besoin pour afficher les contenus et formulaires correspondants.
-        </p>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Je suis...</h2>
-        </div>
-        <div class="profile-choice-grid">
-          <a class="profile-choice-card profile-choice-card--commissaire" href="#/meetings/commissaire">
-            <span>COMMISSAIRE</span>
+        return `
+        <article class="race-card ${kindClass}">
+          <span class="race-kind">${kind}</span>
+          <span class="race-date">${escapeHtml(race.date)}</span>
+          <h3>${escapeHtml(race.name)}</h3>
+          <p>${escapeHtml(race.track)}</p>
+          <div class="race-meta">
+            <span>Inscription</span>
+            <span>Microsoft Forms</span>
+          </div>
+          <a
+            class="btn btn-primary"
+            href="${FORM_LINKS.raceForm}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            S'inscrire
           </a>
 
           <a class="profile-choice-card profile-choice-card--pilote" href="#/meetings/pilote">
@@ -975,586 +740,28 @@ function bindMeetingsProfileEvents(profileKey) {
   renderMeetingCards(profileKey);
 }
 
-function renderMeetingDetailView(profileKey, meetingId) {
-  const profile = PROFILE_CONTENT[profileKey];
-  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
-
-  if (!profile || !meeting) {
-    return `
-      <div class="view-stack">
-        <section class="section">
-          <div class="section-head">
-            <h2>Meeting introuvable</h2>
-            <p>
-              Le meeting demande n'existe pas ou son identifiant est invalide.
-            </p>
-          </div>
-          <a href="#/meetings" class="btn btn-primary">Retour au calendrier</a>
-        </section>
-      </div>
-    `;
+function bindEvents() {
+  const sortInput = byId("race-sort");
+  if (sortInput) {
+    sortInput.addEventListener("change", renderRaces);
   }
 
-  const pilotMeetingSpecificDocs =
-    profileKey === "pilote"
-      ? PILOT_MEETING_DOCUMENTATION_BY_MEETING[meeting.id]
-      : null;
-  const commissaireMeetingDocs =
-    profileKey === "commissaire"
-      ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
-      : [];
-  const shouldShowCommissaireComingSoon =
-    profileKey === "commissaire" && meeting.id !== "r3";
-  const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
-  const shouldRenderCommissaireMeetingDocs =
-    !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
-  const shouldRenderVehicleTypeDocs =
-    profileKey === "pilote" &&
-    !shouldRenderPilotMeetingSpecificDocs &&
-    Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
-  const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
-  const promoterLogo = getMeetingPromoterLogo(meeting.id);
-  const externalUrl = getMeetingExternalUrl(meeting.id);
-  const signupButtonLabel =
-    profileKey === "commissaire"
-      ? "Formulaire d'inscription"
-      : `Formulaire ${profile.label.toLowerCase()}`;
-  const secondaryCtaHref = externalUrl || `#/meetings/${profileKey}`;
-  const secondaryCtaLabel = externalUrl
-    ? "Site officiel du rallye"
-    : "Retour au calendrier";
-  const secondaryCtaAttrs = externalUrl
-    ? 'target="_blank" rel="noopener noreferrer"'
-    : "";
+  const filterRoot = byId("race-filter");
+  if (filterRoot) {
+    filterRoot.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      const clickedButton = event.target.closest(".race-filter-btn");
+      if (!clickedButton || !filterRoot.contains(clickedButton)) return;
 
-  return `
-    <div class="view-stack">
-      <section
-        class="hero hero--meeting js-meeting-hero"
-        data-meeting-id="${escapeHtml(meeting.id)}"
-      >
-        ${
-          promoterLogo
-            ? `
-              <div class="meeting-promoter-logo-wrap">
-                <img
-                  class="meeting-promoter-logo"
-                  src="${escapeHtml(promoterLogo.src)}"
-                  alt="${escapeHtml(promoterLogo.alt)}"
-                  loading="lazy"
-                />
-              </div>
-            `
-            : ""
-        }
-        <h1>${escapeHtml(meeting.name)}</h1>
-        <p class="hero-sub">
-          Page detaillee du meeting pour le parcours ${escapeHtml(
-            profile.label.toLowerCase()
-          )}. Cette base est prete pour accueillir PDF et documents de reference.
-        </p>
-        <div class="hero-cta">
-          ${
-            canShowSignup
-              ? `
-                <a
-                  class="btn btn-primary"
-                  href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  ${escapeHtml(signupButtonLabel)}
-                </a>
-              `
-              : ""
-          }
-          <a href="${escapeHtml(secondaryCtaHref)}" class="btn btn-ghost" ${secondaryCtaAttrs}
-            >${escapeHtml(secondaryCtaLabel)}</a
-          >
-        </div>
-      </section>
+      filterRoot.querySelectorAll(".race-filter-btn").forEach((button) => {
+        const isActive = button === clickedButton;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
 
-      <section class="section">
-        <div class="section-head">
-          <h2>Informations meeting</h2>
-        </div>
-        <div class="meeting-meta-grid">
-          <article class="meeting-meta-card">
-            <h3>Date</h3>
-            <p>${escapeHtml(meeting.date)}</p>
-          </article>
-          <article class="meeting-meta-card">
-            <h3>Type</h3>
-            <p>${escapeHtml(meetingKindLabel(meeting.kind))}</p>
-          </article>
-          <article class="meeting-meta-card">
-            <h3>Serie</h3>
-            <p>${escapeHtml(meeting.seasonLabel)}</p>
-          </article>
-          <article class="meeting-meta-card">
-            <h3>Lieu</h3>
-            <p>${escapeHtml(meeting.location)}</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Documents et ressources</h2>
-          ${
-            shouldShowCommissaireComingSoon
-              ? `
-                <p>Arrive prochainement.</p>
-              `
-              : shouldRenderVehicleTypeDocs ||
-            shouldRenderPilotMeetingSpecificDocs ||
-            shouldRenderCommissaireMeetingDocs
-              ? ""
-              : `
-                <p>
-                  Cette zone est preparee pour les futurs PDF (roadbooks, horaires,
-                  organisation et annexes).
-                </p>
-              `
-          }
-        </div>
-        ${
-          shouldShowCommissaireComingSoon
-            ? `
-              <article class="doc-card">
-                <h3>Documents et ressources</h3>
-                <p>Arrive prochainement.</p>
-                <span class="badge pending">A venir</span>
-              </article>
-            `
-            : shouldRenderPilotMeetingSpecificDocs
-            ? renderPilotMeetingSpecificDocsContent(pilotMeetingSpecificDocs)
-            : shouldRenderCommissaireMeetingDocs
-            ? renderCommissaireMeetingDocsContent(commissaireMeetingDocs)
-            : shouldRenderVehicleTypeDocs
-            ? renderPilotMeetingVehicleDocsSection(meeting.kind)
-            : `
-              <div class="meeting-doc-grid">
-                ${MEETING_DETAIL_SECTIONS.map(
-                  (section) => `
-                    <article class="doc-card">
-                      <h3>${escapeHtml(section.title)}</h3>
-                      <p>${escapeHtml(section.description)}</p>
-                      <span class="badge pending">A completer</span>
-                    </article>
-                  `
-                ).join("")}
-              </div>
-            `
-        }
-      </section>
-    </div>
-  `;
-}
-
-function bindMeetingDetailEvents(profileKey, meetingId) {
-  if (profileKey !== "pilote") return;
-
-  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
-  if (!meeting) return;
-
-  const docsByKind = PILOT_MEETING_DOCUMENTATION[meeting.kind];
-  if (!docsByKind) return;
-
-  const buttons = Array.from(document.querySelectorAll(".js-vehicle-filter-btn"));
-  const contentRoot = byId("pilot-vehicle-doc-content");
-  if (!buttons.length || !contentRoot) return;
-
-  const updateButtonsState = () => {
-    const currentVehicleType = getVehicleTypeFilterForMeetingKind(meeting.kind);
-    buttons.forEach((button) => {
-      const isActive = button.dataset.filterValue === currentVehicleType;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      renderRaces();
     });
-  };
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextVehicleType = button.dataset.filterValue;
-      if (!isValidVehicleTypeFilter(nextVehicleType)) return;
-      pilotMeetingVehicleFilterState[meeting.kind] = nextVehicleType;
-      updateButtonsState();
-      contentRoot.innerHTML = renderPilotMeetingVehicleDocsContent(
-        meeting.kind,
-        nextVehicleType
-      );
-    });
-  });
-
-  updateButtonsState();
-}
-
-function renderSkeletonPage(pageKey) {
-  const page = PAGE_SKELETONS[pageKey];
-
-  if (!page) {
-    return `
-      <div class="view-stack">
-        <section class="section">
-          <div class="section-head">
-            <h2>Page indisponible</h2>
-          </div>
-          <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
-        </section>
-      </div>
-    `;
   }
-
-  if (pageKey === "contact") {
-    return `
-      <div class="view-stack view-stack--info-pages">
-        <section class="hero">
-          <h1>${escapeHtml(page.title)}</h1>
-          <p class="hero-sub">${escapeHtml(page.intro)}</p>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(CONTACT_PAGE_CONTENT.officeHoursTitle)}</h2>
-          </div>
-          <article class="panel">
-            <ul class="hours-list">
-              ${CONTACT_PAGE_CONTENT.officeHours.map(
-                (entry) => `
-                  <li>
-                    <strong>${escapeHtml(entry.day)}:</strong>
-                    <span>${escapeHtml(entry.hours)}</span>
-                  </li>
-                `
-              ).join("")}
-            </ul>
-          </article>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(CONTACT_PAGE_CONTENT.contactTitle)}</h2>
-          </div>
-          <article class="panel contact-panel">
-            <p>Cliquez pour copier l'adresse email :</p>
-            <button
-              type="button"
-              class="contact-copy-btn js-contact-copy-btn"
-              data-email="${escapeHtml(CONTACT_PAGE_CONTENT.email)}"
-              aria-label="Copier l'adresse email ${escapeHtml(
-                CONTACT_PAGE_CONTENT.email
-              )}"
-            >
-              <span class="contact-copy-btn-front">
-                <svg
-                  class="contact-copy-btn-icon"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"
-                  />
-                </svg>
-                Copier l'email
-              </span>
-              <span class="contact-copy-btn-back">Copie</span>
-            </button>
-            <p class="contact-email">${escapeHtml(CONTACT_PAGE_CONTENT.email)}</p>
-          </article>
-        </section>
-      </div>
-    `;
-  }
-
-  if (LEGAL_PAGE_CONTENT[pageKey]) {
-    const legalPage = LEGAL_PAGE_CONTENT[pageKey];
-    return `
-      <div class="view-stack view-stack--legal-pages">
-        <section class="hero">
-          <h1>${escapeHtml(page.title)}</h1>
-          <p class="hero-sub">${escapeHtml(page.intro)}</p>
-          <p class="eyebrow">${escapeHtml(legalPage.updatedAt)}</p>
-        </section>
-
-        ${legalPage.sections
-          .map(
-            (section) => `
-              <section class="section">
-                <div class="section-head">
-                  <h2>${escapeHtml(section.title)}</h2>
-                </div>
-                <article class="panel narrative-panel">
-                  ${(section.paragraphs || [])
-                    .map(
-                      (paragraph) => `
-                        <p>${escapeHtml(paragraph)}</p>
-                      `
-                    )
-                    .join("")}
-                </article>
-              </section>
-            `
-          )
-          .join("")}
-      </div>
-    `;
-  }
-
-  if (
-    pageKey === "commissaires" &&
-    page.commissionerParagraphs &&
-    page.commissionerParagraphs.length
-  ) {
-    return `
-      <div class="view-stack view-stack--info-pages">
-        <section class="hero">
-          <h1>${escapeHtml(page.title)}</h1>
-          <p class="hero-sub">${escapeHtml(page.intro)}</p>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.commissionerTitle)}</h2>
-          </div>
-          <article class="panel narrative-panel">
-            ${page.commissionerParagraphs
-              .map(
-                (paragraph) => `
-                  <p>${escapeHtml(paragraph)}</p>
-                `
-              )
-              .join("")}
-          </article>
-          ${
-            page.commissionerTrainingLink
-              ? `
-                <div class="link-row">
-                  <a
-                    href="${escapeHtml(page.commissionerTrainingLink)}"
-                    class="btn btn-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    ${escapeHtml(
-                      page.commissionerTrainingLabel || "Se former et debuter"
-                    )}
-                  </a>
-                </div>
-              `
-              : ""
-          }
-        </section>
-      </div>
-    `;
-  }
-
-  if (
-    pageKey === "vie-asa" &&
-    page.historyParagraphs &&
-    page.historyParagraphs.length
-  ) {
-    return `
-      <div class="view-stack view-stack--info-pages">
-        <section class="hero">
-          <h1>${escapeHtml(page.title)}</h1>
-          <p class="hero-sub">${escapeHtml(page.intro)}</p>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.historyTitle)}</h2>
-          </div>
-          <article class="panel narrative-panel">
-            ${page.historyParagraphs
-              .map(
-                (paragraph) => `
-                  <p>${escapeHtml(paragraph)}</p>
-                `
-              )
-              .join("")}
-          </article>
-        </section>
-      </div>
-    `;
-  }
-
-  if (
-    pageKey === "partenaires" &&
-    page.annualPartners &&
-    page.annualPartners.length &&
-    page.urcyPartners &&
-    page.urcyPartners.length
-  ) {
-    return `
-      <div class="view-stack">
-        <section class="hero">
-          <h1>${escapeHtml(page.title)}</h1>
-          <p class="hero-sub">${escapeHtml(page.intro)}</p>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.annualPartnersTitle)}</h2>
-          </div>
-          <div class="partner-grid">
-            ${renderPartnerCards(page.annualPartners)}
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.urcyPartnersTitle)}</h2>
-          </div>
-          <div class="partner-grid">
-            ${renderPartnerCards(page.urcyPartners)}
-          </div>
-        </section>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="view-stack">
-      <section class="hero">
-        <h1>${escapeHtml(page.title)}</h1>
-        <p class="hero-sub">${escapeHtml(page.intro)}</p>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>Contenu en preparation</h2>
-          <p>
-            Structure de page en place. Les contenus metier seront ajoutes dans
-            une prochaine iteration.
-          </p>
-        </div>
-      </section>
-    </div>
-  `;
-}
-
-function renderNotFoundView() {
-  return `
-    <div class="view-stack">
-      <section class="section">
-        <div class="section-head">
-          <h2>Page introuvable</h2>
-          <p>La route demandee n'existe pas.</p>
-        </div>
-        <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
-      </section>
-    </div>
-  `;
-}
-
-function updateDocumentTitle(route) {
-  const suffix = "ASA Prenois Bourgogne";
-
-  if (route.type === "accueil") {
-    document.title = `Accueil | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meetings-choice") {
-    document.title = `Calendrier | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meetings-profile") {
-    const profile = PROFILE_CONTENT[route.profileKey];
-    document.title = `Meetings ${profile.label} | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meeting-detail") {
-    const meeting = MEETINGS.find((item) => item.id === route.meetingId);
-    const label = meeting ? meeting.name : "Meeting";
-    document.title = `${label} | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "page") {
-    const page = PAGE_SKELETONS[route.pageKey];
-    document.title = `${page.title} | ${suffix}`;
-    return;
-  }
-
-  document.title = `Page introuvable | ${suffix}`;
-}
-
-function renderCurrentRoute() {
-  const appRoot = byId("app");
-  if (!appRoot) return;
-
-  clearAccueilCountdown();
-
-  const route = parseRoute();
-  updateActiveNav(route.navKey);
-  updateDocumentTitle(route);
-
-  if (route.type === "accueil") {
-    appRoot.innerHTML = renderAccueilView();
-    bindAccueilCountdown();
-    return;
-  }
-
-  if (route.type === "meetings-choice") {
-    appRoot.innerHTML = renderMeetingsChoiceView();
-    return;
-  }
-
-  if (route.type === "meetings-profile") {
-    appRoot.innerHTML = renderMeetingsProfileView(route.profileKey);
-    bindMeetingsProfileEvents(route.profileKey);
-    return;
-  }
-
-  if (route.type === "meeting-detail") {
-    appRoot.innerHTML = renderMeetingDetailView(route.profileKey, route.meetingId);
-    applyMeetingHeroBackground(route.meetingId);
-    bindMeetingDetailEvents(route.profileKey, route.meetingId);
-    return;
-  }
-
-  if (route.type === "page") {
-    appRoot.innerHTML = renderSkeletonPage(route.pageKey);
-    if (route.pageKey === "contact") {
-      bindContactCopyEmailEvents();
-    }
-    return;
-  }
-
-  appRoot.innerHTML = renderNotFoundView();
-}
-
-function bindContactCopyEmailEvents() {
-  const copyButtons = Array.from(document.querySelectorAll(".js-contact-copy-btn"));
-  if (!copyButtons.length) return;
-
-  copyButtons.forEach((button) => {
-    let resetTimeoutId = null;
-
-    button.addEventListener("click", async () => {
-      const email = button.dataset.email || "";
-      const isCopied = await copyTextToClipboard(email);
-
-      button.classList.remove("is-copied", "is-copy-error");
-      button.classList.add(isCopied ? "is-copied" : "is-copy-error");
-
-      if (resetTimeoutId) {
-        window.clearTimeout(resetTimeoutId);
-      }
-
-      resetTimeoutId = window.setTimeout(() => {
-        button.classList.remove("is-copied", "is-copy-error");
-      }, 1700);
-    });
-  });
 }
 
 function mount() {
