@@ -248,6 +248,20 @@ export const PILOT_MEETING_DOCUMENTATION = {
   },
 };
 
+export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
+  r10: {
+    commonDocuments: ["VISA", "Horaires", "Informations generales"],
+    pilotDocuments: [
+      "Feuilles d'engagement",
+      "Assurances",
+      "Feuilles techniques",
+      "Book info",
+      "Listes engages",
+      "Suivis resultats",
+    ],
+  },
+};
+
 export const PROFILE_CONTENT = {
   commissaire: {
     key: "commissaire",
@@ -499,7 +513,7 @@ export const PAGE_SKELETONS = {
   contact: {
     title: "Contactez-nous",
     intro:
-      "Page prevue pour les points de contact officiels de l'ASAC Bourgogne.",
+      "Page prevue pour les points de contact officiels de l'ASA Prenois Bourgogne.",
   },
   "mentions-legales": {
     title: "Mentions legales",
@@ -545,7 +559,7 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Editeur du service de communication au public en ligne",
         paragraphs: [
-          "Association Sportive Automobile Club Bourgogne (ASAC Bourgogne / ASA Prenois Bourgogne).",
+          "Association Sportive Automobile Club Bourgogne (ASA Prenois Bourgogne).",
           "Siege: Circuit Dijon-Prenois, 21370 Prenois, France.",
           "Contact: contact@asa-prenois-bourgone.org",
           "Ces informations sont publiees conformement aux obligations d'identification de l'editeur prevues par l'article 1-1 de la loi ndeg 2004-575 du 21 juin 2004 (LCEN), version en vigueur depuis le 23 mai 2024.",
@@ -554,7 +568,7 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Direction de la publication",
         paragraphs: [
-          "Directeur de la publication: le bureau de l'association ASAC Bourgogne.",
+          "Directeur de la publication: le bureau de l'association ASA Prenois Bourgogne.",
           "Responsable de la redaction: a completer si des fonctions editoriales distinctes sont designees.",
           "Droit de reponse: toute personne nommee ou designee peut exercer son droit de reponse selon les modalites prevues par l'article 1-1 de la LCEN.",
         ],
@@ -599,7 +613,7 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Responsable du traitement",
         paragraphs: [
-          "Le responsable du traitement est l'association ASAC Bourgogne, joignable a l'adresse contact@asa-prenois-bourgone.org.",
+          "Le responsable du traitement est l'association ASA Prenois Bourgogne, joignable a l'adresse contact@asa-prenois-bourgone.org.",
           "La presente politique de confidentialite est redigee au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs a l'information des personnes.",
         ],
       },

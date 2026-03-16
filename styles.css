@@ -230,6 +230,48 @@ main {
   animation: reveal-up 0.7s ease both;
 }
 
+.hero--meeting {
+  --meeting-hero-image: none;
+  background:
+    linear-gradient(
+      112deg,
+      rgba(6, 20, 41, 0.9) 0%,
+      rgba(8, 24, 47, 0.66) 42%,
+      rgba(7, 20, 41, 0.9) 100%
+    ),
+    var(--meeting-hero-image),
+    linear-gradient(122deg, rgba(8, 25, 50, 0.97), rgba(11, 39, 78, 0.94));
+  background-size: auto, cover, auto;
+  background-position: center;
+}
+
+.hero--meeting.hero--meeting-has-image .season-pill {
+  background: rgba(7, 22, 45, 0.78);
+}
+
+.meeting-promoter-logo-wrap {
+  position: absolute;
+  top: clamp(0.7rem, 1.8vw, 1rem);
+  right: clamp(0.7rem, 1.8vw, 1rem);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.meeting-promoter-logo {
+  display: block;
+  width: clamp(72px, 13vw, 160px);
+  max-height: 62px;
+  object-fit: contain;
+}
+
 .hero::before,
 .hero::after {
   content: "";
@@ -252,7 +294,7 @@ main {
   bottom: -150px;
 }
 
-.hero > * {
+.hero > *:not(.meeting-promoter-logo-wrap) {
   position: relative;
   z-index: 1;
 }
@@ -482,7 +524,8 @@ textarea:focus-visible,
 }
 
 .filter-btn:hover {
-  transform: translateY(-1px);
+  transform: none;
+  box-shadow: 0 3px 10px rgba(13, 37, 77, 0.14);
 }
 
 .filter-btn[data-filter-value="all"] {
@@ -717,6 +760,63 @@ textarea:focus-visible,
   min-width: 180px;
 }
 
+.view-stack--meetings-profile {
+  gap: 1.45rem;
+}
+
+.view-stack--meetings-profile #calendrier {
+  padding: clamp(1.3rem, 2.8vw, 2rem);
+}
+
+.view-stack--meetings-profile #calendrier .section-head {
+  margin-bottom: 0.6rem;
+}
+
+.view-stack--meetings-profile #calendrier .race-toolbar {
+  margin-top: 1.9rem;
+  gap: 0.75rem;
+}
+
+.view-stack--meetings-profile #calendrier .meeting-filter-group {
+  gap: 0.62rem;
+  padding-bottom: 0.18rem;
+}
+
+.view-stack--meetings-profile #calendrier .filter-btn {
+  padding: 0.46rem 0.82rem;
+  font-size: 0.84rem;
+}
+
+.view-stack--meetings-profile #calendrier .race-grid {
+  margin-top: 1.3rem;
+  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.view-stack--meetings-profile #calendrier .race-card {
+  padding: 1.2rem 1.02rem 1rem;
+  gap: 0.82rem;
+}
+
+.view-stack--meetings-profile #calendrier .race-card h3 {
+  font-size: 1.22rem;
+  line-height: 1.18;
+}
+
+.view-stack--meetings-profile #calendrier .race-card p {
+  font-size: 0.96rem;
+  line-height: 1.35;
+}
+
+.view-stack--meetings-profile #calendrier .race-actions {
+  margin-top: 0.15rem;
+  gap: 0.58rem;
+}
+
+.view-stack--meetings-profile #calendrier .race-actions .btn {
+  min-width: 194px;
+}
+
 .profile-choice-grid {
   margin-top: 0.8rem;
   display: grid;
@@ -725,16 +825,25 @@ textarea:focus-visible,
 }
 
 .profile-choice-card {
+  --choice-accent-solid: #2e6fd5;
+  --choice-accent-soft: rgba(46, 111, 213, 0.2);
+  --choice-accent-lighter: rgba(46, 111, 213, 0.12);
+  --choice-border-hover: #9db6e8;
+  --choice-shadow-hover: rgba(7, 31, 71, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   border: 1px solid var(--line);
   border-radius: 16px;
   min-height: 160px;
   padding: 1.1rem;
   text-decoration: none;
-  color: inherit;
+  color: var(--blue-900);
   background: linear-gradient(180deg, #ffffff, #eff5ff);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
   box-shadow: 0 14px 26px rgba(7, 31, 71, 0.13);
   transition:
     transform 0.2s ease,
@@ -742,21 +851,9 @@ textarea:focus-visible,
     border-color 0.2s ease;
 }
 
-.profile-choice-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 34px rgba(7, 31, 71, 0.18);
-  border-color: #9db6e8;
-}
-
-.profile-choice-card:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 34px rgba(7, 31, 71, 0.18);
-  border-color: #9db6e8;
-  outline: 3px solid #0d5fd0;
-  outline-offset: 2px;
-}
-
-.profile-choice-card h3 {
+.profile-choice-card > span {
+  position: relative;
+  z-index: 2;
   margin: 0;
   color: var(--blue-900);
   font-family: "Barlow Condensed", sans-serif;
@@ -764,6 +861,75 @@ textarea:focus-visible,
   letter-spacing: 0.06em;
   line-height: 1;
   text-align: center;
+  text-transform: uppercase;
+}
+
+.profile-choice-card::before,
+.profile-choice-card::after {
+  background:
+    linear-gradient(
+      90deg,
+      var(--choice-accent-soft) 25%,
+      transparent 0,
+      transparent 50%,
+      var(--choice-accent-soft) 0,
+      var(--choice-accent-soft) 75%,
+      transparent 0
+    );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateY(var(--profile-choice-progress, 100%));
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.profile-choice-card::after {
+  --profile-choice-progress: -100%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 25%,
+      var(--choice-accent-lighter) 0,
+      var(--choice-accent-lighter) 50%,
+      transparent 0,
+      transparent 75%,
+      var(--choice-accent-lighter) 0
+    );
+  z-index: 0;
+}
+
+.profile-choice-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px var(--choice-shadow-hover);
+  border-color: var(--choice-border-hover);
+}
+
+.profile-choice-card:hover::before,
+.profile-choice-card:hover::after {
+  --profile-choice-progress: 0;
+}
+
+.profile-choice-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px var(--choice-shadow-hover);
+  border-color: var(--choice-border-hover);
+  outline: 3px solid var(--choice-accent-solid);
+  outline-offset: 2px;
+}
+
+.profile-choice-card:focus-visible::before,
+.profile-choice-card:focus-visible::after {
+  --profile-choice-progress: 0;
+}
+
+.profile-choice-card--commissaire {
+  --choice-accent-solid: #d4842e;
+  --choice-accent-soft: rgba(212, 132, 46, 0.2);
+  --choice-accent-lighter: rgba(212, 132, 46, 0.12);
+  --choice-border-hover: #e2bd95;
+  --choice-shadow-hover: rgba(121, 73, 18, 0.2);
 }
 
 .home-grid {
@@ -1075,15 +1241,98 @@ textarea:focus-visible,
   color: var(--muted);
 }
 
+.contact-copy-btn {
+  position: relative;
+  width: 170px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #f2f7fa;
+  color: #0e418f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    width 0.5s ease,
+    height 0.5s ease,
+    background-color 0.5s ease,
+    transform 0.2s ease;
+}
+
+.contact-copy-btn:hover {
+  transform: translateY(-1px);
+}
+
+.contact-copy-btn-front,
+.contact-copy-btn-back {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  white-space: nowrap;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease,
+    color 0.5s ease;
+}
+
+.contact-copy-btn-front {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transform: translate(-50%, -50%);
+  color: #0e418f;
+}
+
+.contact-copy-btn-back {
+  transform: translate(-50%, 120%);
+  opacity: 0;
+  color: #d4e1fa;
+}
+
+.contact-copy-btn-icon {
+  display: block;
+}
+
+.contact-copy-btn:is(:focus-visible, .is-copied) {
+  background-color: #0e418f;
+  width: 196px;
+  height: 42px;
+}
+
+.contact-copy-btn:is(:focus-visible, .is-copied) .contact-copy-btn-front {
+  transform: translate(-50%, -170%);
+  opacity: 0;
+  color: #d4e1fa;
+}
+
+.contact-copy-btn:is(:focus-visible, .is-copied) .contact-copy-btn-back {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.contact-copy-btn.is-copy-error {
+  background-color: #8f1e2e;
+  width: 196px;
+  height: 42px;
+}
+
+.contact-copy-btn.is-copy-error .contact-copy-btn-front {
+  transform: translate(-50%, -170%);
+  opacity: 0;
+}
+
+.contact-copy-btn.is-copy-error .contact-copy-btn-back {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  color: #ffdce2;
+}
+
 .contact-panel .contact-email {
   color: var(--blue-900);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
-  background: #f2f6ff;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.65rem 0.8rem;
-  width: fit-content;
+  padding: 0.1rem 0;
 }
 
 .cta-card {

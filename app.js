@@ -6,9 +6,10 @@ import {
   NAV_ITEMS,
   PAGE_SKELETONS,
   PILOT_MEETING_DOCUMENTATION,
+  PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260315-1";
+} from "./site-data.js?v=20260316-4";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -40,6 +41,47 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
+const MEETING_BACKGROUND_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "avif"];
+const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
+const MEETING_EXTERNAL_URLS = {
+  r11: "https://rallyedeblignysurouche.fr/",
+};
+const COMMISSAIRE_MEETING_DOCUMENTS = {
+  r3: [
+    {
+      title: "Horaires Historic Tour Dijon 2026",
+      description: "Document horaires officiel - Historic Tour.",
+      href: "assets/documents/horaires-historic-tour-dijon-2026.pdf",
+      ctaLabel: "Ouvrir le document",
+    },
+    {
+      title: "Lettre d'informations concurrents Historic Tour Dijon 2026",
+      description: "Lettre d'informations concurrents - Historic Tour.",
+      href: "assets/documents/lettre-informations-concurrents-historic-tour-dijon-2026.pdf",
+      ctaLabel: "Ouvrir le document",
+    },
+  ],
+};
+const MEETING_PROMOTER_LOGOS = {
+  r1: { src: "assets/promoters/fun-racing-cars.png", alt: "Logo Fun Racing Cars" },
+  r3: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
+  r4: {
+    src: "assets/promoters/gt4.png",
+    alt: "Logo Championnat de France GT4",
+  },
+  r5: {
+    src: "assets/promoters/porsche-driving-emotion.png",
+    alt: "Logo Porsche Sprint Challenge",
+  },
+  r6: { src: "assets/promoters/peter-auto.jpg", alt: "Logo Peter Auto" },
+  r7: { src: "assets/promoters/tte-2016.png", alt: "Logo Trophee Tourisme Endurance" },
+  r8: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
+  r9: { src: "assets/promoters/lamera-cup.png", alt: "Logo Lamera Cup" },
+  r10: {
+    src: "assets/promoters/coupe-de-france-des-circuits.jpg",
+    alt: "Logo Coupe de France des Circuits",
+  },
+};
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
   pilote: DEFAULT_MEETING_FILTER,
@@ -48,6 +90,7 @@ const pilotMeetingVehicleFilterState = {
   rallye: DEFAULT_VEHICLE_TYPE_FILTER,
   "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
 };
+const meetingBackgroundPathCache = new Map();
 let accueilCountdownIntervalId = null;
 
 const byId = (id) => document.getElementById(id);
@@ -228,7 +271,134 @@ function meetingDetailHref(profileKey, meetingId) {
   return `#/meetings/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
 
+function getMeetingExternalUrl(meetingId) {
+  return MEETING_EXTERNAL_URLS[meetingId] || "";
+}
+
+function getMeetingPromoterLogo(meetingId) {
+  return MEETING_PROMOTER_LOGOS[meetingId] || null;
+}
+
+function slugifyAssetBaseName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+}
+
+function compactAssetBaseName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .toLowerCase();
+}
+
+function getMeetingBackgroundBaseNames(meeting) {
+  const rawName = String(meeting?.name || "").trim();
+  const slugName = slugifyAssetBaseName(rawName);
+  const compactName = compactAssetBaseName(rawName);
+  const hyphenated = rawName.replace(/\s+/g, "-");
+  const underscored = rawName.replace(/\s+/g, "_");
+
+  const names = [
+    meeting?.id || "",
+    rawName,
+    rawName.toLowerCase(),
+    hyphenated,
+    underscored,
+    slugName,
+    compactName,
+    `${meeting?.id || ""}-${slugName}`,
+  ];
+
+  return [...new Set(names.filter(Boolean))];
+}
+
+function getMeetingBackgroundCandidates(meeting) {
+  const baseNames = getMeetingBackgroundBaseNames(meeting);
+  const candidates = [];
+  const folders = ["assets/meetings", "assets"];
+
+  folders.forEach((folder) => {
+    baseNames.forEach((baseName) => {
+      MEETING_BACKGROUND_EXTENSIONS.forEach((ext) => {
+        candidates.push(`${folder}/${baseName}.${ext}`);
+      });
+    });
+  });
+
+  return candidates;
+}
+
+function imageExists(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+async function resolveMeetingBackgroundPath(meeting) {
+  if (!meeting?.id) return null;
+
+  if (meetingBackgroundPathCache.has(meeting.id)) {
+    return meetingBackgroundPathCache.get(meeting.id);
+  }
+
+  const candidates = getMeetingBackgroundCandidates(meeting);
+
+  for (const candidate of candidates) {
+    // Probe local files and keep the first existing image for this meeting.
+    const exists = await imageExists(candidate);
+    if (exists) {
+      meetingBackgroundPathCache.set(meeting.id, candidate);
+      return candidate;
+    }
+  }
+
+  meetingBackgroundPathCache.set(meeting.id, null);
+  return null;
+}
+
+async function applyMeetingHeroBackground(meetingId) {
+  const hero = document.querySelector(".js-meeting-hero");
+  if (!hero) return;
+
+  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
+  if (!meeting) {
+    hero.classList.remove("hero--meeting-has-image");
+    hero.style.removeProperty("--meeting-hero-image");
+    return;
+  }
+
+  hero.dataset.bgMeetingId = meeting.id;
+  const resolvedPath = await resolveMeetingBackgroundPath(meeting);
+
+  if (!hero.isConnected || hero.dataset.bgMeetingId !== meeting.id) {
+    return;
+  }
+
+  if (!resolvedPath) {
+    hero.classList.remove("hero--meeting-has-image");
+    hero.style.removeProperty("--meeting-hero-image");
+    return;
+  }
+
+  hero.classList.add("hero--meeting-has-image");
+  hero.style.setProperty(
+    "--meeting-hero-image",
+    `url("${encodeURI(resolvedPath)}?v=${MEETING_BACKGROUND_ASSET_VERSION}")`
+  );
+}
+
 function getRaceFormUrl(profile, meetingId) {
+  const externalUrl = getMeetingExternalUrl(meetingId);
+  if (externalUrl) return externalUrl;
+
   if (!profile || !profile.forms) return "#";
   return (
     profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
@@ -262,6 +432,33 @@ function renderListItems(items) {
   return (items || [])
     .map((item) => `<li>${escapeHtml(item)}</li>`)
     .join("");
+}
+
+function copyTextToClipboard(value) {
+  const text = String(value || "");
+  if (!text) return Promise.resolve(false);
+
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+    return navigator.clipboard
+      .writeText(text)
+      .then(() => true)
+      .catch(() => false);
+  }
+
+  try {
+    const fallbackInput = document.createElement("textarea");
+    fallbackInput.value = text;
+    fallbackInput.setAttribute("readonly", "");
+    fallbackInput.style.position = "absolute";
+    fallbackInput.style.left = "-9999px";
+    document.body.appendChild(fallbackInput);
+    fallbackInput.select();
+    const copied = document.execCommand("copy");
+    document.body.removeChild(fallbackInput);
+    return Promise.resolve(Boolean(copied));
+  } catch (_error) {
+    return Promise.resolve(false);
+  }
 }
 
 function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
@@ -304,6 +501,59 @@ function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
           `
           : ""
       }
+    </div>
+  `;
+}
+
+function renderPilotMeetingSpecificDocsContent(meetingDocs) {
+  if (!meetingDocs) return "";
+
+  return `
+    <div class="meeting-doc-grid">
+      <article class="doc-card">
+        <h3>Documents communs</h3>
+        <ul class="doc-list">
+          ${renderListItems(meetingDocs.commonDocuments)}
+        </ul>
+      </article>
+
+      <article class="doc-card">
+        <h3>Documents pilotes</h3>
+        <ul class="doc-list">
+          ${renderListItems(meetingDocs.pilotDocuments)}
+        </ul>
+      </article>
+    </div>
+  `;
+}
+
+function renderCommissaireMeetingDocsContent(documents) {
+  if (!documents || !documents.length) return "";
+
+  return `
+    <div class="meeting-doc-grid">
+      ${documents
+        .map(
+          (documentItem) => `
+            <article class="doc-card">
+              <h3>${escapeHtml(documentItem.title)}</h3>
+              ${
+                documentItem.description
+                  ? `<p>${escapeHtml(documentItem.description)}</p>`
+                  : ""
+              }
+              <a
+                class="btn btn-ghost"
+                href="${escapeHtml(documentItem.href)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ${escapeHtml(documentItem.ctaLabel || "Ouvrir le document")}
+              </a>
+            </article>
+          `
+        )
+        .join("")}
     </div>
   `;
 }
@@ -353,10 +603,7 @@ function renderAccueilView() {
   return `
     <div class="view-stack">
       <section class="hero">
-        <div class="hero-top-row">
-          <p class="eyebrow season-pill">Saison ${escapeHtml(TARGET_YEAR)}</p>
-        </div>
-        <h1>Bienvenue sur le portail ASAC Bourgogne</h1>
+        <h1>Bienvenue sur le portail ASA Prenois Bourgogne</h1>
         <p class="hero-sub">
           Cette base integre maintenant une navigation complete du site et un
           espace Meetings structure par profil utilisateur.
@@ -490,7 +737,7 @@ function bindAccueilCountdown() {
     if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
     if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
     if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
-    if (noteEl) noteEl.textContent = "Jusqu'au premier jour du meeting.";
+    if (noteEl) noteEl.textContent = "";
   };
 
   updateCountdown();
@@ -502,9 +749,6 @@ function renderMeetingsChoiceView() {
   return `
     <div class="view-stack">
       <section class="hero">
-        <div class="hero-top-row">
-          <p class="eyebrow season-pill">CALENDRIER</p>
-        </div>
         <h1>Calendrier</h1>
         <p class="hero-sub">
           Avant d'acceder au calendrier, selectionnez le profil adapte a votre
@@ -517,12 +761,12 @@ function renderMeetingsChoiceView() {
           <h2>Je suis...</h2>
         </div>
         <div class="profile-choice-grid">
-          <a class="profile-choice-card" href="#/meetings/commissaire">
-            <h3>COMMISSAIRE</h3>
+          <a class="profile-choice-card profile-choice-card--commissaire" href="#/meetings/commissaire">
+            <span>COMMISSAIRE</span>
           </a>
 
-          <a class="profile-choice-card" href="#/meetings/pilote">
-            <h3>PILOTE</h3>
+          <a class="profile-choice-card profile-choice-card--pilote" href="#/meetings/pilote">
+            <span>PILOTE</span>
           </a>
         </div>
       </section>
@@ -535,7 +779,7 @@ function renderMeetingsProfileView(profileKey) {
   const currentFilter = meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER;
 
   return `
-    <div class="view-stack">
+    <div class="view-stack view-stack--meetings-profile">
       <section class="hero">
         <div class="hero-top-row">
           <p class="eyebrow season-pill">${escapeHtml(profile.seasonPill)}</p>
@@ -622,6 +866,11 @@ function renderMeetingCards(profileKey) {
       const kindClass = meetingKindClass(meeting.kind);
       const raceFormUrl = getRaceFormUrl(profile, meeting.id);
       const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
+      const externalUrl = getMeetingExternalUrl(meeting.id);
+      const detailHref = externalUrl || meetingDetailHref(profileKey, meeting.id);
+      const detailLinkAttrs = externalUrl
+        ? 'target="_blank" rel="noopener noreferrer"'
+        : "";
 
       return `
         <article
@@ -655,7 +904,7 @@ function renderMeetingCards(profileKey) {
                 `
                 : ""
             }
-            <a class="btn btn-ghost" href="${escapeHtml(meetingDetailHref(profileKey, meeting.id))}">
+            <a class="btn btn-ghost" href="${escapeHtml(detailHref)}" ${detailLinkAttrs}>
               Voir le detail
             </a>
           </div>
@@ -705,6 +954,12 @@ function bindMeetingsProfileEvents(profileKey) {
       const meetingId = card.dataset.meetingId;
       if (!cardProfile || !meetingId) return;
 
+      const externalUrl = getMeetingExternalUrl(meetingId);
+      if (externalUrl) {
+        window.open(externalUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+
       window.location.hash = meetingDetailHref(cardProfile, meetingId);
     });
 
@@ -720,6 +975,12 @@ function bindMeetingsProfileEvents(profileKey) {
       const cardProfile = card.dataset.profile;
       const meetingId = card.dataset.meetingId;
       if (!cardProfile || !meetingId) return;
+
+      const externalUrl = getMeetingExternalUrl(meetingId);
+      if (externalUrl) {
+        window.open(externalUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
 
       window.location.hash = meetingDetailHref(cardProfile, meetingId);
     });
@@ -748,16 +1009,55 @@ function renderMeetingDetailView(profileKey, meetingId) {
     `;
   }
 
+  const pilotMeetingSpecificDocs =
+    profileKey === "pilote"
+      ? PILOT_MEETING_DOCUMENTATION_BY_MEETING[meeting.id]
+      : null;
+  const commissaireMeetingDocs =
+    profileKey === "commissaire"
+      ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
+      : [];
+  const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
+  const shouldRenderCommissaireMeetingDocs = commissaireMeetingDocs.length > 0;
   const shouldRenderVehicleTypeDocs =
-    profileKey === "pilote" && Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
+    profileKey === "pilote" &&
+    !shouldRenderPilotMeetingSpecificDocs &&
+    Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
   const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
+  const promoterLogo = getMeetingPromoterLogo(meeting.id);
+  const externalUrl = getMeetingExternalUrl(meeting.id);
+  const signupButtonLabel =
+    profileKey === "commissaire"
+      ? "Formulaire d'inscription"
+      : `Formulaire ${profile.label.toLowerCase()}`;
+  const secondaryCtaHref = externalUrl || `#/meetings/${profileKey}`;
+  const secondaryCtaLabel = externalUrl
+    ? "Site officiel du rallye"
+    : "Retour au calendrier";
+  const secondaryCtaAttrs = externalUrl
+    ? 'target="_blank" rel="noopener noreferrer"'
+    : "";
 
   return `
     <div class="view-stack">
-      <section class="hero">
-        <div class="hero-top-row">
-          <p class="eyebrow season-pill">DETAIL MEETING</p>
-        </div>
+      <section
+        class="hero hero--meeting js-meeting-hero"
+        data-meeting-id="${escapeHtml(meeting.id)}"
+      >
+        ${
+          promoterLogo
+            ? `
+              <div class="meeting-promoter-logo-wrap">
+                <img
+                  class="meeting-promoter-logo"
+                  src="${escapeHtml(promoterLogo.src)}"
+                  alt="${escapeHtml(promoterLogo.alt)}"
+                  loading="lazy"
+                />
+              </div>
+            `
+            : ""
+        }
         <h1>${escapeHtml(meeting.name)}</h1>
         <p class="hero-sub">
           Page detaillee du meeting pour le parcours ${escapeHtml(
@@ -774,13 +1074,13 @@ function renderMeetingDetailView(profileKey, meetingId) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Formulaire ${escapeHtml(profile.label.toLowerCase())}
+                  ${escapeHtml(signupButtonLabel)}
                 </a>
               `
               : ""
           }
-          <a href="#/meetings/${escapeHtml(profileKey)}" class="btn btn-ghost"
-            >Retour au calendrier</a
+          <a href="${escapeHtml(secondaryCtaHref)}" class="btn btn-ghost" ${secondaryCtaAttrs}
+            >${escapeHtml(secondaryCtaLabel)}</a
           >
         </div>
       </section>
@@ -813,7 +1113,9 @@ function renderMeetingDetailView(profileKey, meetingId) {
         <div class="section-head">
           <h2>Documents et ressources</h2>
           ${
-            shouldRenderVehicleTypeDocs
+            shouldRenderVehicleTypeDocs ||
+            shouldRenderPilotMeetingSpecificDocs ||
+            shouldRenderCommissaireMeetingDocs
               ? ""
               : `
                 <p>
@@ -824,7 +1126,11 @@ function renderMeetingDetailView(profileKey, meetingId) {
           }
         </div>
         ${
-          shouldRenderVehicleTypeDocs
+          shouldRenderPilotMeetingSpecificDocs
+            ? renderPilotMeetingSpecificDocsContent(pilotMeetingSpecificDocs)
+            : shouldRenderCommissaireMeetingDocs
+            ? renderCommissaireMeetingDocsContent(commissaireMeetingDocs)
+            : shouldRenderVehicleTypeDocs
             ? renderPilotMeetingVehicleDocsSection(meeting.kind)
             : `
               <div class="meeting-doc-grid">
@@ -930,7 +1236,33 @@ function renderSkeletonPage(pageKey) {
             <h2>${escapeHtml(CONTACT_PAGE_CONTENT.contactTitle)}</h2>
           </div>
           <article class="panel contact-panel">
-            <p>Adresse email a copier/coller :</p>
+            <p>Cliquez pour copier l'adresse email :</p>
+            <button
+              type="button"
+              class="contact-copy-btn js-contact-copy-btn"
+              data-email="${escapeHtml(CONTACT_PAGE_CONTENT.email)}"
+              aria-label="Copier l'adresse email ${escapeHtml(
+                CONTACT_PAGE_CONTENT.email
+              )}"
+            >
+              <span class="contact-copy-btn-front">
+                <svg
+                  class="contact-copy-btn-icon"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"
+                  />
+                </svg>
+                Copier l'email
+              </span>
+              <span class="contact-copy-btn-back">Copie</span>
+            </button>
             <p class="contact-email">${escapeHtml(CONTACT_PAGE_CONTENT.email)}</p>
           </article>
         </section>
@@ -1102,7 +1434,7 @@ function renderNotFoundView() {
 }
 
 function updateDocumentTitle(route) {
-  const suffix = "ASAC Bourgogne";
+  const suffix = "ASA Prenois Bourgogne";
 
   if (route.type === "accueil") {
     document.title = `Accueil | ${suffix}`;
@@ -1165,16 +1497,45 @@ function renderCurrentRoute() {
 
   if (route.type === "meeting-detail") {
     appRoot.innerHTML = renderMeetingDetailView(route.profileKey, route.meetingId);
+    applyMeetingHeroBackground(route.meetingId);
     bindMeetingDetailEvents(route.profileKey, route.meetingId);
     return;
   }
 
   if (route.type === "page") {
     appRoot.innerHTML = renderSkeletonPage(route.pageKey);
+    if (route.pageKey === "contact") {
+      bindContactCopyEmailEvents();
+    }
     return;
   }
 
   appRoot.innerHTML = renderNotFoundView();
+}
+
+function bindContactCopyEmailEvents() {
+  const copyButtons = Array.from(document.querySelectorAll(".js-contact-copy-btn"));
+  if (!copyButtons.length) return;
+
+  copyButtons.forEach((button) => {
+    let resetTimeoutId = null;
+
+    button.addEventListener("click", async () => {
+      const email = button.dataset.email || "";
+      const isCopied = await copyTextToClipboard(email);
+
+      button.classList.remove("is-copied", "is-copy-error");
+      button.classList.add(isCopied ? "is-copied" : "is-copy-error");
+
+      if (resetTimeoutId) {
+        window.clearTimeout(resetTimeoutId);
+      }
+
+      resetTimeoutId = window.setTimeout(() => {
+        button.classList.remove("is-copied", "is-copy-error");
+      }, 1700);
+    });
+  });
 }
 
 function mount() {
