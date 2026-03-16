@@ -71,12 +71,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.42rem 1.2rem;
+  gap: 1.15rem;
+  padding: 0.56rem 1.25rem;
   background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid #d7e0f3;
   box-shadow: 0 8px 18px rgba(15, 40, 82, 0.1);
   backdrop-filter: blur(10px);
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--blue-500) 20%,
+    var(--racing-red) 50%,
+    var(--blue-500) 80%,
+    transparent 100%
+  );
 }
 
 .logo-wrap {
@@ -116,10 +133,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.2rem;
   flex: 1;
-  min-height: 42px;
-  position: relative;
+  min-height: 50px;
+  position: static;
 }
 
 .logo-ffsa {
@@ -133,21 +150,24 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.18rem;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  max-width: calc(100% - 130px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: calc(100% - 420px);
 }
 
 .main-nav a {
   color: var(--blue-900);
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.055em;
   position: relative;
+  padding: 0.08rem 0;
 }
 
 .main-nav a::after {
@@ -203,8 +223,18 @@ main {
   gap: 1.1rem;
 }
 
+.view-stack--info-pages,
+.view-stack--legal-pages {
+  margin-top: 0.55rem;
+}
+
 .view-stack .section {
   margin-top: 0;
+}
+
+.view-stack--info-pages .section-head + .panel,
+.view-stack--legal-pages .section-head + .panel {
+  margin-top: 0.9rem;
 }
 
 .hero {
@@ -682,46 +712,6 @@ textarea:focus-visible,
   background: rgba(24, 67, 136, 0.08);
 }
 
-.race-card::after {
-  content: "";
-  position: absolute;
-  left: 0.9rem;
-  right: 0.9rem;
-  top: 0.58rem;
-  height: 5px;
-  border-radius: 999px;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      #2a66c9 0 46%,
-      transparent 46% 52%,
-      #184388 52% 100%
-    );
-  opacity: 0.45;
-}
-
-.race-card--rallye::after {
-  background:
-    linear-gradient(
-      90deg,
-      #f2a638 0 46%,
-      transparent 46% 52%,
-      #b86a00 52% 100%
-    );
-  opacity: 0.52;
-}
-
-.race-card--cote::after {
-  background:
-    linear-gradient(
-      90deg,
-      #50ab6f 0 46%,
-      transparent 46% 52%,
-      #2c7a47 52% 100%
-    );
-  opacity: 0.52;
-}
 
 .race-meta-line {
   margin: 0;
@@ -1673,13 +1663,13 @@ th {
   }
 
   .main-nav a {
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     flex: 0 0 auto;
     color: var(--blue-900);
     border: 1px solid #c8d7f1;
     border-radius: 999px;
     background: #ffffff;
-    padding: 0.38rem 0.58rem;
+    padding: 0.45rem 0.72rem;
   }
 
   .main-nav a::after {
@@ -1739,7 +1729,7 @@ th {
   }
 
   .main-nav a {
-    font-size: 0.74rem;
+    font-size: 0.8rem;
   }
 
   .filter-btn {

@@ -786,20 +786,6 @@ function renderMeetingsProfileView(profileKey) {
         </div>
         <h1>${escapeHtml(profile.heroTitle)}</h1>
         <p class="hero-sub">${escapeHtml(profile.heroSubtitle)}</p>
-        <div class="hero-kpis">
-          <article>
-            <span>${MEETINGS.length}</span>
-            <small>Meetings prevus</small>
-          </article>
-          <article>
-            <span>${escapeHtml(profile.targetMembers)}</span>
-            <small>${escapeHtml(profile.label)}s cibles</small>
-          </article>
-          <article>
-            <span>Forms</span>
-            <small>Mode inscriptions</small>
-          </article>
-        </div>
       </section>
 
       <section id="calendrier" class="section">
@@ -1017,8 +1003,11 @@ function renderMeetingDetailView(profileKey, meetingId) {
     profileKey === "commissaire"
       ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
       : [];
+  const shouldShowCommissaireComingSoon =
+    profileKey === "commissaire" && meeting.id !== "r3";
   const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
-  const shouldRenderCommissaireMeetingDocs = commissaireMeetingDocs.length > 0;
+  const shouldRenderCommissaireMeetingDocs =
+    !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
   const shouldRenderVehicleTypeDocs =
     profileKey === "pilote" &&
     !shouldRenderPilotMeetingSpecificDocs &&
@@ -1113,7 +1102,11 @@ function renderMeetingDetailView(profileKey, meetingId) {
         <div class="section-head">
           <h2>Documents et ressources</h2>
           ${
-            shouldRenderVehicleTypeDocs ||
+            shouldShowCommissaireComingSoon
+              ? `
+                <p>Arrive prochainement.</p>
+              `
+              : shouldRenderVehicleTypeDocs ||
             shouldRenderPilotMeetingSpecificDocs ||
             shouldRenderCommissaireMeetingDocs
               ? ""
@@ -1126,7 +1119,15 @@ function renderMeetingDetailView(profileKey, meetingId) {
           }
         </div>
         ${
-          shouldRenderPilotMeetingSpecificDocs
+          shouldShowCommissaireComingSoon
+            ? `
+              <article class="doc-card">
+                <h3>Documents et ressources</h3>
+                <p>Arrive prochainement.</p>
+                <span class="badge pending">A venir</span>
+              </article>
+            `
+            : shouldRenderPilotMeetingSpecificDocs
             ? renderPilotMeetingSpecificDocsContent(pilotMeetingSpecificDocs)
             : shouldRenderCommissaireMeetingDocs
             ? renderCommissaireMeetingDocsContent(commissaireMeetingDocs)
@@ -1207,7 +1208,7 @@ function renderSkeletonPage(pageKey) {
 
   if (pageKey === "contact") {
     return `
-      <div class="view-stack">
+      <div class="view-stack view-stack--info-pages">
         <section class="hero">
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
@@ -1273,7 +1274,7 @@ function renderSkeletonPage(pageKey) {
   if (LEGAL_PAGE_CONTENT[pageKey]) {
     const legalPage = LEGAL_PAGE_CONTENT[pageKey];
     return `
-      <div class="view-stack">
+      <div class="view-stack view-stack--legal-pages">
         <section class="hero">
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
@@ -1310,7 +1311,7 @@ function renderSkeletonPage(pageKey) {
     page.commissionerParagraphs.length
   ) {
     return `
-      <div class="view-stack">
+      <div class="view-stack view-stack--info-pages">
         <section class="hero">
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
@@ -1329,6 +1330,24 @@ function renderSkeletonPage(pageKey) {
               )
               .join("")}
           </article>
+          ${
+            page.commissionerTrainingLink
+              ? `
+                <div class="link-row">
+                  <a
+                    href="${escapeHtml(page.commissionerTrainingLink)}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ${escapeHtml(
+                      page.commissionerTrainingLabel || "Se former et debuter"
+                    )}
+                  </a>
+                </div>
+              `
+              : ""
+          }
         </section>
       </div>
     `;
@@ -1340,7 +1359,7 @@ function renderSkeletonPage(pageKey) {
     page.historyParagraphs.length
   ) {
     return `
-      <div class="view-stack">
+      <div class="view-stack view-stack--info-pages">
         <section class="hero">
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>

@@ -6,8 +6,8 @@ export const NAV_ITEMS = [
   { key: "commissaires", label: "COMMISSAIRES", href: "#/commissaires" },
   { key: "pilotes", label: "PILOTES", href: "#/pilotes" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
-  { key: "partenaires", label: "LES PARTENAIRES", href: "#/partenaires" },
-  { key: "contact", label: "CONTACTEZ-NOUS", href: "#/contact" },
+  { key: "partenaires", label: "NOS PARTENAIRES", href: "#/partenaires" },
+  { key: "contact", label: "CONTACTS", href: "#/contact" },
 ];
 
 export const MEETINGS = [
@@ -398,6 +398,8 @@ export const PAGE_SKELETONS = {
     intro:
       "Page reservee au contenu institutionnel commissaires (formation, recrutement, referents).",
     commissionerTitle: "Devenez commissaire de piste",
+    commissionerTrainingLink: "https://entrezdanslacourse.ffsa.org/",
+    commissionerTrainingLabel: "Se former et debuter",
     commissionerParagraphs: [
       "Passez de spectateur a ACTEUR, rejoignez le rang des OFFICIELS.",
       "Le Commissaire est appele a officier sur l'ensemble des epreuves constituant le sport automobile : Circuits, Rallyes, Course de cotes, Rally-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
@@ -425,10 +427,10 @@ export const PAGE_SKELETONS = {
     ],
   },
   partenaires: {
-    title: "Les partenaires",
+    title: "Nos partenaires",
     intro:
       "Retrouvez les partenaires institutionnels et prives qui soutiennent l'Asa Prenois-Bourgogne.",
-    annualPartnersTitle: "Les partenaires de l'Asa Prenois-Bourgogne",
+    annualPartnersTitle: "Nos partenaires de l'Asa Prenois-Bourgogne",
     annualPartners: [
       {
         name: "Federation Internationale de l'Automobile",
@@ -463,7 +465,7 @@ export const PAGE_SKELETONS = {
         logo: "assets/partners/kreativecom.png",
       },
     ],
-    urcyPartnersTitle: "Les partenaires - Course de Cote Urcy 2025",
+    urcyPartnersTitle: "Nos partenaires - Course de Cote Urcy 2025",
     urcyPartners: [
       {
         name: "FFSA Montagne",
@@ -511,7 +513,7 @@ export const PAGE_SKELETONS = {
     ],
   },
   contact: {
-    title: "Contactez-nous",
+    title: "Contacts",
     intro:
       "Page prevue pour les points de contact officiels de l'ASA Prenois Bourgogne.",
   },
