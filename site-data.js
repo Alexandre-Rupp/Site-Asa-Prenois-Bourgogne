@@ -341,16 +341,6 @@ export const PROFILE_CONTENT = {
         date: "15 fevrier 2026",
         text: "Les inscriptions sont maintenant centralisees via Microsoft Forms.",
       },
-      {
-        title: "Session formation drapeaux",
-        date: "22 mars 2026",
-        text: "Formation pratique ouverte aux nouveaux commissaires et recyclage annuel.",
-      },
-      {
-        title: "Partenariat securite piste",
-        date: "4 avril 2026",
-        text: "Nouveau dispositif de coordination radio et pointage numerique.",
-      },
     ],
     resultsFeed: [
       {

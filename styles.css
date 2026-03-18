@@ -177,7 +177,8 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.055em;
   position: relative;
-  padding: 0.08rem 0;
+  display: inline-block;
+  padding: 0.08rem 0 0.26rem;
   transition: color 0.2s ease;
 }
 
@@ -185,15 +186,17 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -4px;
-  width: 0;
+  right: 0;
+  bottom: 0;
   height: 2px;
   background: var(--racing-red);
-  transition: width 0.25s ease;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
 }
 
 .main-nav a:hover::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .main-nav a.is-active {
@@ -201,7 +204,7 @@ body {
 }
 
 .main-nav a.is-active::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .main-nav a:focus-visible {
@@ -1905,13 +1908,26 @@ th {
   }
 
   .main-nav a::after {
-    display: none;
+    content: "";
+    position: absolute;
+    left: 0.42rem;
+    right: 0.42rem;
+    bottom: 0.16rem;
+    height: 2px;
+    background: var(--racing-red);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.25s ease;
   }
 
   .main-nav a.is-active {
     background: #e9f1ff;
     border-color: #8fb0e8;
     color: #0f2a4f;
+  }
+
+  .main-nav a.is-active::after {
+    transform: scaleX(1);
   }
 
   .race-actions .btn {
