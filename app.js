@@ -1,4 +1,4 @@
-import {
+﻿import {
   CONTACT_PAGE_CONTENT,
   LEGAL_PAGE_CONTENT,
   MEETINGS,
@@ -9,7 +9,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260316-4";
+} from "./site-data.js?v=20260318-2";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -27,6 +27,7 @@ const MONTH_INDEX = {
 };
 
 const DEFAULT_ROUTE_HASH = "#/accueil";
+const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const DEFAULT_MEETING_FILTER = "all";
 const MEETING_FILTER_OPTIONS = [
   { value: "all", label: "Tous" },
@@ -91,6 +92,7 @@ const pilotMeetingVehicleFilterState = {
   "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
 };
 const meetingBackgroundPathCache = new Map();
+const feedCarouselAutoPlayIntervalIds = new Set();
 let accueilCountdownIntervalId = null;
 
 const byId = (id) => document.getElementById(id);
@@ -104,18 +106,229 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function renderFeedCarousel(images, title, carouselId) {
+  const normalizedImages = (images || [])
+    .map((image, index) => {
+      if (typeof image === "string") {
+        return {
+          src: image,
+          alt: `${title} - photo ${index + 1}`,
+        };
+      }
+
+      if (image && image.src) {
+        return {
+          src: image.src,
+          alt: image.alt || `${title} - photo ${index + 1}`,
+        };
+      }
+
+      return null;
+    })
+    .filter(Boolean);
+
+  if (!normalizedImages.length) return "";
+
+  const controls =
+    normalizedImages.length > 1
+      ? `
+        <button
+          type="button"
+          class="feed-carousel-btn feed-carousel-btn--prev js-feed-carousel-prev"
+          aria-label="Image precedente"
+        >
+          &#8249;
+        </button>
+        <button
+          type="button"
+          class="feed-carousel-btn feed-carousel-btn--next js-feed-carousel-next"
+          aria-label="Image suivante"
+        >
+          &#8250;
+        </button>
+        <div class="feed-carousel-meta">
+          <div class="feed-carousel-dots" role="tablist" aria-label="Selection d'image">
+            ${normalizedImages
+              .map(
+                (_, index) => `
+                  <button
+                    type="button"
+                    class="feed-carousel-dot js-feed-carousel-dot ${
+                      index === 0 ? "is-active" : ""
+                    }"
+                    data-slide-index="${index}"
+                    role="tab"
+                    aria-selected="${index === 0 ? "true" : "false"}"
+                    aria-label="Afficher l'image ${index + 1}"
+                  ></button>
+                `
+              )
+              .join("")}
+          </div>
+          <p class="feed-carousel-count js-feed-carousel-count">1 / ${
+            normalizedImages.length
+          }</p>
+        </div>
+      `
+      : "";
+
+  return `
+    <div
+      class="feed-carousel js-feed-carousel"
+      data-carousel-id="${escapeHtml(carouselId)}"
+      data-active-index="0"
+    >
+      <div class="feed-carousel-track">
+        ${normalizedImages
+          .map(
+            (image, index) => `
+              <figure
+                class="feed-carousel-slide js-feed-slide ${
+                  index === 0 ? "is-active" : ""
+                }"
+                data-slide-index="${index}"
+                aria-hidden="${index === 0 ? "false" : "true"}"
+              >
+                <img
+                  src="${escapeHtml(image.src)}"
+                  alt="${escapeHtml(image.alt)}"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            `
+          )
+          .join("")}
+      </div>
+      ${controls}
+    </div>
+  `;
+}
+
 function renderFeedItems(items) {
   return items
     .map(
-      (item) => `
+      (item, index) => `
       <article class="feed-item">
         <p class="small">${escapeHtml(item.date)}</p>
         <h4>${escapeHtml(item.title)}</h4>
         <p>${escapeHtml(item.text)}</p>
+        ${renderFeedCarousel(item.images, item.title, `feed-carousel-${index}`)}
       </article>
     `
     )
     .join("");
+}
+
+function bindFeedCarousels() {
+  const carousels = Array.from(document.querySelectorAll(".js-feed-carousel"));
+  if (!carousels.length) return;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  carousels.forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll(".js-feed-slide"));
+    if (slides.length <= 1) return;
+
+    const previousButton = carousel.querySelector(".js-feed-carousel-prev");
+    const nextButton = carousel.querySelector(".js-feed-carousel-next");
+    const dotButtons = Array.from(
+      carousel.querySelectorAll(".js-feed-carousel-dot")
+    );
+    const countLabel = carousel.querySelector(".js-feed-carousel-count");
+
+    let activeIndex = Number.parseInt(carousel.dataset.activeIndex || "0", 10);
+    if (
+      !Number.isInteger(activeIndex) ||
+      activeIndex < 0 ||
+      activeIndex >= slides.length
+    ) {
+      activeIndex = 0;
+    }
+
+    const setActiveSlide = (nextIndex) => {
+      activeIndex = nextIndex;
+      carousel.dataset.activeIndex = String(activeIndex);
+
+      slides.forEach((slide, index) => {
+        const isActive = index === activeIndex;
+        slide.classList.toggle("is-active", isActive);
+        slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+
+      dotButtons.forEach((dot, index) => {
+        const isActive = index === activeIndex;
+        dot.classList.toggle("is-active", isActive);
+        dot.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      if (countLabel) {
+        countLabel.textContent = `${activeIndex + 1} / ${slides.length}`;
+      }
+    };
+
+    let autoPlayIntervalId = null;
+    const stopAutoPlay = () => {
+      if (autoPlayIntervalId === null) return;
+      clearInterval(autoPlayIntervalId);
+      feedCarouselAutoPlayIntervalIds.delete(autoPlayIntervalId);
+      autoPlayIntervalId = null;
+    };
+
+    const startAutoPlay = () => {
+      if (prefersReducedMotion) return;
+      if (autoPlayIntervalId !== null) return;
+
+      autoPlayIntervalId = window.setInterval(() => {
+        const nextIndex = (activeIndex + 1) % slides.length;
+        setActiveSlide(nextIndex);
+      }, FEED_CAROUSEL_AUTOPLAY_DELAY_MS);
+      feedCarouselAutoPlayIntervalIds.add(autoPlayIntervalId);
+    };
+
+    const restartAutoPlay = () => {
+      stopAutoPlay();
+      startAutoPlay();
+    };
+
+    if (previousButton) {
+      previousButton.addEventListener("click", () => {
+        const previousIndex = (activeIndex - 1 + slides.length) % slides.length;
+        setActiveSlide(previousIndex);
+        restartAutoPlay();
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener("click", () => {
+        const nextIndex = (activeIndex + 1) % slides.length;
+        setActiveSlide(nextIndex);
+        restartAutoPlay();
+      });
+    }
+
+    dotButtons.forEach((dotButton) => {
+      dotButton.addEventListener("click", () => {
+        const nextIndex = Number.parseInt(dotButton.dataset.slideIndex || "", 10);
+        if (!Number.isInteger(nextIndex)) return;
+        if (nextIndex < 0 || nextIndex >= slides.length) return;
+        setActiveSlide(nextIndex);
+        restartAutoPlay();
+      });
+    });
+
+    carousel.addEventListener("mouseenter", stopAutoPlay);
+    carousel.addEventListener("mouseleave", startAutoPlay);
+    carousel.addEventListener("focusin", stopAutoPlay);
+    carousel.addEventListener("focusout", (event) => {
+      if (carousel.contains(event.relatedTarget)) return;
+      startAutoPlay();
+    });
+
+    setActiveSlide(activeIndex);
+    startAutoPlay();
+  });
 }
 
 function renderPartnerCards(partners) {
@@ -158,6 +371,45 @@ function normalizeHash(hashValue) {
   return collapsed.endsWith("/") ? collapsed.slice(0, -1) : collapsed;
 }
 
+function parseProfileAreaRoute({
+  segments,
+  baseRoute,
+  navKey,
+  signupEnabled,
+}) {
+  if (!segments[1]) {
+    return {
+      type: "meetings-choice",
+      navKey,
+      baseRoute,
+      signupEnabled,
+    };
+  }
+
+  if (!PROFILE_CONTENT[segments[1]]) {
+    return { type: "not-found", navKey };
+  }
+
+  if (!segments[2]) {
+    return {
+      type: "meetings-profile",
+      navKey,
+      profileKey: segments[1],
+      baseRoute,
+      signupEnabled,
+    };
+  }
+
+  return {
+    type: "meeting-detail",
+    navKey,
+    profileKey: segments[1],
+    meetingId: segments[2],
+    baseRoute,
+    signupEnabled,
+  };
+}
+
 function parseRoute() {
   const normalizedPath = normalizeHash(window.location.hash);
   const segments = normalizedPath
@@ -169,29 +421,26 @@ function parseRoute() {
     return { type: "accueil", navKey: "accueil" };
   }
 
+  if (segments[0] === "actualites") {
+    return { type: "actualites", navKey: "actualites" };
+  }
+
   if (segments[0] === "meetings") {
-    if (!segments[1]) {
-      return { type: "meetings-choice", navKey: "meetings" };
-    }
-
-    if (!PROFILE_CONTENT[segments[1]]) {
-      return { type: "not-found", navKey: "meetings" };
-    }
-
-    if (!segments[2]) {
-      return {
-        type: "meetings-profile",
-        navKey: "meetings",
-        profileKey: segments[1],
-      };
-    }
-
-    return {
-      type: "meeting-detail",
+    return parseProfileAreaRoute({
+      segments,
+      baseRoute: "meetings",
       navKey: "meetings",
-      profileKey: segments[1],
-      meetingId: segments[2],
-    };
+      signupEnabled: false,
+    });
+  }
+
+  if (segments[0] === "inscriptions") {
+    return parseProfileAreaRoute({
+      segments,
+      baseRoute: "inscriptions",
+      navKey: "inscriptions",
+      signupEnabled: true,
+    });
   }
 
   if (PAGE_SKELETONS[segments[0]]) {
@@ -267,8 +516,8 @@ function meetingKindClass(kind) {
   return "race-card--circuit";
 }
 
-function meetingDetailHref(profileKey, meetingId) {
-  return `#/meetings/${profileKey}/${encodeURIComponent(meetingId)}`;
+function meetingDetailHref(profileKey, meetingId, baseRoute = "meetings") {
+  return `#/${baseRoute}/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
 
 function getMeetingExternalUrl(meetingId) {
@@ -599,6 +848,7 @@ function renderPilotMeetingVehicleDocsSection(meetingKind) {
 
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
+  const commissaireProfile = PROFILE_CONTENT.commissaire;
 
   return `
     <div class="view-stack">
@@ -629,7 +879,7 @@ function renderAccueilView() {
                 <div class="countdown-head">
                   <p class="small">Prochain meeting</p>
                   <h3>${escapeHtml(nextMeeting.name)}</h3>
-                  <p>${escapeHtml(nextMeeting.date)} · ${escapeHtml(nextMeeting.location)}</p>
+                  <p>${escapeHtml(nextMeeting.date)} - ${escapeHtml(nextMeeting.location)}</p>
                 </div>
                 <div class="countdown-grid">
                   <article>
@@ -678,14 +928,36 @@ function renderAccueilView() {
             .join("")}
         </div>
       </section>
+
+      <section id="actualites" class="section dual">
+        <div>
+          <div class="section-head">
+            <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>${escapeHtml(commissaireProfile.sections.resultsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(commissaireProfile.resultsFeed)}</div>
+        </div>
+      </section>
     </div>
   `;
 }
-
 function clearAccueilCountdown() {
   if (accueilCountdownIntervalId === null) return;
   clearInterval(accueilCountdownIntervalId);
   accueilCountdownIntervalId = null;
+}
+
+function clearFeedCarouselsAutoPlay() {
+  if (!feedCarouselAutoPlayIntervalIds.size) return;
+  feedCarouselAutoPlayIntervalIds.forEach((intervalId) => {
+    clearInterval(intervalId);
+  });
+  feedCarouselAutoPlayIntervalIds.clear();
 }
 
 function bindAccueilCountdown() {
@@ -746,13 +1018,54 @@ function bindAccueilCountdown() {
 }
 
 function renderMeetingsChoiceView() {
+  const currentFilter = meetingFilterState.commissaire || DEFAULT_MEETING_FILTER;
+
   return `
     <div class="view-stack">
       <section class="hero">
         <h1>Calendrier</h1>
         <p class="hero-sub">
-          Avant d'acceder au calendrier, selectionnez le profil adapte a votre
-          besoin pour afficher les contenus et formulaires correspondants.
+          Retrouvez l'ensemble des meetings en mode affichage.
+        </p>
+      </section>
+
+      <section id="calendrier" class="section">
+        <div class="section-head">
+          <h2>Calendrier des meetings</h2>
+        </div>
+        <div class="race-toolbar">
+          <label>Type de meeting</label>
+          <div class="meeting-filter-group" role="group" aria-label="Filtrer les meetings par type">
+            ${MEETING_FILTER_OPTIONS.map(
+              (option) => `
+                <button
+                  type="button"
+                  class="filter-btn js-meeting-filter-btn ${
+                    currentFilter === option.value ? "is-active" : ""
+                  }"
+                  data-filter-value="${escapeHtml(option.value)}"
+                  aria-pressed="${currentFilter === option.value ? "true" : "false"}"
+                >
+                  ${escapeHtml(option.label)}
+                </button>
+              `
+            ).join("")}
+          </div>
+        </div>
+        <div id="race-grid" class="race-grid"></div>
+      </section>
+    </div>
+  `;
+}
+
+function renderInscriptionsChoiceView() {
+  return `
+    <div class="view-stack">
+      <section class="hero">
+        <h1>Inscriptions</h1>
+        <p class="hero-sub">
+          Selectionnez votre profil pour acceder au calendrier avec les boutons
+          d'inscription.
         </p>
       </section>
 
@@ -761,11 +1074,11 @@ function renderMeetingsChoiceView() {
           <h2>Je suis...</h2>
         </div>
         <div class="profile-choice-grid">
-          <a class="profile-choice-card profile-choice-card--commissaire" href="#/meetings/commissaire">
-            <span>COMMISSAIRE</span>
+          <a class="profile-choice-card profile-choice-card--commissaire" href="#/inscriptions/commissaire">
+            <span>COMMISSAIRE ET OFFICIELS</span>
           </a>
 
-          <a class="profile-choice-card profile-choice-card--pilote" href="#/meetings/pilote">
+          <a class="profile-choice-card profile-choice-card--pilote" href="#/inscriptions/pilote">
             <span>PILOTE</span>
           </a>
         </div>
@@ -773,8 +1086,41 @@ function renderMeetingsChoiceView() {
     </div>
   `;
 }
+function renderActualitesView() {
+  const commissaireProfile = PROFILE_CONTENT.commissaire;
+  const piloteProfile = PROFILE_CONTENT.pilote;
 
-function renderMeetingsProfileView(profileKey) {
+  return `
+    <div class="view-stack">
+      <section class="hero">
+        <h1>Actualites</h1>
+        <p class="hero-sub">
+          Retrouvez les dernieres actualites des commissaires et des pilotes.
+        </p>
+      </section>
+
+      <section class="section dual">
+        <div>
+          <div class="section-head">
+            <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>${escapeHtml(piloteProfile.sections.newsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(piloteProfile.newsFeed)}</div>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function renderMeetingsProfileView(
+  profileKey,
+  { showSignup = false, baseRoute = "meetings" } = {}
+) {
   const profile = PROFILE_CONTENT[profileKey];
   const currentFilter = meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER;
 
@@ -815,45 +1161,36 @@ function renderMeetingsProfileView(profileKey) {
         </div>
         <div id="race-grid" class="race-grid"></div>
       </section>
-
-      <section id="actualites" class="section dual">
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(profile.sections.newsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(profile.newsFeed)}</div>
-        </div>
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(profile.sections.resultsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(profile.resultsFeed)}</div>
-        </div>
-      </section>
     </div>
   `;
 }
 
-function renderMeetingCards(profileKey) {
+function renderMeetingCards(
+  profileKey,
+  { showSignup = false, baseRoute = "meetings" } = {}
+) {
   const profile = PROFILE_CONTENT[profileKey];
   const root = byId("race-grid");
   if (!root) return;
 
-  const meetings = getVisibleMeetings(
-    meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER
-  ).filter((meeting) =>
-    profileKey === "pilote"
-      ? canShowSignupForMeeting(profileKey, meeting)
-      : true
+  const meetings = getVisibleMeetings(meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER).filter(
+    (meeting) => {
+      if (!showSignup) return true;
+      return profileKey === "pilote"
+        ? canShowSignupForMeeting(profileKey, meeting)
+        : true;
+    }
   );
 
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
       const raceFormUrl = getRaceFormUrl(profile, meeting.id);
-      const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
+      const canShowSignup =
+        showSignup && canShowSignupForMeeting(profileKey, meeting);
       const externalUrl = getMeetingExternalUrl(meeting.id);
-      const detailHref = externalUrl || meetingDetailHref(profileKey, meeting.id);
+      const detailHref =
+        externalUrl || meetingDetailHref(profileKey, meeting.id, baseRoute);
       const detailLinkAttrs = externalUrl
         ? 'target="_blank" rel="noopener noreferrer"'
         : "";
@@ -865,10 +1202,11 @@ function renderMeetingCards(profileKey) {
           role="link"
           data-profile="${escapeHtml(profileKey)}"
           data-meeting-id="${escapeHtml(meeting.id)}"
+          data-base-route="${escapeHtml(baseRoute)}"
           aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
         >
           <p class="race-meta-line">
-            ${escapeHtml(meetingKindLabel(meeting.kind))} · ${escapeHtml(
+            ${escapeHtml(meetingKindLabel(meeting.kind))} - ${escapeHtml(
               meeting.date
             )}
           </p>
@@ -900,7 +1238,10 @@ function renderMeetingCards(profileKey) {
     .join("");
 }
 
-function bindMeetingsProfileEvents(profileKey) {
+function bindMeetingsProfileEvents(
+  profileKey,
+  { showSignup = false, baseRoute = "meetings" } = {}
+) {
   const filterButtons = Array.from(
     document.querySelectorAll(".js-meeting-filter-btn")
   );
@@ -921,7 +1262,7 @@ function bindMeetingsProfileEvents(profileKey) {
         const nextFilter = button.dataset.filterValue || DEFAULT_MEETING_FILTER;
         meetingFilterState[profileKey] = nextFilter;
         updateFilterButtonsState();
-        renderMeetingCards(profileKey);
+        renderMeetingCards(profileKey, { showSignup, baseRoute });
       });
     });
     updateFilterButtonsState();
@@ -946,7 +1287,7 @@ function bindMeetingsProfileEvents(profileKey) {
         return;
       }
 
-      window.location.hash = meetingDetailHref(cardProfile, meetingId);
+      window.location.hash = meetingDetailHref(cardProfile, meetingId, baseRoute);
     });
 
     raceGrid.addEventListener("keydown", (event) => {
@@ -968,14 +1309,18 @@ function bindMeetingsProfileEvents(profileKey) {
         return;
       }
 
-      window.location.hash = meetingDetailHref(cardProfile, meetingId);
+      window.location.hash = meetingDetailHref(cardProfile, meetingId, baseRoute);
     });
   }
 
-  renderMeetingCards(profileKey);
+  renderMeetingCards(profileKey, { showSignup, baseRoute });
 }
 
-function renderMeetingDetailView(profileKey, meetingId) {
+function renderMeetingDetailView(
+  profileKey,
+  meetingId,
+  { showSignup = false, baseRoute = "meetings" } = {}
+) {
   const profile = PROFILE_CONTENT[profileKey];
   const meeting = MEETINGS.find((entry) => entry.id === meetingId);
 
@@ -989,7 +1334,7 @@ function renderMeetingDetailView(profileKey, meetingId) {
               Le meeting demande n'existe pas ou son identifiant est invalide.
             </p>
           </div>
-          <a href="#/meetings" class="btn btn-primary">Retour au calendrier</a>
+          <a href="#/${escapeHtml(baseRoute)}" class="btn btn-primary">Retour au calendrier</a>
         </section>
       </div>
     `;
@@ -1012,14 +1357,15 @@ function renderMeetingDetailView(profileKey, meetingId) {
     profileKey === "pilote" &&
     !shouldRenderPilotMeetingSpecificDocs &&
     Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
-  const canShowSignup = canShowSignupForMeeting(profileKey, meeting);
+  const canShowSignup =
+    showSignup && canShowSignupForMeeting(profileKey, meeting);
   const promoterLogo = getMeetingPromoterLogo(meeting.id);
   const externalUrl = getMeetingExternalUrl(meeting.id);
   const signupButtonLabel =
     profileKey === "commissaire"
       ? "Formulaire d'inscription"
       : `Formulaire ${profile.label.toLowerCase()}`;
-  const secondaryCtaHref = externalUrl || `#/meetings/${profileKey}`;
+  const secondaryCtaHref = externalUrl || `#/${baseRoute}/${profileKey}`;
   const secondaryCtaLabel = externalUrl
     ? "Site officiel du rallye"
     : "Retour au calendrier";
@@ -1358,6 +1704,10 @@ function renderSkeletonPage(pageKey) {
     page.historyParagraphs &&
     page.historyParagraphs.length
   ) {
+    const commissionersPage = PAGE_SKELETONS.commissaires || {};
+    const pilotsPage = PAGE_SKELETONS.pilotes || {};
+    const partnersPage = PAGE_SKELETONS.partenaires || {};
+
     return `
       <div class="view-stack view-stack--info-pages">
         <section class="hero">
@@ -1365,19 +1715,97 @@ function renderSkeletonPage(pageKey) {
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
         </section>
 
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.historyTitle)}</h2>
+        <section class="section asa-layout">
+          <aside class="asa-timeline" aria-label="Navigation de la page La vie de l'ASA">
+            <p class="asa-timeline-title">Parcours</p>
+            <nav class="asa-timeline-list">
+              <button type="button" class="asa-timeline-btn js-vie-asa-nav-btn" data-target-id="vie-asa-histoire">
+                Histoire de l'ASA
+              </button>
+              <button type="button" class="asa-timeline-btn js-vie-asa-nav-btn" data-target-id="vie-asa-commissaires">
+                Nos commissaires
+              </button>
+              <button type="button" class="asa-timeline-btn js-vie-asa-nav-btn" data-target-id="vie-asa-pilotes">
+                Nos pilotes
+              </button>
+              <button type="button" class="asa-timeline-btn js-vie-asa-nav-btn" data-target-id="vie-asa-partenaires">
+                Nos partenaires
+              </button>
+            </nav>
+          </aside>
+
+          <div class="asa-content">
+            <article id="vie-asa-histoire" class="panel narrative-panel asa-section-anchor">
+              <h2>${escapeHtml(page.historyTitle)}</h2>
+              ${page.historyParagraphs
+                .map(
+                  (paragraph) => `
+                    <p>${escapeHtml(paragraph)}</p>
+                  `
+                )
+                .join("")}
+            </article>
+
+            <article id="vie-asa-commissaires" class="panel narrative-panel asa-section-anchor">
+              <h2>${escapeHtml(
+                commissionersPage.commissionerTitle || "Nos commissaires"
+              )}</h2>
+              ${(commissionersPage.commissionerParagraphs || [])
+                .map(
+                  (paragraph) => `
+                    <p>${escapeHtml(paragraph)}</p>
+                  `
+                )
+                .join("")}
+              ${
+                commissionersPage.commissionerTrainingLink
+                  ? `
+                    <div class="link-row">
+                      <a
+                        href="${escapeHtml(commissionersPage.commissionerTrainingLink)}"
+                        class="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ${escapeHtml(
+                          commissionersPage.commissionerTrainingLabel ||
+                            "Se former et debuter"
+                        )}
+                      </a>
+                    </div>
+                  `
+                  : ""
+              }
+            </article>
+
+            <article id="vie-asa-pilotes" class="panel narrative-panel asa-section-anchor">
+              <h2>Nos pilotes</h2>
+              <p>${escapeHtml(
+                pilotsPage.intro ||
+                  "Contenu pilotes en cours de structuration."
+              )}</p>
+              <p>${escapeHtml(PROFILE_CONTENT.pilote.heroSubtitle)}</p>
+            </article>
+
+            <section id="vie-asa-partenaires" class="asa-section-anchor">
+              <article class="panel">
+                <h2>${escapeHtml(partnersPage.annualPartnersTitle || "Nos partenaires")}</h2>
+                <div class="partner-grid">
+                  ${renderPartnerCards(partnersPage.annualPartners || [])}
+                </div>
+              </article>
+
+              <article class="panel asa-partners-subpanel">
+                <h3>${escapeHtml(
+                  partnersPage.urcyPartnersTitle ||
+                    "Partenaires Urcy"
+                )}</h3>
+                <div class="partner-grid">
+                  ${renderPartnerCards(partnersPage.urcyPartners || [])}
+                </div>
+              </article>
+            </section>
           </div>
-          <article class="panel narrative-panel">
-            ${page.historyParagraphs
-              .map(
-                (paragraph) => `
-                  <p>${escapeHtml(paragraph)}</p>
-                `
-              )
-              .join("")}
-          </article>
         </section>
       </div>
     `;
@@ -1452,6 +1880,26 @@ function renderNotFoundView() {
   `;
 }
 
+function bindVieAsaTimelineEvents() {
+  const buttons = Array.from(document.querySelectorAll(".js-vie-asa-nav-btn"));
+  if (!buttons.length) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.dataset.targetId || "";
+      if (!targetId) return;
+
+      const target = byId(targetId);
+      if (!target) return;
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  });
+}
+
 function updateDocumentTitle(route) {
   const suffix = "ASA Prenois Bourgogne";
 
@@ -1461,13 +1909,20 @@ function updateDocumentTitle(route) {
   }
 
   if (route.type === "meetings-choice") {
-    document.title = `Calendrier | ${suffix}`;
+    const pageLabel = route.signupEnabled ? "Inscriptions" : "Calendrier";
+    document.title = `${pageLabel} | ${suffix}`;
+    return;
+  }
+
+  if (route.type === "actualites") {
+    document.title = `Actualites | ${suffix}`;
     return;
   }
 
   if (route.type === "meetings-profile") {
     const profile = PROFILE_CONTENT[route.profileKey];
-    document.title = `Meetings ${profile.label} | ${suffix}`;
+    const pageLabel = route.signupEnabled ? "Inscriptions" : "Calendrier";
+    document.title = `${pageLabel} ${profile.label} | ${suffix}`;
     return;
   }
 
@@ -1492,6 +1947,7 @@ function renderCurrentRoute() {
   if (!appRoot) return;
 
   clearAccueilCountdown();
+  clearFeedCarouselsAutoPlay();
 
   const route = parseRoute();
   updateActiveNav(route.navKey);
@@ -1500,22 +1956,47 @@ function renderCurrentRoute() {
   if (route.type === "accueil") {
     appRoot.innerHTML = renderAccueilView();
     bindAccueilCountdown();
+    bindFeedCarousels();
     return;
   }
 
   if (route.type === "meetings-choice") {
-    appRoot.innerHTML = renderMeetingsChoiceView();
+    appRoot.innerHTML = route.signupEnabled
+      ? renderInscriptionsChoiceView()
+      : renderMeetingsChoiceView();
+    if (!route.signupEnabled) {
+      bindMeetingsProfileEvents("commissaire", {
+        showSignup: false,
+        baseRoute: "meetings",
+      });
+    }
+    return;
+  }
+
+  if (route.type === "actualites") {
+    appRoot.innerHTML = renderActualitesView();
+    bindFeedCarousels();
     return;
   }
 
   if (route.type === "meetings-profile") {
-    appRoot.innerHTML = renderMeetingsProfileView(route.profileKey);
-    bindMeetingsProfileEvents(route.profileKey);
+    appRoot.innerHTML = renderMeetingsProfileView(route.profileKey, {
+      showSignup: Boolean(route.signupEnabled),
+      baseRoute: route.baseRoute || "meetings",
+    });
+    bindMeetingsProfileEvents(route.profileKey, {
+      showSignup: Boolean(route.signupEnabled),
+      baseRoute: route.baseRoute || "meetings",
+    });
+    bindFeedCarousels();
     return;
   }
 
   if (route.type === "meeting-detail") {
-    appRoot.innerHTML = renderMeetingDetailView(route.profileKey, route.meetingId);
+    appRoot.innerHTML = renderMeetingDetailView(route.profileKey, route.meetingId, {
+      showSignup: Boolean(route.signupEnabled),
+      baseRoute: route.baseRoute || "meetings",
+    });
     applyMeetingHeroBackground(route.meetingId);
     bindMeetingDetailEvents(route.profileKey, route.meetingId);
     return;
@@ -1525,6 +2006,9 @@ function renderCurrentRoute() {
     appRoot.innerHTML = renderSkeletonPage(route.pageKey);
     if (route.pageKey === "contact") {
       bindContactCopyEmailEvents();
+    }
+    if (route.pageKey === "vie-asa") {
+      bindVieAsaTimelineEvents();
     }
     return;
   }

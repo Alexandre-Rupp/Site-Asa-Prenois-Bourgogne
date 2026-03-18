@@ -3,10 +3,10 @@ export const TARGET_YEAR = "2026";
 export const NAV_ITEMS = [
   { key: "accueil", label: "ACCUEIL", href: "#/accueil" },
   { key: "meetings", label: "CALENDRIER", href: "#/meetings" },
-  { key: "commissaires", label: "COMMISSAIRES", href: "#/commissaires" },
-  { key: "pilotes", label: "PILOTES", href: "#/pilotes" },
+  { key: "inscriptions", label: "INSCRIPTIONS", href: "#/inscriptions" },
+  { key: "actualites", label: "ACTUALITES", href: "#/actualites" },
+  { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "#/commissaires" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
-  { key: "partenaires", label: "NOS PARTENAIRES", href: "#/partenaires" },
   { key: "contact", label: "CONTACTS", href: "#/contact" },
 ];
 
@@ -280,6 +280,12 @@ export const PROFILE_CONTENT = {
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
         r3: "https://forms.office.com/r/ncBaNgw8T4",
+        r5: "https://forms.office.com/r/8DFcU05LJN",
+        r6: "https://forms.office.com/r/acKvMAf6Hk",
+        r7: "https://forms.office.com/r/6PRUYFZ5Lu",
+        r8: "https://forms.office.com/r/Qq9W4kr0PV",
+        r9: "https://forms.office.com/r/ePS24dmxd9",
+        r12: "https://forms.office.com/r/SPSGZyNuPY",
       },
     },
     sections: {
@@ -295,6 +301,41 @@ export const PROFILE_CONTENT = {
         "Inscription par meeting: envoyez une reponse pour chaque course souhaitee.",
     },
     newsFeed: [
+      {
+        title: "Formation Commissaire",
+        date: "18 mars 2026",
+        text: "Texte a venir.",
+        images: [
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-01.jpg",
+            alt: "Formation commissaire - exercice drapeaux en virage",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-02.jpg",
+            alt: "Formation commissaire - briefing de groupe",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-03.jpg",
+            alt: "Formation commissaire - photo de binome",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-04.jpg",
+            alt: "Formation commissaire - demonstration en piste",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-05.jpg",
+            alt: "Formation commissaire - echanges en bord de piste",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-06.jpg",
+            alt: "Formation commissaire - atelier drapeaux",
+          },
+          {
+            src: "assets/news/formation-commissaire/formation-commissaire-07.jpg",
+            alt: "Formation commissaire - poste T6",
+          },
+        ],
+      },
       {
         title: "Ouverture des inscriptions saison 2026",
         date: "15 fevrier 2026",
