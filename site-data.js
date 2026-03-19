@@ -1,3 +1,4 @@
+// Central content registry (text, menus, meetings, links) used by the SPA.
 export const TARGET_YEAR = "2026";
 
 export const NAV_ITEMS = [

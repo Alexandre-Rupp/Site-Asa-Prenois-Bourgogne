@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260318-23" />
+    <link rel="stylesheet" href="styles.css?v=20260319-1" />
   </head>
   <body>
     <div class="site-bg"></div>
@@ -26,8 +26,17 @@
           alt="Logo ASA Prenois Bourgogne"
         />
       </a>
+      <button
+        type="button"
+        class="nav-toggle js-nav-toggle"
+        aria-expanded="false"
+        aria-controls="site-main-nav"
+        aria-label="Ouvrir le menu principal"
+      >
+        <span class="nav-toggle-line" aria-hidden="true"></span>
+      </button>
       <div class="topbar-right">
-        <nav class="main-nav" aria-label="Navigation principale">
+        <nav id="site-main-nav" class="main-nav" aria-label="Navigation principale">
           <a href="#/accueil" data-nav="accueil">ACCUEIL</a>
           <a href="#/meetings" data-nav="meetings">CALENDRIER</a>
           <a href="#/inscriptions" data-nav="inscriptions">INSCRIPTIONS</a>
@@ -37,6 +46,7 @@
           <a href="#/contact" data-nav="contact">CONTACTS</a>
         </nav>
         <a
+          class="ffsa-link"
           href="https://www.ffsa.org/"
           target="_blank"
           rel="noopener noreferrer"
@@ -66,6 +76,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260318-34"></script>
+    <script type="module" src="app.js?v=20260319-1"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
-﻿import {
+// Main application orchestrator: renders views and binds feature modules.
+import {
   CONTACT_PAGE_CONTENT,
   LEGAL_PAGE_CONTENT,
   MEETINGS,
@@ -10,6 +11,13 @@
   PROFILE_CONTENT,
   TARGET_YEAR,
 } from "./site-data.js?v=20260318-2";
+import { parseRoute, updateDocumentTitle } from "./src/core/routing.js";
+import {
+  createTopbarMenuController,
+  scrollPageToTop,
+  updateActiveNav,
+} from "./src/core/topbar-menu.js";
+import { byId, escapeHtml } from "./src/utils/dom.js";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -27,6 +35,7 @@ const MONTH_INDEX = {
 };
 
 const DEFAULT_ROUTE_HASH = "#/accueil";
+const MOBILE_NAV_BREAKPOINT = 980;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const DEFAULT_MEETING_FILTER = "all";
 const MEETING_FILTER_OPTIONS = [
@@ -92,20 +101,12 @@ const pilotMeetingVehicleFilterState = {
   "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
 };
 const meetingBackgroundPathCache = new Map();
+let topbarHeightRafId = null;
+let topbarMenuController = null;
 const feedCarouselAutoPlayIntervalIds = new Set();
 let accueilCountdownIntervalId = null;
 
-const byId = (id) => document.getElementById(id);
-
-function escapeHtml(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
+// Shared rendering helpers.
 function renderFeedCarousel(images, title, carouselId) {
   const normalizedImages = (images || [])
     .map((image, index) => {
@@ -357,113 +358,7 @@ function renderPartnerCards(partners) {
     .join("");
 }
 
-function normalizeHash(hashValue) {
-  const withoutHash = String(hashValue || "").replace(/^#/, "").trim();
-  if (!withoutHash) return "/accueil";
-
-  const withLeadingSlash = withoutHash.startsWith("/")
-    ? withoutHash
-    : `/${withoutHash}`;
-
-  const collapsed = withLeadingSlash.replace(/\/+/g, "/");
-  if (collapsed === "/") return "/accueil";
-
-  return collapsed.endsWith("/") ? collapsed.slice(0, -1) : collapsed;
-}
-
-function parseProfileAreaRoute({
-  segments,
-  baseRoute,
-  navKey,
-  signupEnabled,
-}) {
-  if (!segments[1]) {
-    return {
-      type: "meetings-choice",
-      navKey,
-      baseRoute,
-      signupEnabled,
-    };
-  }
-
-  if (!PROFILE_CONTENT[segments[1]]) {
-    return { type: "not-found", navKey };
-  }
-
-  if (!segments[2]) {
-    return {
-      type: "meetings-profile",
-      navKey,
-      profileKey: segments[1],
-      baseRoute,
-      signupEnabled,
-    };
-  }
-
-  return {
-    type: "meeting-detail",
-    navKey,
-    profileKey: segments[1],
-    meetingId: segments[2],
-    baseRoute,
-    signupEnabled,
-  };
-}
-
-function parseRoute() {
-  const normalizedPath = normalizeHash(window.location.hash);
-  const segments = normalizedPath
-    .split("/")
-    .filter(Boolean)
-    .map((part) => decodeURIComponent(part));
-
-  if (segments.length === 0 || segments[0] === "accueil") {
-    return { type: "accueil", navKey: "accueil" };
-  }
-
-  if (segments[0] === "actualites") {
-    return { type: "actualites", navKey: "actualites" };
-  }
-
-  if (segments[0] === "meetings") {
-    return parseProfileAreaRoute({
-      segments,
-      baseRoute: "meetings",
-      navKey: "meetings",
-      signupEnabled: false,
-    });
-  }
-
-  if (segments[0] === "inscriptions") {
-    return parseProfileAreaRoute({
-      segments,
-      baseRoute: "inscriptions",
-      navKey: "inscriptions",
-      signupEnabled: true,
-    });
-  }
-
-  if (PAGE_SKELETONS[segments[0]]) {
-    return { type: "page", navKey: segments[0], pageKey: segments[0] };
-  }
-
-  return { type: "not-found", navKey: "accueil" };
-}
-
-function updateActiveNav(navKey) {
-  document.querySelectorAll(".main-nav a[data-nav]").forEach((link) => {
-    const isActive = link.dataset.nav === navKey;
-    link.classList.toggle("is-active", isActive);
-
-    if (isActive) {
-      link.setAttribute("aria-current", "page");
-      return;
-    }
-
-    link.removeAttribute("aria-current");
-  });
-}
-
+// Meetings domain logic.
 function parseMeetingDate(dateLabel) {
   const lower = String(dateLabel || "").toLowerCase();
   const firstDayMatch = lower.match(/\d{1,2}/);
@@ -1900,48 +1795,7 @@ function bindVieAsaTimelineEvents() {
   });
 }
 
-function updateDocumentTitle(route) {
-  const suffix = "ASA Prenois Bourgogne";
-
-  if (route.type === "accueil") {
-    document.title = `Accueil | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meetings-choice") {
-    const pageLabel = route.signupEnabled ? "Inscriptions" : "Calendrier";
-    document.title = `${pageLabel} | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "actualites") {
-    document.title = `Actualites | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meetings-profile") {
-    const profile = PROFILE_CONTENT[route.profileKey];
-    const pageLabel = route.signupEnabled ? "Inscriptions" : "Calendrier";
-    document.title = `${pageLabel} ${profile.label} | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "meeting-detail") {
-    const meeting = MEETINGS.find((item) => item.id === route.meetingId);
-    const label = meeting ? meeting.name : "Meeting";
-    document.title = `${label} | ${suffix}`;
-    return;
-  }
-
-  if (route.type === "page") {
-    const page = PAGE_SKELETONS[route.pageKey];
-    document.title = `${page.title} | ${suffix}`;
-    return;
-  }
-
-  document.title = `Page introuvable | ${suffix}`;
-}
-
+// Route lifecycle and view orchestration.
 function renderCurrentRoute() {
   const appRoot = byId("app");
   if (!appRoot) return;
@@ -1949,9 +1803,21 @@ function renderCurrentRoute() {
   clearAccueilCountdown();
   clearFeedCarouselsAutoPlay();
 
-  const route = parseRoute();
+  const route = parseRoute({
+    hashValue: window.location.hash,
+    profileContent: PROFILE_CONTENT,
+    pageSkeletons: PAGE_SKELETONS,
+  });
   updateActiveNav(route.navKey);
-  updateDocumentTitle(route);
+  updateDocumentTitle(route, {
+    profileContent: PROFILE_CONTENT,
+    pageSkeletons: PAGE_SKELETONS,
+    meetings: MEETINGS,
+  });
+  if (topbarMenuController) {
+    topbarMenuController.closeMenu();
+  }
+  scrollPageToTop();
 
   if (route.type === "accueil") {
     appRoot.innerHTML = renderAccueilView();
@@ -2041,13 +1907,40 @@ function bindContactCopyEmailEvents() {
   });
 }
 
+function updateTopbarHeightVar() {
+  if (topbarHeightRafId !== null) {
+    window.cancelAnimationFrame(topbarHeightRafId);
+  }
+
+  topbarHeightRafId = window.requestAnimationFrame(() => {
+    const topbar = document.querySelector(".topbar");
+    const height = topbar
+      ? Math.max(0, Math.round(topbar.getBoundingClientRect().height))
+      : 84;
+    document.documentElement.style.setProperty("--topbar-height", `${height}px`);
+    topbarHeightRafId = null;
+  });
+}
+
+// Application bootstrap.
 function mount() {
   if (!window.location.hash) {
     window.location.hash = DEFAULT_ROUTE_HASH;
   }
 
+  topbarMenuController = createTopbarMenuController({
+    onMenuStateChange: updateTopbarHeightVar,
+  });
+  topbarMenuController.bindEvents();
+  updateTopbarHeightVar();
   renderCurrentRoute();
   window.addEventListener("hashchange", renderCurrentRoute);
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > MOBILE_NAV_BREAKPOINT && topbarMenuController) {
+      topbarMenuController.closeMenu();
+    }
+    updateTopbarHeightVar();
+  });
 }
 
 mount();
