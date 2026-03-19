@@ -37,6 +37,7 @@ const MONTH_INDEX = {
 const DEFAULT_ROUTE_HASH = "#/accueil";
 const MOBILE_NAV_BREAKPOINT = 980;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
+const FEED_TEXT_PREVIEW_LENGTH = 170;
 const DEFAULT_MEETING_FILTER = "all";
 const MEETING_FILTER_OPTIONS = [
   { value: "all", label: "Tous" },
@@ -80,8 +81,8 @@ const MEETING_PROMOTER_LOGOS = {
     alt: "Logo Championnat de France GT4",
   },
   r5: {
-    src: "assets/promoters/porsche-driving-emotion.png",
-    alt: "Logo Porsche Sprint Challenge",
+    src: "assets/promoters/porsche.png",
+    alt: "Logo Porsche Sprint Challenge France",
   },
   r6: { src: "assets/promoters/peter-auto.jpg", alt: "Logo Peter Auto" },
   r7: { src: "assets/promoters/tte-2016.png", alt: "Logo Trophee Tourisme Endurance" },
@@ -107,6 +108,50 @@ const feedCarouselAutoPlayIntervalIds = new Set();
 let accueilCountdownIntervalId = null;
 
 // Shared rendering helpers.
+function normalizeTextContent(value) {
+  return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function createFeedPreviewText(fullText, maxLength = FEED_TEXT_PREVIEW_LENGTH) {
+  if (!fullText || fullText.length <= maxLength) return fullText;
+
+  const clipped = fullText.slice(0, maxLength);
+  const safeBoundary = clipped.lastIndexOf(" ");
+  const preview = safeBoundary > 30 ? clipped.slice(0, safeBoundary) : clipped;
+  return `${preview.trim()}...`;
+}
+
+function renderFeedItemText(item) {
+  const fullText = normalizeTextContent(item?.text || "");
+  if (!fullText) return "";
+
+  const previewText = normalizeTextContent(
+    item?.previewText || createFeedPreviewText(fullText)
+  );
+  const shouldCollapse = Boolean(item?.collapsibleText) || fullText !== previewText;
+
+  if (!shouldCollapse) {
+    return `<p>${escapeHtml(fullText)}</p>`;
+  }
+
+  return `
+    <p
+      class="feed-text js-feed-text"
+      data-preview-text="${escapeHtml(previewText)}"
+      data-full-text="${escapeHtml(fullText)}"
+    >
+      ${escapeHtml(previewText)}
+    </p>
+    <button
+      type="button"
+      class="feed-read-more-btn js-feed-read-more-btn"
+      aria-expanded="false"
+    >
+      Lire
+    </button>
+  `;
+}
+
 function renderFeedCarousel(images, title, carouselId) {
   const normalizedImages = (images || [])
     .map((image, index) => {
@@ -213,12 +258,34 @@ function renderFeedItems(items) {
       <article class="feed-item">
         <p class="small">${escapeHtml(item.date)}</p>
         <h4>${escapeHtml(item.title)}</h4>
-        <p>${escapeHtml(item.text)}</p>
+        ${renderFeedItemText(item)}
         ${renderFeedCarousel(item.images, item.title, `feed-carousel-${index}`)}
       </article>
     `
     )
     .join("");
+}
+
+function bindFeedExpandableText() {
+  const buttons = Array.from(document.querySelectorAll(".js-feed-read-more-btn"));
+  if (!buttons.length) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const container = button.closest(".feed-item");
+      const textNode = container?.querySelector(".js-feed-text");
+      if (!textNode) return;
+
+      const previewText = textNode.dataset.previewText || "";
+      const fullText = textNode.dataset.fullText || previewText;
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+      const nextExpanded = !isExpanded;
+
+      textNode.textContent = nextExpanded ? fullText : previewText;
+      button.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+      button.textContent = nextExpanded ? "Replier" : "Lire";
+    });
+  });
 }
 
 function bindFeedCarousels() {
@@ -1823,6 +1890,7 @@ function renderCurrentRoute() {
     appRoot.innerHTML = renderAccueilView();
     bindAccueilCountdown();
     bindFeedCarousels();
+    bindFeedExpandableText();
     return;
   }
 
@@ -1842,6 +1910,7 @@ function renderCurrentRoute() {
   if (route.type === "actualites") {
     appRoot.innerHTML = renderActualitesView();
     bindFeedCarousels();
+    bindFeedExpandableText();
     return;
   }
 
@@ -1855,6 +1924,7 @@ function renderCurrentRoute() {
       baseRoute: route.baseRoute || "meetings",
     });
     bindFeedCarousels();
+    bindFeedExpandableText();
     return;
   }
 

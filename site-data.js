@@ -305,7 +305,9 @@ export const PROFILE_CONTENT = {
       {
         title: "Formation Commissaire",
         date: "18 mars 2026",
-        text: "Texte a venir.",
+        text:
+          "Une journee benefique pour tous et bien chargee, un nombre de benevoles present exceptionnel sous un magnifique soleil. Une equipe de formateur tres professionnel, qui a su faire passer avec un langage simple les messages essentiels. Tout le monde est ravi, le debut de saison a bien demarre dans une superbe ambiance. Tout le monde est ravi, le debut de saison a bien demarre dans une superbe ambiance.",
+        collapsibleText: true,
         images: [
           {
             src: "assets/news/formation-commissaire/formation-commissaire-01.jpg",
