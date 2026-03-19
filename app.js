@@ -73,8 +73,19 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
     },
   ],
 };
+const MEETING_SHARED_DOCUMENTS = {
+  r14: [
+    {
+      title: "Tour de Bourgogne - Document",
+      description: "Document PDF du Tour de Bourgogne.",
+      href: "assets/meetings/Tour de Bourgogne.pdf",
+      ctaLabel: "Ouvrir le document",
+    },
+  ],
+};
 const MEETING_PROMOTER_LOGOS = {
   r1: { src: "assets/promoters/fun-racing-cars.png", alt: "Logo Fun Racing Cars" },
+  r2: { src: "assets/promoters/Catheram.jpg", alt: "Logo Caterham" },
   r3: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
   r4: {
     src: "assets/promoters/gt4.png",
@@ -92,6 +103,11 @@ const MEETING_PROMOTER_LOGOS = {
     src: "assets/promoters/coupe-de-france-des-circuits.jpg",
     alt: "Logo Coupe de France des Circuits",
   },
+};
+const MEETING_BACKGROUND_OVERRIDES = {
+  r10: "assets/meetings/Poster Coupe de France (7).png",
+  r12: "assets/meetings/urcy.jpg",
+  r13: "assets/meetings/Rallye de l'Auxois.jpg",
 };
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
@@ -509,10 +525,15 @@ function compactAssetBaseName(value) {
 
 function getMeetingBackgroundBaseNames(meeting) {
   const rawName = String(meeting?.name || "").trim();
+  const rawLocation = String(meeting?.location || "").trim();
   const slugName = slugifyAssetBaseName(rawName);
   const compactName = compactAssetBaseName(rawName);
+  const slugLocation = slugifyAssetBaseName(rawLocation);
+  const compactLocation = compactAssetBaseName(rawLocation);
   const hyphenated = rawName.replace(/\s+/g, "-");
   const underscored = rawName.replace(/\s+/g, "_");
+  const locationHyphenated = rawLocation.replace(/\s+/g, "-");
+  const locationUnderscored = rawLocation.replace(/\s+/g, "_");
 
   const names = [
     meeting?.id || "",
@@ -522,7 +543,14 @@ function getMeetingBackgroundBaseNames(meeting) {
     underscored,
     slugName,
     compactName,
+    rawLocation,
+    rawLocation.toLowerCase(),
+    locationHyphenated,
+    locationUnderscored,
+    slugLocation,
+    compactLocation,
     `${meeting?.id || ""}-${slugName}`,
+    `${meeting?.id || ""}-${slugLocation}`,
   ];
 
   return [...new Set(names.filter(Boolean))];
@@ -532,6 +560,11 @@ function getMeetingBackgroundCandidates(meeting) {
   const baseNames = getMeetingBackgroundBaseNames(meeting);
   const candidates = [];
   const folders = ["assets/meetings", "assets"];
+  const overridePath = MEETING_BACKGROUND_OVERRIDES[meeting?.id];
+
+  if (overridePath) {
+    candidates.push(overridePath);
+  }
 
   folders.forEach((folder) => {
     baseNames.forEach((baseName) => {
@@ -872,38 +905,11 @@ function renderAccueilView() {
         }
       </section>
 
-      <section class="section">
+      <section id="actualites" class="section">
         <div class="section-head">
-          <h2>Acces rapide</h2>
-          <p>Choisissez une section principale du site.</p>
+          <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
         </div>
-        <div class="home-grid">
-          ${NAV_ITEMS.filter((item) => item.key !== "accueil")
-            .map(
-              (item) => `
-                <a class="home-card" href="${escapeHtml(item.href)}">
-                  <h3>${escapeHtml(item.label)}</h3>
-                  <p>Ouvrir la page ${escapeHtml(item.label.toLowerCase())}.</p>
-                </a>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
-
-      <section id="actualites" class="section dual">
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
-        </div>
-        <div>
-          <div class="section-head">
-            <h2>${escapeHtml(commissaireProfile.sections.resultsTitle)}</h2>
-          </div>
-          <div class="feed-list">${renderFeedItems(commissaireProfile.resultsFeed)}</div>
-        </div>
+        <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
       </section>
     </div>
   `;
@@ -1310,11 +1316,15 @@ function renderMeetingDetailView(
     profileKey === "commissaire"
       ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
       : [];
+  const sharedMeetingDocs = MEETING_SHARED_DOCUMENTS[meeting.id] || [];
   const shouldShowCommissaireComingSoon =
-    profileKey === "commissaire" && meeting.id !== "r3";
+    profileKey === "commissaire" &&
+    !commissaireMeetingDocs.length &&
+    !sharedMeetingDocs.length;
   const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
   const shouldRenderCommissaireMeetingDocs =
     !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
+  const shouldRenderSharedMeetingDocs = sharedMeetingDocs.length > 0;
   const shouldRenderVehicleTypeDocs =
     profileKey === "pilote" &&
     !shouldRenderPilotMeetingSpecificDocs &&
@@ -1415,8 +1425,9 @@ function renderMeetingDetailView(
                 <p>Arrive prochainement.</p>
               `
               : shouldRenderVehicleTypeDocs ||
-            shouldRenderPilotMeetingSpecificDocs ||
-            shouldRenderCommissaireMeetingDocs
+                shouldRenderPilotMeetingSpecificDocs ||
+                shouldRenderCommissaireMeetingDocs ||
+                shouldRenderSharedMeetingDocs
               ? ""
               : `
                 <p>
@@ -1455,6 +1466,11 @@ function renderMeetingDetailView(
               </div>
             `
         }
+          ${
+            shouldRenderSharedMeetingDocs
+              ? renderCommissaireMeetingDocsContent(sharedMeetingDocs)
+              : ""
+          }
       </section>
     </div>
   `;
@@ -1657,6 +1673,25 @@ function renderSkeletonPage(pageKey) {
               : ""
           }
         </section>
+        ${
+          page.commissionerTrainingImages &&
+          page.commissionerTrainingImages.length
+            ? `
+              <section class="section">
+                <div class="section-head">
+                  <h2>${escapeHtml(
+                    page.commissionerTrainingGalleryTitle || "Formation incendie"
+                  )}</h2>
+                </div>
+                ${renderFeedCarousel(
+                  page.commissionerTrainingImages,
+                  page.commissionerTrainingGalleryTitle || "Formation incendie",
+                  "commissaires-training-carousel"
+                )}
+              </section>
+            `
+            : ""
+        }
       </div>
     `;
   }
@@ -1945,6 +1980,9 @@ function renderCurrentRoute() {
     }
     if (route.pageKey === "vie-asa") {
       bindVieAsaTimelineEvents();
+    }
+    if (route.pageKey === "commissaires") {
+      bindFeedCarousels();
     }
     return;
   }
