@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260318-2";
+} from "./site-data.js?v=20260320-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -421,27 +421,45 @@ function bindFeedCarousels() {
 
 function renderPartnerCards(partners) {
   return (partners || [])
-    .map(
-      (partner) => `
+    .map((partner) => {
+      const cardInner = `
+        ${
+          partner.logo
+            ? `
+              <div class="partner-logo-wrap">
+                <img
+                  class="partner-logo"
+                  src="${escapeHtml(partner.logo)}"
+                  alt="Logo ${escapeHtml(partner.name)}"
+                  loading="lazy"
+                />
+              </div>
+            `
+            : ""
+        }
+        <h3>${escapeHtml(partner.name)}</h3>
+      `;
+
+      if (partner.url) {
+        return `
+          <a
+            class="partner-card partner-card-link"
+            href="${escapeHtml(partner.url)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ouvrir le site ${escapeHtml(partner.name)}"
+          >
+            ${cardInner}
+          </a>
+        `;
+      }
+
+      return `
         <article class="partner-card">
-          ${
-            partner.logo
-              ? `
-                <div class="partner-logo-wrap">
-                  <img
-                    class="partner-logo"
-                    src="${escapeHtml(partner.logo)}"
-                    alt="Logo ${escapeHtml(partner.name)}"
-                    loading="lazy"
-                  />
-                </div>
-              `
-              : ""
-          }
-          <h3>${escapeHtml(partner.name)}</h3>
+          ${cardInner}
         </article>
-      `
-    )
+      `;
+    })
     .join("");
 }
 
@@ -651,6 +669,14 @@ function getRaceFormUrl(profile, meetingId) {
   return (
     profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
   );
+}
+
+function isSignupClosedForMeeting(profile, meetingId) {
+  if (!profile || !profile.forms) return false;
+  if (profile.forms.signupClosedAll) return true;
+
+  const closedMeetingIds = profile.forms.closedRaceFormsByMeeting;
+  return Array.isArray(closedMeetingIds) && closedMeetingIds.includes(meetingId);
 }
 
 function canShowSignupForMeeting(profileKey, meeting) {
@@ -1158,9 +1184,12 @@ function renderMeetingCards(
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
-      const raceFormUrl = getRaceFormUrl(profile, meeting.id);
       const canShowSignup =
         showSignup && canShowSignupForMeeting(profileKey, meeting);
+      const isSignupClosed =
+        canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
+      const raceFormUrl =
+        canShowSignup && !isSignupClosed ? getRaceFormUrl(profile, meeting.id) : "#";
       const externalUrl = getMeetingExternalUrl(meeting.id);
       const detailHref =
         externalUrl || meetingDetailHref(profileKey, meeting.id, baseRoute);
@@ -1190,14 +1219,24 @@ function renderMeetingCards(
             ${
               canShowSignup
                 ? `
-                  <a
-                    class="btn btn-primary race-signup-link"
-                    href="${escapeHtml(raceFormUrl)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    S'inscrire
-                  </a>
+                  ${
+                    isSignupClosed
+                      ? `
+                        <button type="button" class="btn btn-primary race-signup-link" disabled>
+                          Inscriptions fermees
+                        </button>
+                      `
+                      : `
+                        <a
+                          class="btn btn-primary race-signup-link"
+                          href="${escapeHtml(raceFormUrl)}"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          S'inscrire
+                        </a>
+                      `
+                  }
                 `
                 : ""
             }
@@ -1336,6 +1375,7 @@ function renderMeetingDetailView(
     Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
   const canShowSignup =
     showSignup && canShowSignupForMeeting(profileKey, meeting);
+  const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
   const promoterLogo = getMeetingPromoterLogo(meeting.id);
   const externalUrl = getMeetingExternalUrl(meeting.id);
   const signupButtonLabel =
@@ -1380,14 +1420,24 @@ function renderMeetingDetailView(
           ${
             canShowSignup
               ? `
-                <a
-                  class="btn btn-primary"
-                  href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  ${escapeHtml(signupButtonLabel)}
-                </a>
+                ${
+                  isSignupClosed
+                    ? `
+                      <button type="button" class="btn btn-primary" disabled>
+                        Inscriptions fermees
+                      </button>
+                    `
+                    : `
+                      <a
+                        class="btn btn-primary"
+                        href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ${escapeHtml(signupButtonLabel)}
+                      </a>
+                    `
+                }
               `
               : ""
           }
