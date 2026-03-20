@@ -31,6 +31,15 @@ Puis ouvrir `http://localhost:5500`.
 4. Vie de l'ASA:
    - navigation "Parcours" visible sur mobile
 
+## Verification automatique
+Avant chaque push:
+
+```powershell
+node --check app.js
+node --check src/core/routing.js
+node tools/check-quality.cjs
+```
+
 ## Règles de commit
 - Message clair et orienté impact.
 - Un commit = une intention principale.

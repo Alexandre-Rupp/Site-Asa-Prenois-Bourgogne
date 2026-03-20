@@ -215,10 +215,16 @@ function getSeoPayload(
 
   if (route.type === "meeting-detail") {
     const meeting = meetings.find((item) => item.id === route.meetingId);
+    const profile = profileContent[route.profileKey];
     const label = meeting ? meeting.name : "Meeting";
+    const areaTitle = route.signupEnabled ? "Inscriptions" : "Meetings";
+    const profileLabel = profile?.label ? ` ${profile.label.toLowerCase()}` : "";
+    const prefix = route.signupEnabled
+      ? "Informations et acces inscription du meeting"
+      : "Informations officielles du meeting";
     return {
-      title: `${label} - Meetings ${siteName}`,
-      description: `Informations officielles du meeting ${label} (${meeting?.date || ""}) organise par l'ASA Prenois Bourgogne.`,
+      title: `${label} - ${areaTitle} ${siteName}`,
+      description: `${prefix}${profileLabel} ${label} (${meeting?.date || ""}) organise par l'ASA Prenois Bourgogne.`,
       robots: "index, follow",
     };
   }
@@ -277,6 +283,7 @@ export function updateDocumentSeo(
     meetings,
     canonicalOrigin = "https://asa-prenois-bourgogne.fr",
     siteName = "ASA Prenois Bourgogne",
+    socialImagePath = "/assets/logo-asa-prenois-bourgogne.png",
   }
 ) {
   const seo = getSeoPayload(route, {
@@ -290,14 +297,27 @@ export function updateDocumentSeo(
       ? route.canonicalPath
       : "/";
   const canonicalUrl = new URL(canonicalPath, canonicalOrigin).toString();
+  const socialImageUrl = new URL(socialImagePath, canonicalOrigin).toString();
+  const socialImageAlt = `${siteName} - logo officiel`;
 
   document.title = seo.title;
   upsertMetaByName("description", seo.description);
   upsertMetaByName("robots", seo.robots);
   upsertCanonicalLink(canonicalUrl);
+  upsertMetaByProperty("og:type", "website");
+  upsertMetaByProperty("og:site_name", siteName);
+  upsertMetaByProperty("og:locale", "fr_FR");
   upsertMetaByProperty("og:title", seo.title);
   upsertMetaByProperty("og:description", seo.description);
   upsertMetaByProperty("og:url", canonicalUrl);
+  upsertMetaByProperty("og:image", socialImageUrl);
+  upsertMetaByProperty("og:image:alt", socialImageAlt);
+  upsertMetaByName("twitter:card", "summary_large_image");
+  upsertMetaByName("twitter:title", seo.title);
+  upsertMetaByName("twitter:description", seo.description);
+  upsertMetaByName("twitter:url", canonicalUrl);
+  upsertMetaByName("twitter:image", socialImageUrl);
+  upsertMetaByName("twitter:image:alt", socialImageAlt);
 }
 
 export function getCanonicalPathFromRoute(route) {

@@ -124,8 +124,30 @@ const pilotMeetingVehicleFilterState = {
 const meetingBackgroundPathCache = new Map();
 let topbarHeightRafId = null;
 let topbarMenuController = null;
+let hasRenderedRouteOnce = false;
 const feedCarouselAutoPlayIntervalIds = new Set();
 let accueilCountdownIntervalId = null;
+
+function focusRenderedContent() {
+  const appRoot = byId("app");
+  if (!appRoot) return;
+
+  const targetNode = appRoot.querySelector("h1, h2") || appRoot;
+  if (!(targetNode instanceof HTMLElement)) return;
+
+  if (targetNode !== appRoot && !targetNode.hasAttribute("tabindex")) {
+    targetNode.setAttribute("tabindex", "-1");
+  }
+
+  targetNode.focus({ preventScroll: true });
+}
+
+function finalizeRouteRender() {
+  if (hasRenderedRouteOnce) {
+    focusRenderedContent();
+  }
+  hasRenderedRouteOnce = true;
+}
 
 // Shared rendering helpers.
 function normalizeTextContent(value) {
@@ -1984,6 +2006,7 @@ function renderCurrentRoute() {
     bindAccueilCountdown();
     bindFeedCarousels();
     bindFeedExpandableText();
+    finalizeRouteRender();
     return;
   }
 
@@ -1997,6 +2020,7 @@ function renderCurrentRoute() {
         baseRoute: "meetings",
       });
     }
+    finalizeRouteRender();
     return;
   }
 
@@ -2004,6 +2028,7 @@ function renderCurrentRoute() {
     appRoot.innerHTML = renderActualitesView();
     bindFeedCarousels();
     bindFeedExpandableText();
+    finalizeRouteRender();
     return;
   }
 
@@ -2018,6 +2043,7 @@ function renderCurrentRoute() {
     });
     bindFeedCarousels();
     bindFeedExpandableText();
+    finalizeRouteRender();
     return;
   }
 
@@ -2028,6 +2054,7 @@ function renderCurrentRoute() {
     });
     applyMeetingHeroBackground(route.meetingId);
     bindMeetingDetailEvents(route.profileKey, route.meetingId);
+    finalizeRouteRender();
     return;
   }
 
@@ -2042,10 +2069,12 @@ function renderCurrentRoute() {
     if (route.pageKey === "commissaires") {
       bindFeedCarousels();
     }
+    finalizeRouteRender();
     return;
   }
 
   appRoot.innerHTML = renderNotFoundView();
+  finalizeRouteRender();
 }
 
 function bindContactCopyEmailEvents() {
