@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Host: https://asa-prenois-bourgogne.fr
 
 Sitemap: https://asa-prenois-bourgogne.fr/sitemap.xml
