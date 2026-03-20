@@ -26,6 +26,7 @@
 ## Checklist avant merge
 - `node --check app.js`
 - verifier syntaxe des nouveaux modules (`node --check <file>.js`)
+- `node tools/check-quality.cjs`
 - test manuel desktop + mobile:
   - navigation principale
   - calendrier/inscriptions

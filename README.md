@@ -13,6 +13,15 @@ Site vitrine statique (HTML/CSS/JS) pour l'ASA Prenois Bourgogne.
    - `python -m http.server 5500`
 3. Ouvrir `http://localhost:5500`.
 
+## Verification qualite rapide
+Executer les controles automatiques avant push:
+
+```powershell
+node --check app.js
+node --check src/core/routing.js
+node tools/check-quality.cjs
+```
+
 ## Structure du projet
 ```text
 Site-circuit/
