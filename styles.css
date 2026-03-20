@@ -1959,6 +1959,56 @@ th {
   margin-right: 0.9rem;
 }
 
+.footer-social {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: #f4f7ff;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid rgba(185, 201, 235, 0.32);
+  padding: 0.36rem 0.68rem;
+  background: rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(214, 226, 248, 0.58);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.social-link:focus-visible {
+  outline: 3px solid #8bb6ff;
+  outline-offset: 2px;
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.social-link--instagram .social-icon {
+  color: #ff96cf;
+}
+
+.social-link--facebook .social-icon {
+  color: #9fc6ff;
+}
+
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -2212,5 +2262,10 @@ th {
 
   .view-stack--meetings-profile #calendrier .race-card {
     padding: 1rem 0.86rem 0.86rem;
+  }
+
+  .social-link {
+    width: 100%;
+    justify-content: center;
   }
 }
