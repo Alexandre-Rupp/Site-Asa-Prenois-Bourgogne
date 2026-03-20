@@ -1084,6 +1084,16 @@ textarea:focus-visible,
   align-content: start;
 }
 
+.partner-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.partner-card-link:is(:hover, :focus-visible) {
+  border-color: #9db6e8;
+  box-shadow: 0 10px 24px rgba(13, 95, 208, 0.14);
+}
+
 .partner-logo-wrap {
   width: 100%;
   min-height: 78px;

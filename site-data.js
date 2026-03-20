@@ -278,6 +278,7 @@ export const PROFILE_CONTENT = {
       memberForm:
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
+      closedRaceFormsByMeeting: ["r4", "r13", "r14"],
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
         r3: "https://forms.office.com/r/ncBaNgw8T4",
@@ -286,7 +287,7 @@ export const PROFILE_CONTENT = {
         r7: "https://forms.office.com/r/6PRUYFZ5Lu",
         r8: "https://forms.office.com/r/Qq9W4kr0PV",
         r9: "https://forms.office.com/r/ePS24dmxd9",
-        r10: "https://forms.office.com/r/5s11Uy4fWP",
+        r10: "https://forms.office.com/r/HjFjsWSJZn",
         r12: "https://forms.office.com/r/SPSGZyNuPY",
       },
     },
@@ -377,6 +378,7 @@ export const PROFILE_CONTENT = {
     forms: {
       memberForm: "https://forms.office.com/r/PILOTE-MEMBRE-2026",
       raceForm: "https://forms.office.com/r/PILOTE-COURSE-2026",
+      signupClosedAll: true,
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions pilotes",
@@ -512,24 +514,38 @@ export const PAGE_SKELETONS = {
         name: "Federation Internationale de l'Automobile",
         short: "FIA",
         logo: "assets/partners/fia.png",
+        url: "https://www.fia.com/",
       },
       {
         name: "Federation Francaise du Sport Automobile",
         short: "FFSA",
         logo: "assets/partners/ffsa.svg",
+        url: "https://www.ffsa.org/",
       },
       {
         name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
         short: "Ligue BFC",
         logo: "assets/partners/lsabfc.png",
+        url: "https://www.lsabfc.org/accueil/accueil.html",
       },
       {
         name: "Circuit Dijon-Prenois",
         short: "Dijon-Prenois",
         logo: "assets/partners/dijon-prenois.png",
+        url: "https://www.circuit-dijon-prenois.com/",
       },
-      { name: "Stand 21", short: "Stand 21", logo: "assets/partners/stand21.webp" },
-      { name: "Krys", short: "Krys", logo: "assets/partners/krys.png" },
+      {
+        name: "Stand 21",
+        short: "Stand 21",
+        logo: "assets/partners/stand21.webp",
+        url: "https://stand21.com/",
+      },
+      {
+        name: "Krys",
+        short: "Krys",
+        logo: "assets/partners/krys.png",
+        url: "https://www.krys.com/",
+      },
       {
         name: "Planete Communication Dijon",
         short: "Planete Com",
@@ -547,11 +563,13 @@ export const PAGE_SKELETONS = {
         name: "FFSA Montagne",
         short: "FFSA Montagne",
         logo: "assets/partners/ffsa.svg",
+        url: "https://www.ffsa.org/",
       },
       {
         name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
         short: "Ligue BFC",
         logo: "assets/partners/lsabfc.png",
+        url: "https://www.lsabfc.org/accueil/accueil.html",
       },
       {
         name: "Fromagerie Delin",
@@ -575,16 +593,23 @@ export const PAGE_SKELETONS = {
         short: "Planete Com",
         logo: "assets/partners/planete-communication.png",
       },
-      { name: "Bymycar", short: "Bymycar", logo: "assets/partners/bymycar.png" },
+      {
+        name: "Bymycar",
+        short: "Bymycar",
+        logo: "assets/partners/bymycar.png",
+        url: "https://www.bymycar.fr/",
+      },
       {
         name: "Circuit Dijon-Prenois",
         short: "Dijon-Prenois",
         logo: "assets/partners/dijon-prenois.png",
+        url: "https://www.circuit-dijon-prenois.com/",
       },
       {
         name: "Cote d'Or Le Departement",
         short: "Cote d'Or",
         logo: "assets/partners/cotedor.svg",
+        url: "https://www.cotedor.fr/",
       },
     ],
   },
