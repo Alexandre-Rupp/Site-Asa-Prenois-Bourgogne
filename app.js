@@ -11,7 +11,11 @@ import {
   PROFILE_CONTENT,
   TARGET_YEAR,
 } from "./site-data.js?v=20260318-2";
-import { parseRoute, updateDocumentTitle } from "./src/core/routing.js";
+import {
+  getRouteHashFromPathname,
+  parseRoute,
+  updateDocumentSeo,
+} from "./src/core/routing.js";
 import {
   createTopbarMenuController,
   scrollPageToTop,
@@ -34,7 +38,7 @@ const MONTH_INDEX = {
   decembre: 11,
 };
 
-const DEFAULT_ROUTE_HASH = "#/accueil";
+const CANONICAL_ORIGIN = "https://asa-prenois-bourgogne.fr";
 const MOBILE_NAV_BREAKPOINT = 980;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const FEED_TEXT_PREVIEW_LENGTH = 170;
@@ -848,10 +852,11 @@ function renderAccueilView() {
   return `
     <div class="view-stack">
       <section class="hero">
-        <h1>Bienvenue sur le portail ASA Prenois Bourgogne</h1>
+        <h1>ASA Prenois Bourgogne</h1>
         <p class="hero-sub">
-          Cette base integre maintenant une navigation complete du site et un
-          espace Meetings structure par profil utilisateur.
+          Association sportive automobile de Bourgogne: calendrier des meetings,
+          inscriptions, informations pour pilotes et commissaires, actualites et
+          contact officiel.
         </p>
         <div class="hero-cta">
           <a href="#/meetings" class="btn btn-primary">Entrer dans le calendrier</a>
@@ -1904,17 +1909,20 @@ function renderCurrentRoute() {
 
   clearAccueilCountdown();
   clearFeedCarouselsAutoPlay();
+  const routeHash =
+    window.location.hash || getRouteHashFromPathname(window.location.pathname);
 
   const route = parseRoute({
-    hashValue: window.location.hash,
+    hashValue: routeHash,
     profileContent: PROFILE_CONTENT,
     pageSkeletons: PAGE_SKELETONS,
   });
   updateActiveNav(route.navKey);
-  updateDocumentTitle(route, {
+  updateDocumentSeo(route, {
     profileContent: PROFILE_CONTENT,
     pageSkeletons: PAGE_SKELETONS,
     meetings: MEETINGS,
+    canonicalOrigin: CANONICAL_ORIGIN,
   });
   if (topbarMenuController) {
     topbarMenuController.closeMenu();
@@ -2032,10 +2040,6 @@ function updateTopbarHeightVar() {
 
 // Application bootstrap.
 function mount() {
-  if (!window.location.hash) {
-    window.location.hash = DEFAULT_ROUTE_HASH;
-  }
-
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
   });
