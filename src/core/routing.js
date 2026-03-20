@@ -132,17 +132,17 @@ function getPageDescription(pageKey, pageSkeletons) {
     commissaires:
       "Devenir commissaire de piste avec l'ASA Prenois Bourgogne: parcours, formation et informations utiles.",
     pilotes:
-      "Informations pilotes ASA Prenois Bourgogne: accompagnement, regles et documentation pratique.",
+      "Informations pilotes ASA Prenois Bourgogne: accompagnement, r\u00E8gles et documentation pratique.",
     contact:
       "Contactez l'ASA Prenois Bourgogne: horaires bureau, email et informations de contact officielles.",
     "vie-asa":
       "La vie de l'ASA Prenois Bourgogne: histoire de l'association, commissaires, pilotes et partenaires.",
     partenaires:
-      "Partenaires institutionnels et prives de l'ASA Prenois Bourgogne.",
+      "Partenaires institutionnels et priv\u00E9s de l'ASA Prenois Bourgogne.",
     "mentions-legales":
-      "Mentions legales du site officiel de l'ASA Prenois Bourgogne.",
+      "Mentions l\u00E9gales du site officiel de l'ASA Prenois Bourgogne.",
     "politique-confidentialite":
-      "Politique de confidentialite du site officiel ASA Prenois Bourgogne.",
+      "Politique de confidentialit\u00E9 du site officiel ASA Prenois Bourgogne.",
     "politique-cookies":
       "Politique de cookies du site officiel ASA Prenois Bourgogne.",
   };
@@ -159,7 +159,7 @@ function getSeoPayload(
   { profileContent, pageSkeletons, meetings, siteName = "ASA Prenois Bourgogne" }
 ) {
   const homeDescription =
-    "Site officiel de l'ASA Prenois Bourgogne : meetings, inscriptions, informations pour pilotes et commissaires, actualites et contact.";
+    "Site officiel de l'ASA Prenois Bourgogne : meetings, inscriptions, informations pour pilotes et commissaires, actualit\u00E9s et contact.";
 
   if (route.type === "accueil") {
     return {
@@ -174,7 +174,7 @@ function getSeoPayload(
       return {
         title: `Inscriptions ${siteName}`,
         description:
-          "Acces aux inscriptions ASA Prenois Bourgogne pour commissaires et pilotes.",
+          "Acc\u00E8s aux inscriptions ASA Prenois Bourgogne pour commissaires et pilotes.",
         robots: "index, follow",
       };
     }
@@ -182,16 +182,16 @@ function getSeoPayload(
     return {
       title: `Meetings ${siteName}`,
       description:
-        "Calendrier officiel des meetings ASA Prenois Bourgogne avec acces aux fiches detaillees.",
+        "Calendrier officiel des meetings ASA Prenois Bourgogne avec acc\u00E8s aux fiches d\u00E9taill\u00E9es.",
       robots: "index, follow",
     };
   }
 
   if (route.type === "actualites") {
     return {
-      title: `Actualites ${siteName}`,
+      title: `Actualit\u00E9s ${siteName}`,
       description:
-        "Actualites des commissaires et des pilotes de l'ASA Prenois Bourgogne.",
+        "Actualit\u00E9s des commissaires et des pilotes de l'ASA Prenois Bourgogne.",
       robots: "index, follow",
     };
   }
@@ -220,7 +220,7 @@ function getSeoPayload(
     const areaTitle = route.signupEnabled ? "Inscriptions" : "Meetings";
     const profileLabel = profile?.label ? ` ${profile.label.toLowerCase()}` : "";
     const prefix = route.signupEnabled
-      ? "Informations et acces inscription du meeting"
+      ? "Informations et acc\u00E8s inscription du meeting"
       : "Informations officielles du meeting";
     return {
       title: `${label} - ${areaTitle} ${siteName}`,
@@ -240,7 +240,7 @@ function getSeoPayload(
 
   return {
     title: `Page introuvable - ${siteName}`,
-    description: "La page demandee est introuvable.",
+    description: "La page demand\u00E9e est introuvable.",
     robots: "noindex, follow",
   };
 }

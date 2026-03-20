@@ -5,7 +5,7 @@ export const NAV_ITEMS = [
   { key: "accueil", label: "ACCUEIL", href: "#/accueil" },
   { key: "meetings", label: "CALENDRIER", href: "#/meetings" },
   { key: "inscriptions", label: "INSCRIPTIONS", href: "#/inscriptions" },
-  { key: "actualites", label: "ACTUALITES", href: "#/actualites" },
+  { key: "actualites", label: "ACTUALIT\u00C9S", href: "#/actualites" },
   { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "#/commissaires" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
   { key: "contact", label: "CONTACTS", href: "#/contact" },
@@ -104,7 +104,7 @@ export const MEETINGS = [
     id: "r12",
     name: "64EME COURSE DE COTE D'URCY",
     date: "25-26 juillet 2026",
-    seasonLabel: "Meetings Course de cote 2026",
+    seasonLabel: "Meetings Course de c\u00F4te 2026",
     kind: "course-de-cote",
     location: "Urcy",
   },
@@ -149,7 +149,7 @@ export const MEETING_DETAIL_SECTIONS = [
     key: "annexes",
     title: "Autres documents",
     description:
-      "Zone libre pour tout autre contenu detaille du meeting (briefings, plans, etc.).",
+      "Zone libre pour tout autre contenu d\u00E9taill\u00E9 du meeting (briefings, plans, etc.).",
   },
 ];
 
@@ -170,9 +170,9 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "Fiche renseignements des equipements de securite - Pilote",
-          "Fiche renseignements des equipements de securite - Copilote",
-          "Tableau des equipements de securite generaux",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Copilote",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
           "Liste provisoire des engages",
         ],
       },
@@ -180,9 +180,9 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "Fiche renseignements des equipements de securite - Pilote",
-          "Fiche renseignements des equipements de securite - Copilote",
-          "Tableau des equipements de securite generaux",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Copilote",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
           "Liste provisoire des engages",
         ],
       },
@@ -190,7 +190,7 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (equipements de securite)",
+          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
           "Liste provisoire des engages",
         ],
       },
@@ -198,7 +198,7 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (equipements de securite)",
+          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
           "Liste provisoire des engages",
         ],
       },
@@ -211,8 +211,8 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "Fiche renseignements des equipements de securite - Pilote",
-          "Tableau des equipements de securite generaux",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
           "Liste provisoire des engages",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
@@ -221,8 +221,8 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "Fiche renseignements des equipements de securite - Pilote",
-          "Tableau des equipements de securite generaux",
+          "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
           "Liste provisoire des engages",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
@@ -231,7 +231,7 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (equipements de securite)",
+          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
           "Liste provisoire des engages",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
@@ -240,7 +240,7 @@ export const PILOT_MEETING_DOCUMENTATION = {
         documents: [
           "Reglement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (equipements de securite)",
+          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
           "Liste provisoire des engages",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
@@ -293,12 +293,12 @@ export const PROFILE_CONTENT = {
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions commissaires",
-      newsTitle: "Actualites association",
+      newsTitle: "Actualit\u00E9s association",
       resultsTitle: "Resultats",
       profileSpaceTitle: "Espace commissaire",
       memberFormTitle: "Formulaire inscription membre",
       memberFormText:
-        "Nouveau commissaire: remplissez ce formulaire pour creer votre dossier (coordonnees, licence, disponibilites).",
+        "Nouveau commissaire: remplissez ce formulaire pour creer votre dossier (coordonn\u00E9es, licence, disponibilites).",
       raceFormTitle: "Formulaire inscription course",
       raceFormText:
         "Inscription par meeting: envoyez une reponse pour chaque course souhaitee.",
@@ -343,7 +343,7 @@ export const PROFILE_CONTENT = {
       },
       {
         title: "Ouverture des inscriptions saison 2026",
-        date: "15 fevrier 2026",
+        date: "15 f\u00E9vrier 2026",
         text: "Les inscriptions sont maintenant centralisees via Microsoft Forms.",
       },
     ],
@@ -355,12 +355,12 @@ export const PROFILE_CONTENT = {
       },
       {
         title: "Challenge club - manche 1",
-        date: "8 fevrier 2026",
+        date: "8 f\u00E9vrier 2026",
         text: "Interventions piste: 6, incidents majeurs: 0, coordination operationnelle.",
       },
       {
         title: "Sprint regional",
-        date: "14 fevrier 2026",
+        date: "14 f\u00E9vrier 2026",
         text: "Debrief positif de la direction de course sur la rapidite des interventions.",
       },
     ],
@@ -382,7 +382,7 @@ export const PROFILE_CONTENT = {
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions pilotes",
-      newsTitle: "Actualites pilotes",
+      newsTitle: "Actualit\u00E9s pilotes",
       resultsTitle: "Infos meeting",
       profileSpaceTitle: "Espace pilote",
       memberFormTitle: "Formulaire profil pilote",
@@ -399,9 +399,9 @@ export const PROFILE_CONTENT = {
         text: "Mise a jour des procedures de verification administrative et technique.",
       },
       {
-        title: "Controle equipements",
+        title: "Controle \u00E9quipements",
         date: "6 avril 2026",
-        text: "Rappel des obligations casque/HANS et conformite equipement pilote.",
+        text: "Rappel des obligations casque/HANS et conformit\u00E9 \u00E9quipement pilote.",
       },
       {
         title: "Ouverture engagement sprint",
@@ -418,7 +418,7 @@ export const PROFILE_CONTENT = {
       {
         title: "Acces paddock",
         date: "En continu",
-        text: "Chaque meeting detaille precisera les horaires d'accueil et contraintes d'acces.",
+        text: "Chaque meeting d\u00E9taill\u00E9 precisera les horaires d'accueil et contraintes d'acces.",
       },
       {
         title: "Support inscription",
@@ -469,16 +469,16 @@ export const PAGE_SKELETONS = {
       },
     ],
     commissionerParagraphs: [
-      "Devenir commissaire, ce n'est pas etre spectateur privilegie, c'est etre un acteur indispensable a la securite du sport automobile.",
-      "Appele a officier sur l'ensemble des epreuves qui sont : Circuits, Rallyes, Course de Cotes, Rallye-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
+      "Devenir commissaire, ce n'est pas etre spectateur privilegie, c'est etre un acteur indispensable a la s\u00E9curit\u00E9 du sport automobile.",
+      "Appele a officier sur l'ensemble des epreuves qui sont : Circuits, Rallyes, Course de C\u00F4tes, Rallye-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
       "En totale collaboration avec la Direction de Course, chacun doit tenir un role important :",
       "- Le commissaire de piste est les yeux supplementaires de la Direction de Course et il est necessaire au bon deroulement de chaque meeting.",
-      "- Le commissaire sportif est celui qui controle et fait appliquer le reglement des epreuves.",
+      "- Le commissaire sportif est celui qui contr\u00F4le et fait appliquer le reglement des epreuves.",
       "- Le chronometreur est celui qui gere le timing de chaque coureur, indispensable a la competition pour les classements.",
       "- Le directeur de course est le chef d'orchestre de l'evenement, celui qui donne les consignes, les procedures et veille sur chacun des roles attribues.",
-      "Une grande equipe de benevoles, animes par la passion du sport automobile, engages dans une mission commune : assurer la securite de chacun.",
+      "Une grande equipe de benevoles, animes par la passion du sport automobile, engages dans une mission commune : assurer la s\u00E9curit\u00E9 de chacun.",
       "Sans l'un de ces acteurs, aucune competition ne peut avoir lieu.",
-      "Le commissaire de piste, par tous les temps, assure la securite de l'epreuve dont les missions sont :",
+      "Le commissaire de piste, par tous les temps, assure la s\u00E9curit\u00E9 de l'epreuve dont les missions sont :",
       "- Surveiller",
       "- Signaler",
       "- Transmettre",
@@ -490,7 +490,7 @@ export const PAGE_SKELETONS = {
   pilotes: {
     title: "Pilotes",
     intro:
-      "Page reservee au contenu institutionnel pilotes (regles, accompagnement, documentation).",
+      "Page reservee au contenu institutionnel pilotes (r\u00E8gles, accompagnement, documentation).",
   },
   "vie-asa": {
     title: "La vie de l'ASA",
@@ -500,14 +500,14 @@ export const PAGE_SKELETONS = {
     historyParagraphs: [
       "L'ASA Prenois Bourgogne est une association sportive automobile, organisatrice de meetings en collaboration avec le circuit de Dijon-Prenois ainsi que des Courses de Cote et des Rallyes.",
       "L'ASA Prenois Bourgogne regroupe au sein de ses adherent(e)s, des commissaires de piste, des chefs de poste, des directeurs de course, des chronometreurs, des pilotes, et tous les passionne(e)s qui gravitent autour de la competition automobile moderne ou ancienne. Elle est reconnue par tous pour les competences de ses commissaires formateurs sur le circuit de Dijon Prenois.",
-      "L'ASA Prenois Bourgogne est nee de la fusion absorption des 4 ASA de Cote d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA Cote d'Or.",
-      "L'ASAC Bourgogne avait ete creee le 22 decembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la legendaire Course de Cote d'Urcy.",
+      "L'ASA Prenois Bourgogne est nee de la fusion absorption des 4 ASA de C\u00F4te d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA C\u00F4te d'Or.",
+      "L'ASAC Bourgogne avait ete creee le 22 d\u00E9cembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la legendaire Course de C\u00F4te d'Urcy.",
     ],
   },
   partenaires: {
     title: "Nos partenaires",
     intro:
-      "Retrouvez les partenaires institutionnels et prives qui soutiennent l'Asa Prenois-Bourgogne.",
+      "Retrouvez les partenaires institutionnels et priv\u00E9s qui soutiennent l'Asa Prenois-Bourgogne.",
     annualPartnersTitle: "Nos partenaires de l'Asa Prenois-Bourgogne",
     annualPartners: [
       {
@@ -523,7 +523,7 @@ export const PAGE_SKELETONS = {
         url: "https://www.ffsa.org/",
       },
       {
-        name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
+        name: "Ligue du Sport Automobile Bourgogne Franche-Comt\u00E9",
         short: "Ligue BFC",
         logo: "assets/partners/lsabfc.png",
         url: "https://www.lsabfc.org/accueil/accueil.html",
@@ -547,8 +547,8 @@ export const PAGE_SKELETONS = {
         url: "https://www.krys.com/",
       },
       {
-        name: "Planete Communication Dijon",
-        short: "Planete Com",
+        name: "Plan\u00E8te Communication Dijon",
+        short: "Plan\u00E8te Com",
         logo: "assets/partners/planete-communication.png",
       },
       {
@@ -557,7 +557,7 @@ export const PAGE_SKELETONS = {
         logo: "assets/partners/kreativecom.png",
       },
     ],
-    urcyPartnersTitle: "Nos partenaires - Course de Cote Urcy 2025",
+    urcyPartnersTitle: "Nos partenaires - Course de C\u00F4te Urcy 2025",
     urcyPartners: [
       {
         name: "FFSA Montagne",
@@ -566,7 +566,7 @@ export const PAGE_SKELETONS = {
         url: "https://www.ffsa.org/",
       },
       {
-        name: "Ligue du Sport Automobile Bourgogne Franche-Comte",
+        name: "Ligue du Sport Automobile Bourgogne Franche-Comt\u00E9",
         short: "Ligue BFC",
         logo: "assets/partners/lsabfc.png",
         url: "https://www.lsabfc.org/accueil/accueil.html",
@@ -577,7 +577,7 @@ export const PAGE_SKELETONS = {
         logo: "assets/partners/delin.jpg",
       },
       {
-        name: "Passion Moto Securite",
+        name: "Passion Moto S\u00E9curit\u00E9",
         short: "PMS",
         logo: "assets/partners/passion-moto-securite.png",
       },
@@ -589,8 +589,8 @@ export const PAGE_SKELETONS = {
       { name: "Gautier", short: "Gautier", logo: "assets/partners/gautier.svg" },
       { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.png" },
       {
-        name: "Planete Communication Dijon",
-        short: "Planete Com",
+        name: "Plan\u00E8te Communication Dijon",
+        short: "Plan\u00E8te Com",
         logo: "assets/partners/planete-communication.png",
       },
       {
@@ -606,8 +606,8 @@ export const PAGE_SKELETONS = {
         url: "https://www.circuit-dijon-prenois.com/",
       },
       {
-        name: "Cote d'Or Le Departement",
-        short: "Cote d'Or",
+        name: "C\u00F4te d'Or Le D\u00E9partement",
+        short: "C\u00F4te d'Or",
         logo: "assets/partners/cotedor.svg",
         url: "https://www.cotedor.fr/",
       },
@@ -616,33 +616,33 @@ export const PAGE_SKELETONS = {
   contact: {
     title: "Contacts",
     intro:
-      "Page prevue pour les points de contact officiels de l'ASA Prenois Bourgogne.",
+      "Page pr\u00E9vue pour les points de contact officiels de l'ASA Prenois Bourgogne.",
   },
   "mentions-legales": {
-    title: "Mentions legales",
+    title: "Mentions l\u00E9gales",
     intro:
-      "Page dediee aux informations legales de l'association et du site.",
+      "Page d\u00E9di\u00E9e aux informations l\u00E9gales de l'association et du site.",
   },
   "politique-confidentialite": {
-    title: "Politique de confidentialite",
+    title: "Politique de confidentialit\u00E9",
     intro:
-      "Page dediee aux regles de collecte, d'usage et de protection des donnees personnelles.",
+      "Page d\u00E9di\u00E9e aux r\u00E8gles de collecte, d'usage et de protection des donn\u00E9es personnelles.",
   },
   "politique-cookies": {
     title: "Politique de cookies du site",
     intro:
-      "Page dediee a l'utilisation des cookies et traceurs sur le site.",
+      "Page d\u00E9di\u00E9e \u00E0 l'utilisation des cookies et traceurs sur le site.",
   },
 };
 
 export const CONTACT_PAGE_CONTENT = {
-  officeHoursTitle: "Horaires Bureau, ouverture public, licencies",
+  officeHoursTitle: "Horaires Bureau, ouverture public, licenci\u00E9s",
   officeHours: [
     { day: "Lundi", hours: "14h-17h" },
     { day: "Mardi", hours: "14h-17h" },
     { day: "Mercredi", hours: "14h-17h" },
     { day: "Jeudi", hours: "9h00-12h00, 14h00-17h00" },
-    { day: "Vendredi", hours: "Ferme au public" },
+    { day: "Vendredi", hours: "Ferm\u00E9 au public" },
   ],
   contactTitle: "Demande de renseignements divers",
   email: "contact@asa-prenois-bourgone.org",
@@ -650,7 +650,7 @@ export const CONTACT_PAGE_CONTENT = {
 
 export const LEGAL_PAGE_CONTENT = {
   "mentions-legales": {
-    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    updatedAt: "Derni\u00E8re mise \u00E0 jour: 15 mars 2026",
     sections: [
       {
         title: "Objet du site",
@@ -681,7 +681,7 @@ export const LEGAL_PAGE_CONTENT = {
         paragraphs: [
           "Environnement actuel: version de travail et de test.",
           "Avant publication internet definitive, l'association doit afficher les informations completes de l'hebergeur (nom ou raison sociale, adresse, telephone), conformement a l'article 1-1 de la LCEN.",
-          "Champ de conformite a renseigner avant mise en ligne publique: hebergeur, adresse postale, numero de telephone, reference contractuelle le cas echeant.",
+          "Champ de conformit\u00E9 a renseigner avant mise en ligne publique: hebergeur, adresse postale, numero de telephone, reference contractuelle le cas echeant.",
         ],
       },
       {
@@ -695,7 +695,7 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Liens externes et responsabilite",
         paragraphs: [
-          "Le site peut contenir des liens vers des services externes (par exemple FFSA ou Microsoft Forms). L'association n'exerce pas de controle editorial sur ces services tiers.",
+          "Le site peut contenir des liens vers des services externes (par exemple FFSA ou Microsoft Forms). L'association n'exerce pas de contr\u00F4le editorial sur ces services tiers.",
           "L'association s'efforce d'assurer l'exactitude des informations publiees, sans garantie d'exhaustivite ni d'absence d'erreur. Les dates, horaires et modalites d'inscription peuvent etre modifies.",
           "En cas d'indisponibilite, de dysfonctionnement ou d'inexactitude, la responsabilite de l'association ne peut etre engagee que dans les limites permises par la loi francaise.",
         ],
@@ -711,21 +711,21 @@ export const LEGAL_PAGE_CONTENT = {
     ],
   },
   "politique-confidentialite": {
-    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    updatedAt: "Derni\u00E8re mise \u00E0 jour: 15 mars 2026",
     sections: [
       {
         title: "Responsable du traitement",
         paragraphs: [
           "Le responsable du traitement est l'association ASA Prenois Bourgogne, joignable a l'adresse contact@asa-prenois-bourgone.org.",
-          "La presente politique de confidentialite est redigee au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs a l'information des personnes.",
+          "La presente politique de confidentialit\u00E9 est redigee au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs a l'information des personnes.",
         ],
       },
       {
-        title: "Donnees traitees et source des donnees",
+        title: "Donnees traitees et source des donn\u00E9es",
         paragraphs: [
-          "Lors de la consultation du site, des donnees techniques minimales peuvent etre traitees pour faire fonctionner le service (ex: journaux techniques, securite, routage de pages).",
-          "Lors d'une inscription via les formulaires externes, les donnees sont saisies directement sur le service Microsoft Forms (identite, coordonnees, informations de licence, disponibilites et informations d'engagement).",
-          "Seules les donnees strictement necessaires a la gestion administrative et sportive sont sollicitees.",
+          "Lors de la consultation du site, des donn\u00E9es techniques minimales peuvent etre traitees pour faire fonctionner le service (ex: journaux techniques, s\u00E9curit\u00E9, routage de pages).",
+          "Lors d'une inscription via les formulaires externes, les donn\u00E9es sont saisies directement sur le service Microsoft Forms (identite, coordonn\u00E9es, informations de licence, disponibilites et informations d'engagement).",
+          "Seules les donn\u00E9es strictement necessaires a la gestion administrative et sportive sont sollicitees.",
         ],
       },
       {
@@ -737,17 +737,17 @@ export const LEGAL_PAGE_CONTENT = {
         ],
       },
       {
-        title: "Destinataires des donnees",
+        title: "Destinataires des donn\u00E9es",
         paragraphs: [
-          "Peuvent acceder aux donnees, dans la limite de leurs habilitations: membres autorises du bureau, equipe d'organisation, responsables de meeting et, le cas echeant, instances sportives ou prestataires techniques necessaires au service.",
-          "Les donnees ne sont pas vendues ni cedees a des tiers a des fins commerciales.",
+          "Peuvent acceder aux donn\u00E9es, dans la limite de leurs habilitations: membres autorises du bureau, equipe d'organisation, responsables de meeting et, le cas echeant, instances sportives ou prestataires techniques necessaires au service.",
+          "Les donn\u00E9es ne sont pas vendues ni cedees a des tiers a des fins commerciales.",
         ],
       },
       {
         title: "Durees de conservation",
         paragraphs: [
-          "Les donnees sont conservees pendant une duree proportionnee aux finalites poursuivies.",
-          "Les donnees d'inscription et de suivi sportif sont conservees pendant la saison en cours puis archivees selon les obligations legales, comptables, assurantielles et sportives applicables.",
+          "Les donn\u00E9es sont conservees pendant une duree proportionnee aux finalites poursuivies.",
+          "Les donn\u00E9es d'inscription et de suivi sportif sont conservees pendant la saison en cours puis archivees selon les obligations legales, comptables, assurantielles et sportives applicables.",
           "Les informations inutiles ou obsoletes sont supprimees ou anonymisees dans des delais raisonnables.",
         ],
       },
@@ -769,20 +769,20 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Securite et mise a jour",
         paragraphs: [
-          "L'association met en oeuvre des mesures organisationnelles et techniques raisonnables pour proteger les donnees personnelles contre la perte, l'acces non autorise, l'alteration ou la divulgation.",
+          "L'association met en oeuvre des mesures organisationnelles et techniques raisonnables pour proteger les donn\u00E9es personnelles contre la perte, l'acces non autorise, l'alteration ou la divulgation.",
           "La presente politique peut etre mise a jour pour tenir compte des evolutions legales, techniques ou organisationnelles. La date de mise a jour figure en haut de page.",
         ],
       },
     ],
   },
   "politique-cookies": {
-    updatedAt: "Derniere mise a jour: 15 mars 2026",
+    updatedAt: "Derni\u00E8re mise \u00E0 jour: 15 mars 2026",
     sections: [
       {
         title: "Cadre legal",
         paragraphs: [
-          "L'utilisation des cookies et autres traceurs est encadree en France par l'article 82 de la loi Informatique et Libertes et, pour les donnees personnelles, par le RGPD.",
-          "Les regles pratiques appliquees sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL.",
+          "L'utilisation des cookies et autres traceurs est encadree en France par l'article 82 de la loi Informatique et Libertes et, pour les donn\u00E9es personnelles, par le RGPD.",
+          "Les r\u00E8gles pratiques appliquees sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL.",
         ],
       },
       {

@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260320-2";
+} from "./site-data.js?v=20260320-5";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -26,16 +26,19 @@ import { byId, escapeHtml } from "./src/utils/dom.js";
 const MONTH_INDEX = {
   janvier: 0,
   fevrier: 1,
+  f\u00E9vrier: 1,
   mars: 2,
   avril: 3,
   mai: 4,
   juin: 5,
   juillet: 6,
   aout: 7,
+  ao\u00FBt: 7,
   septembre: 8,
   octobre: 9,
   novembre: 10,
   decembre: 11,
+  d\u00E9cembre: 11,
 };
 
 const CANONICAL_ORIGIN = "https://asa-prenois-bourgogne.fr";
@@ -47,7 +50,7 @@ const MEETING_FILTER_OPTIONS = [
   { value: "all", label: "Tous" },
   { value: "circuit", label: "Circuit" },
   { value: "rallye", label: "Rallye" },
-  { value: "course-de-cote", label: "Course de cote" },
+  { value: "course-de-cote", label: "Course de c\u00F4te" },
 ];
 const DEFAULT_VEHICLE_TYPE_FILTER = "modernes";
 const VEHICLE_TYPE_FILTER_OPTIONS = [
@@ -528,7 +531,7 @@ function getVisibleMeetings(typeFilter) {
 
 function meetingKindLabel(kind) {
   if (kind === "rallye") return "Rallye";
-  if (kind === "course-de-cote") return "Course de cote";
+  if (kind === "course-de-cote") return "Course de c\u00F4te";
   return "Circuit";
 }
 
@@ -903,7 +906,7 @@ function renderAccueilView() {
         <h1>ASA Prenois Bourgogne</h1>
         <p class="hero-sub">
           Association sportive automobile de Bourgogne: calendrier des meetings,
-          inscriptions, informations pour pilotes et commissaires, actualites et
+          inscriptions, informations pour pilotes et commissaires, actualit\u00E9s et
           contact officiel.
         </p>
         <div class="hero-cta">
@@ -914,7 +917,7 @@ function renderAccueilView() {
 
       <section class="section">
         <div class="section-head">
-          <h2>Compte a rebours jusqu'au prochain meeting</h2>
+          <h2>Compte \u00E0 rebours jusqu'au prochain meeting</h2>
         </div>
         ${
           nextMeeting
@@ -1011,9 +1014,9 @@ function bindAccueilCountdown() {
 
       if (noteEl) {
         if (targetTs + oneDayMs > now) {
-          noteEl.textContent = "Le prochain meeting demarre aujourd'hui.";
+          noteEl.textContent = "Le prochain meeting d\u00E9marre aujourd'hui.";
         } else {
-          noteEl.textContent = "Le compte a rebours est termine.";
+          noteEl.textContent = "Le compte \u00E0 rebours est termin\u00E9.";
         }
       }
 
@@ -1114,9 +1117,9 @@ function renderActualitesView() {
   return `
     <div class="view-stack">
       <section class="hero">
-        <h1>Actualites</h1>
+        <h1>Actualit\u00E9s</h1>
         <p class="hero-sub">
-          Retrouvez les dernieres actualites des commissaires et des pilotes.
+          Retrouvez les derni\u00E8res actualit\u00E9s des commissaires et des pilotes.
         </p>
       </section>
 
@@ -1245,7 +1248,7 @@ function renderMeetingCards(
                     isSignupClosed
                       ? `
                         <button type="button" class="btn btn-primary race-signup-link" disabled>
-                          Inscriptions fermees
+                          Inscriptions ferm\u00E9es
                         </button>
                       `
                       : `
@@ -1434,7 +1437,7 @@ function renderMeetingDetailView(
         }
         <h1>${escapeHtml(meeting.name)}</h1>
         <p class="hero-sub">
-          Page detaillee du meeting pour le parcours ${escapeHtml(
+          Page d\u00E9taill\u00E9e du meeting pour le parcours ${escapeHtml(
             profile.label.toLowerCase()
           )}. Cette base est prete pour accueillir PDF et documents de reference.
         </p>
@@ -1446,7 +1449,7 @@ function renderMeetingDetailView(
                   isSignupClosed
                     ? `
                       <button type="button" class="btn btn-primary" disabled>
-                        Inscriptions fermees
+                        Inscriptions ferm\u00E9es
                       </button>
                     `
                     : `
@@ -1601,7 +1604,7 @@ function renderSkeletonPage(pageKey) {
           <div class="section-head">
             <h2>Page indisponible</h2>
           </div>
-          <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
+          <a href="#/accueil" class="btn btn-primary">Retour \u00E0 l'accueil</a>
         </section>
       </div>
     `;
@@ -1929,10 +1932,10 @@ function renderSkeletonPage(pageKey) {
 
       <section class="section">
         <div class="section-head">
-          <h2>Contenu en preparation</h2>
+          <h2>Contenu en pr\u00E9paration</h2>
           <p>
-            Structure de page en place. Les contenus metier seront ajoutes dans
-            une prochaine iteration.
+            Structure de page en place. Les contenus m\u00E9tier seront ajout\u00E9s dans
+            une prochaine it\u00E9ration.
           </p>
         </div>
       </section>
@@ -1946,9 +1949,9 @@ function renderNotFoundView() {
       <section class="section">
         <div class="section-head">
           <h2>Page introuvable</h2>
-          <p>La route demandee n'existe pas.</p>
+          <p>La route demand\u00E9e n'existe pas.</p>
         </div>
-        <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
+        <a href="#/accueil" class="btn btn-primary">Retour \u00E0 l'accueil</a>
       </section>
     </div>
   `;
