@@ -41,7 +41,7 @@ const MONTH_INDEX = {
   d\u00E9cembre: 11,
 };
 
-const CANONICAL_ORIGIN = "https://asa-prenois-bourgogne.fr";
+const CANONICAL_ORIGIN = "https://www.asa-prenois-bourgogne.org";
 const MOBILE_NAV_BREAKPOINT = 980;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const FEED_TEXT_PREVIEW_LENGTH = 170;

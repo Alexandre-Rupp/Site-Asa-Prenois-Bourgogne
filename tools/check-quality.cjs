@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const BASE_URL = "https://asa-prenois-bourgogne.fr";
+const BASE_URL = "https://www.asa-prenois-bourgogne.org";
 
 const FILES_WITH_ASSETS = ["index.html", "app.js", "site-data.js", "styles.css"];
 const FILES_WITH_URLS = ["index.html", "app.js", "site-data.js", "sitemap.xml", "robots.txt"];
@@ -63,7 +63,7 @@ function getExpectedSitemapPaths(meetingIds) {
 
 function collectSitemapPaths(sitemapContent) {
   const paths = new Set();
-  const locRegex = /<loc>\s*https:\/\/asa-prenois-bourgogne\.fr([^<]*)<\/loc>/g;
+  const locRegex = /<loc>\s*https:\/\/www\.asa-prenois-bourgogne\.org([^<]*)<\/loc>/g;
   let match = locRegex.exec(sitemapContent);
 
   while (match) {
