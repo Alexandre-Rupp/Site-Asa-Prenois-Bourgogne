@@ -1465,6 +1465,54 @@ textarea:focus-visible,
   line-height: 1.45;
 }
 
+.not-found-panel {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.not-found-media {
+  margin: 0;
+  border: 1px solid rgba(179, 198, 231, 0.7);
+  border-radius: 14px;
+  padding: 0.65rem;
+  background: linear-gradient(180deg, #f6f9ff, #edf4ff);
+}
+
+.not-found-media img {
+  display: block;
+  width: 100%;
+  max-height: clamp(220px, 40vw, 340px);
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.not-found-media figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.not-found-audio-wrap {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.not-found-audio-title {
+  margin: 0;
+  color: var(--blue-900);
+  font-weight: 700;
+}
+
+.js-not-found-audio {
+  width: min(100%, 450px);
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .asa-layout {
   display: grid;
   grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);

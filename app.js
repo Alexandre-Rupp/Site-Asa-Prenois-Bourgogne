@@ -1968,15 +1968,48 @@ function renderSkeletonPage(pageKey) {
 function renderNotFoundView() {
   return `
     <div class="view-stack">
-      <section class="section">
+      <section class="section not-found-section">
         <div class="section-head">
           <h2>Page introuvable</h2>
-          <p>La route demand\u00E9e n'existe pas.</p>
+          <p>La route demandee n'existe pas.</p>
         </div>
-        <a href="#/accueil" class="btn btn-primary">Retour \u00E0 l'accueil</a>
+        <article class="panel not-found-panel">
+          <figure class="not-found-media">
+            <img
+              src="assets/meetings/dijon-motors-cup.jpg"
+              alt="Voiture de course sur circuit"
+              loading="eager"
+            />
+            <figcaption>
+              Vous pouvez revenir a l'accueil ou lancer la musique ci-dessous.
+            </figcaption>
+          </figure>
+          <div class="not-found-audio-wrap">
+            <p class="not-found-audio-title">Ambiance 404</p>
+            <audio class="js-not-found-audio" controls preload="auto" loop autoplay>
+              <source src="assets/audio/max-verstappen-33.mp3" type="audio/mpeg" />
+              Votre navigateur ne prend pas en charge l'audio HTML5.
+            </audio>
+          </div>
+          <div class="not-found-actions">
+            <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
+          </div>
+        </article>
       </section>
     </div>
   `;
+}
+
+function bindNotFoundMedia() {
+  const audioNode = document.querySelector(".js-not-found-audio");
+  if (!(audioNode instanceof HTMLAudioElement)) return;
+
+  const playPromise = audioNode.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {
+      // Some browsers block autoplay without a gesture; controls remain available.
+    });
+  }
 }
 
 function bindVieAsaTimelineEvents() {
@@ -2099,6 +2132,7 @@ function renderCurrentRoute() {
   }
 
   appRoot.innerHTML = renderNotFoundView();
+  bindNotFoundMedia();
   finalizeRouteRender();
 }
 
