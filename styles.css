@@ -333,8 +333,7 @@ main {
   margin-top: 0;
 }
 
-.view-stack--info-pages .section-head + .panel,
-.view-stack--legal-pages .section-head + .panel {
+.view-stack .section-head + .panel {
   margin-top: 0.9rem;
 }
 
@@ -1464,6 +1463,59 @@ textarea:focus-visible,
   margin: 0;
   color: var(--ink);
   line-height: 1.45;
+}
+
+.not-found-panel {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.not-found-media {
+  margin: 0;
+  border: 1px solid rgba(179, 198, 231, 0.7);
+  border-radius: 14px;
+  padding: 0.65rem;
+  background: linear-gradient(180deg, #f6f9ff, #edf4ff);
+}
+
+.not-found-media img {
+  display: block;
+  width: 100%;
+  max-height: min(70vh, 680px);
+  object-fit: contain;
+  border-radius: 10px;
+  background: #0b1733;
+}
+
+.not-found-media figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.not-found-audio-wrap {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.not-found-audio-title {
+  margin: 0;
+  color: var(--blue-900);
+  font-weight: 700;
+}
+
+.js-not-found-audio {
+  width: min(100%, 450px);
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.not-found-audio-hidden {
+  display: none;
 }
 
 .asa-layout {
