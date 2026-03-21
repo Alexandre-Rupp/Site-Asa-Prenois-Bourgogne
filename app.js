@@ -915,6 +915,24 @@ function renderAccueilView() {
         </div>
       </section>
 
+      <section>
+        <h2>Bienvenue sur le site officiel de l\u2019ASA Prenois Bourgogne</h2>
+        <p>
+          L\u2019ASA Prenois Bourgogne accompagne la vie sportive automobile en Bourgogne et propose
+          un site centralisant les informations utiles pour les pilotes, les commissaires, les b\u00E9n\u00E9voles
+          et les passionn\u00E9s de sport automobile.
+        </p>
+        <p>
+          Sur le site officiel de l\u2019ASA Prenois Bourgogne, vous pouvez consulter le calendrier des meetings,
+          acc\u00E9der aux inscriptions, retrouver les informations d\u00E9di\u00E9es aux pilotes et aux commissaires,
+          suivre les actualit\u00E9s de l\u2019association et d\u00E9couvrir la vie de l\u2019ASA.
+        </p>
+        <p>
+          Le site permet \u00E9galement d\u2019acc\u00E9der aux pages d\u00E9taill\u00E9es de chaque meeting, avec les informations
+          pratiques, les documents utiles et les contenus qui seront publi\u00E9s au fil de la saison.
+        </p>
+      </section>
+
       <section class="section">
         <div class="section-head">
           <h2>Compte \u00E0 rebours jusqu'au prochain meeting</h2>
