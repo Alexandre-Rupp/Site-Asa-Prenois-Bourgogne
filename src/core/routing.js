@@ -281,7 +281,7 @@ export function updateDocumentSeo(
     profileContent,
     pageSkeletons,
     meetings,
-    canonicalOrigin = "https://asa-prenois-bourgogne.fr",
+    canonicalOrigin = "https://www.asa-prenois-bourgogne.org",
     siteName = "ASA Prenois Bourgogne",
     socialImagePath = "/assets/logo-asa-prenois-bourgogne.png",
   }
