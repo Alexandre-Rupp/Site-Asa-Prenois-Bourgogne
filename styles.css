@@ -333,8 +333,7 @@ main {
   margin-top: 0;
 }
 
-.view-stack--info-pages .section-head + .panel,
-.view-stack--legal-pages .section-head + .panel {
+.view-stack .section-head + .panel {
   margin-top: 0.9rem;
 }
 
