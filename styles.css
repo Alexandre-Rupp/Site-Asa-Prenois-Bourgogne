@@ -1481,9 +1481,10 @@ textarea:focus-visible,
 .not-found-media img {
   display: block;
   width: 100%;
-  max-height: clamp(220px, 40vw, 340px);
-  object-fit: cover;
+  max-height: min(70vh, 680px);
+  object-fit: contain;
   border-radius: 10px;
+  background: #0b1733;
 }
 
 .not-found-media figcaption {
@@ -1511,6 +1512,10 @@ textarea:focus-visible,
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
+}
+
+.not-found-audio-hidden {
+  display: none;
 }
 
 .asa-layout {

@@ -1976,21 +1976,15 @@ function renderNotFoundView() {
         <article class="panel not-found-panel">
           <figure class="not-found-media">
             <img
-              src="assets/meetings/dijon-motors-cup.jpg"
-              alt="Voiture de course sur circuit"
+              src="assets/not-found/mv3.png"
+              alt="Visuel Max Verstappen"
               loading="eager"
             />
-            <figcaption>
-              Vous pouvez revenir a l'accueil ou lancer la musique ci-dessous.
-            </figcaption>
           </figure>
-          <div class="not-found-audio-wrap">
-            <p class="not-found-audio-title">Ambiance 404</p>
-            <audio class="js-not-found-audio" controls preload="auto" loop autoplay>
-              <source src="assets/audio/max-verstappen-33.mp3" type="audio/mpeg" />
-              Votre navigateur ne prend pas en charge l'audio HTML5.
-            </audio>
-          </div>
+          <audio class="js-not-found-audio not-found-audio-hidden" preload="auto" loop autoplay>
+            <source src="assets/audio/max-verstappen-33.mp3" type="audio/mpeg" />
+            Votre navigateur ne prend pas en charge l'audio HTML5.
+          </audio>
           <div class="not-found-actions">
             <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
           </div>
@@ -2007,7 +2001,7 @@ function bindNotFoundMedia() {
   const playPromise = audioNode.play();
   if (playPromise && typeof playPromise.catch === "function") {
     playPromise.catch(() => {
-      // Some browsers block autoplay without a gesture; controls remain available.
+      // Some browsers block autoplay without a gesture.
     });
   }
 }
