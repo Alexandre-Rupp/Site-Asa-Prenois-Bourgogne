@@ -1976,7 +1976,7 @@ function renderNotFoundView() {
         <article class="panel not-found-panel">
           <figure class="not-found-media">
             <img
-              src="assets/not-found/mv3.png"
+              src="assets/not-found/max-redirect.png"
               alt="Visuel Max Verstappen"
               loading="eager"
             />
