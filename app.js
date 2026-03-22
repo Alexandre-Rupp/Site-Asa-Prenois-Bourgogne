@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260322-2";
+} from "./site-data.js?v=20260322-3";
 import {
   getRouteHashFromPathname,
   parseRoute,

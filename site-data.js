@@ -547,7 +547,60 @@ export const PAGE_SKELETONS = {
       },
     ],
     urcyPartnersTitle: "Nos partenaires - Course de C\u00F4te Urcy 2025",
-    urcyPartners: [],
+    urcyPartners: [
+      {
+        name: "FFSA Montagne",
+        short: "FFSA Montagne",
+        logo: "assets/partners/ffsa.svg",
+        url: "https://www.ffsa.org/",
+      },
+      {
+        name: "Ligue du Sport Automobile Bourgogne Franche-Comt\u00E9",
+        short: "Ligue BFC",
+        logo: "assets/partners/lsabfc.webp",
+        url: "https://www.lsabfc.org/accueil/accueil.html",
+      },
+      {
+        name: "Fromagerie Delin",
+        short: "Delin",
+        logo: "assets/partners/delin.webp",
+      },
+      {
+        name: "Passion Moto S\u00E9curit\u00E9",
+        short: "PMS",
+        logo: "assets/partners/passion-moto-securite.webp",
+      },
+      {
+        name: "Ets Bailly et Mr.Bricolage",
+        short: "Mr.Bricolage",
+        logo: "assets/partners/mr-bricolage.svg",
+      },
+      { name: "Gautier", short: "Gautier", logo: "assets/partners/gautier.svg" },
+      { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.webp" },
+      {
+        name: "Plan\u00E8te Communication Dijon",
+        short: "Plan\u00E8te Com",
+        logo: "assets/partners/planete-communication.webp",
+      },
+      {
+        name: "Bymycar",
+        short: "Bymycar",
+        logo: "assets/partners/bymycar.webp",
+        url: "https://www.bymycar.fr/",
+      },
+      {
+        name: "Circuit Dijon-Prenois",
+        short: "Dijon-Prenois",
+        logo: "assets/partners/dijon-prenois.webp",
+        url: "https://www.circuit-dijon-prenois.com/",
+      },
+      {
+        name: "C\u00F4te d'Or Le D\u00E9partement",
+        short: "C\u00F4te d'Or",
+        logo: "assets/partners/cotedor.svg",
+        url: "https://www.cotedor.fr/",
+      },
+    ],
   },
   contact: {
     title: "Contacts",
