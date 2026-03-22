@@ -59,7 +59,7 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
-const MEETING_BACKGROUND_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "avif"];
+const MEETING_BACKGROUND_EXTENSIONS = ["webp", "avif", "jpg", "jpeg", "png"];
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   r11: "https://rallyedeblignysurouche.fr/",
@@ -91,30 +91,30 @@ const MEETING_SHARED_DOCUMENTS = {
   ],
 };
 const MEETING_PROMOTER_LOGOS = {
-  r1: { src: "assets/promoters/fun-racing-cars.png", alt: "Logo Fun Racing Cars" },
-  r2: { src: "assets/promoters/Catheram.jpg", alt: "Logo Caterham" },
-  r3: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
+  r1: { src: "assets/promoters/fun-racing-cars.webp", alt: "Logo Fun Racing Cars" },
+  r2: { src: "assets/promoters/Catheram.webp", alt: "Logo Caterham" },
+  r3: { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
   r4: {
-    src: "assets/promoters/gt4.png",
+    src: "assets/promoters/gt4.webp",
     alt: "Logo Championnat de France GT4",
   },
   r5: {
-    src: "assets/promoters/porsche.png",
+    src: "assets/promoters/porsche.webp",
     alt: "Logo Porsche Sprint Challenge France",
   },
-  r6: { src: "assets/promoters/peter-auto.jpg", alt: "Logo Peter Auto" },
-  r7: { src: "assets/promoters/tte-2016.png", alt: "Logo Trophee Tourisme Endurance" },
-  r8: { src: "assets/promoters/hvm.png", alt: "Logo HVM" },
-  r9: { src: "assets/promoters/lamera-cup.png", alt: "Logo Lamera Cup" },
+  r6: { src: "assets/promoters/peter-auto.webp", alt: "Logo Peter Auto" },
+  r7: { src: "assets/promoters/tte-2016.webp", alt: "Logo Trophee Tourisme Endurance" },
+  r8: { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
+  r9: { src: "assets/promoters/lamera-cup.webp", alt: "Logo Lamera Cup" },
   r10: {
-    src: "assets/promoters/coupe-de-france-des-circuits.jpg",
+    src: "assets/promoters/coupe-de-france-des-circuits.webp",
     alt: "Logo Coupe de France des Circuits",
   },
 };
 const MEETING_BACKGROUND_OVERRIDES = {
-  r10: "assets/meetings/Poster Coupe de France (7).png",
-  r12: "assets/meetings/urcy.jpg",
-  r13: "assets/meetings/Rallye de l'Auxois.jpg",
+  r10: "assets/meetings/Poster Coupe de France (7).webp",
+  r12: "assets/meetings/urcy.webp",
+  r13: "assets/meetings/Rallye de l'Auxois.webp",
 };
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
@@ -1976,7 +1976,7 @@ function renderNotFoundView() {
         <article class="panel not-found-panel">
           <figure class="not-found-media">
             <img
-              src="assets/not-found/max-redirect.png"
+              src="assets/not-found/max-redirect.webp"
               alt="Visuel Max Verstappen"
               loading="eager"
             />
