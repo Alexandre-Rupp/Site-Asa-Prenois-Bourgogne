@@ -41,15 +41,32 @@
     <meta name="twitter:image:alt" content="ASA Prenois Bourgogne - logo officiel" />
     <link rel="canonical" href="https://www.asa-prenois-bourgogne.org/" />
     <title>ASA Prenois Bourgogne - Site officiel</title>
-    <link rel="icon" type="image/png" href="assets/petit-logo-asa.png?v=20260318-1" />
-    <link rel="shortcut icon" href="assets/petit-logo-asa.png?v=20260318-1" />
-    <link rel="apple-touch-icon" href="assets/petit-logo-asa.png?v=20260318-1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=20260322-1" />
+    <link rel="shortcut icon" href="assets/favicon-32x32.png?v=20260322-1" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon-180x180.png?v=20260322-1"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <link rel="stylesheet" href="styles.css?v=20260320-4" />
     <script type="application/ld+json">
       {
@@ -87,8 +104,17 @@
       <a class="logo-wrap" href="#/accueil" aria-label="Retour au menu principal">
         <img
           class="logo-main"
-          src="assets/logo-asa-prenois-bourgogne.webp?v=20260322-1"
-          onerror="this.onerror=null;this.src='assets/logo-asa-prenois-bourgogne.png?v=20260315-2';"
+          src="assets/logo-asa-prenois-bourgogne-520.webp?v=20260322-2"
+          srcset="
+            assets/logo-asa-prenois-bourgogne-260.webp?v=20260322-2 260w,
+            assets/logo-asa-prenois-bourgogne-520.webp?v=20260322-2 520w
+          "
+          sizes="(max-width: 640px) 176px, (max-width: 1200px) 21vw, 250px"
+          width="520"
+          height="293"
+          fetchpriority="high"
+          decoding="async"
+          onerror="this.onerror=null;this.src='assets/logo-asa-prenois-bourgogne.webp?v=20260322-1';"
           alt="Logo ASA Prenois Bourgogne"
         />
       </a>
@@ -183,6 +209,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="app.js?v=20260320-5"></script>
+    <script type="module" src="app.js?v=20260322-2"></script>
   </body>
 </html>

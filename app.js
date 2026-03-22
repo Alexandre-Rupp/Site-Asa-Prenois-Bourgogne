@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260320-5";
+} from "./site-data.js?v=20260322-1";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -45,6 +45,10 @@ const CANONICAL_ORIGIN = "https://www.asa-prenois-bourgogne.org";
 const MOBILE_NAV_BREAKPOINT = 980;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const FEED_TEXT_PREVIEW_LENGTH = 170;
+const COMMISSIONER_TRAINING_IMAGE_DIRECTORY = "assets/news/formation-commissaire";
+const COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX = "formation-commissaire-";
+const COMMISSIONER_TRAINING_IMAGE_SIZES =
+  "(max-width: 640px) 92vw, (max-width: 1200px) 86vw, 1040px";
 const DEFAULT_MEETING_FILTER = "all";
 const MEETING_FILTER_OPTIONS = [
   { value: "all", label: "Tous" },
@@ -197,20 +201,40 @@ function renderFeedItemText(item) {
   `;
 }
 
+function getResponsiveFeedImageSourceSet(src) {
+  const normalizedSrc = String(src || "");
+  const expectedPrefix = `${COMMISSIONER_TRAINING_IMAGE_DIRECTORY}/${COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX}`;
+  if (
+    !normalizedSrc.startsWith(expectedPrefix) ||
+    !normalizedSrc.endsWith(".webp")
+  ) {
+    return "";
+  }
+
+  const basePath = normalizedSrc.slice(0, -5);
+  return `${basePath}-640.webp 640w, ${basePath}-1024.webp 1024w, ${basePath}-1600.webp 1600w`;
+}
+
 function renderFeedCarousel(images, title, carouselId) {
   const normalizedImages = (images || [])
     .map((image, index) => {
       if (typeof image === "string") {
+        const srcset = getResponsiveFeedImageSourceSet(image);
         return {
           src: image,
           alt: `${title} - photo ${index + 1}`,
+          srcset,
+          sizes: srcset ? COMMISSIONER_TRAINING_IMAGE_SIZES : "",
         };
       }
 
       if (image && image.src) {
+        const srcset = image.srcset || getResponsiveFeedImageSourceSet(image.src);
         return {
           src: image.src,
           alt: image.alt || `${title} - photo ${index + 1}`,
+          srcset,
+          sizes: image.sizes || (srcset ? COMMISSIONER_TRAINING_IMAGE_SIZES : ""),
         };
       }
 
@@ -279,14 +303,25 @@ function renderFeedCarousel(images, title, carouselId) {
                 }"
                 data-slide-index="${index}"
                 aria-hidden="${index === 0 ? "false" : "true"}"
-              >
-                <img
-                  src="${escapeHtml(image.src)}"
-                  alt="${escapeHtml(image.alt)}"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
+	              >
+	                <img
+	                  src="${escapeHtml(image.src)}"
+	                  ${image.srcset ? `srcset="${escapeHtml(image.srcset)}"` : ""}
+	                  ${image.sizes ? `sizes="${escapeHtml(image.sizes)}"` : ""}
+	                  alt="${escapeHtml(image.alt)}"
+	                  loading="${
+                      carouselId === "commissaires-training-carousel" && index === 0
+                        ? "eager"
+                        : "lazy"
+                    }"
+	                  fetchpriority="${
+                      carouselId === "commissaires-training-carousel" && index === 0
+                        ? "high"
+                        : "auto"
+                    }"
+	                  decoding="async"
+	                />
+	              </figure>
             `
           )
           .join("")}
