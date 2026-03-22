@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260322-1";
+} from "./site-data.js?v=20260322-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -1929,15 +1929,21 @@ function renderSkeletonPage(pageKey) {
                 </div>
               </article>
 
-              <article class="panel asa-partners-subpanel">
-                <h3>${escapeHtml(
-                  partnersPage.urcyPartnersTitle ||
-                    "Partenaires Urcy"
-                )}</h3>
-                <div class="partner-grid">
-                  ${renderPartnerCards(partnersPage.urcyPartners || [])}
-                </div>
-              </article>
+              ${
+                partnersPage.urcyPartners && partnersPage.urcyPartners.length
+                  ? `
+                    <article class="panel asa-partners-subpanel">
+                      <h3>${escapeHtml(
+                        partnersPage.urcyPartnersTitle ||
+                          "Partenaires Urcy"
+                      )}</h3>
+                      <div class="partner-grid">
+                        ${renderPartnerCards(partnersPage.urcyPartners || [])}
+                      </div>
+                    </article>
+                  `
+                  : ""
+              }
             </section>
           </div>
         </section>
@@ -1945,13 +1951,7 @@ function renderSkeletonPage(pageKey) {
     `;
   }
 
-  if (
-    pageKey === "partenaires" &&
-    page.annualPartners &&
-    page.annualPartners.length &&
-    page.urcyPartners &&
-    page.urcyPartners.length
-  ) {
+  if (pageKey === "partenaires" && page.annualPartners && page.annualPartners.length) {
     return `
       <div class="view-stack">
         <section class="hero">
@@ -1968,14 +1968,20 @@ function renderSkeletonPage(pageKey) {
           </div>
         </section>
 
-        <section class="section">
-          <div class="section-head">
-            <h2>${escapeHtml(page.urcyPartnersTitle)}</h2>
-          </div>
-          <div class="partner-grid">
-            ${renderPartnerCards(page.urcyPartners)}
-          </div>
-        </section>
+        ${
+          page.urcyPartners && page.urcyPartners.length
+            ? `
+              <section class="section">
+                <div class="section-head">
+                  <h2>${escapeHtml(page.urcyPartnersTitle)}</h2>
+                </div>
+                <div class="partner-grid">
+                  ${renderPartnerCards(page.urcyPartners)}
+                </div>
+              </section>
+            `
+            : ""
+        }
       </div>
     `;
   }
