@@ -1251,7 +1251,7 @@ function renderMeetingCards(
   );
 
   root.innerHTML = meetings
-    .map((meeting, index) => {
+    .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
       const canShowSignup =
         showSignup && canShowSignupForMeeting(profileKey, meeting);
@@ -1265,9 +1265,6 @@ function renderMeetingCards(
       const detailLinkAttrs = externalUrl
         ? 'target="_blank" rel="noopener noreferrer"'
         : "";
-      const meetingVisualPath = getMeetingVisualPath(meeting.id);
-      const meetingVisualUrl = withMeetingAssetVersion(meetingVisualPath);
-      const shouldPrioritizeCardImage = index < 3;
 
       return `
         <article
@@ -1279,21 +1276,6 @@ function renderMeetingCards(
           data-base-route="${escapeHtml(baseRoute)}"
           aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
         >
-          ${
-            meetingVisualUrl
-              ? `
-                <figure class="race-card-media">
-                  <img
-                    src="${escapeHtml(meetingVisualUrl)}"
-                    alt=""
-                    loading="${shouldPrioritizeCardImage ? "eager" : "lazy"}"
-                    fetchpriority="${shouldPrioritizeCardImage ? "high" : "auto"}"
-                    decoding="async"
-                  />
-                </figure>
-              `
-              : ""
-          }
           <p class="race-meta-line">
             ${escapeHtml(meetingKindLabel(meeting.kind))} - ${escapeHtml(
               meeting.date
