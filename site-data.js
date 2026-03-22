@@ -312,31 +312,31 @@ export const PROFILE_CONTENT = {
         collapsibleText: true,
         images: [
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-01.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-01.webp",
             alt: "Formation commissaire - exercice drapeaux en virage",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-02.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-02.webp",
             alt: "Formation commissaire - briefing de groupe",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-03.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-03.webp",
             alt: "Formation commissaire - photo de binome",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-04.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-04.webp",
             alt: "Formation commissaire - demonstration en piste",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-05.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-05.webp",
             alt: "Formation commissaire - echanges en bord de piste",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-06.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-06.webp",
             alt: "Formation commissaire - atelier drapeaux",
           },
           {
-            src: "assets/news/formation-commissaire/formation-commissaire-07.jpg",
+            src: "assets/news/formation-commissaire/formation-commissaire-07.webp",
             alt: "Formation commissaire - poste T6",
           },
         ],
@@ -440,31 +440,31 @@ export const PAGE_SKELETONS = {
     commissionerTrainingGalleryTitle: "Photos formation incendie",
     commissionerTrainingImages: [
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-01.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-01.webp",
         alt: "Formation incendie - atelier 1",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-02.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-02.webp",
         alt: "Formation incendie - atelier 2",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-03.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-03.webp",
         alt: "Formation incendie - atelier 3",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-04.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-04.webp",
         alt: "Formation incendie - atelier 4",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-05.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-05.webp",
         alt: "Formation incendie - atelier 5",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-06.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-06.webp",
         alt: "Formation incendie - atelier 6",
       },
       {
-        src: "assets/news/formation-commissaire/formation-commissaire-07.jpg",
+        src: "assets/news/formation-commissaire/formation-commissaire-07.webp",
         alt: "Formation incendie - atelier 7",
       },
     ],
@@ -511,13 +511,13 @@ export const PAGE_SKELETONS = {
     annualPartnersTitle: "Nos partenaires de l'Asa Prenois-Bourgogne",
     annualPartners: [
       {
-        name: "Federation Internationale de l'Automobile",
+        name: "FIA",
         short: "FIA",
-        logo: "assets/partners/fia.png",
+        logo: "assets/partners/fia.webp",
         url: "https://www.fia.com/",
       },
       {
-        name: "Federation Francaise du Sport Automobile",
+        name: "FFSA",
         short: "FFSA",
         logo: "assets/partners/ffsa.svg",
         url: "https://www.ffsa.org/",
@@ -525,36 +525,25 @@ export const PAGE_SKELETONS = {
       {
         name: "Ligue du Sport Automobile Bourgogne Franche-Comt\u00E9",
         short: "Ligue BFC",
-        logo: "assets/partners/lsabfc.png",
+        logo: "assets/partners/lsabfc.webp",
         url: "https://www.lsabfc.org/accueil/accueil.html",
       },
       {
-        name: "Circuit Dijon-Prenois",
-        short: "Dijon-Prenois",
-        logo: "assets/partners/dijon-prenois.png",
+        name: "Circuit Dijon Prenois",
+        short: "Circuit Dijon Prenois",
+        logo: "assets/partners/dijon-prenois.webp",
         url: "https://www.circuit-dijon-prenois.com/",
       },
       {
-        name: "Stand 21",
-        short: "Stand 21",
-        logo: "assets/partners/stand21.webp",
-        url: "https://stand21.com/",
+        name: "C\u00D4TE D'OR Le D\u00E9partement",
+        short: "C\u00D4TE D'OR",
+        logo: "assets/partners/cotedor.svg",
+        url: "https://www.cotedor.fr/",
       },
       {
-        name: "Krys",
-        short: "Krys",
-        logo: "assets/partners/krys.png",
-        url: "https://www.krys.com/",
-      },
-      {
-        name: "Plan\u00E8te Communication Dijon",
-        short: "Plan\u00E8te Com",
-        logo: "assets/partners/planete-communication.png",
-      },
-      {
-        name: "Kreativecom",
-        short: "Kreativecom",
-        logo: "assets/partners/kreativecom.png",
+        name: "Plan\u00E8te Communication",
+        short: "Plan\u00E8te Communication",
+        logo: "assets/partners/planete-communication.webp",
       },
     ],
     urcyPartnersTitle: "Nos partenaires - Course de C\u00F4te Urcy 2025",
@@ -568,18 +557,18 @@ export const PAGE_SKELETONS = {
       {
         name: "Ligue du Sport Automobile Bourgogne Franche-Comt\u00E9",
         short: "Ligue BFC",
-        logo: "assets/partners/lsabfc.png",
+        logo: "assets/partners/lsabfc.webp",
         url: "https://www.lsabfc.org/accueil/accueil.html",
       },
       {
         name: "Fromagerie Delin",
         short: "Delin",
-        logo: "assets/partners/delin.jpg",
+        logo: "assets/partners/delin.webp",
       },
       {
         name: "Passion Moto S\u00E9curit\u00E9",
         short: "PMS",
-        logo: "assets/partners/passion-moto-securite.png",
+        logo: "assets/partners/passion-moto-securite.webp",
       },
       {
         name: "Ets Bailly et Mr.Bricolage",
@@ -587,22 +576,22 @@ export const PAGE_SKELETONS = {
         logo: "assets/partners/mr-bricolage.svg",
       },
       { name: "Gautier", short: "Gautier", logo: "assets/partners/gautier.svg" },
-      { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.png" },
+      { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.webp" },
       {
         name: "Plan\u00E8te Communication Dijon",
         short: "Plan\u00E8te Com",
-        logo: "assets/partners/planete-communication.png",
+        logo: "assets/partners/planete-communication.webp",
       },
       {
         name: "Bymycar",
         short: "Bymycar",
-        logo: "assets/partners/bymycar.png",
+        logo: "assets/partners/bymycar.webp",
         url: "https://www.bymycar.fr/",
       },
       {
         name: "Circuit Dijon-Prenois",
         short: "Dijon-Prenois",
-        logo: "assets/partners/dijon-prenois.png",
+        logo: "assets/partners/dijon-prenois.webp",
         url: "https://www.circuit-dijon-prenois.com/",
       },
       {
