@@ -57,10 +57,23 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
-const MEETING_BACKGROUND_EXTENSIONS = ["webp", "avif", "jpg", "jpeg", "png"];
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   r11: "https://rallyedeblignysurouche.fr/",
+};
+const MEETING_VISUALS = {
+  r1: "assets/meetings/fun-racing-car.webp",
+  r2: "assets/meetings/caterham.webp",
+  r3: "assets/meetings/historic-tour.webp",
+  r4: "assets/meetings/championnat-de-france-gt.webp",
+  r5: "assets/meetings/porsche-sprint-challenge-france.webp",
+  r6: "assets/meetings/grand-prix-de-l-age-d-or.webp",
+  r7: "assets/meetings/trophee-tourisme-endurance.webp",
+  r8: "assets/meetings/dijon-motors-cup.webp",
+  r9: "assets/meetings/lamera-cup.webp",
+  r10: "assets/meetings/Poster Coupe de France (7).webp",
+  r12: "assets/meetings/urcy.webp",
+  r13: "assets/meetings/Rallye de l'Auxois.webp",
 };
 const COMMISSAIRE_MEETING_DOCUMENTS = {
   r3: [
@@ -109,11 +122,6 @@ const MEETING_PROMOTER_LOGOS = {
     alt: "Logo Coupe de France des Circuits",
   },
 };
-const MEETING_BACKGROUND_OVERRIDES = {
-  r10: "assets/meetings/Poster Coupe de France (7).webp",
-  r12: "assets/meetings/urcy.webp",
-  r13: "assets/meetings/Rallye de l'Auxois.webp",
-};
 const meetingFilterState = {
   commissaire: DEFAULT_MEETING_FILTER,
   pilote: DEFAULT_MEETING_FILTER,
@@ -122,7 +130,6 @@ const pilotMeetingVehicleFilterState = {
   rallye: DEFAULT_VEHICLE_TYPE_FILTER,
   "course-de-cote": DEFAULT_VEHICLE_TYPE_FILTER,
 };
-const meetingBackgroundPathCache = new Map();
 let topbarHeightRafId = null;
 let topbarMenuController = null;
 let hasRenderedRouteOnce = false;
@@ -674,127 +681,21 @@ function getMeetingPromoterLogo(meetingId) {
   return MEETING_PROMOTER_LOGOS[meetingId] || null;
 }
 
-function slugifyAssetBaseName(value) {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
+function getMeetingVisualPath(meetingId) {
+  return MEETING_VISUALS[meetingId] || "";
 }
 
-function compactAssetBaseName(value) {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]/g, "")
-    .toLowerCase();
+function withMeetingAssetVersion(path) {
+  if (!path) return "";
+  return `${encodeURI(path)}?v=${MEETING_BACKGROUND_ASSET_VERSION}`;
 }
 
-function getMeetingBackgroundBaseNames(meeting) {
-  const rawName = String(meeting?.name || "").trim();
-  const rawLocation = String(meeting?.location || "").trim();
-  const slugName = slugifyAssetBaseName(rawName);
-  const compactName = compactAssetBaseName(rawName);
-  const slugLocation = slugifyAssetBaseName(rawLocation);
-  const compactLocation = compactAssetBaseName(rawLocation);
-  const hyphenated = rawName.replace(/\s+/g, "-");
-  const underscored = rawName.replace(/\s+/g, "_");
-  const locationHyphenated = rawLocation.replace(/\s+/g, "-");
-  const locationUnderscored = rawLocation.replace(/\s+/g, "_");
-
-  const names = [
-    meeting?.id || "",
-    rawName,
-    rawName.toLowerCase(),
-    hyphenated,
-    underscored,
-    slugName,
-    compactName,
-    rawLocation,
-    rawLocation.toLowerCase(),
-    locationHyphenated,
-    locationUnderscored,
-    slugLocation,
-    compactLocation,
-    `${meeting?.id || ""}-${slugName}`,
-    `${meeting?.id || ""}-${slugLocation}`,
-  ];
-
-  return [...new Set(names.filter(Boolean))];
-}
-
-function getMeetingBackgroundCandidates(meeting) {
-  const baseNames = getMeetingBackgroundBaseNames(meeting);
-  const candidates = [];
-  const folders = ["assets/meetings", "assets"];
-  const overridePath = MEETING_BACKGROUND_OVERRIDES[meeting?.id];
-
-  if (overridePath) {
-    candidates.push(overridePath);
-  }
-
-  folders.forEach((folder) => {
-    baseNames.forEach((baseName) => {
-      MEETING_BACKGROUND_EXTENSIONS.forEach((ext) => {
-        candidates.push(`${folder}/${baseName}.${ext}`);
-      });
-    });
-  });
-
-  return candidates;
-}
-
-function imageExists(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
-}
-
-async function resolveMeetingBackgroundPath(meeting) {
-  if (!meeting?.id) return null;
-
-  if (meetingBackgroundPathCache.has(meeting.id)) {
-    return meetingBackgroundPathCache.get(meeting.id);
-  }
-
-  const candidates = getMeetingBackgroundCandidates(meeting);
-
-  for (const candidate of candidates) {
-    // Probe local files and keep the first existing image for this meeting.
-    const exists = await imageExists(candidate);
-    if (exists) {
-      meetingBackgroundPathCache.set(meeting.id, candidate);
-      return candidate;
-    }
-  }
-
-  meetingBackgroundPathCache.set(meeting.id, null);
-  return null;
-}
-
-async function applyMeetingHeroBackground(meetingId) {
+function applyMeetingHeroBackground(meetingId) {
   const hero = document.querySelector(".js-meeting-hero");
   if (!hero) return;
 
-  const meeting = MEETINGS.find((entry) => entry.id === meetingId);
-  if (!meeting) {
-    hero.classList.remove("hero--meeting-has-image");
-    hero.style.removeProperty("--meeting-hero-image");
-    return;
-  }
-
-  hero.dataset.bgMeetingId = meeting.id;
-  const resolvedPath = await resolveMeetingBackgroundPath(meeting);
-
-  if (!hero.isConnected || hero.dataset.bgMeetingId !== meeting.id) {
-    return;
-  }
-
-  if (!resolvedPath) {
+  const visualPath = getMeetingVisualPath(meetingId);
+  if (!visualPath) {
     hero.classList.remove("hero--meeting-has-image");
     hero.style.removeProperty("--meeting-hero-image");
     return;
@@ -803,7 +704,7 @@ async function applyMeetingHeroBackground(meetingId) {
   hero.classList.add("hero--meeting-has-image");
   hero.style.setProperty(
     "--meeting-hero-image",
-    `url("${encodeURI(resolvedPath)}?v=${MEETING_BACKGROUND_ASSET_VERSION}")`
+    `url("${withMeetingAssetVersion(visualPath)}")`
   );
 }
 
@@ -1350,7 +1251,7 @@ function renderMeetingCards(
   );
 
   root.innerHTML = meetings
-    .map((meeting) => {
+    .map((meeting, index) => {
       const kindClass = meetingKindClass(meeting.kind);
       const canShowSignup =
         showSignup && canShowSignupForMeeting(profileKey, meeting);
@@ -1364,6 +1265,9 @@ function renderMeetingCards(
       const detailLinkAttrs = externalUrl
         ? 'target="_blank" rel="noopener noreferrer"'
         : "";
+      const meetingVisualPath = getMeetingVisualPath(meeting.id);
+      const meetingVisualUrl = withMeetingAssetVersion(meetingVisualPath);
+      const shouldPrioritizeCardImage = index < 3;
 
       return `
         <article
@@ -1375,6 +1279,21 @@ function renderMeetingCards(
           data-base-route="${escapeHtml(baseRoute)}"
           aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
         >
+          ${
+            meetingVisualUrl
+              ? `
+                <figure class="race-card-media">
+                  <img
+                    src="${escapeHtml(meetingVisualUrl)}"
+                    alt=""
+                    loading="${shouldPrioritizeCardImage ? "eager" : "lazy"}"
+                    fetchpriority="${shouldPrioritizeCardImage ? "high" : "auto"}"
+                    decoding="async"
+                  />
+                </figure>
+              `
+              : ""
+          }
           <p class="race-meta-line">
             ${escapeHtml(meetingKindLabel(meeting.kind))} - ${escapeHtml(
               meeting.date
@@ -1572,7 +1491,8 @@ function renderMeetingDetailView(
                   class="meeting-promoter-logo"
                   src="${escapeHtml(promoterLogo.src)}"
                   alt="${escapeHtml(promoterLogo.alt)}"
-                  loading="lazy"
+                  loading="eager"
+                  fetchpriority="high"
                 />
               </div>
             `
