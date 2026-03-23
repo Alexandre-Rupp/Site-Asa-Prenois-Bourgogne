@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260323-1";
+} from "./site-data.js?v=20260323-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -74,6 +74,7 @@ const MEETING_VISUALS = {
   r10: "assets/meetings/Poster Coupe de France (7).webp",
   r12: "assets/meetings/urcy.webp",
   r13: "assets/meetings/Rallye de l'Auxois.webp",
+  r15: "assets/meetings/reves-enfants-malades-2026.webp",
 };
 const COMMISSAIRE_MEETING_DOCUMENTS = {
   r3: [
