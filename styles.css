@@ -818,10 +818,6 @@ textarea:focus-visible,
   background: rgba(188, 27, 27, 0.1);
 }
 
-.race-card--event-red .race-meta-line {
-  color: #9e1414;
-}
-
 .race-card::before {
   content: "";
   position: absolute;
