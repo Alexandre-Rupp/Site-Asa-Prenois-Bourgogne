@@ -90,8 +90,42 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
       ctaLabel: "Ouvrir le document",
     },
   ],
+  r12: [
+    {
+      title: "Carte generale Urcy 2026",
+      description: "Carte generale officielle de la Course de Cote d'Urcy 2026.",
+      href: "assets/documents/carte-generale-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Itineraire horaire VP - Urcy 2026",
+      description: "Itineraire horaire officiel VP pour la Course de Cote d'Urcy 2026.",
+      href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+  ],
 };
 const MEETING_SHARED_DOCUMENTS = {
+  r12: [
+    {
+      title: "Carte generale Urcy 2026",
+      description: "PDF carte generale du meeting.",
+      href: "assets/documents/carte-generale-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Itineraire horaire VP - Urcy 2026",
+      description: "PDF itineraire horaire VP du meeting.",
+      href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Fiche engagement URCY 2026",
+      description: "Fichier Excel de la fiche d'engagement.",
+      href: "assets/documents/fiche-engagement-urcy-2026.xls",
+      ctaLabel: "Ouvrir le fichier",
+    },
+  ],
   r14: [
     {
       title: "Tour de Bourgogne - Document",
