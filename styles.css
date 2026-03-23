@@ -809,6 +809,19 @@ textarea:focus-visible,
   background: linear-gradient(180deg, #fbfffc, #ecf9ef);
 }
 
+.race-card--event-red {
+  border-left: 4px solid #bc1b1b;
+  background: linear-gradient(180deg, #fff8f8, #ffecec);
+}
+
+.race-card--event-red::before {
+  background: rgba(188, 27, 27, 0.1);
+}
+
+.race-card--event-red .race-meta-line {
+  color: #9e1414;
+}
+
 .race-card::before {
   content: "";
   position: absolute;

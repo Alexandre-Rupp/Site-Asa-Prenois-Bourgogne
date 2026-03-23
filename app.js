@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260322-3";
+} from "./site-data.js?v=20260323-1";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -703,6 +703,11 @@ function meetingKindClass(kind) {
   return "race-card--circuit";
 }
 
+function meetingCardToneClass(cardTone) {
+  if (cardTone === "red") return "race-card--event-red";
+  return "";
+}
+
 function meetingDetailHref(profileKey, meetingId, baseRoute = "meetings") {
   return `#/${baseRoute}/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
@@ -769,6 +774,12 @@ function canShowSignupForMeeting(profileKey, meeting) {
     meeting.kind === "course-de-cote" ||
     meeting.id === "r10"
   );
+}
+
+function canRenderMeetingInContext(meeting, { showSignup = false } = {}) {
+  if (!meeting) return false;
+  if (showSignup && meeting.generalCalendarOnly) return false;
+  return true;
 }
 
 function isValidVehicleTypeFilter(value) {
@@ -1277,6 +1288,7 @@ function renderMeetingCards(
 
   const meetings = getVisibleMeetings(meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER).filter(
     (meeting) => {
+      if (!canRenderMeetingInContext(meeting, { showSignup })) return false;
       if (!showSignup) return true;
       return profileKey === "pilote"
         ? canShowSignupForMeeting(profileKey, meeting)
@@ -1287,6 +1299,7 @@ function renderMeetingCards(
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
+      const toneClass = meetingCardToneClass(meeting.cardTone);
       const canShowSignup =
         showSignup && canShowSignupForMeeting(profileKey, meeting);
       const isSignupClosed =
@@ -1302,7 +1315,7 @@ function renderMeetingCards(
 
       return `
         <article
-          class="race-card ${kindClass} race-card--clickable js-meeting-card"
+          class="race-card ${kindClass} ${toneClass} race-card--clickable js-meeting-card"
           tabindex="0"
           role="link"
           data-profile="${escapeHtml(profileKey)}"
@@ -1439,7 +1452,7 @@ function renderMeetingDetailView(
   const profile = PROFILE_CONTENT[profileKey];
   const meeting = MEETINGS.find((entry) => entry.id === meetingId);
 
-  if (!profile || !meeting) {
+  if (!profile || !meeting || !canRenderMeetingInContext(meeting, { showSignup })) {
     return `
       <div class="view-stack">
         <section class="section">
@@ -1494,6 +1507,9 @@ function renderMeetingDetailView(
   const secondaryCtaAttrs = externalUrl
     ? 'target="_blank" rel="noopener noreferrer"'
     : "";
+  const meetingDetailParagraphs = Array.isArray(meeting.detailParagraphs)
+    ? meeting.detailParagraphs.filter((paragraph) => String(paragraph || "").trim())
+    : [];
 
   return `
     <div class="view-stack">
@@ -1576,6 +1592,23 @@ function renderMeetingDetailView(
           </article>
         </div>
       </section>
+
+      ${
+        meetingDetailParagraphs.length
+          ? `
+            <section class="section">
+              <div class="section-head">
+                <h2>Presentation</h2>
+              </div>
+              <article class="panel narrative-panel">
+                ${meetingDetailParagraphs
+                  .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+                  .join("")}
+              </article>
+            </section>
+          `
+          : ""
+      }
 
       <section class="section">
         <div class="section-head">
