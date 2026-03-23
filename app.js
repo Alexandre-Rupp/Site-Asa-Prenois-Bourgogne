@@ -1471,7 +1471,9 @@ function renderMeetingDetailView(
   const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
   const shouldRenderCommissaireMeetingDocs =
     !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
-  const shouldRenderSharedMeetingDocs = sharedMeetingDocs.length > 0;
+  const shouldRenderSharedMeetingDocs =
+    sharedMeetingDocs.length > 0 &&
+    !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
   const shouldRenderVehicleTypeDocs =
     profileKey === "pilote" &&
     !shouldRenderPilotMeetingSpecificDocs &&
