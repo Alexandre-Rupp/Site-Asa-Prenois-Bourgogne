@@ -117,6 +117,23 @@ export const MEETINGS = [
     location: "Auxois",
   },
   {
+    id: "r15",
+    name: "RÊVES D'ENFANTS MALADES",
+    date: "10 octobre 2026",
+    seasonLabel: "Événement solidaire 2026",
+    kind: "circuit",
+    location: "Circuit Dijon-Prenois",
+    cardTone: "red",
+    generalCalendarOnly: true,
+    detailParagraphs: [
+      "Le Lions Club Dijon Doyen organise la 15ème édition de la Journée Rêves d’Enfants Malades, en partenariat avec le Club Ferrari France sur le Circuit Dijon-Prenois le samedi 10 octobre 2026.",
+      "De 9h30 à 12h et de 13h30 à 17h, vous pourrez faire des baptêmes de piste dans des véhicules de prestige. Restauration sur place possible.",
+      "Après 17h, à l’issue des baptêmes, assistez à la parade des véhicules d’exposition et ceux de nos différents intervenants. Nous vous attendons nombreux !",
+      "BAPTÊME DE PISTE ADULTE/ENFANT : 70 €",
+      "Ouverture au public dès 9h.",
+    ],
+  },
+  {
     id: "r14",
     name: "TOUR DE BOURGOGNE CLASSIC",
     date: "23-24-25 octobre 2026",

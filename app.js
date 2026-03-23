@@ -10,7 +10,7 @@ import {
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
   TARGET_YEAR,
-} from "./site-data.js?v=20260322-3";
+} from "./site-data.js?v=20260323-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -74,6 +74,7 @@ const MEETING_VISUALS = {
   r10: "assets/meetings/Poster Coupe de France (7).webp",
   r12: "assets/meetings/urcy.webp",
   r13: "assets/meetings/Rallye de l'Auxois.webp",
+  r15: "assets/meetings/reves-enfants-malades-2026.webp",
 };
 const COMMISSAIRE_MEETING_DOCUMENTS = {
   r3: [
@@ -90,8 +91,42 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
       ctaLabel: "Ouvrir le document",
     },
   ],
+  r12: [
+    {
+      title: "Carte generale Urcy 2026",
+      description: "Carte generale officielle de la Course de Cote d'Urcy 2026.",
+      href: "assets/documents/carte-generale-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Itineraire horaire VP - Urcy 2026",
+      description: "Itineraire horaire officiel VP pour la Course de Cote d'Urcy 2026.",
+      href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+  ],
 };
 const MEETING_SHARED_DOCUMENTS = {
+  r12: [
+    {
+      title: "Carte generale Urcy 2026",
+      description: "PDF carte generale du meeting.",
+      href: "assets/documents/carte-generale-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Itineraire horaire VP - Urcy 2026",
+      description: "PDF itineraire horaire VP du meeting.",
+      href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Fiche engagement URCY 2026",
+      description: "Fichier Excel de la fiche d'engagement.",
+      href: "assets/documents/fiche-engagement-urcy-2026.xls",
+      ctaLabel: "Ouvrir le fichier",
+    },
+  ],
   r14: [
     {
       title: "Tour de Bourgogne - Document",
@@ -669,6 +704,11 @@ function meetingKindClass(kind) {
   return "race-card--circuit";
 }
 
+function meetingCardToneClass(cardTone) {
+  if (cardTone === "red") return "race-card--event-red";
+  return "";
+}
+
 function meetingDetailHref(profileKey, meetingId, baseRoute = "meetings") {
   return `#/${baseRoute}/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
@@ -735,6 +775,12 @@ function canShowSignupForMeeting(profileKey, meeting) {
     meeting.kind === "course-de-cote" ||
     meeting.id === "r10"
   );
+}
+
+function canRenderMeetingInContext(meeting, { showSignup = false } = {}) {
+  if (!meeting) return false;
+  if (showSignup && meeting.generalCalendarOnly) return false;
+  return true;
 }
 
 function isValidVehicleTypeFilter(value) {
@@ -1243,6 +1289,7 @@ function renderMeetingCards(
 
   const meetings = getVisibleMeetings(meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER).filter(
     (meeting) => {
+      if (!canRenderMeetingInContext(meeting, { showSignup })) return false;
       if (!showSignup) return true;
       return profileKey === "pilote"
         ? canShowSignupForMeeting(profileKey, meeting)
@@ -1253,6 +1300,7 @@ function renderMeetingCards(
   root.innerHTML = meetings
     .map((meeting) => {
       const kindClass = meetingKindClass(meeting.kind);
+      const toneClass = meetingCardToneClass(meeting.cardTone);
       const canShowSignup =
         showSignup && canShowSignupForMeeting(profileKey, meeting);
       const isSignupClosed =
@@ -1268,7 +1316,7 @@ function renderMeetingCards(
 
       return `
         <article
-          class="race-card ${kindClass} race-card--clickable js-meeting-card"
+          class="race-card ${kindClass} ${toneClass} race-card--clickable js-meeting-card"
           tabindex="0"
           role="link"
           data-profile="${escapeHtml(profileKey)}"
@@ -1405,7 +1453,7 @@ function renderMeetingDetailView(
   const profile = PROFILE_CONTENT[profileKey];
   const meeting = MEETINGS.find((entry) => entry.id === meetingId);
 
-  if (!profile || !meeting) {
+  if (!profile || !meeting || !canRenderMeetingInContext(meeting, { showSignup })) {
     return `
       <div class="view-stack">
         <section class="section">
@@ -1437,7 +1485,9 @@ function renderMeetingDetailView(
   const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
   const shouldRenderCommissaireMeetingDocs =
     !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
-  const shouldRenderSharedMeetingDocs = sharedMeetingDocs.length > 0;
+  const shouldRenderSharedMeetingDocs =
+    sharedMeetingDocs.length > 0 &&
+    !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
   const shouldRenderVehicleTypeDocs =
     profileKey === "pilote" &&
     !shouldRenderPilotMeetingSpecificDocs &&
@@ -1458,6 +1508,9 @@ function renderMeetingDetailView(
   const secondaryCtaAttrs = externalUrl
     ? 'target="_blank" rel="noopener noreferrer"'
     : "";
+  const meetingDetailParagraphs = Array.isArray(meeting.detailParagraphs)
+    ? meeting.detailParagraphs.filter((paragraph) => String(paragraph || "").trim())
+    : [];
 
   return `
     <div class="view-stack">
@@ -1540,6 +1593,23 @@ function renderMeetingDetailView(
           </article>
         </div>
       </section>
+
+      ${
+        meetingDetailParagraphs.length
+          ? `
+            <section class="section">
+              <div class="section-head">
+                <h2>Presentation</h2>
+              </div>
+              <article class="panel narrative-panel">
+                ${meetingDetailParagraphs
+                  .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+                  .join("")}
+              </article>
+            </section>
+          `
+          : ""
+      }
 
       <section class="section">
         <div class="section-head">
