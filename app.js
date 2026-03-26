@@ -1074,6 +1074,16 @@ function renderAccueilView() {
                   </a>
                   <a href="#/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
                 </div>
+                <div class="run-essence-home-viewer-wrap">
+                  <iframe
+                    class="run-essence-home-viewer"
+                    src="${escapeHtml(latestRunEssenceIssue.href)}#view=FitH"
+                    title="${escapeHtml(
+                      `PDF ${latestRunEssenceIssue.issueLabel} ${latestRunEssenceIssue.monthLabel}`
+                    )}"
+                    loading="lazy"
+                  ></iframe>
+                </div>
               `
               : `
                 <p>Le premier numero sera ajoute prochainement.</p>

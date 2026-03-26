@@ -1227,6 +1227,7 @@ textarea:focus-visible,
 .run-essence-grid {
   display: grid;
   gap: 0.9rem;
+  margin-top: 1rem;
 }
 
 .run-essence-card h3 {
@@ -1245,6 +1246,21 @@ textarea:focus-visible,
 
 .run-essence-card .link-row {
   margin-top: 0.9rem;
+}
+
+.run-essence-home-viewer-wrap {
+  margin-top: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.run-essence-home-viewer {
+  display: block;
+  width: 100%;
+  min-height: 1320px;
+  border: 0;
 }
 
 .meeting-timeline {
@@ -2302,6 +2318,10 @@ th {
     min-width: 0;
     width: 100%;
   }
+
+  .run-essence-home-viewer {
+    min-height: 960px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2399,5 +2419,9 @@ th {
   .social-link {
     width: 100%;
     justify-content: center;
+  }
+
+  .run-essence-home-viewer {
+    min-height: 700px;
   }
 }
