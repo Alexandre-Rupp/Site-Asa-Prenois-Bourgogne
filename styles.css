@@ -126,6 +126,10 @@ body {
   gap: 0.7rem;
 }
 
+.logo-wrap--text {
+  text-decoration: none;
+}
+
 .nav-toggle {
   display: none;
   width: 42px;
@@ -215,6 +219,14 @@ body {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.logo-text--brand strong {
+  font-size: clamp(1.02rem, 2vw, 1.34rem);
+}
+
+.logo-text--brand span {
+  font-size: 0.72rem;
 }
 
 .topbar-right {
@@ -1210,6 +1222,29 @@ textarea:focus-visible,
   margin: 0;
   color: var(--blue-800);
   font-weight: 700;
+}
+
+.run-essence-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.run-essence-card h3 {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--blue-800);
+}
+
+.run-essence-card p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
+
+.run-essence-card .link-row {
+  margin-top: 0.9rem;
 }
 
 .meeting-timeline {
@@ -2282,7 +2317,15 @@ th {
     max-width: 72vw;
   }
 
-  .logo-text {
+  .logo-text:not(.logo-text--brand) {
+    display: none;
+  }
+
+  .logo-text--brand strong {
+    font-size: 1.02rem;
+  }
+
+  .logo-text--brand span {
     display: none;
   }
 

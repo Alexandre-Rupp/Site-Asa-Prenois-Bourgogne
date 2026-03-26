@@ -6,9 +6,20 @@ export const NAV_ITEMS = [
   { key: "meetings", label: "CALENDRIER", href: "#/meetings" },
   { key: "inscriptions", label: "INSCRIPTIONS", href: "#/inscriptions" },
   { key: "actualites", label: "ACTUALIT\u00C9S", href: "#/actualites" },
+  { key: "run-essence", label: "RUN ESSENCE", href: "#/run-essence" },
   { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "#/commissaires" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
   { key: "contact", label: "CONTACTS", href: "#/contact" },
+];
+
+export const RUN_ESSENCE_ARCHIVES = [
+  {
+    id: "2026-03",
+    issueLabel: "No 1",
+    monthLabel: "Mars 2026",
+    title: "RUN ESSENCE - Mars 2026",
+    href: "assets/documents/run-essence-mars-2026.pdf",
+  },
 ];
 
 export const MEETINGS = [
@@ -520,6 +531,11 @@ export const PAGE_SKELETONS = {
       "L'ASA Prenois Bourgogne est nee de la fusion absorption des 4 ASA de C\u00F4te d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA C\u00F4te d'Or.",
       "L'ASAC Bourgogne avait ete creee le 22 d\u00E9cembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la legendaire Course de C\u00F4te d'Urcy.",
     ],
+  },
+  "run-essence": {
+    title: "Run Essence",
+    intro:
+      "Consultez l'historique mensuel du journal RUN ESSENCE, avec un numero publie chaque mois.",
   },
   partenaires: {
     title: "Nos partenaires",

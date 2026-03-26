@@ -9,8 +9,9 @@ import {
   PILOT_MEETING_DOCUMENTATION,
   PILOT_MEETING_DOCUMENTATION_BY_MEETING,
   PROFILE_CONTENT,
+  RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260323-2";
+} from "./site-data.js?v=20260326-1";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -964,9 +965,52 @@ function renderPilotMeetingVehicleDocsSection(meetingKind) {
   `;
 }
 
+function getRunEssenceIssuesSorted() {
+  return [...RUN_ESSENCE_ARCHIVES].sort((firstIssue, secondIssue) =>
+    String(secondIssue?.id || "").localeCompare(String(firstIssue?.id || ""))
+  );
+}
+
+function renderRunEssenceArchiveCards(issues) {
+  if (!issues.length) {
+    return `
+      <article class="panel">
+        <p>Le premier numero de RUN ESSENCE sera publie prochainement.</p>
+      </article>
+    `;
+  }
+
+  return issues
+    .map(
+      (issue) => `
+        <article class="panel run-essence-card">
+          <h3>${escapeHtml(issue.title || "RUN ESSENCE")}</h3>
+          <p>
+            Numero ${escapeHtml(issue.issueLabel || "-")} - ${escapeHtml(
+              issue.monthLabel || "Mois a venir"
+            )}
+          </p>
+          <div class="link-row">
+            <a
+              href="${escapeHtml(issue.href || "#")}"
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Consulter le PDF
+            </a>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
+  const runEssenceIssues = getRunEssenceIssuesSorted();
+  const latestRunEssenceIssue = runEssenceIssues[0] || null;
 
   return `
     <div class="view-stack">
@@ -1002,6 +1046,39 @@ function renderAccueilView() {
             Le site permet \u00E9galement d\u2019acc\u00E9der aux pages d\u00E9taill\u00E9es de chaque meeting, avec les informations
             pratiques, les documents utiles et les contenus qui seront publi\u00E9s au fil de la saison.
           </p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>RUN ESSENCE</h2>
+        </div>
+        <article class="panel narrative-panel">
+          <p>
+            Consultez le journal RUN ESSENCE et suivez les prochains numeros mensuels dans
+            l'historique dedie.
+          </p>
+          ${
+            latestRunEssenceIssue
+              ? `
+                <div class="link-row">
+                  <a
+                    href="${escapeHtml(latestRunEssenceIssue.href)}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Consulter ${escapeHtml(
+                      `${latestRunEssenceIssue.issueLabel} - ${latestRunEssenceIssue.monthLabel}`
+                    )}
+                  </a>
+                  <a href="#/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
+                </div>
+              `
+              : `
+                <p>Le premier numero sera ajoute prochainement.</p>
+              `
+          }
         </article>
       </section>
 
@@ -1785,6 +1862,27 @@ function renderSkeletonPage(pageKey) {
             </button>
             <p class="contact-email">${escapeHtml(CONTACT_PAGE_CONTENT.email)}</p>
           </article>
+        </section>
+      </div>
+    `;
+  }
+
+  if (pageKey === "run-essence") {
+    const runEssenceIssues = getRunEssenceIssuesSorted();
+    return `
+      <div class="view-stack view-stack--info-pages">
+        <section class="hero">
+          <h1>${escapeHtml(page.title)}</h1>
+          <p class="hero-sub">${escapeHtml(page.intro)}</p>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>Historique du journal</h2>
+          </div>
+          <div class="run-essence-grid">
+            ${renderRunEssenceArchiveCards(runEssenceIssues)}
+          </div>
         </section>
       </div>
     `;
