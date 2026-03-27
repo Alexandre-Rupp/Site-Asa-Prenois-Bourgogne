@@ -306,6 +306,7 @@ export const PROFILE_CONTENT = {
       memberForm:
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
+      signupClosedAll: true,
       closedRaceFormsByMeeting: ["r4", "r13", "r14"],
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
