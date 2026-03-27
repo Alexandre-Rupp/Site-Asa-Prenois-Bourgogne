@@ -816,7 +816,26 @@ function getVehicleTypeFilterForMeetingKind(meetingKind) {
 
 function renderListItems(items) {
   return (items || [])
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
+    .map((item) => {
+      if (item && typeof item === "object" && !Array.isArray(item)) {
+        const title = String(item.title || item.label || "").trim();
+        const href = String(item.href || "").trim();
+        if (href) {
+          const linkLabel = title || String(item.ctaLabel || "Ouvrir le document");
+          return `
+            <li>
+              <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
+                ${escapeHtml(linkLabel)}
+              </a>
+            </li>
+          `;
+        }
+        if (title) {
+          return `<li>${escapeHtml(title)}</li>`;
+        }
+      }
+      return `<li>${escapeHtml(String(item || ""))}</li>`;
+    })
     .join("");
 }
 
@@ -847,8 +866,20 @@ function copyTextToClipboard(value) {
   }
 }
 
-function renderPilotMeetingVehicleDocsContent(meetingKind, vehicleType) {
-  const docsByKind = PILOT_MEETING_DOCUMENTATION[meetingKind];
+function getPilotMeetingVehicleDocsSource(meetingId, meetingKind) {
+  const meetingDocs = PILOT_MEETING_DOCUMENTATION_BY_MEETING[meetingId];
+  const hasMeetingVehicleDocs =
+    meetingDocs &&
+    Array.isArray(meetingDocs.commonDocuments) &&
+    meetingDocs.vehicleDocuments &&
+    typeof meetingDocs.vehicleDocuments === "object";
+
+  if (hasMeetingVehicleDocs) return meetingDocs;
+  return PILOT_MEETING_DOCUMENTATION[meetingKind] || null;
+}
+
+function renderPilotMeetingVehicleDocsContent(meetingId, meetingKind, vehicleType) {
+  const docsByKind = getPilotMeetingVehicleDocsSource(meetingId, meetingKind);
   if (!docsByKind) return "";
 
   const currentVehicleType = isValidVehicleTypeFilter(vehicleType)
@@ -944,7 +975,7 @@ function renderCommissaireMeetingDocsContent(documents) {
   `;
 }
 
-function renderPilotMeetingVehicleDocsSection(meetingKind) {
+function renderPilotMeetingVehicleDocsSection(meetingId, meetingKind) {
   const currentVehicleType = getVehicleTypeFilterForMeetingKind(meetingKind);
 
   return `
@@ -978,7 +1009,7 @@ function renderPilotMeetingVehicleDocsSection(meetingKind) {
       </div>
     </div>
     <div id="pilot-vehicle-doc-content">
-      ${renderPilotMeetingVehicleDocsContent(meetingKind, currentVehicleType)}
+      ${renderPilotMeetingVehicleDocsContent(meetingId, meetingKind, currentVehicleType)}
     </div>
   `;
 }
@@ -1578,6 +1609,12 @@ function renderMeetingDetailView(
     profileKey === "pilote"
       ? PILOT_MEETING_DOCUMENTATION_BY_MEETING[meeting.id]
       : null;
+  const hasPilotMeetingSpecificVehicleDocs =
+    profileKey === "pilote" &&
+    pilotMeetingSpecificDocs &&
+    Array.isArray(pilotMeetingSpecificDocs.commonDocuments) &&
+    pilotMeetingSpecificDocs.vehicleDocuments &&
+    typeof pilotMeetingSpecificDocs.vehicleDocuments === "object";
   const commissaireMeetingDocs =
     profileKey === "commissaire"
       ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
@@ -1587,7 +1624,8 @@ function renderMeetingDetailView(
     profileKey === "commissaire" &&
     !commissaireMeetingDocs.length &&
     !sharedMeetingDocs.length;
-  const shouldRenderPilotMeetingSpecificDocs = Boolean(pilotMeetingSpecificDocs);
+  const shouldRenderPilotMeetingSpecificDocs =
+    Boolean(pilotMeetingSpecificDocs) && !hasPilotMeetingSpecificVehicleDocs;
   const shouldRenderCommissaireMeetingDocs =
     !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
   const shouldRenderSharedMeetingDocs =
@@ -1595,8 +1633,9 @@ function renderMeetingDetailView(
     !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
   const shouldRenderVehicleTypeDocs =
     profileKey === "pilote" &&
-    !shouldRenderPilotMeetingSpecificDocs &&
-    Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind]);
+    (hasPilotMeetingSpecificVehicleDocs ||
+      (!shouldRenderPilotMeetingSpecificDocs &&
+        Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind])));
   const canShowSignup =
     showSignup && canShowSignupForMeeting(profileKey, meeting);
   const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
@@ -1751,7 +1790,7 @@ function renderMeetingDetailView(
             : shouldRenderCommissaireMeetingDocs
             ? renderCommissaireMeetingDocsContent(commissaireMeetingDocs)
             : shouldRenderVehicleTypeDocs
-            ? renderPilotMeetingVehicleDocsSection(meeting.kind)
+            ? renderPilotMeetingVehicleDocsSection(meeting.id, meeting.kind)
             : `
               <div class="meeting-doc-grid">
                 ${MEETING_DETAIL_SECTIONS.map(
@@ -1782,7 +1821,7 @@ function bindMeetingDetailEvents(profileKey, meetingId) {
   const meeting = MEETINGS.find((entry) => entry.id === meetingId);
   if (!meeting) return;
 
-  const docsByKind = PILOT_MEETING_DOCUMENTATION[meeting.kind];
+  const docsByKind = getPilotMeetingVehicleDocsSource(meeting.id, meeting.kind);
   if (!docsByKind) return;
 
   const buttons = Array.from(document.querySelectorAll(".js-vehicle-filter-btn"));
@@ -1805,6 +1844,7 @@ function bindMeetingDetailEvents(profileKey, meetingId) {
       pilotMeetingVehicleFilterState[meeting.kind] = nextVehicleType;
       updateButtonsState();
       contentRoot.innerHTML = renderPilotMeetingVehicleDocsContent(
+        meeting.id,
         meeting.kind,
         nextVehicleType
       );
