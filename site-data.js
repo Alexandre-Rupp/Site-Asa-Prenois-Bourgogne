@@ -408,6 +408,10 @@ export const PROFILE_CONTENT = {
       memberForm: "https://forms.office.com/r/PILOTE-MEMBRE-2026",
       raceForm: "https://forms.office.com/r/PILOTE-COURSE-2026",
       signupClosedAll: true,
+      openRaceFormsByMeeting: ["r12"],
+      raceFormsByMeeting: {
+        r12: "assets/documents/fiche-engagement-urcy-2026.xls",
+      },
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions pilotes",

@@ -105,6 +105,12 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
       href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
+    {
+      title: "Plan d'implantation - Urcy 2026",
+      description: "Plan d'implantation officiel de la Course de Cote d'Urcy 2026.",
+      href: "assets/documents/plan-implantation-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
   ],
 };
 const MEETING_SHARED_DOCUMENTS = {
@@ -119,6 +125,12 @@ const MEETING_SHARED_DOCUMENTS = {
       title: "Itineraire horaire VP - Urcy 2026",
       description: "PDF itineraire horaire VP du meeting.",
       href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Plan d'implantation - Urcy 2026",
+      description: "PDF plan d'implantation du meeting.",
+      href: "assets/documents/plan-implantation-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
     {
@@ -761,7 +773,13 @@ function getRaceFormUrl(profile, meetingId) {
 
 function isSignupClosedForMeeting(profile, meetingId) {
   if (!profile || !profile.forms) return false;
-  if (profile.forms.signupClosedAll) return true;
+  if (profile.forms.signupClosedAll) {
+    const openMeetingIds = profile.forms.openRaceFormsByMeeting;
+    if (Array.isArray(openMeetingIds) && openMeetingIds.includes(meetingId)) {
+      return false;
+    }
+    return true;
+  }
 
   const closedMeetingIds = profile.forms.closedRaceFormsByMeeting;
   return Array.isArray(closedMeetingIds) && closedMeetingIds.includes(meetingId);
