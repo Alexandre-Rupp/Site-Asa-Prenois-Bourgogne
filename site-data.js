@@ -289,6 +289,73 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
       "Suivis resultats",
     ],
   },
+  r13: {
+    commonDocuments: [
+      {
+        title: "Bulletin d'engagement",
+        href: "assets/documents/bulletin-engagement-rallye-bligny-2026.pdf",
+        ctaLabel: "Ouvrir le PDF",
+      },
+      {
+        title: "Fiche equipements - Pilote",
+        href: "assets/documents/fiche-equipements-pilote-rallye-bligny-2026.pdf",
+        ctaLabel: "Ouvrir le PDF",
+      },
+      {
+        title: "Fiche equipements - Co-pilote",
+        href: "assets/documents/fiche-equipements-co-pilote-rallye-bligny-2026.pdf",
+        ctaLabel: "Ouvrir le PDF",
+      },
+      {
+        title: "Tableaux equipements - Rallye",
+        href: "assets/documents/tableaux-equipements-rallye-bligny-2026.pdf",
+        ctaLabel: "Ouvrir le PDF",
+      },
+    ],
+    vehicleDocuments: {
+      modernes: {
+        documents: [
+          {
+            title: "Reglement Moderne",
+            href: "assets/documents/reglement-modernes-rallye-bligny-2026.pdf",
+            ctaLabel: "Ouvrir le PDF",
+          },
+        ],
+      },
+      vhc: {
+        documents: [
+          {
+            title: "Reglement VHC",
+            href: "assets/documents/reglement-vhc-rallye-bligny-2026.pdf",
+            ctaLabel: "Ouvrir le PDF",
+          },
+        ],
+      },
+      vhrs: {
+        documents: [
+          {
+            title: "Reglement VHRS",
+            href: "assets/documents/reglement-vhrs-rallye-bligny-2026.pdf",
+            ctaLabel: "Ouvrir le PDF",
+          },
+          {
+            title: "Tableaux equipements VHRS",
+            href: "assets/documents/tableaux-equipements-vhrs-rallye-bligny-2026.pdf",
+            ctaLabel: "Ouvrir le PDF",
+          },
+        ],
+      },
+      vmrs: {
+        documents: [
+          {
+            title: "Reglement VMRS",
+            href: "assets/documents/reglement-vmrs-rallye-bligny-2026.pdf",
+            ctaLabel: "Ouvrir le PDF",
+          },
+        ],
+      },
+    },
+  },
 };
 
 export const PROFILE_CONTENT = {
@@ -306,6 +373,7 @@ export const PROFILE_CONTENT = {
       memberForm:
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
+      signupClosedAll: true,
       closedRaceFormsByMeeting: ["r4", "r13", "r14"],
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
@@ -407,6 +475,10 @@ export const PROFILE_CONTENT = {
       memberForm: "https://forms.office.com/r/PILOTE-MEMBRE-2026",
       raceForm: "https://forms.office.com/r/PILOTE-COURSE-2026",
       signupClosedAll: true,
+      openRaceFormsByMeeting: ["r12"],
+      raceFormsByMeeting: {
+        r12: "assets/documents/fiche-engagement-urcy-2026.xls",
+      },
     },
     sections: {
       calendarTitle: "Calendrier des inscriptions pilotes",
