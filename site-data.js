@@ -592,6 +592,128 @@ export const PAGE_SKELETONS = {
     title: "Pilotes",
     intro:
       "Page réservée au contenu institutionnel pilotes (r\u00E8gles, accompagnement, documentation).",
+    pilotShowcaseTitle: "Pilotes de l'ASA Prenois Bourgogne",
+    pilotShowcaseIntro:
+      "S\u00E9lectionnez un pilote pour afficher sa carte de saison.",
+    pilotShowcase: [
+      {
+        id: "jacotot-christophe",
+        lastName: "JACOTOT",
+        firstName: "Christophe",
+        image: {
+          src: "assets/vie-asa/pilotes/jacotot-christophe.webp",
+          alt: "Carte pilote Jacotot Christophe",
+        },
+      },
+      {
+        id: "cuynet-thierry",
+        lastName: "CUYNET",
+        firstName: "Thierry",
+        image: {
+          src: "assets/vie-asa/pilotes/cuynet-thierry.webp",
+          alt: "Carte pilote Cuynet Thierry",
+        },
+      },
+      {
+        id: "cuynet-herve",
+        lastName: "CUYNET",
+        firstName: "Herv\u00E9",
+        image: {
+          src: "assets/vie-asa/pilotes/cuynet-herve.webp",
+          alt: "Carte pilote Cuynet Herv\u00E9",
+        },
+      },
+      {
+        id: "jung-denis",
+        lastName: "JUNG",
+        firstName: "Denis",
+        image: {
+          src: "assets/vie-asa/pilotes/jung-denis.webp",
+          alt: "Carte pilote Jung Denis",
+        },
+      },
+      {
+        id: "batteau-thierry",
+        lastName: "BATTEAU",
+        firstName: "Thierry",
+        image: {
+          src: "assets/vie-asa/pilotes/batteau-thierry.webp",
+          alt: "Carte pilote Batteau Thierry",
+        },
+      },
+      {
+        id: "mottez-bruno",
+        lastName: "MOTTEZ",
+        firstName: "Bruno",
+        image: {
+          src: "assets/vie-asa/pilotes/mottez-bruno.webp",
+          alt: "Carte pilote Mottez Bruno",
+        },
+      },
+      {
+        id: "guillot-marc",
+        lastName: "GUILLOT",
+        firstName: "Marc",
+        image: {
+          src: "assets/vie-asa/pilotes/guillot-marc.webp",
+          alt: "Carte pilote Guillot Marc",
+        },
+      },
+      {
+        id: "sechepine-baptiste",
+        lastName: "S\u00C9CH\u00C9PINE",
+        firstName: "Baptiste",
+        image: {
+          src: "assets/vie-asa/pilotes/sechepine-baptiste.webp",
+          alt: "Carte pilote S\u00E9ch\u00E9pine Baptiste",
+        },
+      },
+      {
+        id: "aubry-herve",
+        lastName: "AUBRY",
+        firstName: "Herv\u00E9",
+        image: {
+          src: "assets/vie-asa/pilotes/aubry-herve.webp",
+          alt: "Carte pilote Aubry Herv\u00E9",
+        },
+      },
+      {
+        id: "martins-mathieu",
+        lastName: "MARTINS",
+        firstName: "Mathieu",
+        image: {
+          src: "assets/vie-asa/pilotes/martins-mathieu.webp",
+          alt: "Carte pilote Martins Mathieu",
+        },
+      },
+      {
+        id: "perrin-romain",
+        lastName: "PERRIN",
+        firstName: "Romain",
+        image: {
+          src: "assets/vie-asa/pilotes/perrin-romain.webp",
+          alt: "Carte pilote Perrin Romain",
+        },
+      },
+      {
+        id: "durieux-yann",
+        lastName: "DURIEUX",
+        firstName: "Yann",
+        image: {
+          src: "assets/vie-asa/pilotes/durieux-yann.webp",
+          alt: "Carte pilote Durieux Yann",
+        },
+      },
+      {
+        id: "claire-pascal",
+        lastName: "CLAIRE",
+        firstName: "Pascal",
+        image: {
+          src: "assets/vie-asa/pilotes/claire-pascal.webp",
+          alt: "Carte pilote Claire Pascal",
+        },
+      },
+    ],
   },
   "vie-asa": {
     title: "La vie de l'ASA",

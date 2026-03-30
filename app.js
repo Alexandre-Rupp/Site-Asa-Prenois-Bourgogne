@@ -11,7 +11,7 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260326-1";
+} from "./site-data.js?v=20260330-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -662,6 +662,69 @@ function renderPartnerCards(partners) {
       `;
     })
     .join("");
+}
+
+function pilotFullName(pilot) {
+  if (!pilot) return "";
+  return [pilot.lastName || "", pilot.firstName || ""].join(" ").trim();
+}
+
+function renderVieAsaPilotShowcase(pilots) {
+  const entries = Array.isArray(pilots) ? pilots.filter(Boolean) : [];
+  if (!entries.length) return "";
+
+  const firstPilot = entries[0];
+  const firstImageSrc = firstPilot?.image?.src || "";
+  const firstImageAlt =
+    firstPilot?.image?.alt || `Carte pilote ${pilotFullName(firstPilot)}`;
+  const firstLabel = pilotFullName(firstPilot);
+
+  return `
+    <div class="pilot-showcase">
+      <div class="pilot-showcase-grid" role="list">
+        ${entries
+          .map((pilot, index) => {
+            const imageSrc = pilot?.image?.src || "";
+            const imageAlt =
+              pilot?.image?.alt || `Carte pilote ${pilotFullName(pilot)}`;
+            const label = pilotFullName(pilot);
+            const isActive = index === 0;
+
+            return `
+              <button
+                type="button"
+                class="pilot-card js-vie-asa-pilot-card ${
+                  isActive ? "is-active" : ""
+                }"
+                role="listitem"
+                data-pilot-id="${escapeHtml(pilot.id || `pilot-${index}`)}"
+                data-image-src="${escapeHtml(imageSrc)}"
+                data-image-alt="${escapeHtml(imageAlt)}"
+                data-label="${escapeHtml(label)}"
+                aria-pressed="${isActive ? "true" : "false"}"
+              >
+                <span class="pilot-card-last">${escapeHtml(pilot.lastName || "")}</span>
+                <span class="pilot-card-first">${escapeHtml(pilot.firstName || "")}</span>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+
+      <figure class="pilot-showcase-viewer">
+        <img
+          class="pilot-showcase-image js-vie-asa-pilot-image"
+          src="${escapeHtml(firstImageSrc)}"
+          alt="${escapeHtml(firstImageAlt)}"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="pilot-showcase-caption js-vie-asa-pilot-caption">
+          ${escapeHtml(firstLabel)}
+        </figcaption>
+      </figure>
+    </div>
+  `;
 }
 
 // Meetings domain logic.
@@ -2137,12 +2200,21 @@ function renderSkeletonPage(pageKey) {
             </article>
 
             <article id="vie-asa-pilotes" class="panel narrative-panel asa-section-anchor">
-              <h2>Nos pilotes</h2>
+              <h2>${escapeHtml(pilotsPage.title || "Nos pilotes")}</h2>
               <p>${escapeHtml(
                 pilotsPage.intro ||
                   "Contenu pilotes en cours de structuration."
               )}</p>
-              <p>${escapeHtml(PROFILE_CONTENT.pilote.heroSubtitle)}</p>
+              ${
+                pilotsPage.pilotShowcaseTitle
+                  ? `<h3>${escapeHtml(pilotsPage.pilotShowcaseTitle)}</h3>`
+                  : ""
+              }
+              <p>${escapeHtml(
+                pilotsPage.pilotShowcaseIntro ||
+                  "S\u00E9lectionnez une carte pour afficher le visuel du pilote."
+              )}</p>
+              ${renderVieAsaPilotShowcase(pilotsPage.pilotShowcase)}
             </article>
 
             <section id="vie-asa-partenaires" class="asa-section-anchor">
@@ -2291,6 +2363,36 @@ function bindVieAsaTimelineEvents() {
   });
 }
 
+function bindVieAsaPilotShowcaseEvents() {
+  const pilotCards = Array.from(
+    document.querySelectorAll(".js-vie-asa-pilot-card")
+  );
+  const showcaseImage = document.querySelector(".js-vie-asa-pilot-image");
+  const showcaseCaption = document.querySelector(".js-vie-asa-pilot-caption");
+
+  if (!pilotCards.length) return;
+  if (!(showcaseImage instanceof HTMLImageElement)) return;
+  if (!(showcaseCaption instanceof HTMLElement)) return;
+
+  const setActiveCard = (activeCard) => {
+    pilotCards.forEach((card) => {
+      const isActive = card === activeCard;
+      card.classList.toggle("is-active", isActive);
+      card.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+
+    showcaseImage.src = activeCard.dataset.imageSrc || "";
+    showcaseImage.alt = activeCard.dataset.imageAlt || "";
+    showcaseCaption.textContent = activeCard.dataset.label || "";
+  };
+
+  pilotCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      setActiveCard(card);
+    });
+  });
+}
+
 // Route lifecycle and view orchestration.
 function renderCurrentRoute() {
   const appRoot = byId("app");
@@ -2382,6 +2484,7 @@ function renderCurrentRoute() {
     }
     if (route.pageKey === "vie-asa") {
       bindVieAsaTimelineEvents();
+      bindVieAsaPilotShowcaseEvents();
     }
     if (route.pageKey === "commissaires") {
       bindFeedCarousels();
