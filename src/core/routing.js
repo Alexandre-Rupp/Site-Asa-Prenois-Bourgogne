@@ -138,7 +138,7 @@ function getPageDescription(pageKey, pageSkeletons) {
     "vie-asa":
       "La vie de l'ASA Prenois Bourgogne: histoire de l'association, commissaires, pilotes et partenaires.",
     "run-essence":
-      "Historique mensuel du journal RUN ESSENCE avec acces aux numeros PDF.",
+      "Historique mensuel du journal RUN ESSENCE avec accès aux numéros PDF.",
     partenaires:
       "Partenaires institutionnels et priv\u00E9s de l'ASA Prenois Bourgogne.",
     "mentions-legales":
