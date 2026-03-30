@@ -65,7 +65,7 @@ export const MEETINGS = [
   },
   {
     id: "r6",
-    name: "GRAND PRIX DE L'AGE D'OR",
+    name: "GRAND PRIX DE L'ÂGE D'OR",
     date: "5-6-7-8 juin 2026",
     seasonLabel: "Meetings Circuit 2026",
     kind: "circuit",
@@ -73,7 +73,7 @@ export const MEETINGS = [
   },
   {
     id: "r7",
-    name: "TROPHEE TOURISME ENDURANCE",
+    name: "TROPHÉE TOURISME ENDURANCE",
     date: "26-27-28 juin 2026",
     seasonLabel: "Meetings Circuit 2026",
     kind: "circuit",
@@ -105,7 +105,7 @@ export const MEETINGS = [
   },
   {
     id: "r11",
-    name: "2EME RALLYE NATIONAL DE BLIGNY SUR OUCHE",
+    name: "2ÈME RALLYE NATIONAL DE BLIGNY SUR OUCHE",
     date: "08-09 mai 2026",
     seasonLabel: "Meetings Rallye 2026",
     kind: "rallye",
@@ -113,7 +113,7 @@ export const MEETINGS = [
   },
   {
     id: "r12",
-    name: "64EME COURSE DE COTE D'URCY",
+    name: "64ÈME COURSE DE CÔTE D'URCY",
     date: "25-26 juillet 2026",
     seasonLabel: "Meetings Course de c\u00F4te 2026",
     kind: "course-de-cote",
@@ -121,7 +121,7 @@ export const MEETINGS = [
   },
   {
     id: "r13",
-    name: "24EME RALLYE REGIONAL DE L'AUXOIS",
+    name: "24ÈME RALLYE RÉGIONAL DE L'AUXOIS",
     date: "19 septembre 2026",
     seasonLabel: "Meetings Rallye 2026",
     kind: "rallye",
@@ -159,19 +159,19 @@ export const MEETING_DETAIL_SECTIONS = [
     key: "roadbooks",
     title: "Roadbooks",
     description:
-      "Ajoutez ici les roadbooks PDF, liens externes ou versions archivees.",
+      "Ajoutez ici les roadbooks PDF, liens externes ou versions archivées.",
   },
   {
     key: "horaires",
     title: "Horaires",
     description:
-      "Section prevue pour les horaires officiels, timing versions et mises a jour.",
+      "Section prévue pour les horaires officiels, timing versions et mises à jour.",
   },
   {
     key: "organisation",
     title: "Documents d'organisation",
     description:
-      "Espace pour reglements, notes direction de course et documents utiles.",
+      "Espace pour règlements, notes direction de course et documents utiles.",
   },
   {
     key: "annexes",
@@ -186,48 +186,48 @@ export const PILOT_MEETING_DOCUMENTATION = {
     commonDocuments: [
       "Horaires-Timing",
       "Invitation commissaires",
-      "Parcours general",
+      "Parcours général",
       "Parcours ES",
       "Roadbook",
       "Reconnaissances",
       "Fiches speaker",
-      "Demande accreditation presse",
+      "Demande accréditation presse",
     ],
     vehicleDocuments: {
       modernes: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Copilote",
-          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
-          "Liste provisoire des engages",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 généraux",
+          "Liste provisoire des engagés",
         ],
       },
       vhc: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Copilote",
-          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
-          "Liste provisoire des engages",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 généraux",
+          "Liste provisoire des engagés",
         ],
       },
       vhrs: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
-          "Liste provisoire des engages",
+          "EP. Générique (\u00E9quipements de s\u00E9curit\u00E9)",
+          "Liste provisoire des engagés",
         ],
       },
       vmrs: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
-          "Liste provisoire des engages",
+          "EP. Générique (\u00E9quipements de s\u00E9curit\u00E9)",
+          "Liste provisoire des engagés",
         ],
       },
     },
@@ -237,39 +237,39 @@ export const PILOT_MEETING_DOCUMENTATION = {
     vehicleDocuments: {
       modernes: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
-          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
-          "Liste provisoire des engages",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 généraux",
+          "Liste provisoire des engagés",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
       },
       vhc: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
           "Fiche renseignements des \u00E9quipements de s\u00E9curit\u00E9 - Pilote",
-          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 generaux",
-          "Liste provisoire des engages",
+          "Tableau des \u00E9quipements de s\u00E9curit\u00E9 généraux",
+          "Liste provisoire des engagés",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
       },
       vhrs: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
-          "Liste provisoire des engages",
+          "EP. Générique (\u00E9quipements de s\u00E9curit\u00E9)",
+          "Liste provisoire des engagés",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
       },
       vmrs: {
         documents: [
-          "Reglement particulier",
+          "Règlement particulier",
           "Bulletin d'engagement",
-          "EP. Generique (\u00E9quipements de s\u00E9curit\u00E9)",
-          "Liste provisoire des engages",
+          "EP. Générique (\u00E9quipements de s\u00E9curit\u00E9)",
+          "Liste provisoire des engagés",
         ],
         observations: ["Horaire de convocation", "Billetterie"],
       },
@@ -279,14 +279,14 @@ export const PILOT_MEETING_DOCUMENTATION = {
 
 export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
   r10: {
-    commonDocuments: ["VISA", "Horaires", "Informations generales"],
+    commonDocuments: ["VISA", "Horaires", "Informations générales"],
     pilotDocuments: [
       "Feuilles d'engagement",
       "Assurances",
       "Feuilles techniques",
       "Book info",
-      "Listes engages",
-      "Suivis resultats",
+      "Listes engagés",
+      "Suivis résultats",
     ],
   },
   r13: {
@@ -297,17 +297,17 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
         ctaLabel: "Ouvrir le PDF",
       },
       {
-        title: "Fiche equipements - Pilote",
+        title: "Fiche équipements - Pilote",
         href: "assets/documents/fiche-equipements-pilote-rallye-bligny-2026.pdf",
         ctaLabel: "Ouvrir le PDF",
       },
       {
-        title: "Fiche equipements - Co-pilote",
+        title: "Fiche équipements - Co-pilote",
         href: "assets/documents/fiche-equipements-co-pilote-rallye-bligny-2026.pdf",
         ctaLabel: "Ouvrir le PDF",
       },
       {
-        title: "Tableaux equipements - Rallye",
+        title: "Tableaux équipements - Rallye",
         href: "assets/documents/tableaux-equipements-rallye-bligny-2026.pdf",
         ctaLabel: "Ouvrir le PDF",
       },
@@ -316,7 +316,7 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
       modernes: {
         documents: [
           {
-            title: "Reglement Moderne",
+            title: "Règlement Moderne",
             href: "assets/documents/reglement-modernes-rallye-bligny-2026.pdf",
             ctaLabel: "Ouvrir le PDF",
           },
@@ -325,7 +325,7 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
       vhc: {
         documents: [
           {
-            title: "Reglement VHC",
+            title: "Règlement VHC",
             href: "assets/documents/reglement-vhc-rallye-bligny-2026.pdf",
             ctaLabel: "Ouvrir le PDF",
           },
@@ -334,12 +334,12 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
       vhrs: {
         documents: [
           {
-            title: "Reglement VHRS",
+            title: "Règlement VHRS",
             href: "assets/documents/reglement-vhrs-rallye-bligny-2026.pdf",
             ctaLabel: "Ouvrir le PDF",
           },
           {
-            title: "Tableaux equipements VHRS",
+            title: "Tableaux équipements VHRS",
             href: "assets/documents/tableaux-equipements-vhrs-rallye-bligny-2026.pdf",
             ctaLabel: "Ouvrir le PDF",
           },
@@ -348,7 +348,7 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
       vmrs: {
         documents: [
           {
-            title: "Reglement VMRS",
+            title: "Règlement VMRS",
             href: "assets/documents/reglement-vmrs-rallye-bligny-2026.pdf",
             ctaLabel: "Ouvrir le PDF",
           },
@@ -365,8 +365,8 @@ export const PROFILE_CONTENT = {
     seasonPill: "Saison 2026",
     heroTitle: "Plateforme des commissaires de piste",
     heroSubtitle:
-      "Calendrier des inscriptions et formulaires dedies aux commissaires.",
-    ctaPrimaryLabel: "Acceder aux formulaires commissaires",
+      "Calendrier des inscriptions et formulaires dédiés aux commissaires.",
+    ctaPrimaryLabel: "Accéder aux formulaires commissaires",
     ctaSecondaryLabel: "Voir le calendrier",
     targetMembers: 200,
     forms: {
@@ -374,6 +374,7 @@ export const PROFILE_CONTENT = {
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
       signupClosedAll: true,
+      openRaceFormsByMeeting: ["r6", "r7", "r8", "r9", "r10", "r12", "r13", "r14"],
       closedRaceFormsByMeeting: ["r4", "r13", "r14"],
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
@@ -390,21 +391,21 @@ export const PROFILE_CONTENT = {
     sections: {
       calendarTitle: "Calendrier des inscriptions commissaires",
       newsTitle: "Actualit\u00E9s association",
-      resultsTitle: "Resultats",
+      resultsTitle: "R\u00E9sultats",
       profileSpaceTitle: "Espace commissaire",
       memberFormTitle: "Formulaire inscription membre",
       memberFormText:
-        "Nouveau commissaire: remplissez ce formulaire pour creer votre dossier (coordonn\u00E9es, licence, disponibilites).",
+        "Nouveau commissaire: remplissez ce formulaire pour créer votre dossier (coordonn\u00E9es, licence, disponibilités).",
       raceFormTitle: "Formulaire inscription course",
       raceFormText:
-        "Inscription par meeting: envoyez une reponse pour chaque course souhaitee.",
+        "Inscription par meeting: envoyez une r\u00E9ponse pour chaque course souhait\u00E9e.",
     },
     newsFeed: [
       {
         title: "Formation Commissaire",
         date: "18 mars 2026",
         text:
-          "Une journee benefique pour tous et bien chargee, un nombre de benevoles present exceptionnel sous un magnifique soleil. Une equipe de formateur tres professionnel, qui a su faire passer avec un langage simple les messages essentiels. Tout le monde est ravi, le debut de saison a bien demarre dans une superbe ambiance. Tout le monde est ravi, le debut de saison a bien demarre dans une superbe ambiance.",
+          "Une journée bénéfique pour tous et bien chargée, un nombre de bénévoles présent exceptionnel sous un magnifique soleil. Une équipe de formateur très professionnel, qui a su faire passer avec un langage simple les messages essentiels. Tout le monde est ravi, le début de saison a bien démarré dans une superbe ambiance. Tout le monde est ravi, le début de saison a bien démarré dans une superbe ambiance.",
         collapsibleText: true,
         images: [
           {
@@ -417,15 +418,15 @@ export const PROFILE_CONTENT = {
           },
           {
             src: "assets/news/formation-commissaire/formation-commissaire-03.webp",
-            alt: "Formation commissaire - photo de binome",
+            alt: "Formation commissaire - photo de binôme",
           },
           {
             src: "assets/news/formation-commissaire/formation-commissaire-04.webp",
-            alt: "Formation commissaire - demonstration en piste",
+            alt: "Formation commissaire - démonstration en piste",
           },
           {
             src: "assets/news/formation-commissaire/formation-commissaire-05.webp",
-            alt: "Formation commissaire - echanges en bord de piste",
+            alt: "Formation commissaire - échanges en bord de piste",
           },
           {
             src: "assets/news/formation-commissaire/formation-commissaire-06.webp",
@@ -440,24 +441,24 @@ export const PROFILE_CONTENT = {
       {
         title: "Ouverture des inscriptions saison 2026",
         date: "15 f\u00E9vrier 2026",
-        text: "Les inscriptions sont maintenant centralisees via Microsoft Forms.",
+        text: "Les inscriptions sont maintenant centralisées via Microsoft Forms.",
       },
     ],
     resultsFeed: [
       {
-        title: "Meeting test pre-saison",
+        title: "Meeting test pré-saison",
         date: "31 janvier 2026",
-        text: "42 officiels mobilises, 100% des postes couverts sur 2 jours.",
+        text: "42 officiels mobilis\u00E9s, 100% des postes couverts sur 2 jours.",
       },
       {
         title: "Challenge club - manche 1",
         date: "8 f\u00E9vrier 2026",
-        text: "Interventions piste: 6, incidents majeurs: 0, coordination operationnelle.",
+        text: "Interventions piste: 6, incidents majeurs: 0, coordination op\u00E9rationnelle.",
       },
       {
-        title: "Sprint regional",
+        title: "Sprint régional",
         date: "14 f\u00E9vrier 2026",
-        text: "Debrief positif de la direction de course sur la rapidite des interventions.",
+        text: "Débrief positif de la direction de course sur la rapidité des interventions.",
       },
     ],
   },
@@ -467,8 +468,8 @@ export const PROFILE_CONTENT = {
     seasonPill: "Saison 2026",
     heroTitle: "Plateforme des pilotes",
     heroSubtitle:
-      "Calendrier des meetings et liens d'inscription adaptes au parcours pilote.",
-    ctaPrimaryLabel: "Acceder aux formulaires pilotes",
+      "Calendrier des meetings et liens d'inscription adaptés au parcours pilote.",
+    ctaPrimaryLabel: "Accéder aux formulaires pilotes",
     ctaSecondaryLabel: "Voir le calendrier",
     targetMembers: 120,
     forms: {
@@ -487,19 +488,19 @@ export const PROFILE_CONTENT = {
       profileSpaceTitle: "Espace pilote",
       memberFormTitle: "Formulaire profil pilote",
       memberFormText:
-        "Creation ou mise a jour de votre profil pilote (licence, vehicule, categorie, contact).",
+        "Création ou mise à jour de votre profil pilote (licence, véhicule, catégorie, contact).",
       raceFormTitle: "Formulaire engagement meeting",
       raceFormText:
-        "Un formulaire par meeting pour declarer votre participation et vos besoins logistiques.",
+        "Un formulaire par meeting pour déclarer votre participation et vos besoins logistiques.",
     },
     newsFeed: [
       {
         title: "Briefing pilotes saison 2026",
         date: "10 mars 2026",
-        text: "Mise a jour des procedures de verification administrative et technique.",
+        text: "Mise à jour des procédures de vérification administrative et technique.",
       },
       {
-        title: "Controle \u00E9quipements",
+        title: "Contrôle \u00E9quipements",
         date: "6 avril 2026",
         text: "Rappel des obligations casque/HANS et conformit\u00E9 \u00E9quipement pilote.",
       },
@@ -513,17 +514,17 @@ export const PROFILE_CONTENT = {
       {
         title: "Documents administratifs",
         date: "En continu",
-        text: "Les pieces justificatives seront centralisees dans les fiches detail meeting.",
+        text: "Les pièces justificatives seront centralisées dans les fiches détail meeting.",
       },
       {
-        title: "Acces paddock",
+        title: "Accès paddock",
         date: "En continu",
-        text: "Chaque meeting d\u00E9taill\u00E9 precisera les horaires d'accueil et contraintes d'acces.",
+        text: "Chaque meeting d\u00E9taill\u00E9 précisera les horaires d'accueil et contraintes d'accès.",
       },
       {
         title: "Support inscription",
         date: "En continu",
-        text: "Un contact d'assistance sera ajoute dans la page detail de chaque meeting.",
+        text: "Un contact d'assistance sera ajouté dans la page détail de chaque meeting.",
       },
     ],
   },
@@ -533,10 +534,10 @@ export const PAGE_SKELETONS = {
   commissaires: {
     title: "Commissaires",
     intro:
-      "Page reservee au contenu institutionnel commissaires (formation, recrutement, referents).",
+      "Page réservée au contenu institutionnel commissaires (formation, recrutement, référents).",
     commissionerTitle: "Devenez commissaire de piste",
     commissionerTrainingLink: "https://entrezdanslacourse.ffsa.org/",
-    commissionerTrainingLabel: "Se former et debuter",
+    commissionerTrainingLabel: "Se former et débuter",
     commissionerTrainingGalleryTitle: "Photos formation incendie",
     commissionerTrainingImages: [
       {
@@ -569,45 +570,45 @@ export const PAGE_SKELETONS = {
       },
     ],
     commissionerParagraphs: [
-      "Devenir commissaire, ce n'est pas etre spectateur privilegie, c'est etre un acteur indispensable a la s\u00E9curit\u00E9 du sport automobile.",
-      "Appele a officier sur l'ensemble des epreuves qui sont : Circuits, Rallyes, Course de C\u00F4tes, Rallye-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
-      "En totale collaboration avec la Direction de Course, chacun doit tenir un role important :",
-      "- Le commissaire de piste est les yeux supplementaires de la Direction de Course et il est necessaire au bon deroulement de chaque meeting.",
-      "- Le commissaire sportif est celui qui contr\u00F4le et fait appliquer le reglement des epreuves.",
-      "- Le chronometreur est celui qui gere le timing de chaque coureur, indispensable a la competition pour les classements.",
-      "- Le directeur de course est le chef d'orchestre de l'evenement, celui qui donne les consignes, les procedures et veille sur chacun des roles attribues.",
-      "Une grande equipe de benevoles, animes par la passion du sport automobile, engages dans une mission commune : assurer la s\u00E9curit\u00E9 de chacun.",
-      "Sans l'un de ces acteurs, aucune competition ne peut avoir lieu.",
-      "Le commissaire de piste, par tous les temps, assure la s\u00E9curit\u00E9 de l'epreuve dont les missions sont :",
+      "Devenir commissaire, ce n'est pas être spectateur privilégié, c'est être un acteur indispensable à la s\u00E9curit\u00E9 du sport automobile.",
+      "Appelé à officier sur l'ensemble des épreuves qui sont : Circuits, Rallyes, Course de C\u00F4tes, Rallye-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
+      "En totale collaboration avec la Direction de Course, chacun doit tenir un r\u00F4le important :",
+      "- Le commissaire de piste est les yeux supplémentaires de la Direction de Course et il est nécessaire au bon déroulement de chaque meeting.",
+      "- Le commissaire sportif est celui qui contr\u00F4le et fait appliquer le règlement des épreuves.",
+      "- Le chronométreur est celui qui gère le timing de chaque coureur, indispensable à la compétition pour les classements.",
+      "- Le directeur de course est le chef d'orchestre de l'événement, celui qui donne les consignes, les procédures et veille sur chacun des rôles attribués.",
+      "Une grande équipe de bénévoles, animés par la passion du sport automobile, engagés dans une mission commune : assurer la s\u00E9curit\u00E9 de chacun.",
+      "Sans l'un de ces acteurs, aucune compétition ne peut avoir lieu.",
+      "Le commissaire de piste, par tous les temps, assure la s\u00E9curit\u00E9 de l'épreuve dont les missions sont :",
       "- Surveiller",
       "- Signaler",
       "- Transmettre",
       "- Intervenir",
-      "Ce sont tous des benevoles au service du Sport Automobile.",
-      "Donc si tu es passionne, que tu as un esprit d'engagement et d'equipe, rejoins-nous dans la grande famille du sport automobile de l'Association Sport Automobile Prenois Bourgogne.",
+      "Ce sont tous des bénévoles au service du Sport Automobile.",
+      "Donc si tu es passionné, que tu as un esprit d'engagement et d'équipe, rejoins-nous dans la grande famille du sport automobile de l'Association Sport Automobile Prenois Bourgogne.",
     ],
   },
   pilotes: {
     title: "Pilotes",
     intro:
-      "Page reservee au contenu institutionnel pilotes (r\u00E8gles, accompagnement, documentation).",
+      "Page réservée au contenu institutionnel pilotes (r\u00E8gles, accompagnement, documentation).",
   },
   "vie-asa": {
     title: "La vie de l'ASA",
     intro:
-      "Page prevue pour les actualites du club, evenements internes et actions de l'association.",
-    historyTitle: "Histoire de l'ASA Prenois Bourgogne (ex ASAC Bourgogne)",
+      "Page prévue pour les actualités du club, événements internes et actions de l'association.",
+    historyTitle: "Histoire de l'ASA Prenois Bourgogne",
     historyParagraphs: [
-      "L'ASA Prenois Bourgogne est une association sportive automobile, organisatrice de meetings en collaboration avec le circuit de Dijon-Prenois ainsi que des Courses de Cote et des Rallyes.",
-      "L'ASA Prenois Bourgogne regroupe au sein de ses adherent(e)s, des commissaires de piste, des chefs de poste, des directeurs de course, des chronometreurs, des pilotes, et tous les passionne(e)s qui gravitent autour de la competition automobile moderne ou ancienne. Elle est reconnue par tous pour les competences de ses commissaires formateurs sur le circuit de Dijon Prenois.",
-      "L'ASA Prenois Bourgogne est nee de la fusion absorption des 4 ASA de C\u00F4te d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA C\u00F4te d'Or.",
-      "L'ASAC Bourgogne avait ete creee le 22 d\u00E9cembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la legendaire Course de C\u00F4te d'Urcy.",
+      "L'ASA Prenois Bourgogne est une association sportive automobile, organisatrice de meetings en collaboration avec le circuit de Dijon-Prenois ainsi que des Courses de Côte et des Rallyes.",
+      "L'ASA Prenois Bourgogne regroupe au sein de ses adhérent(e)s, des commissaires de piste, des chefs de poste, des directeurs de course, des chronométreurs, des pilotes, et tous les passionné(e)s qui gravitent autour de la compétition automobile moderne ou ancienne. Elle est reconnue par tous pour les compétences de ses commissaires formateurs sur le circuit de Dijon Prenois.",
+      "L'ASA Prenois Bourgogne est née de la fusion absorption des 4 ASA de C\u00F4te d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA C\u00F4te d'Or.",
+      "L'ASAC Bourgogne avait été créée le 22 d\u00E9cembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la légendaire Course de C\u00F4te d'Urcy.",
     ],
   },
   "run-essence": {
     title: "Run Essence",
     intro:
-      "Consultez l'historique mensuel du journal RUN ESSENCE, avec un numero publie chaque mois.",
+      "Consultez l'historique mensuel du journal RUN ESSENCE, avec un numéro publié chaque mois.",
   },
   partenaires: {
     title: "Nos partenaires",
@@ -749,56 +750,56 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Objet du site",
         paragraphs: [
-          "Le site presente les activites de l'association, les informations de meetings et les liens d'inscription des commissaires et pilotes.",
-          "Le contenu publie est informatif et peut etre mis a jour en fonction des contraintes sportives, organisationnelles et reglementaires.",
+          "Le site présente les activités de l'association, les informations de meetings et les liens d'inscription des commissaires et pilotes.",
+          "Le contenu publié est informatif et peut être mis à jour en fonction des contraintes sportives, organisationnelles et réglementaires.",
         ],
       },
       {
-        title: "Editeur du service de communication au public en ligne",
+        title: "Éditeur du service de communication au public en ligne",
         paragraphs: [
           "Association Sportive Automobile Club Bourgogne (ASA Prenois Bourgogne).",
-          "Siege: Circuit Dijon-Prenois, 21370 Prenois, France.",
+          "Siège: Circuit Dijon-Prenois, 21370 Prenois, France.",
           "Contact: contact@asa-prenois-bourgone.org",
-          "Ces informations sont publiees conformement aux obligations d'identification de l'editeur prevues par l'article 1-1 de la loi ndeg 2004-575 du 21 juin 2004 (LCEN), version en vigueur depuis le 23 mai 2024.",
+          "Ces informations sont publiées conformément aux obligations d'identification de l'éditeur prévues par l'article 1-1 de la loi ndeg 2004-575 du 21 juin 2004 (LCEN), version en vigueur depuis le 23 mai 2024.",
         ],
       },
       {
         title: "Direction de la publication",
         paragraphs: [
           "Directeur de la publication: le bureau de l'association ASA Prenois Bourgogne.",
-          "Responsable de la redaction: a completer si des fonctions editoriales distinctes sont designees.",
-          "Droit de reponse: toute personne nommee ou designee peut exercer son droit de reponse selon les modalites prevues par l'article 1-1 de la LCEN.",
+          "Responsable de la rédaction: à compléter si des fonctions editoriales distinctes sont designees.",
+          "Droit de réponse: toute personne nommée ou désignée peut exercer son droit de réponse selon les modalités prévues par l'article 1-1 de la LCEN.",
         ],
       },
       {
         title: "Hebergement",
         paragraphs: [
           "Environnement actuel: version de travail et de test.",
-          "Avant publication internet definitive, l'association doit afficher les informations completes de l'hebergeur (nom ou raison sociale, adresse, telephone), conformement a l'article 1-1 de la LCEN.",
-          "Champ de conformit\u00E9 a renseigner avant mise en ligne publique: hebergeur, adresse postale, numero de telephone, reference contractuelle le cas echeant.",
+          "Avant publication internet définitive, l'association doit afficher les informations complètes de l'hébergeur (nom ou raison sociale, adresse, téléphone), conformément à l'article 1-1 de la LCEN.",
+          "Champ de conformit\u00E9 à renseigner avant mise en ligne publique: hébergeur, adresse postale, numéro de téléphone, référence contractuelle le cas échéant.",
         ],
       },
       {
-        title: "Propriete intellectuelle",
+        title: "Propriété intellectuelle",
         paragraphs: [
-          "Les contenus du site (textes, structure, logo, chartes graphiques, elements visuels, documents) sont proteges par le code de la propriete intellectuelle.",
-          "Sauf mention contraire, toute reproduction, representation, adaptation, extraction ou diffusion, totale ou partielle, sans autorisation ecrite prealable, est interdite.",
-          "Les marques et logos de tiers restent la propriete de leurs titulaires respectifs.",
+          "Les contenus du site (textes, structure, logo, chartes graphiques, elements visuels, documents) sont protégés par le code de la propriété intellectuelle.",
+          "Sauf mention contraire, toute reproduction, representation, adaptation, extraction ou diffusion, totale ou partielle, sans autorisation ecrite préalable, est interdite.",
+          "Les marques et logos de tiers restent la propriété de leurs titulaires respectifs.",
         ],
       },
       {
-        title: "Liens externes et responsabilite",
+        title: "Liens externes et responsabilité",
         paragraphs: [
           "Le site peut contenir des liens vers des services externes (par exemple FFSA ou Microsoft Forms). L'association n'exerce pas de contr\u00F4le editorial sur ces services tiers.",
-          "L'association s'efforce d'assurer l'exactitude des informations publiees, sans garantie d'exhaustivite ni d'absence d'erreur. Les dates, horaires et modalites d'inscription peuvent etre modifies.",
-          "En cas d'indisponibilite, de dysfonctionnement ou d'inexactitude, la responsabilite de l'association ne peut etre engagee que dans les limites permises par la loi francaise.",
+          "L'association s'efforce d'assurer l'exactitude des informations publiées, sans garantie d'exhaustivité ni d'absence d'erreur. Les dates, horaires et modalités d'inscription peuvent être modifiés.",
+          "En cas d'indisponibilité, de dysfonctionnement ou d'inexactitude, la responsabilité de l'association ne peut être engagée que dans les limites permises par la loi française.",
         ],
       },
       {
         title: "Droit applicable",
         paragraphs: [
-          "Le present site est soumis au droit francais.",
-          "Base juridique principale: loi ndeg 2004-575 du 21 juin 2004 pour la confiance dans l'economie numerique (LCEN), notamment article 1-1.",
+          "Le pr\u00E9sent site est soumis au droit fran\u00E7ais.",
+          "Base juridique principale: loi ndeg 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), notamment article 1-1.",
           "Pour toute question juridique relative au site, contactez: contact@asa-prenois-bourgone.org",
         ],
       },
@@ -810,61 +811,61 @@ export const LEGAL_PAGE_CONTENT = {
       {
         title: "Responsable du traitement",
         paragraphs: [
-          "Le responsable du traitement est l'association ASA Prenois Bourgogne, joignable a l'adresse contact@asa-prenois-bourgone.org.",
-          "La presente politique de confidentialit\u00E9 est redigee au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs a l'information des personnes.",
+          "Le responsable du traitement est l'association ASA Prenois Bourgogne, joignable à l'adresse contact@asa-prenois-bourgone.org.",
+          "La présente politique de confidentialit\u00E9 est rédigée au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs à l'information des personnes.",
         ],
       },
       {
-        title: "Donnees traitees et source des donn\u00E9es",
+        title: "Données traitées et source des donn\u00E9es",
         paragraphs: [
-          "Lors de la consultation du site, des donn\u00E9es techniques minimales peuvent etre traitees pour faire fonctionner le service (ex: journaux techniques, s\u00E9curit\u00E9, routage de pages).",
-          "Lors d'une inscription via les formulaires externes, les donn\u00E9es sont saisies directement sur le service Microsoft Forms (identite, coordonn\u00E9es, informations de licence, disponibilites et informations d'engagement).",
-          "Seules les donn\u00E9es strictement necessaires a la gestion administrative et sportive sont sollicitees.",
+          "Lors de la consultation du site, des donn\u00E9es techniques minimales peuvent être traitées pour faire fonctionner le service (ex: journaux techniques, s\u00E9curit\u00E9, routage de pages).",
+          "Lors d'une inscription via les formulaires externes, les donn\u00E9es sont saisies directement sur le service Microsoft Forms (identité, coordonn\u00E9es, informations de licence, disponibilités et informations d'engagement).",
+          "Seules les donn\u00E9es strictement nécessaires à la gestion administrative et sportive sont sollicitees.",
         ],
       },
       {
-        title: "Finalites et bases legales",
+        title: "Finalités et bases légales",
         paragraphs: [
-          "Finalites principales: gestion des inscriptions, organisation des meetings, communication d'information operationnelle, suivi associatif, obligations administratives et reglementaires.",
-          "Bases legales mobilisees selon les traitements: consentement (article 6.1.a RGPD), execution de mesures precontractuelles ou contractuelles (article 6.1.b), respect d'obligations legales (article 6.1.c), interet legitime de l'association pour l'organisation et la securisation des epreuves (article 6.1.f).",
-          "Lorsque le consentement est la base legale, il peut etre retire a tout moment.",
+          "Finalités principales: gestion des inscriptions, organisation des meetings, communication d'information opérationnelle, suivi associatif, obligations administratives et réglementaires.",
+          "Bases légales mobilisées selon les traitements: consentement (article 6.1.a RGPD), exécution de mesures précontractuelles ou contractuelles (article 6.1.b), respect d'obligations légales (article 6.1.c), intérêt légitime de l'association pour l'organisation et la sécurisation des épreuves (article 6.1.f).",
+          "Lorsque le consentement est la base légale, il peut être retiré à tout moment.",
         ],
       },
       {
         title: "Destinataires des donn\u00E9es",
         paragraphs: [
-          "Peuvent acceder aux donn\u00E9es, dans la limite de leurs habilitations: membres autorises du bureau, equipe d'organisation, responsables de meeting et, le cas echeant, instances sportives ou prestataires techniques necessaires au service.",
-          "Les donn\u00E9es ne sont pas vendues ni cedees a des tiers a des fins commerciales.",
+          "Peuvent accéder aux donn\u00E9es, dans la limite de leurs habilitations: membres autorisés du bureau, équipe d'organisation, responsables de meeting et, le cas échéant, instances sportives ou prestataires techniques nécessaires au service.",
+          "Les donn\u00E9es ne sont pas vendues ni cédées à des tiers à des fins commerciales.",
         ],
       },
       {
-        title: "Durees de conservation",
+        title: "Durées de conservation",
         paragraphs: [
-          "Les donn\u00E9es sont conservees pendant une duree proportionnee aux finalites poursuivies.",
-          "Les donn\u00E9es d'inscription et de suivi sportif sont conservees pendant la saison en cours puis archivees selon les obligations legales, comptables, assurantielles et sportives applicables.",
-          "Les informations inutiles ou obsoletes sont supprimees ou anonymisees dans des delais raisonnables.",
+          "Les donn\u00E9es sont conservées pendant une durée proportionnée aux finalités poursuivies.",
+          "Les donn\u00E9es d'inscription et de suivi sportif sont conservées pendant la saison en cours puis archivées selon les obligations légales, comptables, assurantielles et sportives applicables.",
+          "Les informations inutiles ou obsolètes sont supprimées ou anonymisées dans des délais raisonnables.",
         ],
       },
       {
-        title: "Transferts hors Union europeenne",
+        title: "Transferts hors Union européenne",
         paragraphs: [
-          "Certains services techniques tiers peuvent impliquer des traitements hors Union europeenne.",
-          "Le cas echeant, ces transferts sont encadres par les mecanismes prevus par le RGPD (ex: clauses contractuelles types de la Commission europeenne) et par les garanties documentees du prestataire.",
+          "Certains services techniques tiers peuvent impliquer des traitements hors Union européenne.",
+          "Le cas échéant, ces transferts sont encadrés par les mécanismes prévus par le RGPD (ex: clauses contractuelles types de la Commission européenne) et par les garanties documentées du prestataire.",
         ],
       },
       {
         title: "Vos droits",
         paragraphs: [
-          "Conformement au RGPD, vous disposez d'un droit d'acces, de rectification, d'effacement, de limitation, d'opposition et, selon les cas, d'un droit a la portabilite.",
-          "Vous pouvez exercer vos droits en ecrivant a contact@asa-prenois-bourgone.org.",
-          "Vous disposez egalement du droit d'introduire une reclamation aupres de la CNIL (www.cnil.fr).",
+          "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et, selon les cas, d'un droit à la portabilite.",
+          "Vous pouvez exercer vos droits en ecrivant à contact@asa-prenois-bourgone.org.",
+          "Vous disposez également du droit d'introduire une reclamation auprès de la CNIL (www.cnil.fr).",
         ],
       },
       {
-        title: "Securite et mise a jour",
+        title: "Sécurité et mise à jour",
         paragraphs: [
-          "L'association met en oeuvre des mesures organisationnelles et techniques raisonnables pour proteger les donn\u00E9es personnelles contre la perte, l'acces non autorise, l'alteration ou la divulgation.",
-          "La presente politique peut etre mise a jour pour tenir compte des evolutions legales, techniques ou organisationnelles. La date de mise a jour figure en haut de page.",
+          "L'association met en œuvre des mesures organisationnelles et techniques raisonnables pour protéger les donn\u00E9es personnelles contre la perte, l'accès non autorisé, l'altération ou la divulgation.",
+          "La présente politique peut être mise à jour pour tenir compte des évolutions légales, techniques ou organisationnelles. La date de mise à jour figure en haut de page.",
         ],
       },
     ],
@@ -873,46 +874,46 @@ export const LEGAL_PAGE_CONTENT = {
     updatedAt: "Derni\u00E8re mise \u00E0 jour: 15 mars 2026",
     sections: [
       {
-        title: "Cadre legal",
+        title: "Cadre légal",
         paragraphs: [
-          "L'utilisation des cookies et autres traceurs est encadree en France par l'article 82 de la loi Informatique et Libertes et, pour les donn\u00E9es personnelles, par le RGPD.",
-          "Les r\u00E8gles pratiques appliquees sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL.",
+          "L'utilisation des cookies et autres traceurs est encadrée en France par l'article 82 de la loi Informatique et Libertés et, pour les donn\u00E9es personnelles, par le RGPD.",
+          "Les r\u00E8gles pratiques appliquées sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL.",
         ],
       },
       {
         title: "Definition",
         paragraphs: [
-          "Un cookie (ou traceur) est un fichier ou identifiant depose et/ou lu sur votre terminal lors de la consultation d'un service numerique.",
-          "Il peut etre utilise a des fins techniques, de mesure d'audience, de personnalisation ou de publicite, selon sa finalite.",
+          "Un cookie (ou traceur) est un fichier ou identifiant déposé et/ou lu sur votre terminal lors de la consultation d'un service numérique.",
+          "Il peut être utilisé à des fins techniques, de mesure d'audience, de personnalisation ou de publicité, selon sa finalité.",
         ],
       },
       {
-        title: "Traceurs utilises par ce site",
+        title: "Traceurs utilisés par ce site",
         paragraphs: [
-          "En l'etat actuel du site, aucun traceur publicitaire ou de reseaux sociaux n'est depose par defaut par l'editeur lors de la navigation.",
-          "Les traceurs strictement necessaires au fonctionnement technique du service peuvent etre utilises sans consentement prealable, conformement aux exemptions prevues par l'article 82.",
+          "En l'état actuel du site, aucun traceur publicitaire ou de réseaux sociaux n'est déposé par défaut par l'éditeur lors de la navigation.",
+          "Les traceurs strictement nécessaires au fonctionnement technique du service peuvent être utilisés sans consentement préalable, conformément aux exemptions prévues par l'article 82.",
           "Le site contient des liens vers des services tiers (par exemple Microsoft Forms et FFSA). Lorsque vous ouvrez ces services, leurs propres politiques cookies s'appliquent.",
         ],
       },
       {
         title: "Consentement et gestion des choix",
         paragraphs: [
-          "Lorsque des traceurs soumis a consentement seraient actives a l'avenir, votre accord sera recueilli avant tout depot, avec un mecanisme de refus aussi simple que l'acceptation.",
-          "Conformement aux recommandations CNIL, le choix exprime (acceptation ou refus) peut etre conserve pendant 6 mois afin d'eviter de vous solliciter a chaque visite.",
-          "Vous pourrez retirer votre consentement a tout moment via un lien ou un module de gestion accessible depuis le site.",
+          "Lorsque des traceurs soumis à consentement seraient activées à l'avenir, votre accord sera recueilli avant tout dépôt, avec un mécanisme de refus aussi simple que l'acceptation.",
+          "Conformément aux recommandations CNIL, le choix exprimé (acceptation ou refus) peut être conserve pendant 6 mois afin d'éviter de vous solliciter à chaque visite.",
+          "Vous pourrez retirer votre consentement à tout moment via un lien ou un module de gestion accessible depuis le site.",
         ],
       },
       {
-        title: "Durees recommandees par la CNIL",
+        title: "Durées recommandées par la CNIL",
         paragraphs: [
-          "Pour les traceurs de mesure d'audience exemptes de consentement sous conditions strictes, la CNIL recommande une duree de vie limitee, par exemple 13 mois, sans prorogation automatique a chaque visite.",
-          "La CNIL recommande egalement une conservation maximale de 25 mois pour les informations collectees via ces traceurs de mesure d'audience exemptes.",
+          "Pour les traceurs de mesure d'audience exemptées de consentement sous conditions strictes, la CNIL recommande une durée de vie limitée, par exemple 13 mois, sans prorogation automatique à chaque visite.",
+          "La CNIL recommande également une conservation maximale de 25 mois pour les informations collectées via ces traceurs de mesure d'audience exemptées.",
         ],
       },
       {
-        title: "Parametrage navigateur et contact",
+        title: "Paramétrage navigateur et contact",
         paragraphs: [
-          "Vous pouvez configurer votre navigateur pour accepter, refuser ou supprimer les cookies. Le blocage de certains traceurs techniques peut degrader le fonctionnement du site.",
+          "Vous pouvez configurer votre navigateur pour accepter, refuser ou supprimer les cookies. Le blocage de certains traceurs techniques peut dégrader le fonctionnement du site.",
           "Pour toute question relative aux cookies: contact@asa-prenois-bourgone.org",
         ],
       },

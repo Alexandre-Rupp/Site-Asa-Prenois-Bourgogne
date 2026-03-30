@@ -94,20 +94,20 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
   ],
   r12: [
     {
-      title: "Carte generale Urcy 2026",
-      description: "Carte generale officielle de la Course de Cote d'Urcy 2026.",
+      title: "Carte générale Urcy 2026",
+      description: "Carte générale officielle de la Course de Côte d'Urcy 2026.",
       href: "assets/documents/carte-generale-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Itineraire horaire VP - Urcy 2026",
-      description: "Itineraire horaire officiel VP pour la Course de Cote d'Urcy 2026.",
+      title: "Itinéraire horaire VP - Urcy 2026",
+      description: "Itinéraire horaire officiel VP pour la Course de Côte d'Urcy 2026.",
       href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
     {
       title: "Plan d'implantation - Urcy 2026",
-      description: "Plan d'implantation officiel de la Course de Cote d'Urcy 2026.",
+      description: "Plan d'implantation officiel de la Course de Côte d'Urcy 2026.",
       href: "assets/documents/plan-implantation-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
@@ -116,14 +116,14 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
 const MEETING_SHARED_DOCUMENTS = {
   r12: [
     {
-      title: "Carte generale Urcy 2026",
-      description: "PDF carte generale du meeting.",
+      title: "Carte générale Urcy 2026",
+      description: "PDF carte générale du meeting.",
       href: "assets/documents/carte-generale-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Itineraire horaire VP - Urcy 2026",
-      description: "PDF itineraire horaire VP du meeting.",
+      title: "Itinéraire horaire VP - Urcy 2026",
+      description: "PDF itinéraire horaire VP du meeting.",
       href: "assets/documents/itineraire-horaire-vp-urcy-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
@@ -980,15 +980,15 @@ function renderPilotMeetingVehicleDocsSection(meetingId, meetingKind) {
 
   return `
     <p>
-      Selectionnez votre type de vehicule pour afficher les documents dedies.
+      Sélectionnez votre type de véhicule pour afficher les documents dédiés.
     </p>
     <div class="race-toolbar">
-      <label>Type de vehicule</label>
+      <label>Type de véhicule</label>
       <div
         id="pilot-vehicle-filter-group"
         class="meeting-filter-group"
         role="group"
-        aria-label="Filtrer les documents par type de vehicule"
+        aria-label="Filtrer les documents par type de véhicule"
       >
         ${VEHICLE_TYPE_FILTER_OPTIONS.map(
           (option) => `
@@ -1024,7 +1024,7 @@ function renderRunEssenceArchiveCards(issues) {
   if (!issues.length) {
     return `
       <article class="panel">
-        <p>Le premier numero de RUN ESSENCE sera publie prochainement.</p>
+        <p>Le premier numéro de RUN ESSENCE sera publié prochainement.</p>
       </article>
     `;
   }
@@ -1036,7 +1036,7 @@ function renderRunEssenceArchiveCards(issues) {
           <h3>${escapeHtml(issue.title || "RUN ESSENCE")}</h3>
           <p>
             Numero ${escapeHtml(issue.issueLabel || "-")} - ${escapeHtml(
-              issue.monthLabel || "Mois a venir"
+              issue.monthLabel || "Mois à venir"
             )}
           </p>
           <div class="link-row">
@@ -1105,7 +1105,7 @@ function renderAccueilView() {
         <article class="panel narrative-panel">
           <p>
             Consultez le journal RUN ESSENCE et suivez les prochains numeros mensuels dans
-            l'historique dedie.
+            l'historique dédié.
           </p>
           ${
             latestRunEssenceIssue
@@ -1135,7 +1135,7 @@ function renderAccueilView() {
                 </div>
               `
               : `
-                <p>Le premier numero sera ajoute prochainement.</p>
+                <p>Le premier numéro sera ajouté prochainement.</p>
               `
           }
         </article>
@@ -1181,7 +1181,7 @@ function renderAccueilView() {
             `
             : `
               <article class="panel">
-                <p>Aucun meeting a venir n'a ete trouve.</p>
+                <p>Aucun meeting à venir n'a été trouvé.</p>
               </article>
             `
         }
@@ -1314,7 +1314,7 @@ function renderInscriptionsChoiceView() {
       <section class="hero">
         <h1>Inscriptions</h1>
         <p class="hero-sub">
-          Selectionnez votre profil pour acceder au calendrier avec les boutons
+          Sélectionnez votre profil pour accéder au calendrier avec les boutons
           d'inscription.
         </p>
       </section>
@@ -1325,7 +1325,7 @@ function renderInscriptionsChoiceView() {
         </div>
         <div class="profile-choice-grid">
           <a class="profile-choice-card profile-choice-card--commissaire" href="#/inscriptions/commissaire">
-            <span>COMMISSAIRE ET OFFICIELS</span>
+            <span>COMMISSAIRES</span>
           </a>
 
           <a class="profile-choice-card profile-choice-card--pilote" href="#/inscriptions/pilote">
@@ -1458,7 +1458,7 @@ function renderMeetingCards(
           data-profile="${escapeHtml(profileKey)}"
           data-meeting-id="${escapeHtml(meeting.id)}"
           data-base-route="${escapeHtml(baseRoute)}"
-          aria-label="Ouvrir le detail du meeting ${escapeHtml(meeting.name)}"
+          aria-label="Ouvrir le détail du meeting ${escapeHtml(meeting.name)}"
         >
           <p class="race-meta-line">
             ${escapeHtml(meetingKindLabel(meeting.kind))} - ${escapeHtml(
@@ -1494,7 +1494,7 @@ function renderMeetingCards(
                 : ""
             }
             <a class="btn btn-ghost" href="${escapeHtml(detailHref)}" ${detailLinkAttrs}>
-              Voir le detail
+              Voir le détail
             </a>
           </div>
         </article>
@@ -1681,7 +1681,7 @@ function renderMeetingDetailView(
         <p class="hero-sub">
           Page d\u00E9taill\u00E9e du meeting pour le parcours ${escapeHtml(
             profile.label.toLowerCase()
-          )}. Cette base est prete pour accueillir PDF et documents de reference.
+          )}. Cette base est prête pour accueillir PDF et documents de référence.
         </p>
         <div class="hero-cta">
           ${
@@ -1798,7 +1798,7 @@ function renderMeetingDetailView(
                     <article class="doc-card">
                       <h3>${escapeHtml(section.title)}</h3>
                       <p>${escapeHtml(section.description)}</p>
-                      <span class="badge pending">A completer</span>
+                      <span class="badge pending">À compléter</span>
                     </article>
                   `
                 ).join("")}
@@ -2026,7 +2026,7 @@ function renderSkeletonPage(pageKey) {
                     rel="noopener noreferrer"
                   >
                     ${escapeHtml(
-                      page.commissionerTrainingLabel || "Se former et debuter"
+                      page.commissionerTrainingLabel || "Se former et débuter"
                     )}
                   </a>
                 </div>
@@ -2127,7 +2127,7 @@ function renderSkeletonPage(pageKey) {
                       >
                         ${escapeHtml(
                           commissionersPage.commissionerTrainingLabel ||
-                            "Se former et debuter"
+                            "Se former et débuter"
                         )}
                       </a>
                     </div>
