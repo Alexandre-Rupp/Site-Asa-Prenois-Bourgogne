@@ -11,7 +11,7 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260330-2";
+} from "./site-data.js?v=20260402-1";
 import {
   getRouteHashFromPathname,
   parseRoute,

@@ -495,19 +495,10 @@ export const PROFILE_CONTENT = {
     },
     newsFeed: [
       {
-        title: "Briefing pilotes saison 2026",
-        date: "10 mars 2026",
-        text: "Mise à jour des procédures de vérification administrative et technique.",
-      },
-      {
-        title: "Contrôle \u00E9quipements",
-        date: "6 avril 2026",
-        text: "Rappel des obligations casque/HANS et conformit\u00E9 \u00E9quipement pilote.",
-      },
-      {
-        title: "Ouverture engagement sprint",
-        date: "20 avril 2026",
-        text: "Le parcours pilote est disponible pour les premiers meetings de la saison.",
+        title: "Romain Perrin, nouveau lauréat Rallye Jeune Yacco FFSA",
+        date: "2026",
+        text:
+          "Romain Perrin, nouveau loréat RALLYE JEUNE YACCO FFSA sur 5000 participants lui permet de se lancer pour une saison en formule de promotion SMRC6 !",
       },
     ],
     resultsFeed: [
