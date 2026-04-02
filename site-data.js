@@ -402,6 +402,12 @@ export const PROFILE_CONTENT = {
     },
     newsFeed: [
       {
+        title: "Romain Perrin, nouveau lauréat Rallye Jeune Yacco FFSA",
+        date: "2026",
+        text:
+          "Romain Perrin, nouveau loréat RALLYE JEUNE YACCO FFSA sur 5000 participants lui permet de se lancer pour une saison en formule de promotion SMRC6 !",
+      },
+      {
         title: "Formation Commissaire",
         date: "18 mars 2026",
         text:
