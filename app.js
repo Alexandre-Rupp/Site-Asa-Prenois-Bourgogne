@@ -11,7 +11,7 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260402-1";
+} from "./site-data.js?v=20260402-2";
 import {
   getRouteHashFromPathname,
   parseRoute,
@@ -58,6 +58,10 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
+const EASTER_THEME_STORAGE_KEY = "asa_theme_easter_enabled";
+const EASTER_THEME_CLASS = "theme-easter";
+const DEFAULT_THEME_COLOR = "#0d5fd0";
+const EASTER_THEME_COLOR = "#f18f3b";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   r11: "https://rallyedeblignysurouche.fr/",
@@ -217,10 +221,59 @@ function scrollPageToTop() {
   });
 }
 
+function setSeasonalEasterTheme(isEnabled) {
+  const shouldEnable = Boolean(isEnabled);
+  document.body.classList.toggle(EASTER_THEME_CLASS, shouldEnable);
+
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute(
+      "content",
+      shouldEnable ? EASTER_THEME_COLOR : DEFAULT_THEME_COLOR
+    );
+  }
+}
+
+function getStoredSeasonalEasterThemePreference() {
+  try {
+    return window.localStorage.getItem(EASTER_THEME_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function persistSeasonalEasterThemePreference(isEnabled) {
+  try {
+    if (isEnabled) {
+      window.localStorage.setItem(EASTER_THEME_STORAGE_KEY, "1");
+      return;
+    }
+    window.localStorage.removeItem(EASTER_THEME_STORAGE_KEY);
+  } catch {
+    // Ignore storage failures in private/incognito contexts.
+  }
+}
+
+function bindSeasonalEasterThemeToggle() {
+  const toggle = document.querySelector(".js-easter-theme-toggle");
+  if (!toggle) return;
+
+  const isStoredEnabled = getStoredSeasonalEasterThemePreference();
+  toggle.checked = isStoredEnabled;
+  setSeasonalEasterTheme(isStoredEnabled);
+
+  toggle.addEventListener("change", () => {
+    const isEnabled = Boolean(toggle.checked);
+    setSeasonalEasterTheme(isEnabled);
+    persistSeasonalEasterThemePreference(isEnabled);
+  });
+}
+
 function createTopbarMenuController({ onMenuStateChange } = {}) {
   const topbar = document.querySelector(".topbar");
   const toggleButton = document.querySelector(".js-nav-toggle");
   const nav = document.querySelector(".main-nav");
+  const topbarRight = document.querySelector(".topbar-right");
 
   const notifyLayoutChange = () => {
     if (typeof onMenuStateChange === "function") {
@@ -233,6 +286,7 @@ function createTopbarMenuController({ onMenuStateChange } = {}) {
 
     const shouldOpen = Boolean(isOpen);
     topbar.classList.toggle("is-nav-open", shouldOpen);
+    document.body.classList.toggle("is-mobile-menu-open", shouldOpen);
     toggleButton.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
     toggleButton.setAttribute(
       "aria-label",
@@ -258,6 +312,15 @@ function createTopbarMenuController({ onMenuStateChange } = {}) {
       if (!event.target.closest("a")) return;
       closeMenu();
     });
+
+    if (topbarRight) {
+      topbarRight.addEventListener("click", (event) => {
+        if (!topbar.classList.contains("is-nav-open")) return;
+        if (window.innerWidth > MOBILE_NAV_BREAKPOINT) return;
+        if (event.target !== topbarRight) return;
+        closeMenu();
+      });
+    }
 
     document.addEventListener("click", (event) => {
       if (topbar.contains(event.target)) return;
@@ -2540,6 +2603,7 @@ function updateTopbarHeightVar() {
 
 // Application bootstrap.
 function mount() {
+  bindSeasonalEasterThemeToggle();
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
   });
