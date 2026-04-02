@@ -1401,22 +1401,29 @@ function renderInscriptionsChoiceView() {
 }
 function renderActualitesView() {
   const commissaireProfile = PROFILE_CONTENT.commissaire;
+  const piloteProfile = PROFILE_CONTENT.pilote;
 
   return `
     <div class="view-stack">
       <section class="hero">
         <h1>Actualit\u00E9s</h1>
         <p class="hero-sub">
-          Retrouvez les derni\u00E8res actualit\u00E9s de l'association.
+          Retrouvez les derni\u00E8res actualit\u00E9s des commissaires et des pilotes.
         </p>
       </section>
 
-      <section class="section">
+      <section class="section dual">
         <div>
           <div class="section-head">
             <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
           </div>
           <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>${escapeHtml(piloteProfile.sections.newsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(piloteProfile.newsFeed)}</div>
         </div>
       </section>
     </div>
