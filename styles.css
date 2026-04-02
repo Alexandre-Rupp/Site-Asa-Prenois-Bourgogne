@@ -2658,31 +2658,44 @@ th {
 
   .topbar-right {
     grid-column: 1 / -1;
-    width: 100%;
-    display: none;
-    gap: 0.72rem;
-  }
-
-  .topbar.is-nav-open .topbar-right {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    width: 100vw;
     position: fixed;
     inset: 0;
     z-index: 70;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-content: start;
-    gap: 0.9rem;
-    width: 100vw;
+    gap: 0.72rem;
     height: 100dvh;
-    padding: calc(var(--topbar-height) + 0.8rem) clamp(0.8rem, 4vw, 1.2rem) 1.1rem;
+    padding: calc(var(--topbar-height) + 0.8rem) 0 1.1rem;
     background:
       linear-gradient(180deg, rgba(247, 251, 255, 0.98), rgba(233, 242, 255, 0.96));
     backdrop-filter: blur(6px);
     overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px) scale(0.985);
+    transform-origin: top center;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0s linear 0.22s;
+  }
+
+  .topbar.is-nav-open .topbar-right {
+    gap: 0.9rem;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition-delay: 0s;
   }
 
   .season-switch-wrap {
     justify-self: start;
     order: 2;
+    padding: 0 0.85rem;
   }
 
   .main-nav {
@@ -2691,7 +2704,7 @@ th {
     gap: 0.55rem;
     width: 100%;
     overflow: visible;
-    padding: 0;
+    padding: 0 0.85rem;
     order: 1;
   }
 
@@ -2721,6 +2734,7 @@ th {
   .ffsa-link {
     justify-self: start;
     order: 3;
+    padding: 0 0.85rem;
   }
 
   .topbar.is-nav-open .ffsa-link {
