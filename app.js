@@ -273,6 +273,7 @@ function createTopbarMenuController({ onMenuStateChange } = {}) {
   const topbar = document.querySelector(".topbar");
   const toggleButton = document.querySelector(".js-nav-toggle");
   const nav = document.querySelector(".main-nav");
+  const topbarRight = document.querySelector(".topbar-right");
 
   const notifyLayoutChange = () => {
     if (typeof onMenuStateChange === "function") {
@@ -285,6 +286,7 @@ function createTopbarMenuController({ onMenuStateChange } = {}) {
 
     const shouldOpen = Boolean(isOpen);
     topbar.classList.toggle("is-nav-open", shouldOpen);
+    document.body.classList.toggle("is-mobile-menu-open", shouldOpen);
     toggleButton.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
     toggleButton.setAttribute(
       "aria-label",
@@ -310,6 +312,15 @@ function createTopbarMenuController({ onMenuStateChange } = {}) {
       if (!event.target.closest("a")) return;
       closeMenu();
     });
+
+    if (topbarRight) {
+      topbarRight.addEventListener("click", (event) => {
+        if (!topbar.classList.contains("is-nav-open")) return;
+        if (window.innerWidth > MOBILE_NAV_BREAKPOINT) return;
+        if (event.target !== topbarRight) return;
+        closeMenu();
+      });
+    }
 
     document.addEventListener("click", (event) => {
       if (topbar.contains(event.target)) return;
