@@ -795,7 +795,7 @@ export const PAGE_SKELETONS = {
         logo: "assets/partners/mr-bricolage.svg",
       },
       { name: "Gautier", short: "Gautier", logo: "assets/partners/gautier.svg" },
-      { name: "Vitco", short: "Vitco", logo: "assets/partners/vitco.webp" },
+      { name: "Vulco", short: "Vulco", logo: "assets/partners/vulco.svg" },
       {
         name: "Plan\u00E8te Communication Dijon",
         short: "Plan\u00E8te Com",
