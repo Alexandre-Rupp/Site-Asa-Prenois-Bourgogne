@@ -15,10 +15,6 @@
   <img alt="No Build Required" src="https://img.shields.io/badge/Build-Not%20required-7c3aed">
 </p>
 
-<p align="center">
-  <img src="assets/meetings/historic-tour.jpg" alt="Apercu du site" width="900" />
-</p>
-
 ## Navigation rapide
 - [Apercu](#apercu)
 - [Objectifs](#objectifs)
