@@ -25,10 +25,6 @@
 - [Structure du projet](#structure-du-projet)
 - [Documentation](#documentation)
 
-## Apercu
-| Evenements | Actualites |
-| --- | --- |
-| ![Evenements](assets/meetings/championnat-de-france-gt.jpg) | ![Actualites](assets/news/formation-commissaire/formation-commissaire-05.jpg) |
 
 ## Objectifs
 - Afficher les parcours `calendrier`, `inscriptions`, `actualites`, `contacts` et `vie-asa`.
