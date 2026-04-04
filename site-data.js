@@ -2,14 +2,14 @@
 export const TARGET_YEAR = "2026";
 
 export const NAV_ITEMS = [
-  { key: "accueil", label: "ACCUEIL", href: "#/accueil" },
-  { key: "meetings", label: "CALENDRIER", href: "#/meetings" },
-  { key: "inscriptions", label: "INSCRIPTIONS", href: "#/inscriptions" },
-  { key: "actualites", label: "ACTUALIT\u00C9S", href: "#/actualites" },
-  { key: "run-essence", label: "RUN ESSENCE", href: "#/run-essence" },
-  { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "#/commissaires" },
-  { key: "vie-asa", label: "LA VIE DE L'ASA", href: "#/vie-asa" },
-  { key: "contact", label: "CONTACTS", href: "#/contact" },
+  { key: "accueil", label: "ACCUEIL", href: "/" },
+  { key: "meetings", label: "CALENDRIER", href: "/meetings" },
+  { key: "inscriptions", label: "INSCRIPTIONS", href: "/inscriptions" },
+  { key: "actualites", label: "ACTUALIT\u00C9S", href: "/actualites" },
+  { key: "run-essence", label: "RUN ESSENCE", href: "/run-essence" },
+  { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "/commissaires" },
+  { key: "vie-asa", label: "LA VIE DE L'ASA", href: "/vie-asa" },
+  { key: "contact", label: "CONTACTS", href: "/contact" },
 ];
 
 export const RUN_ESSENCE_ARCHIVES = [
