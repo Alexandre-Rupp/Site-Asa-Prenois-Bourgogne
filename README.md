@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/petit-logo-asa.png" alt="ASA Prenois Bourgogne" width="120" />
+  <img src="assets/logo-asa-prenois-bourgogne-fit.png" alt="ASA Prenois Bourgogne - logo officiel" width="220" />
 </p>
 
-<h1 align="center">Site-circuit</h1>
+<h1 align="center">ASA Prenois Bourgogne - Site officiel</h1>
 
 <p align="center">
   Site vitrine statique (HTML/CSS/JS) pour l'ASA Prenois Bourgogne.
@@ -24,6 +24,7 @@
 - [Objectifs](#objectifs)
 - [Demarrage local](#demarrage-local)
 - [Verification qualite rapide](#verification-qualite-rapide)
+- [Deploiement Vercel](#deploiement-vercel)
 - [Architecture](#architecture)
 - [Structure du projet](#structure-du-projet)
 - [Documentation](#documentation)
@@ -52,6 +53,24 @@ node --check app.js
 node --check src/core/routing.js
 node tools/check-quality.cjs
 ```
+
+## Deploiement Vercel
+Le projet est un site statique sans build obligatoire. La configuration Vercel est deja versionnee via `vercel.json`.
+
+### Option 1: via dashboard Vercel
+1. Importer le repo GitHub dans Vercel.
+2. Garder les parametres par defaut (`Framework Preset: Other`, `Build Command` vide, `Output Directory` vide).
+3. Lancer le deploy.
+
+### Option 2: via CLI
+```powershell
+npm i -g vercel
+vercel
+vercel --prod
+```
+
+### Routing
+Les URLs applicatives (`/actualites`, `/meetings/...`, etc.) sont redirigees vers `index.html` via `vercel.json`, ce qui evite les 404 lors d'un refresh.
 
 ## Architecture
 ```mermaid
@@ -85,6 +104,7 @@ Site-circuit/
   index.html             # Shell HTML
   site-data.js           # Donnees de contenu (meetings, pages, textes)
   styles.css             # Styles globaux et responsive
+  vercel.json            # Rewrites Vercel pour routing SPA
 ```
 
 ## Documentation
