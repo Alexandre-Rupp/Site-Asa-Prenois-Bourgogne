@@ -272,9 +272,9 @@ body {
 }
 
 .logo-main {
-  width: clamp(170px, 21vw, 250px);
-  max-width: 54vw;
-  height: auto;
+  width: auto;
+  height: clamp(42px, 5vw, 64px);
+  max-width: min(56vw, 280px);
   object-fit: contain;
   display: block;
 }
@@ -2802,8 +2802,8 @@ th {
   }
 
   .logo-main {
-    width: 176px;
-    max-width: 72vw;
+    height: clamp(38px, 8.8vw, 54px);
+    max-width: 70vw;
   }
 
   .logo-text:not(.logo-text--brand) {
