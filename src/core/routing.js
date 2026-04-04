@@ -331,7 +331,7 @@ export function updateDocumentSeo(
     meetings,
     canonicalOrigin = "https://www.asa-prenois-bourgogne.org",
     siteName = "ASA Prenois Bourgogne",
-    socialImagePath = "/assets/logo-asa-prenois-bourgogne-new.png?v=20260404-4",
+    socialImagePath = "/assets/logo-asa-prenois-bourgogne-fit.png?v=20260404-7",
   }
 ) {
   const seo = getSeoPayload(route, {
