@@ -1,13 +1,44 @@
-# Site-circuit
+<p align="center">
+  <img src="assets/petit-logo-asa.png" alt="ASA Prenois Bourgogne" width="120" />
+</p>
 
-Site vitrine statique (HTML/CSS/JS) pour l'ASA Prenois Bourgogne.
+<h1 align="center">Site-circuit</h1>
+
+<p align="center">
+  Site vitrine statique (HTML/CSS/JS) pour l'ASA Prenois Bourgogne.
+</p>
+
+<p align="center">
+  <img alt="Type Static Site" src="https://img.shields.io/badge/Type-Static%20Site-0f766e">
+  <img alt="Stack HTML CSS JS" src="https://img.shields.io/badge/Stack-HTML%20%7C%20CSS%20%7C%20JS-1d4ed8">
+  <img alt="Node Optional" src="https://img.shields.io/badge/Node-24.14.0%20(optional)-16a34a">
+  <img alt="No Build Required" src="https://img.shields.io/badge/Build-Not%20required-7c3aed">
+</p>
+
+<p align="center">
+  <img src="assets/meetings/historic-tour.jpg" alt="Apercu du site" width="900" />
+</p>
+
+## Navigation rapide
+- [Apercu](#apercu)
+- [Objectifs](#objectifs)
+- [Demarrage local](#demarrage-local)
+- [Verification qualite rapide](#verification-qualite-rapide)
+- [Architecture](#architecture)
+- [Structure du projet](#structure-du-projet)
+- [Documentation](#documentation)
+
+## Apercu
+| Evenements | Actualites |
+| --- | --- |
+| ![Evenements](assets/meetings/championnat-de-france-gt.jpg) | ![Actualites](assets/news/formation-commissaire/formation-commissaire-05.jpg) |
 
 ## Objectifs
 - Afficher les parcours `calendrier`, `inscriptions`, `actualites`, `contacts` et `vie-asa`.
 - Rester simple a deployer (aucun build obligatoire).
-- Garder un code evolutif avec responsabilites claires et une architecture modulaire.
+- Garder un code evolutif avec responsabilites claires et architecture modulaire.
 
-## Lancement local
+## Demarrage local
 1. Ouvrir un terminal dans `Site-circuit`.
 2. Demarrer un serveur statique:
    - `python -m http.server 5500`
@@ -21,6 +52,23 @@ node --check app.js
 node --check src/core/routing.js
 node tools/check-quality.cjs
 ```
+
+## Architecture
+```mermaid
+flowchart LR
+  A[index.html] --> B[app.js]
+  B --> C[src/core/routing.js]
+  B --> D[src/core/topbar-menu.js]
+  B --> E[src/utils/dom.js]
+  B --> F[site-data.js]
+  F --> G[Contenus metier]
+```
+
+Resume:
+- `site-data.js` contient uniquement des donnees metier.
+- `src/core/*` contient la logique transverse (routing/navigation).
+- `app.js` orchestre les vues et branche les modules.
+- `src/utils/*` contient des fonctions reutilisables sans logique metier.
 
 ## Structure du projet
 ```text
@@ -39,26 +87,9 @@ Site-circuit/
   styles.css             # Styles globaux et responsive
 ```
 
-## Architecture (resume)
-- `site-data.js` contient uniquement des donnees metier.
-- `src/core/*` contient la logique transverse (routing/navigation).
-- `app.js` orchestre les vues et branche les modules.
-- `src/utils/*` contient des fonctions reutilisables sans logique metier.
-
-Details: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
-
-## Principes de qualite
-- Responsabilite unique par module/fonction (SRP).
-- Dependances explicites via parametres (DIP simplifie).
-- Fonctions pures privilegiees pour le routing/titre.
-- Conventions de nommage et structure documentees.
-
-Details: [CODING-STANDARDS.md](./docs/CODING-STANDARDS.md)
-
-## Contribution
-Guide contribution/tests manuels:
-[CONTRIBUTING.md](./docs/CONTRIBUTING.md)
-
-## Roadmap technique
-Plan de nettoyage architecture progressif:
-[REFACTOR-ROADMAP.md](./docs/REFACTOR-ROADMAP.md)
+## Documentation
+- Architecture: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- Standards de code: [CODING-STANDARDS.md](./docs/CODING-STANDARDS.md)
+- Contribution: [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
+- Roadmap technique: [REFACTOR-ROADMAP.md](./docs/REFACTOR-ROADMAP.md)
+- Checklist release: [RELEASE-CHECKLIST.md](./docs/RELEASE-CHECKLIST.md)
