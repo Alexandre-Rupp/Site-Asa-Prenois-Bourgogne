@@ -21,12 +21,29 @@ function normalizePathname(pathnameValue) {
   return normalized || "/";
 }
 
+function normalizeRouteValue(routeValue) {
+  const raw = String(routeValue || "").trim();
+  if (!raw) return "/accueil";
+
+  if (raw.startsWith("#")) {
+    return normalizeHash(raw);
+  }
+
+  const normalizedPath = normalizePathname(raw);
+  if (normalizedPath === "/" || normalizedPath === "/index.html") {
+    return "/accueil";
+  }
+
+  return normalizedPath;
+}
+
 function parseProfileAreaRoute({
   segments,
   baseRoute,
   navKey,
   signupEnabled,
   profileContent,
+  meetings,
 }) {
   if (!segments[1]) {
     return {
@@ -53,6 +70,17 @@ function parseProfileAreaRoute({
     };
   }
 
+  const meeting = Array.isArray(meetings)
+    ? meetings.find((entry) => entry.id === segments[2])
+    : null;
+  if (!meeting || (signupEnabled && meeting.generalCalendarOnly)) {
+    return {
+      type: "not-found",
+      navKey,
+      canonicalPath: `/${baseRoute}/${segments[1]}`,
+    };
+  }
+
   return {
     type: "meeting-detail",
     navKey,
@@ -67,13 +95,21 @@ function parseProfileAreaRoute({
 /**
  * Parses the current hash route into a normalized route descriptor.
  * @param {object} params
- * @param {string} params.hashValue
+ * @param {string} [params.routeValue]
+ * @param {string} [params.hashValue]
  * @param {Record<string, unknown>} params.profileContent
  * @param {Record<string, unknown>} params.pageSkeletons
+ * @param {Array<{id:string,generalCalendarOnly?:boolean}>} [params.meetings]
  * @returns {object}
  */
-export function parseRoute({ hashValue, profileContent, pageSkeletons }) {
-  const normalizedPath = normalizeHash(hashValue);
+export function parseRoute({
+  routeValue,
+  hashValue,
+  profileContent,
+  pageSkeletons,
+  meetings,
+}) {
+  const normalizedPath = normalizeRouteValue(routeValue ?? hashValue);
   const segments = normalizedPath
     .split("/")
     .filter(Boolean)
@@ -94,6 +130,7 @@ export function parseRoute({ hashValue, profileContent, pageSkeletons }) {
       navKey: "meetings",
       signupEnabled: false,
       profileContent,
+      meetings,
     });
   }
 
@@ -104,6 +141,7 @@ export function parseRoute({ hashValue, profileContent, pageSkeletons }) {
       navKey: "inscriptions",
       signupEnabled: true,
       profileContent,
+      meetings,
     });
   }
 
@@ -218,6 +256,14 @@ function getSeoPayload(
   if (route.type === "meeting-detail") {
     const meeting = meetings.find((item) => item.id === route.meetingId);
     const profile = profileContent[route.profileKey];
+    if (!meeting || !profile || (route.signupEnabled && meeting.generalCalendarOnly)) {
+      return {
+        title: `Page introuvable - ${siteName}`,
+        description: "La page demand\u00E9e est introuvable.",
+        robots: "noindex, follow",
+      };
+    }
+
     const label = meeting ? meeting.name : "Meeting";
     const areaTitle = route.signupEnabled ? "Inscriptions" : "Meetings";
     const profileLabel = profile?.label ? ` ${profile.label.toLowerCase()}` : "";

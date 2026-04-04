@@ -11,12 +11,11 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260402-2";
+} from "./site-data.js?v=20260404-1";
 import {
-  getRouteHashFromPathname,
   parseRoute,
   updateDocumentSeo,
-} from "./src/core/routing.js";
+} from "./src/core/routing.js?v=20260404-1";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -849,7 +848,7 @@ function meetingCardToneClass(cardTone) {
 }
 
 function meetingDetailHref(profileKey, meetingId, baseRoute = "meetings") {
-  return `#/${baseRoute}/${profileKey}/${encodeURIComponent(meetingId)}`;
+  return `/${baseRoute}/${profileKey}/${encodeURIComponent(meetingId)}`;
 }
 
 function getMeetingExternalUrl(meetingId) {
@@ -1197,8 +1196,8 @@ function renderAccueilView() {
           contact officiel.
         </p>
         <div class="hero-cta">
-          <a href="#/meetings" class="btn btn-primary">Entrer dans le calendrier</a>
-          <a href="#/contact" class="btn btn-ghost">Nous contacter</a>
+          <a href="/meetings" class="btn btn-primary">Entrer dans le calendrier</a>
+          <a href="/contact" class="btn btn-ghost">Nous contacter</a>
         </div>
       </section>
 
@@ -1247,7 +1246,7 @@ function renderAccueilView() {
                       `${latestRunEssenceIssue.issueLabel} - ${latestRunEssenceIssue.monthLabel}`
                     )}
                   </a>
-                  <a href="#/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
+                  <a href="/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
                 </div>
                 <div class="run-essence-home-viewer-wrap">
                   <iframe
@@ -1450,11 +1449,11 @@ function renderInscriptionsChoiceView() {
           <h2>Je suis...</h2>
         </div>
         <div class="profile-choice-grid">
-          <a class="profile-choice-card profile-choice-card--commissaire" href="#/inscriptions/commissaire">
+          <a class="profile-choice-card profile-choice-card--commissaire" href="/inscriptions/commissaire">
             <span>COMMISSAIRES</span>
           </a>
 
-          <a class="profile-choice-card profile-choice-card--pilote" href="#/inscriptions/pilote">
+          <a class="profile-choice-card profile-choice-card--pilote" href="/inscriptions/pilote">
             <span>PILOTE</span>
           </a>
         </div>
@@ -1678,7 +1677,7 @@ function bindMeetingsProfileEvents(
         return;
       }
 
-      window.location.hash = meetingDetailHref(cardProfile, meetingId, baseRoute);
+      window.location.assign(meetingDetailHref(cardProfile, meetingId, baseRoute));
     });
 
     raceGrid.addEventListener("keydown", (event) => {
@@ -1700,7 +1699,7 @@ function bindMeetingsProfileEvents(
         return;
       }
 
-      window.location.hash = meetingDetailHref(cardProfile, meetingId, baseRoute);
+      window.location.assign(meetingDetailHref(cardProfile, meetingId, baseRoute));
     });
   }
 
@@ -1725,7 +1724,7 @@ function renderMeetingDetailView(
               Le meeting demande n'existe pas ou son identifiant est invalide.
             </p>
           </div>
-          <a href="#/${escapeHtml(baseRoute)}" class="btn btn-primary">Retour au calendrier</a>
+          <a href="/${escapeHtml(baseRoute)}" class="btn btn-primary">Retour au calendrier</a>
         </section>
       </div>
     `;
@@ -1771,7 +1770,7 @@ function renderMeetingDetailView(
     profileKey === "commissaire"
       ? "Formulaire d'inscription"
       : `Formulaire ${profile.label.toLowerCase()}`;
-  const secondaryCtaHref = externalUrl || `#/${baseRoute}/${profileKey}`;
+  const secondaryCtaHref = externalUrl || `/${baseRoute}/${profileKey}`;
   const secondaryCtaLabel = externalUrl
     ? "Site officiel du rallye"
     : "Retour au calendrier";
@@ -1990,7 +1989,7 @@ function renderSkeletonPage(pageKey) {
           <div class="section-head">
             <h2>Page indisponible</h2>
           </div>
-          <a href="#/accueil" class="btn btn-primary">Retour \u00E0 l'accueil</a>
+          <a href="/" class="btn btn-primary">Retour \u00E0 l'accueil</a>
         </section>
       </div>
     `;
@@ -2386,7 +2385,7 @@ function renderNotFoundView() {
             Votre navigateur ne prend pas en charge l'audio HTML5.
           </audio>
           <div class="not-found-actions">
-            <a href="#/accueil" class="btn btn-primary">Retour a l'accueil</a>
+            <a href="/" class="btn btn-primary">Retour a l'accueil</a>
           </div>
         </article>
       </section>
@@ -2463,14 +2462,27 @@ function renderCurrentRoute() {
 
   clearAccueilCountdown();
   clearFeedCarouselsAutoPlay();
-  const routeHash =
-    window.location.hash || getRouteHashFromPathname(window.location.pathname);
+  const routeValue = window.location.hash || window.location.pathname;
 
   const route = parseRoute({
-    hashValue: routeHash,
+    routeValue,
     profileContent: PROFILE_CONTENT,
     pageSkeletons: PAGE_SKELETONS,
+    meetings: MEETINGS,
   });
+  const canonicalPathForHistory =
+    route.canonicalPath && route.canonicalPath !== "/accueil"
+      ? route.canonicalPath
+      : "/";
+  if (
+    window.location.hash.startsWith("#/") &&
+    isClientRoutePath(canonicalPathForHistory) &&
+    (canonicalPathForHistory !== window.location.pathname ||
+      window.location.hash.length > 0)
+  ) {
+    window.history.replaceState({}, "", canonicalPathForHistory);
+  }
+
   updateActiveNav(route.navKey);
   updateDocumentSeo(route, {
     profileContent: PROFILE_CONTENT,
@@ -2601,9 +2613,47 @@ function updateTopbarHeightVar() {
   });
 }
 
+function isClientRoutePath(pathname) {
+  if (!pathname || pathname === "/") return true;
+  if (pathname === "/index.html") return true;
+  if (pathname.startsWith("/assets/")) return false;
+  return !/\.[a-z0-9]+$/i.test(pathname);
+}
+
+function bindClientRouteLinks() {
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (!(link instanceof HTMLAnchorElement)) return;
+    if (event.defaultPrevented) return;
+    if (link.target && link.target !== "_self") return;
+    if (link.hasAttribute("download")) return;
+
+    const rawHref = String(link.getAttribute("href") || "").trim();
+    if (!rawHref || rawHref.startsWith("#")) return;
+    if (rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
+
+    let url;
+    try {
+      url = new URL(link.href, window.location.origin);
+    } catch (_error) {
+      return;
+    }
+
+    if (url.origin !== window.location.origin) return;
+    if (!isClientRoutePath(url.pathname)) return;
+    if (url.search) return;
+
+    event.preventDefault();
+    const nextPath = `${url.pathname}${url.hash || ""}`;
+    window.history.pushState({}, "", nextPath);
+    renderCurrentRoute();
+  });
+}
+
 // Application bootstrap.
 function mount() {
   bindSeasonalEasterThemeToggle();
+  bindClientRouteLinks();
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
   });
@@ -2617,6 +2667,7 @@ function mount() {
     }
     updateTopbarHeightVar();
   });
+  window.addEventListener("popstate", renderCurrentRoute);
 }
 
 mount();
