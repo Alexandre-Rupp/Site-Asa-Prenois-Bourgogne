@@ -57,6 +57,7 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
+const PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS = new Set(["r12"]);
 const DEFAULT_THEME_COLOR = "#0d5fd0";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
@@ -1705,7 +1706,12 @@ function renderMeetingDetailView(
   const shouldRenderSharedMeetingDocs =
     sharedMeetingDocs.length > 0 &&
     !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
+  const shouldHidePilotVehicleTypeDocs =
+    profileKey === "pilote" &&
+    showSignup &&
+    PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS.has(meeting.id);
   const shouldRenderVehicleTypeDocs =
+    !shouldHidePilotVehicleTypeDocs &&
     profileKey === "pilote" &&
     (hasPilotMeetingSpecificVehicleDocs ||
       (!shouldRenderPilotMeetingSpecificDocs &&
