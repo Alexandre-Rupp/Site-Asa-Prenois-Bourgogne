@@ -1165,10 +1165,6 @@ textarea:focus-visible,
     align-items: start;
   }
 
-  .home-body-grid > .section {
-    grid-column: 2;
-  }
-
   .home-welcome-section {
     grid-column: 2;
     grid-row: 1;
@@ -1180,6 +1176,10 @@ textarea:focus-visible,
     position: sticky;
     top: calc(var(--topbar-height) + 1rem);
     align-self: start;
+  }
+
+  .home-body-grid > .section:not(.home-welcome-section) {
+    grid-column: 1 / -1;
   }
 }
 
