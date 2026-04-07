@@ -1878,7 +1878,7 @@ function renderMeetingDetailView(
                     <article class="doc-card">
                       <h3>${escapeHtml(section.title)}</h3>
                       <p>${escapeHtml(section.description)}</p>
-                      <span class="badge pending">À compléter</span>
+                      <span class="badge pending">À venir</span>
                     </article>
                   `
                 ).join("")}
