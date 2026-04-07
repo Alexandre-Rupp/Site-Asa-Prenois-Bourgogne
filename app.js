@@ -57,10 +57,9 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
-const EASTER_THEME_STORAGE_KEY = "asa_theme_easter_enabled";
-const EASTER_THEME_CLASS = "theme-easter";
+const ACCUEIL_URCY_MEETING_ID = "r12";
+const PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS = new Set(["r12"]);
 const DEFAULT_THEME_COLOR = "#0d5fd0";
-const EASTER_THEME_COLOR = "#f18f3b";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   r11: "https://rallyedeblignysurouche.fr/",
@@ -217,54 +216,6 @@ function scrollPageToTop() {
     top: 0,
     left: 0,
     behavior: "auto",
-  });
-}
-
-function setSeasonalEasterTheme(isEnabled) {
-  const shouldEnable = Boolean(isEnabled);
-  document.body.classList.toggle(EASTER_THEME_CLASS, shouldEnable);
-
-  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  if (themeColorMeta) {
-    themeColorMeta.setAttribute(
-      "content",
-      shouldEnable ? EASTER_THEME_COLOR : DEFAULT_THEME_COLOR
-    );
-  }
-}
-
-function getStoredSeasonalEasterThemePreference() {
-  try {
-    return window.localStorage.getItem(EASTER_THEME_STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function persistSeasonalEasterThemePreference(isEnabled) {
-  try {
-    if (isEnabled) {
-      window.localStorage.setItem(EASTER_THEME_STORAGE_KEY, "1");
-      return;
-    }
-    window.localStorage.removeItem(EASTER_THEME_STORAGE_KEY);
-  } catch {
-    // Ignore storage failures in private/incognito contexts.
-  }
-}
-
-function bindSeasonalEasterThemeToggle() {
-  const toggle = document.querySelector(".js-easter-theme-toggle");
-  if (!toggle) return;
-
-  const isStoredEnabled = getStoredSeasonalEasterThemePreference();
-  toggle.checked = isStoredEnabled;
-  setSeasonalEasterTheme(isStoredEnabled);
-
-  toggle.addEventListener("change", () => {
-    const isEnabled = Boolean(toggle.checked);
-    setSeasonalEasterTheme(isEnabled);
-    persistSeasonalEasterThemePreference(isEnabled);
   });
 }
 
@@ -1180,6 +1131,44 @@ function renderRunEssenceArchiveCards(issues) {
     .join("");
 }
 
+function renderAccueilUrcySignupCard() {
+  const urcyMeeting = MEETINGS.find((meeting) => meeting.id === ACCUEIL_URCY_MEETING_ID);
+  if (!urcyMeeting) return "";
+
+  const urcyImagePath = withMeetingAssetVersion(getMeetingVisualPath(ACCUEIL_URCY_MEETING_ID));
+  const pilotSignupHref = meetingDetailHref("pilote", ACCUEIL_URCY_MEETING_ID, "inscriptions");
+
+  return `
+    <aside class="home-urcy-signup" aria-labelledby="home-urcy-signup-title">
+      <article class="home-urcy-signup-card">
+        <h3 id="home-urcy-signup-title">Course de c\u00F4te d'Urcy</h3>
+        <p class="home-urcy-signup-meta">
+          ${escapeHtml(urcyMeeting.date)} - ${escapeHtml(urcyMeeting.location)}
+        </p>
+        ${
+          urcyImagePath
+            ? `
+              <img
+                class="home-urcy-signup-image"
+                src="${escapeHtml(urcyImagePath)}"
+                alt="Course de c\u00F4te d'Urcy"
+                loading="lazy"
+                decoding="async"
+              />
+            `
+            : ""
+        }
+        <p class="home-urcy-signup-copy">
+          Acc\u00E9dez directement \u00E0 la page d'inscription pilote pour la course de c\u00F4te d'Urcy.
+        </p>
+        <a class="btn btn-primary home-urcy-signup-btn" href="${escapeHtml(pilotSignupHref)}">
+          Inscription pilote
+        </a>
+      </article>
+    </aside>
+  `;
+}
+
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
@@ -1201,123 +1190,127 @@ function renderAccueilView() {
         </div>
       </section>
 
-      <section class="section">
-        <div class="section-head">
-          <h2>Bienvenue sur le site officiel de l\u2019ASA Prenois Bourgogne</h2>
-        </div>
-        <article class="panel narrative-panel">
-          <p>
-            L\u2019ASA Prenois Bourgogne accompagne la vie sportive automobile en Bourgogne et propose
-            un site centralisant les informations utiles pour les pilotes, les commissaires, les b\u00E9n\u00E9voles
-            et les passionn\u00E9s de sport automobile.
-          </p>
-          <p>
-            Sur le site officiel de l\u2019ASA Prenois Bourgogne, vous pouvez consulter le calendrier des meetings,
-            acc\u00E9der aux inscriptions, retrouver les informations d\u00E9di\u00E9es aux pilotes et aux commissaires,
-            suivre les actualit\u00E9s de l\u2019association et d\u00E9couvrir la vie de l\u2019ASA.
-          </p>
-          <p>
-            Le site permet \u00E9galement d\u2019acc\u00E9der aux pages d\u00E9taill\u00E9es de chaque meeting, avec les informations
-            pratiques, les documents utiles et les contenus qui seront publi\u00E9s au fil de la saison.
-          </p>
-        </article>
-      </section>
+      <div class="home-body-grid">
+        <section class="section home-welcome-section">
+          <div class="section-head">
+            <h2>Bienvenue sur le site officiel de l\u2019ASA Prenois Bourgogne</h2>
+          </div>
+          <article class="panel narrative-panel">
+            <p>
+              L\u2019ASA Prenois Bourgogne accompagne la vie sportive automobile en Bourgogne et propose
+              un site centralisant les informations utiles pour les pilotes, les commissaires, les b\u00E9n\u00E9voles
+              et les passionn\u00E9s de sport automobile.
+            </p>
+            <p>
+              Sur le site officiel de l\u2019ASA Prenois Bourgogne, vous pouvez consulter le calendrier des meetings,
+              acc\u00E9der aux inscriptions, retrouver les informations d\u00E9di\u00E9es aux pilotes et aux commissaires,
+              suivre les actualit\u00E9s de l\u2019association et d\u00E9couvrir la vie de l\u2019ASA.
+            </p>
+            <p>
+              Le site permet \u00E9galement d\u2019acc\u00E9der aux pages d\u00E9taill\u00E9es de chaque meeting, avec les informations
+              pratiques, les documents utiles et les contenus qui seront publi\u00E9s au fil de la saison.
+            </p>
+          </article>
+        </section>
 
-      <section class="section">
-        <div class="section-head">
-          <h2>RUN ESSENCE</h2>
-        </div>
-        <article class="panel narrative-panel">
-          <p>
-            Consultez le journal RUN ESSENCE et suivez les prochains numeros mensuels dans
-            l'historique dédié.
-          </p>
+        ${renderAccueilUrcySignupCard()}
+
+        <section class="section">
+          <div class="section-head">
+            <h2>RUN ESSENCE</h2>
+          </div>
+          <article class="panel narrative-panel">
+            <p>
+              Consultez le journal RUN ESSENCE et suivez les prochains numeros mensuels dans
+              l'historique d\u00E9di\u00E9.
+            </p>
+            ${
+              latestRunEssenceIssue
+                ? `
+                  <div class="link-row">
+                    <a
+                      href="${escapeHtml(latestRunEssenceIssue.href)}"
+                      class="btn btn-primary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Consulter ${escapeHtml(
+                        `${latestRunEssenceIssue.issueLabel} - ${latestRunEssenceIssue.monthLabel}`
+                      )}
+                    </a>
+                    <a href="/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
+                  </div>
+                  <div class="run-essence-home-viewer-wrap">
+                    <iframe
+                      class="run-essence-home-viewer"
+                      src="${escapeHtml(latestRunEssenceIssue.href)}#view=FitH"
+                      title="${escapeHtml(
+                        `PDF ${latestRunEssenceIssue.issueLabel} ${latestRunEssenceIssue.monthLabel}`
+                      )}"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                `
+                : `
+                  <p>Le premier num\u00E9ro sera ajout\u00E9 prochainement.</p>
+                `
+            }
+          </article>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>Compte \u00E0 rebours jusqu'au prochain meeting</h2>
+          </div>
           ${
-            latestRunEssenceIssue
+            nextMeeting
               ? `
-                <div class="link-row">
-                  <a
-                    href="${escapeHtml(latestRunEssenceIssue.href)}"
-                    class="btn btn-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Consulter ${escapeHtml(
-                      `${latestRunEssenceIssue.issueLabel} - ${latestRunEssenceIssue.monthLabel}`
-                    )}
-                  </a>
-                  <a href="/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
-                </div>
-                <div class="run-essence-home-viewer-wrap">
-                  <iframe
-                    class="run-essence-home-viewer"
-                    src="${escapeHtml(latestRunEssenceIssue.href)}#view=FitH"
-                    title="${escapeHtml(
-                      `PDF ${latestRunEssenceIssue.issueLabel} ${latestRunEssenceIssue.monthLabel}`
-                    )}"
-                    loading="lazy"
-                  ></iframe>
-                </div>
+                <article
+                  class="countdown-panel"
+                  id="accueil-countdown"
+                  data-target-ts="${parseMeetingDate(nextMeeting.date)}"
+                >
+                  <div class="countdown-head">
+                    <p class="small">Prochain meeting</p>
+                    <h3>${escapeHtml(nextMeeting.name)}</h3>
+                    <p>${escapeHtml(nextMeeting.date)} - ${escapeHtml(nextMeeting.location)}</p>
+                  </div>
+                  <div class="countdown-grid">
+                    <article>
+                      <span data-countdown-unit="days">00</span>
+                      <small>Jours</small>
+                    </article>
+                    <article>
+                      <span data-countdown-unit="hours">00</span>
+                      <small>Heures</small>
+                    </article>
+                    <article>
+                      <span data-countdown-unit="minutes">00</span>
+                      <small>Minutes</small>
+                    </article>
+                    <article>
+                      <span data-countdown-unit="seconds">00</span>
+                      <small>Secondes</small>
+                    </article>
+                  </div>
+                  <p class="countdown-note" data-countdown-note></p>
+                </article>
               `
               : `
-                <p>Le premier numéro sera ajouté prochainement.</p>
+                <article class="panel">
+                  <p>Aucun meeting \u00E0 venir n'a \u00E9t\u00E9 trouv\u00E9.</p>
+                </article>
               `
           }
-        </article>
-      </section>
+        </section>
 
-      <section class="section">
-        <div class="section-head">
-          <h2>Compte \u00E0 rebours jusqu'au prochain meeting</h2>
-        </div>
-        ${
-          nextMeeting
-            ? `
-              <article
-                class="countdown-panel"
-                id="accueil-countdown"
-                data-target-ts="${parseMeetingDate(nextMeeting.date)}"
-              >
-                <div class="countdown-head">
-                  <p class="small">Prochain meeting</p>
-                  <h3>${escapeHtml(nextMeeting.name)}</h3>
-                  <p>${escapeHtml(nextMeeting.date)} - ${escapeHtml(nextMeeting.location)}</p>
-                </div>
-                <div class="countdown-grid">
-                  <article>
-                    <span data-countdown-unit="days">00</span>
-                    <small>Jours</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="hours">00</span>
-                    <small>Heures</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="minutes">00</span>
-                    <small>Minutes</small>
-                  </article>
-                  <article>
-                    <span data-countdown-unit="seconds">00</span>
-                    <small>Secondes</small>
-                  </article>
-                </div>
-                <p class="countdown-note" data-countdown-note></p>
-              </article>
-            `
-            : `
-              <article class="panel">
-                <p>Aucun meeting à venir n'a été trouvé.</p>
-              </article>
-            `
-        }
-      </section>
-
-      <section id="actualites" class="section">
-        <div class="section-head">
-          <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
-        </div>
-        <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
-      </section>
+        <section id="actualites" class="section">
+          <div class="section-head">
+            <h2>${escapeHtml(commissaireProfile.sections.newsTitle)}</h2>
+          </div>
+          <div class="feed-list">${renderFeedItems(commissaireProfile.newsFeed)}</div>
+        </section>
+      </div>
     </div>
   `;
 }
@@ -1756,7 +1749,12 @@ function renderMeetingDetailView(
   const shouldRenderSharedMeetingDocs =
     sharedMeetingDocs.length > 0 &&
     !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
+  const shouldHidePilotVehicleTypeDocs =
+    profileKey === "pilote" &&
+    showSignup &&
+    PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS.has(meeting.id);
   const shouldRenderVehicleTypeDocs =
+    !shouldHidePilotVehicleTypeDocs &&
     profileKey === "pilote" &&
     (hasPilotMeetingSpecificVehicleDocs ||
       (!shouldRenderPilotMeetingSpecificDocs &&
@@ -1923,7 +1921,7 @@ function renderMeetingDetailView(
                     <article class="doc-card">
                       <h3>${escapeHtml(section.title)}</h3>
                       <p>${escapeHtml(section.description)}</p>
-                      <span class="badge pending">À compléter</span>
+                      <span class="badge pending">À venir</span>
                     </article>
                   `
                 ).join("")}
@@ -2652,7 +2650,10 @@ function bindClientRouteLinks() {
 
 // Application bootstrap.
 function mount() {
-  bindSeasonalEasterThemeToggle();
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", DEFAULT_THEME_COLOR);
+  }
   bindClientRouteLinks();
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
