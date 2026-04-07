@@ -1156,6 +1156,40 @@ textarea:focus-visible,
 
 .home-urcy-signup-btn {
   width: 100%;
+  border: 2px solid #ff9b2f;
+  background: linear-gradient(135deg, #e10600, #b30c12);
+  color: #ffffff;
+  box-shadow:
+    0 12px 22px rgba(118, 14, 20, 0.34),
+    0 0 0 0 rgba(255, 155, 47, 0.55);
+  animation: urcy-cta-glow 2.2s ease-in-out infinite;
+}
+
+.home-urcy-signup-btn:is(:hover, :focus-visible) {
+  background: linear-gradient(135deg, #f21a10, #c01418);
+  border-color: #ffad48;
+}
+
+@keyframes urcy-cta-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 12px 22px rgba(118, 14, 20, 0.34),
+      0 0 0 0 rgba(255, 155, 47, 0.5),
+      0 0 0 0 rgba(255, 155, 47, 0.24);
+  }
+  50% {
+    box-shadow:
+      0 14px 28px rgba(118, 14, 20, 0.42),
+      0 0 0 5px rgba(255, 155, 47, 0.14),
+      0 0 18px 2px rgba(255, 155, 47, 0.52);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-urcy-signup-btn {
+    animation: none;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -1173,8 +1207,6 @@ textarea:focus-visible,
   .home-urcy-signup {
     grid-column: 1;
     grid-row: 1;
-    position: sticky;
-    top: calc(var(--topbar-height) + 1rem);
     align-self: start;
   }
 
