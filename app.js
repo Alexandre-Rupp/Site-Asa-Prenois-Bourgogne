@@ -57,10 +57,7 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
-const EASTER_THEME_STORAGE_KEY = "asa_theme_easter_enabled";
-const EASTER_THEME_CLASS = "theme-easter";
 const DEFAULT_THEME_COLOR = "#0d5fd0";
-const EASTER_THEME_COLOR = "#f18f3b";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   r11: "https://rallyedeblignysurouche.fr/",
@@ -217,54 +214,6 @@ function scrollPageToTop() {
     top: 0,
     left: 0,
     behavior: "auto",
-  });
-}
-
-function setSeasonalEasterTheme(isEnabled) {
-  const shouldEnable = Boolean(isEnabled);
-  document.body.classList.toggle(EASTER_THEME_CLASS, shouldEnable);
-
-  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  if (themeColorMeta) {
-    themeColorMeta.setAttribute(
-      "content",
-      shouldEnable ? EASTER_THEME_COLOR : DEFAULT_THEME_COLOR
-    );
-  }
-}
-
-function getStoredSeasonalEasterThemePreference() {
-  try {
-    return window.localStorage.getItem(EASTER_THEME_STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function persistSeasonalEasterThemePreference(isEnabled) {
-  try {
-    if (isEnabled) {
-      window.localStorage.setItem(EASTER_THEME_STORAGE_KEY, "1");
-      return;
-    }
-    window.localStorage.removeItem(EASTER_THEME_STORAGE_KEY);
-  } catch {
-    // Ignore storage failures in private/incognito contexts.
-  }
-}
-
-function bindSeasonalEasterThemeToggle() {
-  const toggle = document.querySelector(".js-easter-theme-toggle");
-  if (!toggle) return;
-
-  const isStoredEnabled = getStoredSeasonalEasterThemePreference();
-  toggle.checked = isStoredEnabled;
-  setSeasonalEasterTheme(isStoredEnabled);
-
-  toggle.addEventListener("change", () => {
-    const isEnabled = Boolean(toggle.checked);
-    setSeasonalEasterTheme(isEnabled);
-    persistSeasonalEasterThemePreference(isEnabled);
   });
 }
 
@@ -2652,7 +2601,10 @@ function bindClientRouteLinks() {
 
 // Application bootstrap.
 function mount() {
-  bindSeasonalEasterThemeToggle();
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", DEFAULT_THEME_COLOR);
+  }
   bindClientRouteLinks();
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
