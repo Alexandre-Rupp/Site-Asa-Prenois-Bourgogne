@@ -11,11 +11,11 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260413-7";
+} from "./site-data.js?v=20260413-8";
 import {
   parseRoute,
   updateDocumentSeo,
-} from "./src/core/routing.js?v=20260413-7";
+} from "./src/core/routing.js?v=20260413-8";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -41,8 +41,11 @@ const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const FEED_TEXT_PREVIEW_LENGTH = 170;
 const COMMISSIONER_TRAINING_IMAGE_DIRECTORY = "assets/news/formation-commissaire";
 const COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX = "formation-commissaire-";
+const FUN_CUP_NEWS_IMAGE_DIRECTORY = "assets/news/fun-cup";
+const FUN_CUP_NEWS_IMAGE_BASENAME_PREFIX = "IMG_";
 const COMMISSIONER_TRAINING_IMAGE_SIZES =
   "(max-width: 640px) 92vw, (max-width: 1200px) 86vw, 1040px";
+const RESPONSIVE_FEED_VARIANT_SUFFIX_RE = /-(640|1024|1600)\.webp$/i;
 const DEFAULT_MEETING_FILTER = "all";
 const MEETING_FILTER_OPTIONS = [
   { value: "all", label: "Tous" },
@@ -357,11 +360,17 @@ function renderFeedItemText(item) {
 
 function getResponsiveFeedImageSourceSet(src) {
   const normalizedSrc = String(src || "");
-  const expectedPrefix = `${COMMISSIONER_TRAINING_IMAGE_DIRECTORY}/${COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX}`;
-  if (
-    !normalizedSrc.startsWith(expectedPrefix) ||
-    !normalizedSrc.endsWith(".webp")
-  ) {
+
+  const expectedPrefixes = [
+    `${COMMISSIONER_TRAINING_IMAGE_DIRECTORY}/${COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX}`,
+    `${FUN_CUP_NEWS_IMAGE_DIRECTORY}/${FUN_CUP_NEWS_IMAGE_BASENAME_PREFIX}`,
+  ];
+  const isResponsiveBaseImage =
+    normalizedSrc.endsWith(".webp") &&
+    !RESPONSIVE_FEED_VARIANT_SUFFIX_RE.test(normalizedSrc) &&
+    expectedPrefixes.some((prefix) => normalizedSrc.startsWith(prefix));
+
+  if (!isResponsiveBaseImage) {
     return "";
   }
 
@@ -369,13 +378,24 @@ function getResponsiveFeedImageSourceSet(src) {
   return `${basePath}-640.webp 640w, ${basePath}-1024.webp 1024w, ${basePath}-1600.webp 1600w`;
 }
 
+function getResponsiveFeedDefaultSrc(src) {
+  const normalizedSrc = String(src || "");
+  if (!getResponsiveFeedImageSourceSet(normalizedSrc)) {
+    return normalizedSrc;
+  }
+
+  const basePath = normalizedSrc.slice(0, -5);
+  return `${basePath}-1600.webp`;
+}
+
 function renderFeedCarousel(images, title, carouselId) {
   const normalizedImages = (images || [])
     .map((image, index) => {
       if (typeof image === "string") {
         const srcset = getResponsiveFeedImageSourceSet(image);
+        const optimizedSrc = srcset ? getResponsiveFeedDefaultSrc(image) : image;
         return {
-          src: image,
+          src: optimizedSrc,
           alt: `${title} - photo ${index + 1}`,
           srcset,
           sizes: srcset ? COMMISSIONER_TRAINING_IMAGE_SIZES : "",
@@ -384,8 +404,11 @@ function renderFeedCarousel(images, title, carouselId) {
 
       if (image && image.src) {
         const srcset = image.srcset || getResponsiveFeedImageSourceSet(image.src);
+        const optimizedSrc = srcset
+          ? getResponsiveFeedDefaultSrc(image.src)
+          : image.src;
         return {
-          src: image.src,
+          src: optimizedSrc,
           alt: image.alt || `${title} - photo ${index + 1}`,
           srcset,
           sizes: image.sizes || (srcset ? COMMISSIONER_TRAINING_IMAGE_SIZES : ""),

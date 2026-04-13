@@ -57,6 +57,12 @@ def main() -> None:
             continue
         save_resized_webp(path, PHOTO_WIDTHS, quality=PHOTO_QUALITY, lossless=False)
 
+    fun_cup_dir = ROOT / "news" / "fun-cup"
+    for path in sorted(fun_cup_dir.glob("IMG_*.webp")):
+        if any(path.stem.endswith(f"-{w}") for w in PHOTO_WIDTHS):
+            continue
+        save_resized_webp(path, PHOTO_WIDTHS, quality=PHOTO_QUALITY, lossless=False)
+
 
 if __name__ == "__main__":
     main()
