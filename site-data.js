@@ -66,7 +66,7 @@ export const MEETINGS = [
   {
     id: "r6",
     name: "GRAND PRIX DE L'ÂGE D'OR",
-    date: "5-6-7-8 juin 2026",
+    date: "4-5-6-7 juin 2026",
     seasonLabel: "Meetings Circuit 2026",
     kind: "circuit",
     location: "Circuit Dijon-Prenois",
