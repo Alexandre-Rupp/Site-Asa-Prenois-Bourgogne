@@ -11,11 +11,11 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260404-1";
+} from "./site-data.js?v=20260413-7";
 import {
   parseRoute,
   updateDocumentSeo,
-} from "./src/core/routing.js?v=20260404-1";
+} from "./src/core/routing.js?v=20260413-7";
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -1172,8 +1172,6 @@ function renderAccueilUrcySignupCard() {
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
-  const runEssenceIssues = getRunEssenceIssuesSorted();
-  const latestRunEssenceIssue = runEssenceIssues[0] || null;
 
   return `
     <div class="view-stack">
@@ -1214,49 +1212,6 @@ function renderAccueilView() {
         </section>
 
         ${renderAccueilUrcySignupCard()}
-
-        <section class="section">
-          <div class="section-head">
-            <h2>RUN ESSENCE</h2>
-          </div>
-          <article class="panel narrative-panel">
-            <p>
-              Consultez le journal RUN ESSENCE et suivez les prochains numeros mensuels dans
-              l'historique d\u00E9di\u00E9.
-            </p>
-            ${
-              latestRunEssenceIssue
-                ? `
-                  <div class="link-row">
-                    <a
-                      href="${escapeHtml(latestRunEssenceIssue.href)}"
-                      class="btn btn-primary"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Consulter ${escapeHtml(
-                        `${latestRunEssenceIssue.issueLabel} - ${latestRunEssenceIssue.monthLabel}`
-                      )}
-                    </a>
-                    <a href="/run-essence" class="btn btn-ghost">Voir l'historique RUN ESSENCE</a>
-                  </div>
-                  <div class="run-essence-home-viewer-wrap">
-                    <iframe
-                      class="run-essence-home-viewer"
-                      src="${escapeHtml(latestRunEssenceIssue.href)}#view=FitH"
-                      title="${escapeHtml(
-                        `PDF ${latestRunEssenceIssue.issueLabel} ${latestRunEssenceIssue.monthLabel}`
-                      )}"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-                `
-                : `
-                  <p>Le premier num\u00E9ro sera ajout\u00E9 prochainement.</p>
-                `
-            }
-          </article>
-        </section>
 
         <section class="section">
           <div class="section-head">
