@@ -6,7 +6,6 @@ export const NAV_ITEMS = [
   { key: "meetings", label: "CALENDRIER", href: "/meetings" },
   { key: "inscriptions", label: "INSCRIPTIONS", href: "/inscriptions" },
   { key: "actualites", label: "ACTUALIT\u00C9S", href: "/actualites" },
-  { key: "run-essence", label: "RUN ESSENCE", href: "/run-essence" },
   { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "/commissaires" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "/vie-asa" },
   { key: "contact", label: "CONTACTS", href: "/contact" },
@@ -402,46 +401,28 @@ export const PROFILE_CONTENT = {
     },
     newsFeed: [
       {
-        title: "Formation Commissaire",
-        date: "18 mars 2026",
+        title: "Premier meeting de la saison en FunCup",
+        date: "Avril 2026",
         text:
-          "Une journée bénéfique pour tous et bien chargée, un nombre de bénévoles présent exceptionnel sous un magnifique soleil. Une équipe de formateur très professionnel, qui a su faire passer avec un langage simple les messages essentiels. Tout le monde est ravi, le début de saison a bien démarré dans une superbe ambiance. Tout le monde est ravi, le début de saison a bien démarré dans une superbe ambiance.",
+          "Premier meeting de la saison en FunCup, et quelle entr\u00E9e en mati\u00E8re ! Malgr\u00E9 une m\u00E9t\u00E9o capricieuse et une pluie bien pr\u00E9sente, l\u2019ambiance et le plaisir \u00E9taient au rendez-vous. Une exp\u00E9rience intense, pleine de sensations et de bons moments partag\u00E9s. De quoi lancer la saison de la meilleure des fa\u00E7ons !",
         collapsibleText: true,
+        previewText:
+          "Premier meeting de la saison en FunCup, et quelle entr\u00E9e en mati\u00E8re !",
         images: [
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-01.webp",
-            alt: "Formation commissaire - exercice drapeaux en virage",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-02.webp",
-            alt: "Formation commissaire - briefing de groupe",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-03.webp",
-            alt: "Formation commissaire - photo de binôme",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-04.webp",
-            alt: "Formation commissaire - démonstration en piste",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-05.webp",
-            alt: "Formation commissaire - échanges en bord de piste",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-06.webp",
-            alt: "Formation commissaire - atelier drapeaux",
-          },
-          {
-            src: "assets/news/formation-commissaire/formation-commissaire-07.webp",
-            alt: "Formation commissaire - poste T6",
-          },
+          "assets/news/fun-cup/IMG_0234.webp",
+          "assets/news/fun-cup/IMG_0239.webp",
+          "assets/news/fun-cup/IMG_0311.webp",
+          "assets/news/fun-cup/IMG_0382.webp",
+          "assets/news/fun-cup/IMG_0436.webp",
+          "assets/news/fun-cup/IMG_0445.webp",
+          "assets/news/fun-cup/IMG_0460.webp",
+          "assets/news/fun-cup/IMG_0463.webp",
+          "assets/news/fun-cup/IMG_0473.webp",
+          "assets/news/fun-cup/IMG_0475.webp",
+          "assets/news/fun-cup/IMG_0486.webp",
+          "assets/news/fun-cup/IMG_0491.webp",
+          "assets/news/fun-cup/IMG_0825.webp",
         ],
-      },
-      {
-        title: "Ouverture des inscriptions saison 2026",
-        date: "15 f\u00E9vrier 2026",
-        text: "Les inscriptions sont maintenant centralisées via Microsoft Forms.",
       },
     ],
     resultsFeed: [
