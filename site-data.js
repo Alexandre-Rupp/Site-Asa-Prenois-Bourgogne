@@ -459,7 +459,7 @@ export const PROFILE_CONTENT = {
       signupClosedAll: true,
       openRaceFormsByMeeting: ["r12"],
       raceFormsByMeeting: {
-        r12: "assets/documents/fiche-engagement-urcy-2026.xls",
+        r12: "assets/documents/fiche-engagement-course-de-cote-urcy-v1.pdf",
       },
     },
     sections: {
@@ -683,6 +683,42 @@ export const PAGE_SKELETONS = {
         image: {
           src: "assets/vie-asa/pilotes/claire-pascal.webp",
           alt: "Carte pilote Claire Pascal",
+        },
+      },
+      {
+        id: "buisson-francois",
+        lastName: "BUISSON",
+        firstName: "Fran\u00E7ois",
+        image: {
+          src: "assets/vie-asa/pilotes/buisson-francois.jpg",
+          alt: "Carte pilote Buisson Fran\u00E7ois",
+        },
+      },
+      {
+        id: "germain-jean-francois",
+        lastName: "GERMAIN",
+        firstName: "Jean-Fran\u00E7ois",
+        image: {
+          src: "assets/vie-asa/pilotes/germain-jean-francois.jpg",
+          alt: "Carte pilote Germain Jean-Fran\u00E7ois",
+        },
+      },
+      {
+        id: "noirot-maxime",
+        lastName: "NOIROT",
+        firstName: "Maxime",
+        image: {
+          src: "assets/vie-asa/pilotes/noirot-maxime.jpg",
+          alt: "Carte pilote Noirot Maxime",
+        },
+      },
+      {
+        id: "paul-nicholas",
+        lastName: "PAUL",
+        firstName: "Nicholas",
+        image: {
+          src: "assets/vie-asa/pilotes/paul-nicholas.jpg",
+          alt: "Carte pilote Paul Nicholas",
         },
       },
     ],

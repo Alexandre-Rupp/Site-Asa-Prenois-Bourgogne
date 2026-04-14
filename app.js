@@ -11,7 +11,7 @@ import {
   PROFILE_CONTENT,
   RUN_ESSENCE_ARCHIVES,
   TARGET_YEAR,
-} from "./site-data.js?v=20260413-8";
+} from "./site-data.js?v=20260414-1";
 import {
   parseRoute,
   updateDocumentSeo,
@@ -139,10 +139,10 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Fiche engagement URCY 2026",
-      description: "Fichier Excel de la fiche d'engagement.",
-      href: "assets/documents/fiche-engagement-urcy-2026.xls",
-      ctaLabel: "Ouvrir le fichier",
+      title: "Fiche engagement Course de C\u00F4te d'Urcy - V1",
+      description: "PDF de la fiche d'engagement pilote.",
+      href: "assets/documents/fiche-engagement-course-de-cote-urcy-v1.pdf",
+      ctaLabel: "Ouvrir le PDF",
     },
   ],
   r14: [
