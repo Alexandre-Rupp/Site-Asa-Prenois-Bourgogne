@@ -6,6 +6,7 @@ export const NAV_ITEMS = [
   { key: "meetings", label: "CALENDRIER", href: "/meetings" },
   { key: "inscriptions", label: "INSCRIPTIONS", href: "/inscriptions" },
   { key: "actualites", label: "ACTUALIT\u00C9S", href: "/actualites" },
+  { key: "run-essence", label: "RUN ESSENCE", href: "/run-essence" },
   { key: "commissaires", label: "DEVENIR COMMISSAIRE", href: "/commissaires" },
   { key: "vie-asa", label: "LA VIE DE L'ASA", href: "/vie-asa" },
   { key: "contact", label: "CONTACTS", href: "/contact" },
