@@ -139,13 +139,13 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Fiche engagement Course de C\u00F4te d'Urcy - V1 (mise \u00E0 jour)",
+      title: "Fiche engagement Course de C\u00F4te d'Urcy",
       description: "PDF de la fiche d'engagement pilote.",
       href: "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Visa 12-48 du 05-01-26 - CC d'Urcy",
+      title: "Visa CC d'Urcy",
       description: "Document visa officiel du meeting Course de C\u00F4te d'Urcy.",
       href: "assets/documents/visa-12-48-du-05-01-26-cc-durcy.pdf",
       ctaLabel: "Ouvrir le PDF",
