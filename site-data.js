@@ -460,7 +460,7 @@ export const PROFILE_CONTENT = {
       signupClosedAll: true,
       openRaceFormsByMeeting: ["r12"],
       raceFormsByMeeting: {
-        r12: "assets/documents/fiche-engagement-course-de-cote-urcy-v1.pdf",
+        r12: "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf",
       },
     },
     sections: {
