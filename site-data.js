@@ -154,33 +154,6 @@ export const MEETINGS = [
   },
 ];
 
-export const MEETING_DETAIL_SECTIONS = [
-  {
-    key: "roadbooks",
-    title: "Roadbooks",
-    description:
-      "Ajoutez ici les roadbooks PDF, liens externes ou versions archivées.",
-  },
-  {
-    key: "horaires",
-    title: "Horaires",
-    description:
-      "Section prévue pour les horaires officiels, timing versions et mises à jour.",
-  },
-  {
-    key: "organisation",
-    title: "Documents d'organisation",
-    description:
-      "Espace pour règlements, notes direction de course et documents utiles.",
-  },
-  {
-    key: "annexes",
-    title: "Autres documents",
-    description:
-      "Zone libre pour tout autre contenu d\u00E9taill\u00E9 du meeting (briefings, plans, etc.).",
-  },
-];
-
 export const PILOT_MEETING_DOCUMENTATION = {
   rallye: {
     commonDocuments: [
