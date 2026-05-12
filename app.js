@@ -145,7 +145,7 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
     {
-      title: "Visa CC d'Urcy",
+      title: "Règlement CC d'Urcy",
       description: "Document visa officiel du meeting Course de C\u00F4te d'Urcy.",
       href: "assets/documents/visa-12-48-du-05-01-26-cc-durcy.pdf",
       ctaLabel: "Ouvrir le PDF",
@@ -1875,12 +1875,7 @@ function renderMeetingDetailView(
                 shouldRenderCommissaireMeetingDocs ||
                 shouldRenderSharedMeetingDocs
               ? ""
-              : `
-                <p>
-                  Cette zone est preparee pour les futurs PDF (roadbooks, horaires,
-                  organisation et annexes).
-                </p>
-              `
+              : ""
           }
         </div>
         ${
