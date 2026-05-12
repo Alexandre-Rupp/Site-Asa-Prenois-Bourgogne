@@ -3,7 +3,6 @@ import {
   CONTACT_PAGE_CONTENT,
   LEGAL_PAGE_CONTENT,
   MEETINGS,
-  MEETING_DETAIL_SECTIONS,
   NAV_ITEMS,
   PAGE_SKELETONS,
   PILOT_MEETING_DOCUMENTATION,
@@ -1722,14 +1721,9 @@ function renderMeetingDetailView(
       ? COMMISSAIRE_MEETING_DOCUMENTS[meeting.id] || []
       : [];
   const sharedMeetingDocs = MEETING_SHARED_DOCUMENTS[meeting.id] || [];
-  const shouldShowCommissaireComingSoon =
-    profileKey === "commissaire" &&
-    !commissaireMeetingDocs.length &&
-    !sharedMeetingDocs.length;
   const shouldRenderPilotMeetingSpecificDocs =
     Boolean(pilotMeetingSpecificDocs) && !hasPilotMeetingSpecificVehicleDocs;
-  const shouldRenderCommissaireMeetingDocs =
-    !shouldShowCommissaireComingSoon && commissaireMeetingDocs.length > 0;
+  const shouldRenderCommissaireMeetingDocs = commissaireMeetingDocs.length > 0;
   const shouldRenderSharedMeetingDocs =
     sharedMeetingDocs.length > 0 &&
     !(profileKey === "commissaire" && commissaireMeetingDocs.length > 0);
@@ -1743,6 +1737,11 @@ function renderMeetingDetailView(
     (hasPilotMeetingSpecificVehicleDocs ||
       (!shouldRenderPilotMeetingSpecificDocs &&
         Boolean(PILOT_MEETING_DOCUMENTATION[meeting.kind])));
+  const shouldRenderDocumentsSection =
+    shouldRenderVehicleTypeDocs ||
+    shouldRenderPilotMeetingSpecificDocs ||
+    shouldRenderCommissaireMeetingDocs ||
+    shouldRenderSharedMeetingDocs;
   const canShowSignup =
     showSignup && canShowSignupForMeeting(profileKey, meeting);
   const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
@@ -1862,57 +1861,31 @@ function renderMeetingDetailView(
           : ""
       }
 
-      <section class="section">
+      ${
+        shouldRenderDocumentsSection
+          ? `
+            <section class="section">
         <div class="section-head">
           <h2>Documents et ressources</h2>
-          ${
-            shouldShowCommissaireComingSoon
-              ? `
-                <p>Arrive prochainement.</p>
-              `
-              : shouldRenderVehicleTypeDocs ||
-                shouldRenderPilotMeetingSpecificDocs ||
-                shouldRenderCommissaireMeetingDocs ||
-                shouldRenderSharedMeetingDocs
-              ? ""
-              : ""
-          }
         </div>
         ${
-          shouldShowCommissaireComingSoon
-            ? `
-              <article class="doc-card">
-                <h3>Documents et ressources</h3>
-                <p>Arrive prochainement.</p>
-                <span class="badge pending">A venir</span>
-              </article>
-            `
-            : shouldRenderPilotMeetingSpecificDocs
+          shouldRenderPilotMeetingSpecificDocs
             ? renderPilotMeetingSpecificDocsContent(pilotMeetingSpecificDocs)
             : shouldRenderCommissaireMeetingDocs
             ? renderCommissaireMeetingDocsContent(commissaireMeetingDocs)
             : shouldRenderVehicleTypeDocs
             ? renderPilotMeetingVehicleDocsSection(meeting.id, meeting.kind)
-            : `
-              <div class="meeting-doc-grid">
-                ${MEETING_DETAIL_SECTIONS.map(
-                  (section) => `
-                    <article class="doc-card">
-                      <h3>${escapeHtml(section.title)}</h3>
-                      <p>${escapeHtml(section.description)}</p>
-                      <span class="badge pending">À venir</span>
-                    </article>
-                  `
-                ).join("")}
-              </div>
-            `
+            : ""
         }
           ${
             shouldRenderSharedMeetingDocs
               ? renderCommissaireMeetingDocsContent(sharedMeetingDocs)
               : ""
           }
-      </section>
+            </section>
+          `
+          : ""
+      }
     </div>
   `;
 }
