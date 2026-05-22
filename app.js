@@ -1200,7 +1200,9 @@ function renderAccueilUrcySignupCard() {
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
-  const runEssenceIssues = getRunEssenceIssuesSorted();
+  const runEssenceHomeIssue = getRunEssenceIssuesSorted().find(
+    (issue) => issue.issueLabel === "No 2"
+  );
 
   return `
     <div class="view-stack">
@@ -1292,12 +1294,26 @@ function renderAccueilView() {
           <div class="section-head">
             <h2>RUN ESSENCE</h2>
           </div>
-          <div class="run-essence-grid">
-            ${renderRunEssenceArchiveCards(runEssenceIssues)}
-          </div>
-          <div class="link-row">
-            <a href="/run-essence" class="btn btn-ghost">Voir tous les num\u00E9ros</a>
-          </div>
+          <article class="panel narrative-panel">
+            ${
+              runEssenceHomeIssue
+                ? `
+                  <div class="run-essence-home-viewer-wrap">
+                    <iframe
+                      class="run-essence-home-viewer"
+                      src="${escapeHtml(runEssenceHomeIssue.href)}#view=FitH"
+                      title="${escapeHtml(
+                        `PDF ${runEssenceHomeIssue.issueLabel} ${runEssenceHomeIssue.monthLabel}`
+                      )}"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                `
+                : `
+                  <p>Le num\u00E9ro 2 de RUN ESSENCE sera publi\u00E9 prochainement.</p>
+                `
+            }
+          </article>
         </section>
 
         <section id="actualites" class="section">

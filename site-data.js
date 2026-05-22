@@ -21,11 +21,11 @@ export const RUN_ESSENCE_ARCHIVES = [
     href: "assets/documents/run-essence-mars-2026.pdf",
   },
   {
-    id: "2026-03",
+    id: "2026-04",
     issueLabel: "No 2",
     monthLabel: "Avril 2026",
     title: "RUN ESSENCE - Avril 2026",
-    href: "assets/documents/N°2 RUN-ESSENCE.pdf",
+    href: "assets/documents/run-essence-avril-2026.pdf",
   },
 ];
 
