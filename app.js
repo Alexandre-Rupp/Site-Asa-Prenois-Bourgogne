@@ -1200,6 +1200,7 @@ function renderAccueilUrcySignupCard() {
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
+  const runEssenceIssues = getRunEssenceIssuesSorted();
 
   return `
     <div class="view-stack">
@@ -1285,6 +1286,18 @@ function renderAccueilView() {
                 </article>
               `
           }
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>RUN ESSENCE</h2>
+          </div>
+          <div class="run-essence-grid">
+            ${renderRunEssenceArchiveCards(runEssenceIssues)}
+          </div>
+          <div class="link-row">
+            <a href="/run-essence" class="btn btn-ghost">Voir tous les num\u00E9ros</a>
+          </div>
         </section>
 
         <section id="actualites" class="section">
