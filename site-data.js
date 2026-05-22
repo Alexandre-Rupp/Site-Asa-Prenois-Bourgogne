@@ -20,6 +20,13 @@ export const RUN_ESSENCE_ARCHIVES = [
     title: "RUN ESSENCE - Mars 2026",
     href: "assets/documents/run-essence-mars-2026.pdf",
   },
+  {
+    id: "2026-03",
+    issueLabel: "No 2",
+    monthLabel: "Avril 2026",
+    title: "RUN ESSENCE - Avril 2026",
+    href: "assets/documents/N°2 RUN-ESSENCE.pdf",
+  },
 ];
 
 export const MEETINGS = [
