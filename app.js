@@ -112,8 +112,8 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
     {
       title: "Plan d'implantation - Urcy 2026",
       description: "Plan d'implantation officiel de la Course de Côte d'Urcy 2026.",
-      href: "assets/documents/plan-implantation-urcy-2026.pdf",
-      ctaLabel: "Ouvrir le PDF",
+      href: "assets/documents/plan-implantation-urcy-2026.jpg",
+      ctaLabel: "Ouvrir le plan",
     },
   ],
 };
@@ -133,9 +133,9 @@ const MEETING_SHARED_DOCUMENTS = {
     },
     {
       title: "Plan d'implantation - Urcy 2026",
-      description: "PDF plan d'implantation du meeting.",
-      href: "assets/documents/plan-implantation-urcy-2026.pdf",
-      ctaLabel: "Ouvrir le PDF",
+      description: "Plan d'implantation du meeting.",
+      href: "assets/documents/plan-implantation-urcy-2026.jpg",
+      ctaLabel: "Ouvrir le plan",
     },
     {
       title: "Fiche engagement Course de C\u00F4te d'Urcy",
