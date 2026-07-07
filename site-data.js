@@ -438,9 +438,10 @@ export const PROFILE_CONTENT = {
       memberForm: "https://forms.office.com/r/PILOTE-MEMBRE-2026",
       raceForm: "https://forms.office.com/r/PILOTE-COURSE-2026",
       signupClosedAll: true,
-      openRaceFormsByMeeting: ["r12"],
+      openRaceFormsByMeeting: ["r12", "r13"],
       raceFormsByMeeting: {
         r12: "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf",
+        r13: "assets/documents/bulletin-engagement-rallye-bligny-2026.pdf",
       },
     },
     sections: {
