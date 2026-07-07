@@ -273,7 +273,7 @@ export const PILOT_MEETING_DOCUMENTATION_BY_MEETING = {
     commonDocuments: [
       {
         title: "Bulletin d'engagement",
-        href: "assets/documents/bulletin-engagement-rallye-bligny-2026.pdf",
+        href: "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf",
         ctaLabel: "Ouvrir le PDF",
       },
       {
@@ -441,7 +441,7 @@ export const PROFILE_CONTENT = {
       openRaceFormsByMeeting: ["r12", "r13"],
       raceFormsByMeeting: {
         r12: "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf",
-        r13: "assets/documents/bulletin-engagement-rallye-bligny-2026.pdf",
+        r13: "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf",
       },
     },
     sections: {
