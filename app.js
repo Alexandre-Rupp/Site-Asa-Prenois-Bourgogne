@@ -900,9 +900,12 @@ function canShowSignupForMeeting(profileKey, meeting) {
   );
 }
 
-function canRenderMeetingInContext(meeting, { showSignup = false } = {}) {
+function canRenderMeetingInContext(meeting, { showSignup = false, profileKey } = {}) {
   if (!meeting) return false;
   if (showSignup && meeting.generalCalendarOnly) return false;
+  if (showSignup && profileKey === "commissaire" && meeting.hideFromCommissaireSignup) {
+    return false;
+  }
   return true;
 }
 
@@ -1555,7 +1558,7 @@ function renderMeetingCards(
 
   const meetings = getVisibleMeetings(meetingFilterState[profileKey] || DEFAULT_MEETING_FILTER).filter(
     (meeting) => {
-      if (!canRenderMeetingInContext(meeting, { showSignup })) return false;
+      if (!canRenderMeetingInContext(meeting, { showSignup, profileKey })) return false;
       if (!showSignup) return true;
       return profileKey === "pilote"
         ? canShowSignupForMeeting(profileKey, meeting)
@@ -1719,7 +1722,11 @@ function renderMeetingDetailView(
   const profile = PROFILE_CONTENT[profileKey];
   const meeting = MEETINGS.find((entry) => entry.id === meetingId);
 
-  if (!profile || !meeting || !canRenderMeetingInContext(meeting, { showSignup })) {
+  if (
+    !profile ||
+    !meeting ||
+    !canRenderMeetingInContext(meeting, { showSignup, profileKey })
+  ) {
     return `
       <div class="view-stack">
         <section class="section">

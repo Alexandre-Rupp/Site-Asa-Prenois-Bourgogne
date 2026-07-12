@@ -133,6 +133,7 @@ export const MEETINGS = [
     seasonLabel: "Meetings Rallye 2026",
     kind: "rallye",
     location: "Auxois",
+    hideFromCommissaireSignup: true,
   },
   {
     id: "r15",
@@ -354,8 +355,8 @@ export const PROFILE_CONTENT = {
         "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       raceForm: "https://forms.office.com/r/5s11Uy4fWP",
       signupClosedAll: true,
-      openRaceFormsByMeeting: ["r8", "r9", "r10", "r12", "r13", "r14"],
-      closedRaceFormsByMeeting: ["r4", "r13", "r14"],
+      openRaceFormsByMeeting: ["r8", "r9", "r10", "r12", "r14"],
+      closedRaceFormsByMeeting: ["r4", "r14"],
       raceFormsByMeeting: {
         r2: "https://forms.office.com/r/FKJZCT2p8K",
         r3: "https://forms.office.com/r/ncBaNgw8T4",
