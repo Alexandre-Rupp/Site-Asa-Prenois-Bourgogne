@@ -1,0 +1,11 @@
+# Dependances
+node_modules/
+
+# Environnements et secrets locaux
+.env
+.env.*
+.vercel/
+
+# Systeme / editeurs
+.DS_Store
+Thumbs.db
