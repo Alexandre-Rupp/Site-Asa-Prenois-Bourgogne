@@ -13,6 +13,13 @@
       "monthLabel": "Avril 2026",
       "title": "RUN ESSENCE - Avril 2026",
       "href": "assets/documents/run-essence-avril-2026.pdf"
+    },
+    {
+      "id": "2026-06",
+      "issueLabel": "No 3",
+      "monthLabel": "Juin 2026",
+      "title": "test titre",
+      "href": "/assets/uploads/CV CDI (2).pdf"
     }
   ]
 }
