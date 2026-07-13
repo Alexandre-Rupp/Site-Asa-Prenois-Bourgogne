@@ -1,0 +1,149 @@
+{
+  "commissaire": {
+    "key": "commissaire",
+    "label": "Commissaire",
+    "seasonPill": "Saison 2026",
+    "heroTitle": "Plateforme des commissaires de piste",
+    "heroSubtitle": "Calendrier des inscriptions et formulaires dédiés aux commissaires.",
+    "ctaPrimaryLabel": "Accéder aux formulaires commissaires",
+    "ctaSecondaryLabel": "Voir le calendrier",
+    "targetMembers": 200,
+    "sections": {
+      "calendarTitle": "Calendrier des inscriptions commissaires",
+      "newsTitle": "Actualités association",
+      "resultsTitle": "Résultats",
+      "profileSpaceTitle": "Espace commissaire",
+      "memberFormTitle": "Formulaire inscription membre",
+      "memberFormText": "Nouveau commissaire: remplissez ce formulaire pour créer votre dossier (coordonnées, licence, disponibilités).",
+      "raceFormTitle": "Formulaire inscription course",
+      "raceFormText": "Inscription par meeting: envoyez une réponse pour chaque course souhaitée."
+    },
+    "resultsFeed": [
+      {
+        "title": "Meeting test pré-saison",
+        "date": "31 janvier 2026",
+        "text": "42 officiels mobilisés, 100% des postes couverts sur 2 jours."
+      },
+      {
+        "title": "Challenge club - manche 1",
+        "date": "8 février 2026",
+        "text": "Interventions piste: 6, incidents majeurs: 0, coordination opérationnelle."
+      },
+      {
+        "title": "Sprint régional",
+        "date": "14 février 2026",
+        "text": "Débrief positif de la direction de course sur la rapidité des interventions."
+      }
+    ],
+    "forms": {
+      "memberForm": "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
+      "raceForm": "https://forms.office.com/r/5s11Uy4fWP",
+      "signupClosedAll": true,
+      "openRaceFormsByMeeting": [
+        "r8",
+        "r9",
+        "r10",
+        "r12",
+        "r14"
+      ],
+      "closedRaceFormsByMeeting": [
+        "r4",
+        "r14"
+      ],
+      "raceFormsByMeeting": [
+        {
+          "meeting": "r2",
+          "url": "https://forms.office.com/r/FKJZCT2p8K"
+        },
+        {
+          "meeting": "r3",
+          "url": "https://forms.office.com/r/ncBaNgw8T4"
+        },
+        {
+          "meeting": "r5",
+          "url": "https://forms.office.com/r/8DFcU05LJN"
+        },
+        {
+          "meeting": "r6",
+          "url": "https://forms.office.com/r/acKvMAf6Hk"
+        },
+        {
+          "meeting": "r7",
+          "url": "https://forms.office.com/r/6PRUYFZ5Lu"
+        },
+        {
+          "meeting": "r8",
+          "url": "https://forms.office.com/r/Qq9W4kr0PV"
+        },
+        {
+          "meeting": "r9",
+          "url": "https://forms.office.com/r/ePS24dmxd9"
+        },
+        {
+          "meeting": "r10",
+          "url": "https://forms.office.com/r/HjFjsWSJZn"
+        },
+        {
+          "meeting": "r12",
+          "url": "https://forms.office.com/r/SPSGZyNuPY"
+        }
+      ]
+    }
+  },
+  "pilote": {
+    "key": "pilote",
+    "label": "Pilote",
+    "seasonPill": "Saison 2026",
+    "heroTitle": "Plateforme des pilotes",
+    "heroSubtitle": "Calendrier des meetings et liens d'inscription adaptés au parcours pilote.",
+    "ctaPrimaryLabel": "Accéder aux formulaires pilotes",
+    "ctaSecondaryLabel": "Voir le calendrier",
+    "targetMembers": 120,
+    "sections": {
+      "calendarTitle": "Calendrier des inscriptions pilotes",
+      "newsTitle": "Actualités pilotes",
+      "resultsTitle": "Infos meeting",
+      "profileSpaceTitle": "Espace pilote",
+      "memberFormTitle": "Formulaire profil pilote",
+      "memberFormText": "Création ou mise à jour de votre profil pilote (licence, véhicule, catégorie, contact).",
+      "raceFormTitle": "Formulaire engagement meeting",
+      "raceFormText": "Un formulaire par meeting pour déclarer votre participation et vos besoins logistiques."
+    },
+    "resultsFeed": [
+      {
+        "title": "Documents administratifs",
+        "date": "En continu",
+        "text": "Les pièces justificatives seront centralisées dans les fiches détail meeting."
+      },
+      {
+        "title": "Accès paddock",
+        "date": "En continu",
+        "text": "Chaque meeting détaillé précisera les horaires d'accueil et contraintes d'accès."
+      },
+      {
+        "title": "Support inscription",
+        "date": "En continu",
+        "text": "Un contact d'assistance sera ajouté dans la page détail de chaque meeting."
+      }
+    ],
+    "forms": {
+      "memberForm": "https://forms.office.com/r/PILOTE-MEMBRE-2026",
+      "raceForm": "https://forms.office.com/r/PILOTE-COURSE-2026",
+      "signupClosedAll": true,
+      "openRaceFormsByMeeting": [
+        "r12",
+        "r13"
+      ],
+      "raceFormsByMeeting": [
+        {
+          "meeting": "r12",
+          "url": "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf"
+        },
+        {
+          "meeting": "r13",
+          "url": "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf"
+        }
+      ]
+    }
+  }
+}

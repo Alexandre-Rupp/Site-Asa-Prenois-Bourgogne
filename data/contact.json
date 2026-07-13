@@ -1,0 +1,27 @@
+{
+  "officeHoursTitle": "Horaires Bureau, ouverture public, licenciés",
+  "officeHours": [
+    {
+      "day": "Lundi",
+      "hours": "14h-17h"
+    },
+    {
+      "day": "Mardi",
+      "hours": "14h-17h"
+    },
+    {
+      "day": "Mercredi",
+      "hours": "14h-17h"
+    },
+    {
+      "day": "Jeudi",
+      "hours": "9h00-12h00, 14h00-17h00"
+    },
+    {
+      "day": "Vendredi",
+      "hours": "Fermé au public"
+    }
+  ],
+  "contactTitle": "Demande de renseignements divers",
+  "email": "contact@asa-prenois-bourgone.org"
+}

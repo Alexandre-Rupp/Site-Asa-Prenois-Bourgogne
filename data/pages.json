@@ -1,0 +1,355 @@
+{
+  "commissaires": {
+    "title": "Commissaires",
+    "intro": "Page réservée au contenu institutionnel commissaires (formation, recrutement, référents).",
+    "commissionerTitle": "Devenez commissaire de piste",
+    "commissionerTrainingLink": "https://entrezdanslacourse.ffsa.org/",
+    "commissionerTrainingLabel": "Se former et débuter",
+    "commissionerTrainingGalleryTitle": "Photos formation incendie",
+    "commissionerTrainingImages": [
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-01.webp",
+        "alt": "Formation incendie - atelier 1"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-02.webp",
+        "alt": "Formation incendie - atelier 2"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-03.webp",
+        "alt": "Formation incendie - atelier 3"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-04.webp",
+        "alt": "Formation incendie - atelier 4"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-05.webp",
+        "alt": "Formation incendie - atelier 5"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-06.webp",
+        "alt": "Formation incendie - atelier 6"
+      },
+      {
+        "src": "assets/news/formation-commissaire/formation-commissaire-07.webp",
+        "alt": "Formation incendie - atelier 7"
+      }
+    ],
+    "commissionerParagraphs": [
+      "Devenir commissaire, ce n'est pas être spectateur privilégié, c'est être un acteur indispensable à la sécurité du sport automobile.",
+      "Appelé à officier sur l'ensemble des épreuves qui sont : Circuits, Rallyes, Course de Côtes, Rallye-cross, Auto-Cross, Tout-Terrain, Slaloms, Runs, Karting...",
+      "En totale collaboration avec la Direction de Course, chacun doit tenir un rôle important :",
+      "- Le commissaire de piste est les yeux supplémentaires de la Direction de Course et il est nécessaire au bon déroulement de chaque meeting.",
+      "- Le commissaire sportif est celui qui contrôle et fait appliquer le règlement des épreuves.",
+      "- Le chronométreur est celui qui gère le timing de chaque coureur, indispensable à la compétition pour les classements.",
+      "- Le directeur de course est le chef d'orchestre de l'événement, celui qui donne les consignes, les procédures et veille sur chacun des rôles attribués.",
+      "Une grande équipe de bénévoles, animés par la passion du sport automobile, engagés dans une mission commune : assurer la sécurité de chacun.",
+      "Sans l'un de ces acteurs, aucune compétition ne peut avoir lieu.",
+      "Le commissaire de piste, par tous les temps, assure la sécurité de l'épreuve dont les missions sont :",
+      "- Surveiller",
+      "- Signaler",
+      "- Transmettre",
+      "- Intervenir",
+      "Ce sont tous des bénévoles au service du Sport Automobile.",
+      "Donc si tu es passionné, que tu as un esprit d'engagement et d'équipe, rejoins-nous dans la grande famille du sport automobile de l'Association Sport Automobile Prenois Bourgogne."
+    ]
+  },
+  "pilotes": {
+    "title": "Pilotes",
+    "intro": "Page réservée au contenu institutionnel pilotes (règles, accompagnement, documentation).",
+    "pilotShowcaseTitle": "Pilotes de l'ASA Prenois Bourgogne",
+    "pilotShowcaseIntro": "Sélectionnez un pilote pour afficher sa carte de saison.",
+    "pilotShowcase": [
+      {
+        "id": "jacotot-christophe",
+        "lastName": "JACOTOT",
+        "firstName": "Christophe",
+        "image": {
+          "src": "assets/vie-asa/pilotes/jacotot-christophe.webp",
+          "alt": "Carte pilote Jacotot Christophe"
+        }
+      },
+      {
+        "id": "cuynet-thierry",
+        "lastName": "CUYNET",
+        "firstName": "Thierry",
+        "image": {
+          "src": "assets/vie-asa/pilotes/cuynet-thierry.webp",
+          "alt": "Carte pilote Cuynet Thierry"
+        }
+      },
+      {
+        "id": "cuynet-herve",
+        "lastName": "CUYNET",
+        "firstName": "Hervé",
+        "image": {
+          "src": "assets/vie-asa/pilotes/cuynet-herve.webp",
+          "alt": "Carte pilote Cuynet Hervé"
+        }
+      },
+      {
+        "id": "jung-denis",
+        "lastName": "JUNG",
+        "firstName": "Denis",
+        "image": {
+          "src": "assets/vie-asa/pilotes/jung-denis.webp",
+          "alt": "Carte pilote Jung Denis"
+        }
+      },
+      {
+        "id": "batteau-thierry",
+        "lastName": "BATTEAU",
+        "firstName": "Thierry",
+        "image": {
+          "src": "assets/vie-asa/pilotes/batteau-thierry.webp",
+          "alt": "Carte pilote Batteau Thierry"
+        }
+      },
+      {
+        "id": "mottez-bruno",
+        "lastName": "MOTTEZ",
+        "firstName": "Bruno",
+        "image": {
+          "src": "assets/vie-asa/pilotes/mottez-bruno.webp",
+          "alt": "Carte pilote Mottez Bruno"
+        }
+      },
+      {
+        "id": "guillot-marc",
+        "lastName": "GUILLOT",
+        "firstName": "Marc",
+        "image": {
+          "src": "assets/vie-asa/pilotes/guillot-marc.webp",
+          "alt": "Carte pilote Guillot Marc"
+        }
+      },
+      {
+        "id": "sechepine-baptiste",
+        "lastName": "SÉCHÉPINE",
+        "firstName": "Baptiste",
+        "image": {
+          "src": "assets/vie-asa/pilotes/sechepine-baptiste.webp",
+          "alt": "Carte pilote Séchépine Baptiste"
+        }
+      },
+      {
+        "id": "aubry-herve",
+        "lastName": "AUBRY",
+        "firstName": "Hervé",
+        "image": {
+          "src": "assets/vie-asa/pilotes/aubry-herve.webp",
+          "alt": "Carte pilote Aubry Hervé"
+        }
+      },
+      {
+        "id": "martins-mathieu",
+        "lastName": "MARTINS",
+        "firstName": "Mathieu",
+        "image": {
+          "src": "assets/vie-asa/pilotes/martins-mathieu.webp",
+          "alt": "Carte pilote Martins Mathieu"
+        }
+      },
+      {
+        "id": "perrin-romain",
+        "lastName": "PERRIN",
+        "firstName": "Romain",
+        "image": {
+          "src": "assets/vie-asa/pilotes/perrin-romain.webp",
+          "alt": "Carte pilote Perrin Romain"
+        }
+      },
+      {
+        "id": "durieux-yann",
+        "lastName": "DURIEUX",
+        "firstName": "Yann",
+        "image": {
+          "src": "assets/vie-asa/pilotes/durieux-yann.webp",
+          "alt": "Carte pilote Durieux Yann"
+        }
+      },
+      {
+        "id": "claire-pascal",
+        "lastName": "CLAIRE",
+        "firstName": "Pascal",
+        "image": {
+          "src": "assets/vie-asa/pilotes/claire-pascal.webp",
+          "alt": "Carte pilote Claire Pascal"
+        }
+      },
+      {
+        "id": "buisson-francois",
+        "lastName": "BUISSON",
+        "firstName": "François",
+        "image": {
+          "src": "assets/vie-asa/pilotes/buisson-francois.jpg",
+          "alt": "Carte pilote Buisson François"
+        }
+      },
+      {
+        "id": "germain-jean-francois",
+        "lastName": "GERMAIN",
+        "firstName": "Jean-François",
+        "image": {
+          "src": "assets/vie-asa/pilotes/germain-jean-francois.jpg",
+          "alt": "Carte pilote Germain Jean-François"
+        }
+      },
+      {
+        "id": "noirot-maxime",
+        "lastName": "NOIROT",
+        "firstName": "Maxime",
+        "image": {
+          "src": "assets/vie-asa/pilotes/noirot-maxime.jpg",
+          "alt": "Carte pilote Noirot Maxime"
+        }
+      },
+      {
+        "id": "paul-nicholas",
+        "lastName": "PAUL",
+        "firstName": "Nicholas",
+        "image": {
+          "src": "assets/vie-asa/pilotes/paul-nicholas.jpg",
+          "alt": "Carte pilote Paul Nicholas"
+        }
+      }
+    ]
+  },
+  "vie-asa": {
+    "title": "La vie de l'ASA",
+    "intro": "Page prévue pour les actualités du club, événements internes et actions de l'association.",
+    "historyTitle": "Histoire de l'ASA Prenois Bourgogne",
+    "historyParagraphs": [
+      "L'ASA Prenois Bourgogne est une association sportive automobile, organisatrice de meetings en collaboration avec le circuit de Dijon-Prenois ainsi que des Courses de Côte et des Rallyes.",
+      "L'ASA Prenois Bourgogne regroupe au sein de ses adhérent(e)s, des commissaires de piste, des chefs de poste, des directeurs de course, des chronométreurs, des pilotes, et tous les passionné(e)s qui gravitent autour de la compétition automobile moderne ou ancienne. Elle est reconnue par tous pour les compétences de ses commissaires formateurs sur le circuit de Dijon Prenois.",
+      "L'ASA Prenois Bourgogne est née de la fusion absorption des 4 ASA de Côte d'Or, ASAC Bourgogne, Asa Prenois, Asa Beaune et ASA Côte d'Or.",
+      "L'ASAC Bourgogne avait été créée le 22 décembre 1952, parue dans le Journal Officiel le 01 janvier 1953, et la fondatrice de la légendaire Course de Côte d'Urcy."
+    ]
+  },
+  "run-essence": {
+    "title": "Run Essence",
+    "intro": "Consultez l'historique mensuel du journal RUN ESSENCE, avec un numéro publié chaque mois."
+  },
+  "partenaires": {
+    "title": "Nos partenaires",
+    "intro": "Retrouvez les partenaires institutionnels et privés qui soutiennent l'Asa Prenois-Bourgogne.",
+    "annualPartnersTitle": "Nos partenaires de l'Asa Prenois-Bourgogne",
+    "annualPartners": [
+      {
+        "name": "FIA",
+        "short": "FIA",
+        "logo": "assets/partners/fia.webp",
+        "url": "https://www.fia.com/"
+      },
+      {
+        "name": "FFSA",
+        "short": "FFSA",
+        "logo": "assets/partners/ffsa.svg",
+        "url": "https://www.ffsa.org/"
+      },
+      {
+        "name": "Ligue du Sport Automobile Bourgogne Franche-Comté",
+        "short": "Ligue BFC",
+        "logo": "assets/partners/lsabfc.webp",
+        "url": "https://www.lsabfc.org/accueil/accueil.html"
+      },
+      {
+        "name": "Circuit Dijon Prenois",
+        "short": "Circuit Dijon Prenois",
+        "logo": "assets/partners/dijon-prenois.webp",
+        "url": "https://www.circuit-dijon-prenois.com/"
+      },
+      {
+        "name": "CÔTE D'OR Le Département",
+        "short": "CÔTE D'OR",
+        "logo": "assets/partners/cotedor.svg",
+        "url": "https://www.cotedor.fr/"
+      },
+      {
+        "name": "Planète Communication",
+        "short": "Planète Communication",
+        "logo": "assets/partners/planete-communication.webp"
+      }
+    ],
+    "urcyPartnersTitle": "Nos partenaires - Course de Côte Urcy 2025",
+    "urcyPartners": [
+      {
+        "name": "FFSA Montagne",
+        "short": "FFSA Montagne",
+        "logo": "assets/partners/ffsa.svg",
+        "url": "https://www.ffsa.org/"
+      },
+      {
+        "name": "Ligue du Sport Automobile Bourgogne Franche-Comté",
+        "short": "Ligue BFC",
+        "logo": "assets/partners/lsabfc.webp",
+        "url": "https://www.lsabfc.org/accueil/accueil.html"
+      },
+      {
+        "name": "Fromagerie Delin",
+        "short": "Delin",
+        "logo": "assets/partners/delin.webp"
+      },
+      {
+        "name": "Passion Moto Sécurité",
+        "short": "PMS",
+        "logo": "assets/partners/passion-moto-securite.webp"
+      },
+      {
+        "name": "Ets Bailly et Mr.Bricolage",
+        "short": "Mr.Bricolage",
+        "logo": "assets/partners/mr-bricolage.svg"
+      },
+      {
+        "name": "Gautier",
+        "short": "Gautier",
+        "logo": "assets/partners/gautier.svg"
+      },
+      {
+        "name": "Vulco",
+        "short": "Vulco",
+        "logo": "assets/partners/vulco.svg"
+      },
+      {
+        "name": "Planète Communication Dijon",
+        "short": "Planète Com",
+        "logo": "assets/partners/planete-communication.webp"
+      },
+      {
+        "name": "Bymycar",
+        "short": "Bymycar",
+        "logo": "assets/partners/bymycar.webp",
+        "url": "https://www.bymycar.fr/"
+      },
+      {
+        "name": "Circuit Dijon-Prenois",
+        "short": "Dijon-Prenois",
+        "logo": "assets/partners/dijon-prenois.webp",
+        "url": "https://www.circuit-dijon-prenois.com/"
+      },
+      {
+        "name": "Côte d'Or Le Département",
+        "short": "Côte d'Or",
+        "logo": "assets/partners/cotedor.svg",
+        "url": "https://www.cotedor.fr/"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contacts",
+    "intro": "Page prévue pour les points de contact officiels de l'ASA Prenois Bourgogne."
+  },
+  "mentions-legales": {
+    "title": "Mentions légales",
+    "intro": "Page dédiée aux informations légales de l'association et du site."
+  },
+  "politique-confidentialite": {
+    "title": "Politique de confidentialité",
+    "intro": "Page dédiée aux règles de collecte, d'usage et de protection des données personnelles."
+  },
+  "politique-cookies": {
+    "title": "Politique de cookies du site",
+    "intro": "Page dédiée à l'utilisation des cookies et traceurs sur le site."
+  }
+}

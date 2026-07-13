@@ -14,9 +14,11 @@
 - Garder les media queries coherentes avec les breakpoints existants.
 
 ## Donnees
-- `site-data.js` doit rester declaratif.
-- Pas d'acces DOM dans les fichiers de donnees.
+- Les contenus vivent dans `data/*.json` et doivent rester declaratifs.
+- Pas de code ni d'acces DOM dans les fichiers de donnees.
 - Eviter les duplications de labels/copy.
+- Toute evolution de structure JSON doit etre repercutee dans
+  `admin/config.yml` (champs CMS) et `src/core/content-loader.js`.
 
 ## Documentation
 - Toute nouvelle logique transverse doit etre documentee dans `docs/ARCHITECTURE.md`.
@@ -25,8 +27,9 @@
 
 ## Checklist avant merge
 - `node --check app.js`
+- `node --check src/core/routing.js`
 - verifier syntaxe des nouveaux modules (`node --check <file>.js`)
-- `node tools/check-quality.cjs`
+- `node tools/check-quality.cjs` (valide aussi les `data/*.json`)
 - test manuel desktop + mobile:
   - navigation principale
   - calendrier/inscriptions

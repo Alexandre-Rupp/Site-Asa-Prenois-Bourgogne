@@ -1,0 +1,331 @@
+{
+  "parType": {
+    "rallye": {
+      "commonDocuments": [
+        {
+          "title": "Horaires-Timing"
+        },
+        {
+          "title": "Invitation commissaires"
+        },
+        {
+          "title": "Parcours général"
+        },
+        {
+          "title": "Parcours ES"
+        },
+        {
+          "title": "Roadbook"
+        },
+        {
+          "title": "Reconnaissances"
+        },
+        {
+          "title": "Fiches speaker"
+        },
+        {
+          "title": "Demande accréditation presse"
+        }
+      ],
+      "vehicleDocuments": {
+        "modernes": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Pilote"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Copilote"
+            },
+            {
+              "title": "Tableau des équipements de sécurité généraux"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ]
+        },
+        "vhc": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Pilote"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Copilote"
+            },
+            {
+              "title": "Tableau des équipements de sécurité généraux"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ]
+        },
+        "vhrs": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "EP. Générique (équipements de sécurité)"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ]
+        },
+        "vmrs": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "EP. Générique (équipements de sécurité)"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ]
+        }
+      }
+    },
+    "course-de-cote": {
+      "commonDocuments": [
+        {
+          "title": "Parcours"
+        },
+        {
+          "title": "Roadbook"
+        },
+        {
+          "title": "Infos organisationnelles"
+        }
+      ],
+      "vehicleDocuments": {
+        "modernes": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Pilote"
+            },
+            {
+              "title": "Tableau des équipements de sécurité généraux"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ],
+          "observations": [
+            {
+              "title": "Horaire de convocation"
+            },
+            {
+              "title": "Billetterie"
+            }
+          ]
+        },
+        "vhc": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "Fiche renseignements des équipements de sécurité - Pilote"
+            },
+            {
+              "title": "Tableau des équipements de sécurité généraux"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ],
+          "observations": [
+            {
+              "title": "Horaire de convocation"
+            },
+            {
+              "title": "Billetterie"
+            }
+          ]
+        },
+        "vhrs": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "EP. Générique (équipements de sécurité)"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ],
+          "observations": [
+            {
+              "title": "Horaire de convocation"
+            },
+            {
+              "title": "Billetterie"
+            }
+          ]
+        },
+        "vmrs": {
+          "documents": [
+            {
+              "title": "Règlement particulier"
+            },
+            {
+              "title": "Bulletin d'engagement"
+            },
+            {
+              "title": "EP. Générique (équipements de sécurité)"
+            },
+            {
+              "title": "Liste provisoire des engagés"
+            }
+          ],
+          "observations": [
+            {
+              "title": "Horaire de convocation"
+            },
+            {
+              "title": "Billetterie"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "parMeeting": [
+    {
+      "meeting": "r10",
+      "commonDocuments": [
+        {
+          "title": "VISA"
+        },
+        {
+          "title": "Horaires"
+        },
+        {
+          "title": "Informations générales"
+        }
+      ],
+      "pilotDocuments": [
+        {
+          "title": "Feuilles d'engagement"
+        },
+        {
+          "title": "Assurances"
+        },
+        {
+          "title": "Feuilles techniques"
+        },
+        {
+          "title": "Book info"
+        },
+        {
+          "title": "Listes engagés"
+        },
+        {
+          "title": "Suivis résultats"
+        }
+      ]
+    },
+    {
+      "meeting": "r13",
+      "commonDocuments": [
+        {
+          "title": "Bulletin d'engagement",
+          "href": "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        },
+        {
+          "title": "Fiche équipements - Pilote",
+          "href": "assets/documents/fiche-equipements-pilote-rallye-bligny-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        },
+        {
+          "title": "Fiche équipements - Co-pilote",
+          "href": "assets/documents/fiche-equipements-co-pilote-rallye-bligny-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        },
+        {
+          "title": "Tableaux équipements - Rallye",
+          "href": "assets/documents/tableaux-equipements-rallye-bligny-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        }
+      ],
+      "vehicleDocuments": {
+        "modernes": {
+          "documents": [
+            {
+              "title": "Règlement Moderne",
+              "href": "assets/documents/reglement-modernes-rallye-bligny-2026.pdf",
+              "ctaLabel": "Ouvrir le PDF"
+            }
+          ]
+        },
+        "vhc": {
+          "documents": [
+            {
+              "title": "Règlement VHC",
+              "href": "assets/documents/reglement-vhc-rallye-bligny-2026.pdf",
+              "ctaLabel": "Ouvrir le PDF"
+            }
+          ]
+        },
+        "vhrs": {
+          "documents": [
+            {
+              "title": "Règlement VHRS",
+              "href": "assets/documents/reglement-vhrs-rallye-bligny-2026.pdf",
+              "ctaLabel": "Ouvrir le PDF"
+            },
+            {
+              "title": "Tableaux équipements VHRS",
+              "href": "assets/documents/tableaux-equipements-vhrs-rallye-bligny-2026.pdf",
+              "ctaLabel": "Ouvrir le PDF"
+            }
+          ]
+        },
+        "vmrs": {
+          "documents": [
+            {
+              "title": "Règlement VMRS",
+              "href": "assets/documents/reglement-vmrs-rallye-bligny-2026.pdf",
+              "ctaLabel": "Ouvrir le PDF"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
