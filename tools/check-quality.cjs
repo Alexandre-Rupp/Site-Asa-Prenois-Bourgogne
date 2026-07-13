@@ -21,6 +21,7 @@ const FILES_WITH_URLS = [
   "app.js",
   "sitemap.xml",
   "robots.txt",
+  "admin/config.yml",
   ...DATA_FILES,
 ];
 
