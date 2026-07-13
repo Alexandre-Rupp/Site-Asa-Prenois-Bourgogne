@@ -144,17 +144,19 @@ collections:
             label: Actualités association (commissaires)
             label_singular: article
             widget: list
+            summary: "{{fields.title}} ({{fields.date}})"
             fields: *champs_actualite
           - name: pilotes
             label: Actualités pilotes
             label_singular: article
             widget: list
+            summary: "{{fields.title}} ({{fields.date}})"
             fields: *champs_actualite
 
   - name: meetings
     label: Meetings (calendrier)
-    description: La liste des meetings affichés dans le calendrier et les inscriptions.
-    icon: calendar_month
+    description: Les épreuves affichées dans le calendrier et les inscriptions.
+    icon: sports_motorsports
     files:
       - name: meetings
         label: Liste des meetings
@@ -164,14 +166,15 @@ collections:
             label: Meetings de la saison
             label_singular: meeting
             widget: list
+            summary: "{{fields.name}} — {{fields.date}}"
             fields:
               - name: id
-                label: Code du meeting
+                label: Adresse internet du meeting
                 widget: string
                 pattern:
-                  - "^r\\d+$"
-                  - "Le code doit être la lettre r suivie d'un nombre, sans espace (exemple : r16)."
-                hint: "Code unique du meeting (exemple : r16 pour un nouveau meeting). NE PAS modifier le code d'un meeting existant."
+                  - "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  - "Écrivez le nom en minuscules, sans accent ni apostrophe, avec des tirets entre les mots (exemple : course-de-cote-urcy)."
+                hint: "Nom simplifié utilisé dans l'adresse de la page (exemple : course-de-cote-urcy). NE PAS modifier pour un meeting existant, sinon son adresse change."
               - name: name
                 label: Nom du meeting
                 widget: string
@@ -227,7 +230,7 @@ collections:
   - name: run_essence
     label: Journal Run Essence
     description: Les numéros PDF du journal mensuel Run Essence.
-    icon: menu_book
+    icon: local_gas_station
     files:
       - name: run_essence
         label: Numéros du journal
@@ -237,6 +240,7 @@ collections:
             label: Numéros publiés
             label_singular: numéro
             widget: list
+            summary: "{{fields.title}}"
             fields:
               - name: id
                 label: Identifiant (année-mois)
@@ -288,6 +292,7 @@ collections:
               - name: commissionerTrainingImages
                 label: Photos de la formation
                 widget: list
+                summary: "{{fields.alt}}"
                 fields:
                   - { name: src, label: Photo, widget: image }
                   - { name: alt, label: Description de la photo, widget: string, hint: "Courte description pour les personnes malvoyantes." }
@@ -308,6 +313,7 @@ collections:
                 label: Pilotes de l'ASA
                 label_singular: pilote
                 widget: list
+                summary: "{{fields.lastName}} {{fields.firstName}}"
                 fields:
                   - name: id
                     label: Identifiant du pilote
@@ -352,6 +358,7 @@ collections:
                 label: Partenaires annuels
                 label_singular: partenaire
                 widget: list
+                summary: "{{fields.name}}"
                 fields:
                   - { name: name, label: Nom du partenaire, widget: string }
                   - { name: short, label: Nom court, widget: string, required: false }
@@ -366,6 +373,7 @@ collections:
                 label: Partenaires Course de Côte d'Urcy
                 label_singular: partenaire
                 widget: list
+                summary: "{{fields.name}}"
                 fields:
                   - { name: name, label: Nom du partenaire, widget: string }
                   - { name: short, label: Nom court, widget: string, required: false }
@@ -406,8 +414,8 @@ collections:
 
   - name: inscriptions
     label: Inscriptions et formulaires
-    description: Les textes et liens des espaces commissaires et pilotes.
-    icon: how_to_reg
+    description: Les textes et liens des espaces commissaires et pilotes (formulaires, inscriptions ouvertes ou fermées).
+    icon: groups
     files:
       - name: profils
         label: Espaces commissaires et pilotes
@@ -447,20 +455,44 @@ collections:
                     label: Meetings avec inscriptions OUVERTES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
-                    hint: "Codes des meetings ouverts (exemple : r8). Utilisé quand tout est fermé par défaut."
+                    hint: "Meetings qui acceptent les inscriptions. Utilisé quand tout est fermé par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: closedRaceFormsByMeeting
                     label: Meetings avec inscriptions FERMÉES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
-                    hint: "Codes des meetings fermés (exemple : r4). Utilisé quand tout est ouvert par défaut."
+                    hint: "Meetings qui refusent les inscriptions. Utilisé quand tout est ouvert par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: raceFormsByMeeting
                     label: Formulaires dédiés par meeting
                     widget: list
                     required: false
                     fields:
-                      - { name: meeting, label: Code du meeting, widget: string, hint: "Exemple : r10." }
+                      - name: meeting
+                        label: Épreuve
+                        widget: relation
+                        collection: meetings
+                        file: meetings
+                        search_fields: ["meetings.*.name"]
+                        display_fields: ["meetings.*.name"]
+                        value_field: "meetings.*.id"
+                        hint: "Choisissez l'épreuve concernée par son nom."
                       - name: url
                         label: Lien ou fichier du formulaire
                         widget: string
@@ -483,6 +515,7 @@ collections:
                 label_singular: information
                 widget: list
                 required: false
+                summary: "{{fields.title}} ({{fields.date}})"
                 fields: *champs_info_flash
           - name: pilote
             label: Espace pilotes
@@ -515,19 +548,48 @@ collections:
                     label: Meetings avec inscriptions OUVERTES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
+                    hint: "Meetings qui acceptent les inscriptions. Utilisé quand tout est fermé par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: closedRaceFormsByMeeting
                     label: Meetings avec inscriptions FERMÉES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
+                    hint: "Meetings qui refusent les inscriptions. Utilisé quand tout est ouvert par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: raceFormsByMeeting
                     label: Formulaires dédiés par meeting
                     widget: list
                     required: false
                     fields:
-                      - { name: meeting, label: Code du meeting, widget: string }
-                      - { name: url, label: Lien ou fichier du formulaire, widget: string }
+                      - name: meeting
+                        label: Épreuve
+                        widget: relation
+                        collection: meetings
+                        file: meetings
+                        search_fields: ["meetings.*.name"]
+                        display_fields: ["meetings.*.name"]
+                        value_field: "meetings.*.id"
+                        hint: "Choisissez l'épreuve concernée par son nom."
+                      - name: url
+                        label: Lien ou fichier du formulaire
+                        widget: string
+                        hint: "Adresse internet complète ou chemin d'un PDF du site."
               - name: sections
                 label: Titres et textes des sections
                 widget: object
@@ -546,6 +608,7 @@ collections:
                 label_singular: information
                 widget: list
                 required: false
+                summary: "{{fields.title}} ({{fields.date}})"
                 fields: *champs_info_flash
 
   - name: documents_pilotes
@@ -591,11 +654,17 @@ collections:
             label_singular: meeting
             widget: list
             required: false
+            summary: "{{fields.meeting}}"
             fields:
               - name: meeting
-                label: Code du meeting
-                widget: string
-                hint: "Exemple : r10. Le code se trouve dans la liste des meetings."
+                label: Épreuve
+                widget: relation
+                collection: meetings
+                file: meetings
+                search_fields: ["meetings.*.name"]
+                display_fields: ["meetings.*.name"]
+                value_field: "meetings.*.id"
+                hint: "Choisissez l'épreuve concernée par son nom."
               - name: commonDocuments
                 label: Documents communs
                 widget: list
@@ -625,6 +694,7 @@ collections:
             label: Horaires du bureau
             label_singular: jour
             widget: list
+            summary: "{{fields.day}} : {{fields.hours}}"
             fields:
               - { name: day, label: Jour, widget: string, hint: "Exemple : Lundi." }
               - { name: hours, label: Horaires, widget: string, hint: "Exemple : 14h-17h ou Fermé au public." }
@@ -656,6 +726,7 @@ collections:
                 label: Sections
                 label_singular: section
                 widget: list
+                summary: "{{fields.title}}"
                 fields:
                   - { name: title, label: Titre de la section, widget: string }
                   - name: paragraphs
@@ -674,6 +745,7 @@ collections:
                 label: Sections
                 label_singular: section
                 widget: list
+                summary: "{{fields.title}}"
                 fields:
                   - { name: title, label: Titre de la section, widget: string }
                   - name: paragraphs
@@ -692,6 +764,7 @@ collections:
                 label: Sections
                 label_singular: section
                 widget: list
+                summary: "{{fields.title}}"
                 fields:
                   - { name: title, label: Titre de la section, widget: string }
                   - name: paragraphs

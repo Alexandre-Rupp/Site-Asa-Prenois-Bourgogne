@@ -40,51 +40,51 @@
       "raceForm": "https://forms.office.com/r/5s11Uy4fWP",
       "signupClosedAll": true,
       "openRaceFormsByMeeting": [
-        "r8",
-        "r9",
-        "r10",
-        "r12",
-        "r14"
+        "dijon-motors-cup",
+        "lamera-cup",
+        "coupe-de-france-des-circuits",
+        "course-de-cote-urcy",
+        "tour-de-bourgogne-classic"
       ],
       "closedRaceFormsByMeeting": [
-        "r4",
-        "r14"
+        "championnat-de-france-gt",
+        "tour-de-bourgogne-classic"
       ],
       "raceFormsByMeeting": [
         {
-          "meeting": "r2",
+          "meeting": "caterham",
           "url": "https://forms.office.com/r/FKJZCT2p8K"
         },
         {
-          "meeting": "r3",
+          "meeting": "historic-tour",
           "url": "https://forms.office.com/r/ncBaNgw8T4"
         },
         {
-          "meeting": "r5",
+          "meeting": "porsche-sprint-challenge-france",
           "url": "https://forms.office.com/r/8DFcU05LJN"
         },
         {
-          "meeting": "r6",
+          "meeting": "grand-prix-de-l-age-d-or",
           "url": "https://forms.office.com/r/acKvMAf6Hk"
         },
         {
-          "meeting": "r7",
+          "meeting": "trophee-tourisme-endurance",
           "url": "https://forms.office.com/r/6PRUYFZ5Lu"
         },
         {
-          "meeting": "r8",
+          "meeting": "dijon-motors-cup",
           "url": "https://forms.office.com/r/Qq9W4kr0PV"
         },
         {
-          "meeting": "r9",
+          "meeting": "lamera-cup",
           "url": "https://forms.office.com/r/ePS24dmxd9"
         },
         {
-          "meeting": "r10",
+          "meeting": "coupe-de-france-des-circuits",
           "url": "https://forms.office.com/r/HjFjsWSJZn"
         },
         {
-          "meeting": "r12",
+          "meeting": "course-de-cote-urcy",
           "url": "https://forms.office.com/r/SPSGZyNuPY"
         }
       ]
@@ -131,16 +131,16 @@
       "raceForm": "https://forms.office.com/r/PILOTE-COURSE-2026",
       "signupClosedAll": true,
       "openRaceFormsByMeeting": [
-        "r12",
-        "r13"
+        "course-de-cote-urcy",
+        "rallye-de-l-auxois"
       ],
       "raceFormsByMeeting": [
         {
-          "meeting": "r12",
+          "meeting": "course-de-cote-urcy",
           "url": "assets/documents/fiche-engagement-course-de-cote-urcy-v1-2026.pdf"
         },
         {
-          "meeting": "r13",
+          "meeting": "rallye-de-l-auxois",
           "url": "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf"
         }
       ]

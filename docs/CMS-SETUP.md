@@ -126,16 +126,51 @@ anciennes.
   l'administrateur du site.
 - En cas de doute, ne supprimez rien: contactez l'administrateur.
 
+Une version illustrée de ce guide est disponible directement dans
+l'administration: https://www.asa-prenois-bourgogne.org/admin/aide
+(bouton « ? Besoin d'aide » en bas à droite de l'écran).
+
+## Personnalisation de l'interface
+
+- **Version figée du CMS**: `admin/index.html` charge une version précise
+  de Sveltia CMS (`@sveltia/cms@0.170.8` sur unpkg), et non « latest »,
+  pour que l'interface des éditeurs reste stable. La marche à suivre pour
+  mettre à jour est décrite en commentaire dans `admin/index.html`
+  (changer le numéro, tester `/admin`, merger).
+- **Écran de chargement**: un écran aux couleurs de l'ASA (logo + message
+  en français) s'affiche pendant l'initialisation du CMS, puis se masque
+  automatiquement dès que l'interface apparaît (délai de secours: 15 s).
+- **Logo**: la propriété `logo_url` de `admin/config.yml` affiche le logo
+  ASA dans l'en-tête de l'application et l'onglet du navigateur.
+- **Lisibilité**: la page `/admin` applique un léger agrandissement global
+  (`zoom: 1.1`) pour un public senior.
+- **Bouton d'aide**: un bouton « ? Besoin d'aide » flottant renvoie vers
+  la page `/admin/aide`.
+- **Limites connues de Sveltia CMS** (version 0.170.x):
+  - l'interface applicative n'existe qu'en anglais et en japonais; la
+    langue suit le navigateur et ne peut pas être forcée en français par
+    configuration. Tous les libellés de contenu (collections, champs,
+    aides) sont en revanche rédigés en français dans `admin/config.yml`;
+  - l'interface interne utilise du Shadow DOM et n'expose ni variables
+    CSS ni thème personnalisable: la couleur d'accent interne du CMS ne
+    peut pas être changée sans hack fragile (non fait volontairement);
+  - les options `thumbnail`, `sortable_fields` et `view_groups` ne
+    s'appliquent qu'aux collections « à dossier » (une entrée = un
+    fichier). Nos contenus étant des fichiers JSON uniques, ce sont les
+    résumés (`summary`) des listes qui rendent les éléments identifiables
+    (titre + date, nom du pilote, etc.).
+
 ## Notes pour les développeurs
 
 - Le rewrite SPA de `vercel.json` exclut `/admin` et `/api` pour que
   l'interface d'administration et les fonctions OAuth soient servies
-  directement.
+  directement. `/admin/aide` est réécrit vers `admin/aide.html`.
 - `robots.txt` interdit l'indexation de `/admin` et `/api`.
-- Les codes techniques (`r10`, `2026-05`...) restent visibles dans
-  quelques collections avancées (meetings, formulaires, documents) car
-  l'application relie les visuels et formulaires aux meetings par ces
-  codes. Les hints du CMS expliquent leur usage.
+- Les meetings sont identifiés par un slug lisible dérivé du nom de
+  l'épreuve (ex. `course-de-cote-urcy`), utilisé aussi dans les URLs
+  (`/meetings/pilote/course-de-cote-urcy`). Les anciennes URLs en codes
+  courts (`r1`...`r15`) redirigent en 301 via `vercel.json`. Dans le CMS,
+  les épreuves se choisissent par leur nom complet (widget relation).
 - Après un ajout de meeting via le CMS, penser à compléter si besoin les
   mappings `MEETING_VISUALS` / `MEETING_PROMOTER_LOGOS` dans `app.js` et
   le `sitemap.xml` (contrôlé par `node tools/check-quality.cjs`).

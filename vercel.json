@@ -1,8 +1,89 @@
 {
+  "redirects": [
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r1",
+      "destination": "/:base/:profile/fun-racing-car",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r2",
+      "destination": "/:base/:profile/caterham",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r3",
+      "destination": "/:base/:profile/historic-tour",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r4",
+      "destination": "/:base/:profile/championnat-de-france-gt",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r5",
+      "destination": "/:base/:profile/porsche-sprint-challenge-france",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r6",
+      "destination": "/:base/:profile/grand-prix-de-l-age-d-or",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r7",
+      "destination": "/:base/:profile/trophee-tourisme-endurance",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r8",
+      "destination": "/:base/:profile/dijon-motors-cup",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r9",
+      "destination": "/:base/:profile/lamera-cup",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r10",
+      "destination": "/:base/:profile/coupe-de-france-des-circuits",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r11",
+      "destination": "/:base/:profile/rallye-de-bligny-sur-ouche",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r12",
+      "destination": "/:base/:profile/course-de-cote-urcy",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r13",
+      "destination": "/:base/:profile/rallye-de-l-auxois",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r14",
+      "destination": "/:base/:profile/tour-de-bourgogne-classic",
+      "permanent": true
+    },
+    {
+      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r15",
+      "destination": "/:base/:profile/reves-d-enfants-malades",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/admin",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/aide",
+      "destination": "/admin/aide.html"
     },
     {
       "source": "/((?!admin(?:/|$)|api(?:/|$))(?!.*\\.).*)",

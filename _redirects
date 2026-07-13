@@ -3,6 +3,7 @@ https://asa-prenois-bourgogne.org/* https://www.asa-prenois-bourgogne.org/:splat
 http://www.asa-prenois-bourgogne.org/* https://www.asa-prenois-bourgogne.org/:splat 301!
 
 /admin /admin/index.html 200
+/admin/aide /admin/aide.html 200
 /admin/* /admin/:splat 200
 
 /* /index.html 200

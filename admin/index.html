@@ -11,8 +11,168 @@
       sizes="32x32"
       href="/assets/favicon-asa-nouveau.png"
     />
+    <style>
+      :root {
+        --asa-bleu: #0d5fd0;
+      }
+
+      /* Lisibilite renforcee pour un public senior: leger agrandissement
+         global de l'interface (s'applique aussi a l'application CMS). */
+      body {
+        margin: 0;
+        zoom: 1.1;
+      }
+
+      /* Ecran de chargement affiche tant que Sveltia CMS s'initialise. */
+      .asa-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        background: linear-gradient(160deg, #0a2a5c 0%, var(--asa-bleu) 100%);
+        color: #ffffff;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        text-align: center;
+        padding: 24px;
+        transition: opacity 0.4s ease;
+      }
+
+      .asa-splash.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .asa-splash img {
+        width: 180px;
+        max-width: 60vw;
+        height: auto;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .asa-splash p {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .asa-splash .asa-splash-note {
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 0.85;
+      }
+
+      .asa-splash-spinner {
+        width: 44px;
+        height: 44px;
+        border: 4px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: asa-spin 0.9s linear infinite;
+      }
+
+      @keyframes asa-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .asa-splash-spinner {
+          animation: none;
+        }
+      }
+
+      /* Bouton d'aide permanent, par-dessus l'interface du CMS. */
+      .asa-aide-btn {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 10000;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: var(--asa-bleu);
+        color: #ffffff;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      }
+
+      .asa-aide-btn:hover,
+      .asa-aide-btn:focus-visible {
+        background: #0a4aa3;
+      }
+    </style>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+    <div class="asa-splash" id="asa-splash">
+      <img
+        src="/assets/logo-asa-prenois-bourgogne-fit.png"
+        alt="Logo ASA Prenois Bourgogne"
+      />
+      <div class="asa-splash-spinner" aria-hidden="true"></div>
+      <p>Chargement de l'espace d'administration...</p>
+      <p class="asa-splash-note">
+        Merci de patienter quelques secondes.
+      </p>
+    </div>
+
+    <a class="asa-aide-btn" href="/admin/aide.html">? Besoin d'aide</a>
+
+    <!--
+      Version de Sveltia CMS volontairement figee pour garder une interface
+      stable pour les editeurs.
+      Pour mettre a jour :
+        1. Consulter les nouveautes sur https://github.com/sveltia/sveltia-cms/releases
+        2. Remplacer le numero de version (0.170.8) ci-dessous par le nouveau
+        3. Tester /admin (connexion, modification, publication) avant de merger
+    -->
+    <script src="https://unpkg.com/@sveltia/cms@0.170.8/dist/sveltia-cms.js" type="module"></script>
+
+    <script>
+      // Masque l'ecran de chargement des que l'application CMS est montee
+      // dans la page (avec un delai maximal de secours pour ne jamais bloquer).
+      (function () {
+        const splash = document.getElementById("asa-splash");
+        if (!splash) return;
+
+        const hideSplash = () => {
+          splash.classList.add("is-hidden");
+          observer.disconnect();
+        };
+
+        const isCmsNode = (node) =>
+          node.nodeType === Node.ELEMENT_NODE &&
+          node.id !== "asa-splash" &&
+          !node.classList.contains("asa-aide-btn") &&
+          node.tagName !== "SCRIPT" &&
+          node.tagName !== "STYLE";
+
+        const observer = new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            for (const node of mutation.addedNodes) {
+              if (isCmsNode(node)) {
+                // Petite marge pour laisser l'UI se peindre.
+                setTimeout(hideSplash, 300);
+                return;
+              }
+            }
+          }
+        });
+
+        observer.observe(document.body, { childList: true });
+        setTimeout(hideSplash, 15000);
+      })();
+    </script>
   </body>
 </html>

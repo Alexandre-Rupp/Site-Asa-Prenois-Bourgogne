@@ -42,7 +42,7 @@ function collectMeetingIds() {
   const meetingsJson = JSON.parse(readFile("data/meetings.json"));
   return (meetingsJson.meetings || [])
     .map((meeting) => meeting.id)
-    .filter((id) => /^r\d+$/.test(String(id || "")));
+    .filter((id) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id || "")));
 }
 
 function checkDataJsonValidity() {
