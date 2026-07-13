@@ -1,0 +1,177 @@
+{
+  "mentions-legales": {
+    "updatedAt": "Dernière mise à jour: 15 mars 2026",
+    "sections": [
+      {
+        "title": "Objet du site",
+        "paragraphs": [
+          "Le site présente les activités de l'association, les informations de meetings et les liens d'inscription des commissaires et pilotes.",
+          "Le contenu publié est informatif et peut être mis à jour en fonction des contraintes sportives, organisationnelles et réglementaires."
+        ]
+      },
+      {
+        "title": "Éditeur du service de communication au public en ligne",
+        "paragraphs": [
+          "Association Sportive Automobile Club Bourgogne (ASA Prenois Bourgogne).",
+          "Siège: Circuit Dijon-Prenois, 21370 Prenois, France.",
+          "Contact: contact@asa-prenois-bourgone.org",
+          "Ces informations sont publiées conformément aux obligations d'identification de l'éditeur prévues par l'article 1-1 de la loi ndeg 2004-575 du 21 juin 2004 (LCEN), version en vigueur depuis le 23 mai 2024."
+        ]
+      },
+      {
+        "title": "Direction de la publication",
+        "paragraphs": [
+          "Directeur de la publication: le bureau de l'association ASA Prenois Bourgogne.",
+          "Responsable de la rédaction: à compléter si des fonctions editoriales distinctes sont designees.",
+          "Droit de réponse: toute personne nommée ou désignée peut exercer son droit de réponse selon les modalités prévues par l'article 1-1 de la LCEN."
+        ]
+      },
+      {
+        "title": "Hebergement",
+        "paragraphs": [
+          "Environnement actuel: version de travail et de test.",
+          "Avant publication internet définitive, l'association doit afficher les informations complètes de l'hébergeur (nom ou raison sociale, adresse, téléphone), conformément à l'article 1-1 de la LCEN.",
+          "Champ de conformité à renseigner avant mise en ligne publique: hébergeur, adresse postale, numéro de téléphone, référence contractuelle le cas échéant."
+        ]
+      },
+      {
+        "title": "Propriété intellectuelle",
+        "paragraphs": [
+          "Les contenus du site (textes, structure, logo, chartes graphiques, elements visuels, documents) sont protégés par le code de la propriété intellectuelle.",
+          "Sauf mention contraire, toute reproduction, representation, adaptation, extraction ou diffusion, totale ou partielle, sans autorisation ecrite préalable, est interdite.",
+          "Les marques et logos de tiers restent la propriété de leurs titulaires respectifs."
+        ]
+      },
+      {
+        "title": "Liens externes et responsabilité",
+        "paragraphs": [
+          "Le site peut contenir des liens vers des services externes (par exemple FFSA ou Microsoft Forms). L'association n'exerce pas de contrôle editorial sur ces services tiers.",
+          "L'association s'efforce d'assurer l'exactitude des informations publiées, sans garantie d'exhaustivité ni d'absence d'erreur. Les dates, horaires et modalités d'inscription peuvent être modifiés.",
+          "En cas d'indisponibilité, de dysfonctionnement ou d'inexactitude, la responsabilité de l'association ne peut être engagée que dans les limites permises par la loi française."
+        ]
+      },
+      {
+        "title": "Droit applicable",
+        "paragraphs": [
+          "Le présent site est soumis au droit français.",
+          "Base juridique principale: loi ndeg 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), notamment article 1-1.",
+          "Pour toute question juridique relative au site, contactez: contact@asa-prenois-bourgone.org"
+        ]
+      }
+    ]
+  },
+  "politique-confidentialite": {
+    "updatedAt": "Dernière mise à jour: 15 mars 2026",
+    "sections": [
+      {
+        "title": "Responsable du traitement",
+        "paragraphs": [
+          "Le responsable du traitement est l'association ASA Prenois Bourgogne, joignable à l'adresse contact@asa-prenois-bourgone.org.",
+          "La présente politique de confidentialité est rédigée au regard du RGPD (UE 2016/679), en particulier des articles 12, 13 et 14 relatifs à l'information des personnes."
+        ]
+      },
+      {
+        "title": "Données traitées et source des données",
+        "paragraphs": [
+          "Lors de la consultation du site, des données techniques minimales peuvent être traitées pour faire fonctionner le service (ex: journaux techniques, sécurité, routage de pages).",
+          "Lors d'une inscription via les formulaires externes, les données sont saisies directement sur le service Microsoft Forms (identité, coordonnées, informations de licence, disponibilités et informations d'engagement).",
+          "Seules les données strictement nécessaires à la gestion administrative et sportive sont sollicitees."
+        ]
+      },
+      {
+        "title": "Finalités et bases légales",
+        "paragraphs": [
+          "Finalités principales: gestion des inscriptions, organisation des meetings, communication d'information opérationnelle, suivi associatif, obligations administratives et réglementaires.",
+          "Bases légales mobilisées selon les traitements: consentement (article 6.1.a RGPD), exécution de mesures précontractuelles ou contractuelles (article 6.1.b), respect d'obligations légales (article 6.1.c), intérêt légitime de l'association pour l'organisation et la sécurisation des épreuves (article 6.1.f).",
+          "Lorsque le consentement est la base légale, il peut être retiré à tout moment."
+        ]
+      },
+      {
+        "title": "Destinataires des données",
+        "paragraphs": [
+          "Peuvent accéder aux données, dans la limite de leurs habilitations: membres autorisés du bureau, équipe d'organisation, responsables de meeting et, le cas échéant, instances sportives ou prestataires techniques nécessaires au service.",
+          "Les données ne sont pas vendues ni cédées à des tiers à des fins commerciales."
+        ]
+      },
+      {
+        "title": "Durées de conservation",
+        "paragraphs": [
+          "Les données sont conservées pendant une durée proportionnée aux finalités poursuivies.",
+          "Les données d'inscription et de suivi sportif sont conservées pendant la saison en cours puis archivées selon les obligations légales, comptables, assurantielles et sportives applicables.",
+          "Les informations inutiles ou obsolètes sont supprimées ou anonymisées dans des délais raisonnables."
+        ]
+      },
+      {
+        "title": "Transferts hors Union européenne",
+        "paragraphs": [
+          "Certains services techniques tiers peuvent impliquer des traitements hors Union européenne.",
+          "Le cas échéant, ces transferts sont encadrés par les mécanismes prévus par le RGPD (ex: clauses contractuelles types de la Commission européenne) et par les garanties documentées du prestataire."
+        ]
+      },
+      {
+        "title": "Vos droits",
+        "paragraphs": [
+          "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et, selon les cas, d'un droit à la portabilite.",
+          "Vous pouvez exercer vos droits en ecrivant à contact@asa-prenois-bourgone.org.",
+          "Vous disposez également du droit d'introduire une reclamation auprès de la CNIL (www.cnil.fr)."
+        ]
+      },
+      {
+        "title": "Sécurité et mise à jour",
+        "paragraphs": [
+          "L'association met en œuvre des mesures organisationnelles et techniques raisonnables pour protéger les données personnelles contre la perte, l'accès non autorisé, l'altération ou la divulgation.",
+          "La présente politique peut être mise à jour pour tenir compte des évolutions légales, techniques ou organisationnelles. La date de mise à jour figure en haut de page."
+        ]
+      }
+    ]
+  },
+  "politique-cookies": {
+    "updatedAt": "Dernière mise à jour: 15 mars 2026",
+    "sections": [
+      {
+        "title": "Cadre légal",
+        "paragraphs": [
+          "L'utilisation des cookies et autres traceurs est encadrée en France par l'article 82 de la loi Informatique et Libertés et, pour les données personnelles, par le RGPD.",
+          "Les règles pratiques appliquées sur ce site s'appuient sur les lignes directrices et recommandations de la CNIL."
+        ]
+      },
+      {
+        "title": "Definition",
+        "paragraphs": [
+          "Un cookie (ou traceur) est un fichier ou identifiant déposé et/ou lu sur votre terminal lors de la consultation d'un service numérique.",
+          "Il peut être utilisé à des fins techniques, de mesure d'audience, de personnalisation ou de publicité, selon sa finalité."
+        ]
+      },
+      {
+        "title": "Traceurs utilisés par ce site",
+        "paragraphs": [
+          "En l'état actuel du site, aucun traceur publicitaire ou de réseaux sociaux n'est déposé par défaut par l'éditeur lors de la navigation.",
+          "Les traceurs strictement nécessaires au fonctionnement technique du service peuvent être utilisés sans consentement préalable, conformément aux exemptions prévues par l'article 82.",
+          "Le site contient des liens vers des services tiers (par exemple Microsoft Forms et FFSA). Lorsque vous ouvrez ces services, leurs propres politiques cookies s'appliquent."
+        ]
+      },
+      {
+        "title": "Consentement et gestion des choix",
+        "paragraphs": [
+          "Lorsque des traceurs soumis à consentement seraient activées à l'avenir, votre accord sera recueilli avant tout dépôt, avec un mécanisme de refus aussi simple que l'acceptation.",
+          "Conformément aux recommandations CNIL, le choix exprimé (acceptation ou refus) peut être conserve pendant 6 mois afin d'éviter de vous solliciter à chaque visite.",
+          "Vous pourrez retirer votre consentement à tout moment via un lien ou un module de gestion accessible depuis le site."
+        ]
+      },
+      {
+        "title": "Durées recommandées par la CNIL",
+        "paragraphs": [
+          "Pour les traceurs de mesure d'audience exemptées de consentement sous conditions strictes, la CNIL recommande une durée de vie limitée, par exemple 13 mois, sans prorogation automatique à chaque visite.",
+          "La CNIL recommande également une conservation maximale de 25 mois pour les informations collectées via ces traceurs de mesure d'audience exemptées."
+        ]
+      },
+      {
+        "title": "Paramétrage navigateur et contact",
+        "paragraphs": [
+          "Vous pouvez configurer votre navigateur pour accepter, refuser ou supprimer les cookies. Le blocage de certains traceurs techniques peut dégrader le fonctionnement du site.",
+          "Pour toute question relative aux cookies: contact@asa-prenois-bourgone.org"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,700 @@
+# Configuration Sveltia CMS - Administration du contenu du site
+# Documentation d'installation: docs/CMS-SETUP.md
+
+backend:
+  name: github
+  repo: Alexandre-Rupp/Site-Asa-Prenois-Bourgogne
+  branch: main
+  base_url: https://www.asa-prenois-bourgogne.org
+  auth_endpoint: api/auth
+
+site_url: https://www.asa-prenois-bourgogne.org
+display_url: https://www.asa-prenois-bourgogne.org
+logo_url: https://www.asa-prenois-bourgogne.org/assets/logo-asa-prenois-bourgogne-fit.png
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+# Modèles réutilisables (ancres YAML).
+_modeles:
+  document: &champs_document
+    - name: title
+      label: Titre du document
+      widget: string
+      hint: "Nom affiché dans la liste. Exemple : Règlement particulier."
+    - name: href
+      label: Fichier (PDF ou image)
+      widget: file
+      required: false
+      hint: "Facultatif. Si un fichier est ajouté, le titre devient un lien cliquable."
+    - name: ctaLabel
+      label: Texte du bouton
+      widget: string
+      required: false
+      hint: "Facultatif. Exemple : Ouvrir le PDF."
+  actualite: &champs_actualite
+    - name: title
+      label: Titre de l'article
+      widget: string
+      hint: "Le titre affiché en gras au-dessus du texte."
+    - name: date
+      label: Date affichée
+      widget: string
+      hint: "Texte libre affiché tel quel. Exemple : Avril 2026."
+    - name: text
+      label: Texte de l'article
+      widget: text
+      hint: "Le contenu complet de l'article."
+    - name: collapsibleText
+      label: Réduire le texte avec un bouton « Lire »
+      widget: boolean
+      required: false
+      default: false
+      hint: "Cochez pour n'afficher qu'un aperçu du texte avec un bouton « Lire »."
+    - name: previewText
+      label: Aperçu du texte
+      widget: text
+      required: false
+      hint: "Facultatif. Première phrase affichée avant le bouton « Lire »."
+    - name: images
+      label: Photos de l'article
+      widget: list
+      required: false
+      field:
+        name: image
+        label: Photo
+        widget: image
+      hint: "Ajoutez une ou plusieurs photos : elles défilent en diaporama."
+  info_flash: &champs_info_flash
+    - name: title
+      label: Titre
+      widget: string
+    - name: date
+      label: Date affichée
+      widget: string
+      hint: "Texte libre. Exemple : 8 février 2026 ou En continu."
+    - name: text
+      label: Texte
+      widget: text
+  documents_par_vehicule: &champs_documents_par_vehicule
+    - name: modernes
+      label: Véhicules MODERNES
+      widget: object
+      fields:
+        - name: documents
+          label: Documents
+          widget: list
+          fields: *champs_document
+        - name: observations
+          label: Observations
+          widget: list
+          required: false
+          fields: *champs_document
+    - name: vhc
+      label: Véhicules VHC
+      widget: object
+      fields:
+        - name: documents
+          label: Documents
+          widget: list
+          fields: *champs_document
+        - name: observations
+          label: Observations
+          widget: list
+          required: false
+          fields: *champs_document
+    - name: vhrs
+      label: Véhicules VHRS
+      widget: object
+      fields:
+        - name: documents
+          label: Documents
+          widget: list
+          fields: *champs_document
+        - name: observations
+          label: Observations
+          widget: list
+          required: false
+          fields: *champs_document
+    - name: vmrs
+      label: Véhicules VMRS
+      widget: object
+      fields:
+        - name: documents
+          label: Documents
+          widget: list
+          fields: *champs_document
+        - name: observations
+          label: Observations
+          widget: list
+          required: false
+          fields: *champs_document
+
+collections:
+  - name: actualites
+    label: Actualités
+    description: Les articles affichés sur l'accueil et la page Actualités.
+    icon: newspaper
+    files:
+      - name: actualites
+        label: Articles d'actualité
+        file: data/actualites.json
+        fields:
+          - name: commissaires
+            label: Actualités association (commissaires)
+            label_singular: article
+            widget: list
+            fields: *champs_actualite
+          - name: pilotes
+            label: Actualités pilotes
+            label_singular: article
+            widget: list
+            fields: *champs_actualite
+
+  - name: meetings
+    label: Meetings (calendrier)
+    description: La liste des meetings affichés dans le calendrier et les inscriptions.
+    icon: calendar_month
+    files:
+      - name: meetings
+        label: Liste des meetings
+        file: data/meetings.json
+        fields:
+          - name: meetings
+            label: Meetings de la saison
+            label_singular: meeting
+            widget: list
+            fields:
+              - name: id
+                label: Code du meeting
+                widget: string
+                pattern:
+                  - "^r\\d+$"
+                  - "Le code doit être la lettre r suivie d'un nombre, sans espace (exemple : r16)."
+                hint: "Code unique du meeting (exemple : r16 pour un nouveau meeting). NE PAS modifier le code d'un meeting existant."
+              - name: name
+                label: Nom du meeting
+                widget: string
+                hint: "Exemple : COUPE DE FRANCE DES CIRCUITS."
+              - name: date
+                label: Dates
+                widget: string
+                hint: "Texte libre affiché tel quel. Exemple : 23-24-25 octobre 2026."
+              - name: seasonLabel
+                label: Nom de la saison
+                widget: string
+                hint: "Exemple : Meetings Circuit 2026."
+              - name: kind
+                label: Type de meeting
+                widget: select
+                options:
+                  - { label: Circuit, value: circuit }
+                  - { label: Rallye, value: rallye }
+                  - { label: Course de côte, value: course-de-cote }
+              - name: location
+                label: Lieu
+                widget: string
+                hint: "Exemple : Circuit Dijon-Prenois."
+              - name: cardTone
+                label: Couleur spéciale de la carte
+                widget: select
+                required: false
+                options:
+                  - { label: "Rouge (événement solidaire)", value: red }
+                hint: "Facultatif. Laisser vide pour la couleur normale."
+              - name: generalCalendarOnly
+                label: Visible uniquement dans le calendrier général
+                widget: boolean
+                required: false
+                default: false
+                hint: "Cochez pour masquer ce meeting des pages d'inscription."
+              - name: hideFromCommissaireSignup
+                label: Masquer des inscriptions commissaires
+                widget: boolean
+                required: false
+                default: false
+                hint: "Cochez pour retirer ce meeting de la page d'inscription des commissaires."
+              - name: detailParagraphs
+                label: Texte de présentation
+                widget: list
+                required: false
+                field:
+                  name: paragraphe
+                  label: Paragraphe
+                  widget: text
+                hint: "Facultatif. Paragraphes affichés sur la page de détail du meeting."
+
+  - name: run_essence
+    label: Journal Run Essence
+    description: Les numéros PDF du journal mensuel Run Essence.
+    icon: menu_book
+    files:
+      - name: run_essence
+        label: Numéros du journal
+        file: data/run-essence.json
+        fields:
+          - name: issues
+            label: Numéros publiés
+            label_singular: numéro
+            widget: list
+            fields:
+              - name: id
+                label: Identifiant (année-mois)
+                widget: string
+                pattern:
+                  - "^\\d{4}-\\d{2}$"
+                  - "Écrivez l'année puis le mois en chiffres, séparés par un tiret (exemple : 2026-05)."
+                hint: "Sert à trier les numéros du plus récent au plus ancien. Exemple : 2026-05 pour mai 2026."
+              - name: issueLabel
+                label: Numéro
+                widget: string
+                hint: "Exemple : No 3."
+              - name: monthLabel
+                label: Mois
+                widget: string
+                hint: "Exemple : Mai 2026."
+              - name: title
+                label: Titre
+                widget: string
+                hint: "Exemple : RUN ESSENCE - Mai 2026."
+              - name: href
+                label: Fichier PDF du journal
+                widget: file
+                hint: "Le PDF du numéro à publier."
+
+  - name: pages
+    label: Pages du site
+    description: Les textes des pages Commissaires, Vie de l'ASA, Partenaires, etc.
+    icon: description
+    files:
+      - name: pages
+        label: Contenu des pages
+        file: data/pages.json
+        fields:
+          - name: commissaires
+            label: Page « Devenir commissaire »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+              - { name: commissionerTitle, label: Titre de la section, widget: string }
+              - name: commissionerTrainingLink
+                label: Lien vers le site de formation
+                widget: string
+                hint: "Adresse internet complète, commençant par https://"
+              - { name: commissionerTrainingLabel, label: Texte du bouton de formation, widget: string }
+              - { name: commissionerTrainingGalleryTitle, label: Titre de la galerie photos, widget: string }
+              - name: commissionerTrainingImages
+                label: Photos de la formation
+                widget: list
+                fields:
+                  - { name: src, label: Photo, widget: image }
+                  - { name: alt, label: Description de la photo, widget: string, hint: "Courte description pour les personnes malvoyantes." }
+              - name: commissionerParagraphs
+                label: Paragraphes du texte
+                widget: list
+                field: { name: paragraphe, label: Paragraphe, widget: text }
+          - name: pilotes
+            label: Page « Pilotes »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+              - { name: pilotShowcaseTitle, label: Titre de la vitrine des pilotes, widget: string }
+              - { name: pilotShowcaseIntro, label: Texte de la vitrine, widget: text }
+              - name: pilotShowcase
+                label: Pilotes de l'ASA
+                label_singular: pilote
+                widget: list
+                fields:
+                  - name: id
+                    label: Identifiant du pilote
+                    widget: string
+                    hint: "En minuscules avec des tirets, sans accent. Exemple : dupont-jean."
+                  - { name: lastName, label: NOM (en majuscules), widget: string }
+                  - { name: firstName, label: Prénom, widget: string }
+                  - name: image
+                    label: Carte du pilote
+                    widget: object
+                    fields:
+                      - { name: src, label: Photo de la carte, widget: image }
+                      - { name: alt, label: Description de la photo, widget: string }
+          - name: vie-asa
+            label: Page « La vie de l'ASA »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+              - { name: historyTitle, label: Titre de la section histoire, widget: string }
+              - name: historyParagraphs
+                label: Paragraphes de l'histoire
+                widget: list
+                field: { name: paragraphe, label: Paragraphe, widget: text }
+          - name: run-essence
+            label: Page « Run Essence »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+          - name: partenaires
+            label: Page « Nos partenaires »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+              - { name: annualPartnersTitle, label: Titre des partenaires annuels, widget: string }
+              - name: annualPartners
+                label: Partenaires annuels
+                label_singular: partenaire
+                widget: list
+                fields:
+                  - { name: name, label: Nom du partenaire, widget: string }
+                  - { name: short, label: Nom court, widget: string, required: false }
+                  - { name: logo, label: Logo, widget: image }
+                  - name: url
+                    label: Site internet
+                    widget: string
+                    required: false
+                    hint: "Facultatif. Adresse complète commençant par https://"
+              - { name: urcyPartnersTitle, label: Titre des partenaires Urcy, widget: string }
+              - name: urcyPartners
+                label: Partenaires Course de Côte d'Urcy
+                label_singular: partenaire
+                widget: list
+                fields:
+                  - { name: name, label: Nom du partenaire, widget: string }
+                  - { name: short, label: Nom court, widget: string, required: false }
+                  - { name: logo, label: Logo, widget: image }
+                  - name: url
+                    label: Site internet
+                    widget: string
+                    required: false
+                    hint: "Facultatif. Adresse complète commençant par https://"
+          - name: contact
+            label: Page « Contacts »
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+          - name: mentions-legales
+            label: Page « Mentions légales » (en-tête)
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+          - name: politique-confidentialite
+            label: Page « Politique de confidentialité » (en-tête)
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+          - name: politique-cookies
+            label: Page « Politique de cookies » (en-tête)
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string }
+              - { name: intro, label: Texte d'introduction, widget: text }
+
+  - name: inscriptions
+    label: Inscriptions et formulaires
+    description: Les textes et liens des espaces commissaires et pilotes.
+    icon: how_to_reg
+    files:
+      - name: profils
+        label: Espaces commissaires et pilotes
+        file: data/profils.json
+        fields:
+          - name: commissaire
+            label: Espace commissaires
+            widget: object
+            collapsed: true
+            fields:
+              - { name: key, widget: hidden, default: commissaire }
+              - { name: label, label: Nom du profil, widget: string }
+              - { name: seasonPill, label: Étiquette de saison, widget: string, hint: "Exemple : Saison 2026." }
+              - { name: heroTitle, label: Titre principal, widget: string }
+              - { name: heroSubtitle, label: Sous-titre, widget: text }
+              - { name: ctaPrimaryLabel, label: Texte du bouton principal, widget: string }
+              - { name: ctaSecondaryLabel, label: Texte du bouton secondaire, widget: string }
+              - { name: targetMembers, label: Objectif de membres, widget: number, value_type: int }
+              - name: forms
+                label: Formulaires et ouverture des inscriptions
+                widget: object
+                fields:
+                  - name: memberForm
+                    label: Lien du formulaire membre
+                    widget: string
+                    hint: "Adresse complète du formulaire d'inscription membre."
+                  - name: raceForm
+                    label: Lien du formulaire course (par défaut)
+                    widget: string
+                    hint: "Utilisé quand un meeting n'a pas de formulaire dédié."
+                  - name: signupClosedAll
+                    label: Fermer toutes les inscriptions par défaut
+                    widget: boolean
+                    default: false
+                    hint: "Si coché, seuls les meetings de la liste « ouverts » ci-dessous acceptent les inscriptions."
+                  - name: openRaceFormsByMeeting
+                    label: Meetings avec inscriptions OUVERTES
+                    widget: list
+                    required: false
+                    field: { name: code, label: Code du meeting, widget: string }
+                    hint: "Codes des meetings ouverts (exemple : r8). Utilisé quand tout est fermé par défaut."
+                  - name: closedRaceFormsByMeeting
+                    label: Meetings avec inscriptions FERMÉES
+                    widget: list
+                    required: false
+                    field: { name: code, label: Code du meeting, widget: string }
+                    hint: "Codes des meetings fermés (exemple : r4). Utilisé quand tout est ouvert par défaut."
+                  - name: raceFormsByMeeting
+                    label: Formulaires dédiés par meeting
+                    widget: list
+                    required: false
+                    fields:
+                      - { name: meeting, label: Code du meeting, widget: string, hint: "Exemple : r10." }
+                      - name: url
+                        label: Lien ou fichier du formulaire
+                        widget: string
+                        hint: "Adresse internet complète ou chemin d'un PDF du site."
+              - name: sections
+                label: Titres et textes des sections
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: calendarTitle, label: Titre du calendrier, widget: string }
+                  - { name: newsTitle, label: Titre des actualités, widget: string }
+                  - { name: resultsTitle, label: Titre des résultats, widget: string }
+                  - { name: profileSpaceTitle, label: Titre de l'espace, widget: string }
+                  - { name: memberFormTitle, label: Titre du formulaire membre, widget: string }
+                  - { name: memberFormText, label: Texte du formulaire membre, widget: text }
+                  - { name: raceFormTitle, label: Titre du formulaire course, widget: string }
+                  - { name: raceFormText, label: Texte du formulaire course, widget: text }
+              - name: resultsFeed
+                label: Résultats / informations brèves
+                label_singular: information
+                widget: list
+                required: false
+                fields: *champs_info_flash
+          - name: pilote
+            label: Espace pilotes
+            widget: object
+            collapsed: true
+            fields:
+              - { name: key, widget: hidden, default: pilote }
+              - { name: label, label: Nom du profil, widget: string }
+              - { name: seasonPill, label: Étiquette de saison, widget: string }
+              - { name: heroTitle, label: Titre principal, widget: string }
+              - { name: heroSubtitle, label: Sous-titre, widget: text }
+              - { name: ctaPrimaryLabel, label: Texte du bouton principal, widget: string }
+              - { name: ctaSecondaryLabel, label: Texte du bouton secondaire, widget: string }
+              - { name: targetMembers, label: Objectif de membres, widget: number, value_type: int }
+              - name: forms
+                label: Formulaires et ouverture des inscriptions
+                widget: object
+                fields:
+                  - name: memberForm
+                    label: Lien du formulaire membre
+                    widget: string
+                  - name: raceForm
+                    label: Lien du formulaire course (par défaut)
+                    widget: string
+                  - name: signupClosedAll
+                    label: Fermer toutes les inscriptions par défaut
+                    widget: boolean
+                    default: false
+                  - name: openRaceFormsByMeeting
+                    label: Meetings avec inscriptions OUVERTES
+                    widget: list
+                    required: false
+                    field: { name: code, label: Code du meeting, widget: string }
+                  - name: closedRaceFormsByMeeting
+                    label: Meetings avec inscriptions FERMÉES
+                    widget: list
+                    required: false
+                    field: { name: code, label: Code du meeting, widget: string }
+                  - name: raceFormsByMeeting
+                    label: Formulaires dédiés par meeting
+                    widget: list
+                    required: false
+                    fields:
+                      - { name: meeting, label: Code du meeting, widget: string }
+                      - { name: url, label: Lien ou fichier du formulaire, widget: string }
+              - name: sections
+                label: Titres et textes des sections
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: calendarTitle, label: Titre du calendrier, widget: string }
+                  - { name: newsTitle, label: Titre des actualités, widget: string }
+                  - { name: resultsTitle, label: Titre des résultats, widget: string }
+                  - { name: profileSpaceTitle, label: Titre de l'espace, widget: string }
+                  - { name: memberFormTitle, label: Titre du formulaire membre, widget: string }
+                  - { name: memberFormText, label: Texte du formulaire membre, widget: text }
+                  - { name: raceFormTitle, label: Titre du formulaire course, widget: string }
+                  - { name: raceFormText, label: Texte du formulaire course, widget: text }
+              - name: resultsFeed
+                label: Résultats / informations brèves
+                label_singular: information
+                widget: list
+                required: false
+                fields: *champs_info_flash
+
+  - name: documents_pilotes
+    label: Documents pilotes
+    description: Les listes de documents affichées sur les pages de détail des meetings.
+    icon: folder_open
+    files:
+      - name: documents_pilotes
+        label: Documents par type d'épreuve et par meeting
+        file: data/documents-pilotes.json
+        fields:
+          - name: parType
+            label: Documents par type d'épreuve
+            widget: object
+            collapsed: true
+            fields:
+              - name: rallye
+                label: Rallye
+                widget: object
+                fields:
+                  - name: commonDocuments
+                    label: Documents communs
+                    widget: list
+                    fields: *champs_document
+                  - name: vehicleDocuments
+                    label: Documents par type de véhicule
+                    widget: object
+                    fields: *champs_documents_par_vehicule
+              - name: course-de-cote
+                label: Course de côte
+                widget: object
+                fields:
+                  - name: commonDocuments
+                    label: Documents communs
+                    widget: list
+                    fields: *champs_document
+                  - name: vehicleDocuments
+                    label: Documents par type de véhicule
+                    widget: object
+                    fields: *champs_documents_par_vehicule
+          - name: parMeeting
+            label: Documents spécifiques à un meeting
+            label_singular: meeting
+            widget: list
+            required: false
+            fields:
+              - name: meeting
+                label: Code du meeting
+                widget: string
+                hint: "Exemple : r10. Le code se trouve dans la liste des meetings."
+              - name: commonDocuments
+                label: Documents communs
+                widget: list
+                fields: *champs_document
+              - name: pilotDocuments
+                label: Documents pilotes
+                widget: list
+                required: false
+                fields: *champs_document
+              - name: vehicleDocuments
+                label: Documents par type de véhicule
+                widget: object
+                required: false
+                fields: *champs_documents_par_vehicule
+
+  - name: contact
+    label: Contact
+    description: Les horaires du bureau et l'adresse email de contact.
+    icon: call
+    files:
+      - name: contact
+        label: Informations de contact
+        file: data/contact.json
+        fields:
+          - { name: officeHoursTitle, label: Titre des horaires, widget: string }
+          - name: officeHours
+            label: Horaires du bureau
+            label_singular: jour
+            widget: list
+            fields:
+              - { name: day, label: Jour, widget: string, hint: "Exemple : Lundi." }
+              - { name: hours, label: Horaires, widget: string, hint: "Exemple : 14h-17h ou Fermé au public." }
+          - { name: contactTitle, label: Titre de la section contact, widget: string }
+          - name: email
+            label: Adresse email de contact
+            widget: string
+            hint: "L'adresse copiée quand un visiteur clique sur le bouton."
+
+  - name: legal
+    label: Pages légales
+    description: Mentions légales, politique de confidentialité et cookies.
+    icon: gavel
+    files:
+      - name: legal
+        label: Textes légaux
+        file: data/legal.json
+        fields:
+          - name: mentions-legales
+            label: Mentions légales
+            widget: object
+            collapsed: true
+            fields:
+              - name: updatedAt
+                label: Date de mise à jour
+                widget: string
+                hint: "Exemple : Dernière mise à jour: 15 mars 2026."
+              - name: sections
+                label: Sections
+                label_singular: section
+                widget: list
+                fields:
+                  - { name: title, label: Titre de la section, widget: string }
+                  - name: paragraphs
+                    label: Paragraphes
+                    widget: list
+                    field: { name: paragraphe, label: Paragraphe, widget: text }
+          - name: politique-confidentialite
+            label: Politique de confidentialité
+            widget: object
+            collapsed: true
+            fields:
+              - name: updatedAt
+                label: Date de mise à jour
+                widget: string
+              - name: sections
+                label: Sections
+                label_singular: section
+                widget: list
+                fields:
+                  - { name: title, label: Titre de la section, widget: string }
+                  - name: paragraphs
+                    label: Paragraphes
+                    widget: list
+                    field: { name: paragraphe, label: Paragraphe, widget: text }
+          - name: politique-cookies
+            label: Politique de cookies
+            widget: object
+            collapsed: true
+            fields:
+              - name: updatedAt
+                label: Date de mise à jour
+                widget: string
+              - name: sections
+                label: Sections
+                label_singular: section
+                widget: list
+                fields:
+                  - { name: title, label: Titre de la section, widget: string }
+                  - name: paragraphs
+                    label: Paragraphes
+                    widget: list
+                    field: { name: paragraphe, label: Paragraphe, widget: text }

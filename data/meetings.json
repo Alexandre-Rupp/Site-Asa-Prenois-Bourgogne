@@ -1,0 +1,134 @@
+{
+  "meetings": [
+    {
+      "id": "r1",
+      "name": "FUN RACING CAR",
+      "date": "10-11-12 avril 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r2",
+      "name": "CATERHAM",
+      "date": "17-18-19 avril 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r3",
+      "name": "HISTORIC TOUR",
+      "date": "24-25-26 avril 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r4",
+      "name": "CHAMPIONNAT DE FRANCE GT",
+      "date": "14-15-16-17 mai 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r5",
+      "name": "PORSCHE SPRINT CHALLENGE FRANCE",
+      "date": "29-30 mai 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r6",
+      "name": "GRAND PRIX DE L'ÂGE D'OR",
+      "date": "4-5-6-7 juin 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r7",
+      "name": "TROPHÉE TOURISME ENDURANCE",
+      "date": "26-27-28 juin 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r8",
+      "name": "DIJON MOTORS CUP",
+      "date": "10-11-12-13 septembre 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r9",
+      "name": "LAMERA CUP",
+      "date": "16-17-18 octobre 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r10",
+      "name": "COUPE DE FRANCE DES CIRCUITS",
+      "date": "23-24-25 octobre 2026",
+      "seasonLabel": "Meetings Circuit 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois"
+    },
+    {
+      "id": "r11",
+      "name": "2ÈME RALLYE NATIONAL DE BLIGNY SUR OUCHE",
+      "date": "08-09 mai 2026",
+      "seasonLabel": "Meetings Rallye 2026",
+      "kind": "rallye",
+      "location": "Bligny-sur-Ouche"
+    },
+    {
+      "id": "r12",
+      "name": "64ÈME COURSE DE CÔTE D'URCY",
+      "date": "25-26 juillet 2026",
+      "seasonLabel": "Meetings Course de côte 2026",
+      "kind": "course-de-cote",
+      "location": "Urcy"
+    },
+    {
+      "id": "r13",
+      "name": "24ÈME RALLYE RÉGIONAL DE L'AUXOIS",
+      "date": "19 septembre 2026",
+      "seasonLabel": "Meetings Rallye 2026",
+      "kind": "rallye",
+      "location": "Auxois",
+      "hideFromCommissaireSignup": true
+    },
+    {
+      "id": "r15",
+      "name": "RÊVES D'ENFANTS MALADES",
+      "date": "10 octobre 2026",
+      "seasonLabel": "Événement solidaire 2026",
+      "kind": "circuit",
+      "location": "Circuit Dijon-Prenois",
+      "cardTone": "red",
+      "generalCalendarOnly": true,
+      "detailParagraphs": [
+        "Le Lions Club Dijon Doyen organise la 15ème édition de la Journée Rêves d’Enfants Malades, en partenariat avec le Club Ferrari France sur le Circuit Dijon-Prenois le samedi 10 octobre 2026.",
+        "De 9h30 à 12h et de 13h30 à 17h, vous pourrez faire des baptêmes de piste dans des véhicules de prestige. Restauration sur place possible.",
+        "Après 17h, à l’issue des baptêmes, assistez à la parade des véhicules d’exposition et ceux de nos différents intervenants. Nous vous attendons nombreux !",
+        "BAPTÊME DE PISTE ADULTE/ENFANT : 70 €",
+        "Ouverture au public dès 9h."
+      ]
+    },
+    {
+      "id": "r14",
+      "name": "TOUR DE BOURGOGNE CLASSIC",
+      "date": "23-24-25 octobre 2026",
+      "seasonLabel": "Meetings Rallye 2026",
+      "kind": "rallye",
+      "location": "Bourgogne"
+    }
+  ]
+}

@@ -6,8 +6,24 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 const BASE_URL = "https://www.asa-prenois-bourgogne.org";
 
-const FILES_WITH_ASSETS = ["index.html", "app.js", "site-data.js", "styles.css"];
-const FILES_WITH_URLS = ["index.html", "app.js", "site-data.js", "sitemap.xml", "robots.txt"];
+function listDataFiles() {
+  return fs
+    .readdirSync(path.join(ROOT, "data"))
+    .filter((name) => name.endsWith(".json"))
+    .map((name) => `data/${name}`)
+    .sort();
+}
+
+const DATA_FILES = listDataFiles();
+const FILES_WITH_ASSETS = ["index.html", "app.js", "styles.css", ...DATA_FILES];
+const FILES_WITH_URLS = [
+  "index.html",
+  "app.js",
+  "sitemap.xml",
+  "robots.txt",
+  "admin/config.yml",
+  ...DATA_FILES,
+];
 
 function readFile(relativePath) {
   return fs.readFileSync(path.join(ROOT, relativePath), "utf8");
@@ -22,15 +38,25 @@ function normalizePathname(pathname) {
   return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 }
 
-function collectMeetingIds(siteDataContent) {
-  const ids = new Set();
-  const regex = /\bid:\s*"(r\d+)"/g;
-  let match = regex.exec(siteDataContent);
-  while (match) {
-    ids.add(match[1]);
-    match = regex.exec(siteDataContent);
-  }
-  return [...ids];
+function collectMeetingIds() {
+  const meetingsJson = JSON.parse(readFile("data/meetings.json"));
+  return (meetingsJson.meetings || [])
+    .map((meeting) => meeting.id)
+    .filter((id) => /^r\d+$/.test(String(id || "")));
+}
+
+function checkDataJsonValidity() {
+  const invalid = [];
+
+  DATA_FILES.forEach((relativePath) => {
+    try {
+      JSON.parse(readFile(relativePath));
+    } catch (error) {
+      invalid.push({ file: relativePath, message: error.message });
+    }
+  });
+
+  return invalid;
 }
 
 function getExpectedSitemapPaths(meetingIds) {
@@ -145,9 +171,8 @@ function checkUrls() {
 }
 
 function checkSitemapCoverage() {
-  const siteDataContent = readFile("site-data.js");
   const sitemapContent = readFile("sitemap.xml");
-  const meetingIds = collectMeetingIds(siteDataContent);
+  const meetingIds = collectMeetingIds();
   const expected = getExpectedSitemapPaths(meetingIds);
   const actual = collectSitemapPaths(sitemapContent);
 
@@ -158,11 +183,20 @@ function checkSitemapCoverage() {
 }
 
 function main() {
+  const invalidDataJson = checkDataJsonValidity();
   const missingAssets = checkAssetReferences();
   const { invalid: invalidUrls, nonHttps } = checkUrls();
   const sitemap = checkSitemapCoverage();
 
   let hasError = false;
+
+  if (invalidDataJson.length) {
+    hasError = true;
+    console.error("Fichiers data/*.json invalides:");
+    invalidDataJson.forEach((item) => {
+      console.error(`- ${item.file} -> ${item.message}`);
+    });
+  }
 
   if (missingAssets.length) {
     hasError = true;
@@ -208,7 +242,9 @@ function main() {
     return;
   }
 
-  console.log("OK: verifications qualite passees (assets, URLs, sitemap).");
+  console.log(
+    "OK: verifications qualite passees (JSON data, assets, URLs, sitemap)."
+  );
 }
 
 main();
