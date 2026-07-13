@@ -1,7 +1,7 @@
 {
   "meetings": [
     {
-      "id": "r1",
+      "id": "fun-racing-car",
       "name": "FUN RACING CAR",
       "date": "10-11-12 avril 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -9,7 +9,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r2",
+      "id": "caterham",
       "name": "CATERHAM",
       "date": "17-18-19 avril 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -17,7 +17,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r3",
+      "id": "historic-tour",
       "name": "HISTORIC TOUR",
       "date": "24-25-26 avril 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -25,7 +25,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r4",
+      "id": "championnat-de-france-gt",
       "name": "CHAMPIONNAT DE FRANCE GT",
       "date": "14-15-16-17 mai 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -33,7 +33,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r5",
+      "id": "porsche-sprint-challenge-france",
       "name": "PORSCHE SPRINT CHALLENGE FRANCE",
       "date": "29-30 mai 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -41,7 +41,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r6",
+      "id": "grand-prix-de-l-age-d-or",
       "name": "GRAND PRIX DE L'ÂGE D'OR",
       "date": "4-5-6-7 juin 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -49,7 +49,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r7",
+      "id": "trophee-tourisme-endurance",
       "name": "TROPHÉE TOURISME ENDURANCE",
       "date": "26-27-28 juin 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -57,7 +57,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r8",
+      "id": "dijon-motors-cup",
       "name": "DIJON MOTORS CUP",
       "date": "10-11-12-13 septembre 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -65,7 +65,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r9",
+      "id": "lamera-cup",
       "name": "LAMERA CUP",
       "date": "16-17-18 octobre 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -73,7 +73,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r10",
+      "id": "coupe-de-france-des-circuits",
       "name": "COUPE DE FRANCE DES CIRCUITS",
       "date": "23-24-25 octobre 2026",
       "seasonLabel": "Meetings Circuit 2026",
@@ -81,7 +81,7 @@
       "location": "Circuit Dijon-Prenois"
     },
     {
-      "id": "r11",
+      "id": "rallye-de-bligny-sur-ouche",
       "name": "2ÈME RALLYE NATIONAL DE BLIGNY SUR OUCHE",
       "date": "08-09 mai 2026",
       "seasonLabel": "Meetings Rallye 2026",
@@ -89,7 +89,7 @@
       "location": "Bligny-sur-Ouche"
     },
     {
-      "id": "r12",
+      "id": "course-de-cote-urcy",
       "name": "64ÈME COURSE DE CÔTE D'URCY",
       "date": "25-26 juillet 2026",
       "seasonLabel": "Meetings Course de côte 2026",
@@ -97,7 +97,7 @@
       "location": "Urcy"
     },
     {
-      "id": "r13",
+      "id": "rallye-de-l-auxois",
       "name": "24ÈME RALLYE RÉGIONAL DE L'AUXOIS",
       "date": "19 septembre 2026",
       "seasonLabel": "Meetings Rallye 2026",
@@ -106,7 +106,7 @@
       "hideFromCommissaireSignup": true
     },
     {
-      "id": "r15",
+      "id": "reves-d-enfants-malades",
       "name": "RÊVES D'ENFANTS MALADES",
       "date": "10 octobre 2026",
       "seasonLabel": "Événement solidaire 2026",
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "id": "r14",
+      "id": "tour-de-bourgogne-classic",
       "name": "TOUR DE BOURGOGNE CLASSIC",
       "date": "23-24-25 octobre 2026",
       "seasonLabel": "Meetings Rallye 2026",

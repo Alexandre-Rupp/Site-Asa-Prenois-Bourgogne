@@ -166,12 +166,12 @@ collections:
             widget: list
             fields:
               - name: id
-                label: Code du meeting
+                label: Adresse internet du meeting
                 widget: string
                 pattern:
-                  - "^r\\d+$"
-                  - "Le code doit être la lettre r suivie d'un nombre, sans espace (exemple : r16)."
-                hint: "Code unique du meeting (exemple : r16 pour un nouveau meeting). NE PAS modifier le code d'un meeting existant."
+                  - "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  - "Écrivez le nom en minuscules, sans accent ni apostrophe, avec des tirets entre les mots (exemple : course-de-cote-urcy)."
+                hint: "Nom simplifié utilisé dans l'adresse de la page (exemple : course-de-cote-urcy). NE PAS modifier pour un meeting existant, sinon son adresse change."
               - name: name
                 label: Nom du meeting
                 widget: string
@@ -447,20 +447,44 @@ collections:
                     label: Meetings avec inscriptions OUVERTES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
-                    hint: "Codes des meetings ouverts (exemple : r8). Utilisé quand tout est fermé par défaut."
+                    hint: "Meetings qui acceptent les inscriptions. Utilisé quand tout est fermé par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: closedRaceFormsByMeeting
                     label: Meetings avec inscriptions FERMÉES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
-                    hint: "Codes des meetings fermés (exemple : r4). Utilisé quand tout est ouvert par défaut."
+                    hint: "Meetings qui refusent les inscriptions. Utilisé quand tout est ouvert par défaut."
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: raceFormsByMeeting
                     label: Formulaires dédiés par meeting
                     widget: list
                     required: false
                     fields:
-                      - { name: meeting, label: Code du meeting, widget: string, hint: "Exemple : r10." }
+                      - name: meeting
+                        label: Épreuve
+                        widget: relation
+                        collection: meetings
+                        file: meetings
+                        search_fields: ["meetings.*.name"]
+                        display_fields: ["meetings.*.name"]
+                        value_field: "meetings.*.id"
+                        hint: "Choisissez l'épreuve concernée par son nom."
                       - name: url
                         label: Lien ou fichier du formulaire
                         widget: string
@@ -515,18 +539,42 @@ collections:
                     label: Meetings avec inscriptions OUVERTES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: closedRaceFormsByMeeting
                     label: Meetings avec inscriptions FERMÉES
                     widget: list
                     required: false
-                    field: { name: code, label: Code du meeting, widget: string }
+                    field:
+                      name: code
+                      label: Épreuve
+                      widget: relation
+                      collection: meetings
+                      file: meetings
+                      search_fields: ["meetings.*.name"]
+                      display_fields: ["meetings.*.name"]
+                      value_field: "meetings.*.id"
                   - name: raceFormsByMeeting
                     label: Formulaires dédiés par meeting
                     widget: list
                     required: false
                     fields:
-                      - { name: meeting, label: Code du meeting, widget: string }
+                      - name: meeting
+                        label: Épreuve
+                        widget: relation
+                        collection: meetings
+                        file: meetings
+                        search_fields: ["meetings.*.name"]
+                        display_fields: ["meetings.*.name"]
+                        value_field: "meetings.*.id"
+                        hint: "Choisissez l'épreuve concernée par son nom."
                       - { name: url, label: Lien ou fichier du formulaire, widget: string }
               - name: sections
                 label: Titres et textes des sections
@@ -593,9 +641,14 @@ collections:
             required: false
             fields:
               - name: meeting
-                label: Code du meeting
-                widget: string
-                hint: "Exemple : r10. Le code se trouve dans la liste des meetings."
+                label: Épreuve
+                widget: relation
+                collection: meetings
+                file: meetings
+                search_fields: ["meetings.*.name"]
+                display_fields: ["meetings.*.name"]
+                value_field: "meetings.*.id"
+                hint: "Choisissez l'épreuve concernée par son nom."
               - name: commonDocuments
                 label: Documents communs
                 widget: list

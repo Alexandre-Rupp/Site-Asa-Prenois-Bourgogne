@@ -58,30 +58,30 @@ const VEHICLE_TYPE_FILTER_OPTIONS = [
   { value: "vhrs", label: "VHRS" },
   { value: "vmrs", label: "VMRS" },
 ];
-const ACCUEIL_URCY_MEETING_ID = "r12";
-const PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS = new Set(["r12"]);
+const ACCUEIL_URCY_MEETING_ID = "course-de-cote-urcy";
+const PILOT_SIGNUP_MEETINGS_HIDE_VEHICLE_DOCS = new Set(["course-de-cote-urcy"]);
 const DEFAULT_THEME_COLOR = "#0d5fd0";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
-  r11: "https://rallyedeblignysurouche.fr/",
+  "rallye-de-bligny-sur-ouche": "https://rallyedeblignysurouche.fr/",
 };
 const MEETING_VISUALS = {
-  r1: "assets/meetings/fun-racing-car.webp",
-  r2: "assets/meetings/caterham.webp",
-  r3: "assets/meetings/historic-tour.webp",
-  r4: "assets/meetings/championnat-de-france-gt.webp",
-  r5: "assets/meetings/porsche-sprint-challenge-france.webp",
-  r6: "assets/meetings/grand-prix-de-l-age-d-or.webp",
-  r7: "assets/meetings/trophee-tourisme-endurance.webp",
-  r8: "assets/meetings/dijon-motors-cup.webp",
-  r9: "assets/meetings/lamera-cup.webp",
-  r10: "assets/meetings/Poster Coupe de France (7).webp",
-  r12: "assets/meetings/urcy.webp",
-  r13: "assets/meetings/Rallye de l'Auxois.webp",
-  r15: "assets/meetings/reves-enfants-malades-2026.webp",
+  "fun-racing-car": "assets/meetings/fun-racing-car.webp",
+  caterham: "assets/meetings/caterham.webp",
+  "historic-tour": "assets/meetings/historic-tour.webp",
+  "championnat-de-france-gt": "assets/meetings/championnat-de-france-gt.webp",
+  "porsche-sprint-challenge-france": "assets/meetings/porsche-sprint-challenge-france.webp",
+  "grand-prix-de-l-age-d-or": "assets/meetings/grand-prix-de-l-age-d-or.webp",
+  "trophee-tourisme-endurance": "assets/meetings/trophee-tourisme-endurance.webp",
+  "dijon-motors-cup": "assets/meetings/dijon-motors-cup.webp",
+  "lamera-cup": "assets/meetings/lamera-cup.webp",
+  "coupe-de-france-des-circuits": "assets/meetings/Poster Coupe de France (7).webp",
+  "course-de-cote-urcy": "assets/meetings/urcy.webp",
+  "rallye-de-l-auxois": "assets/meetings/Rallye de l'Auxois.webp",
+  "reves-d-enfants-malades": "assets/meetings/reves-enfants-malades-2026.webp",
 };
 const COMMISSAIRE_MEETING_DOCUMENTS = {
-  r3: [
+  "historic-tour": [
     {
       title: "Horaires Historic Tour Dijon 2026",
       description: "Document horaires officiel - Historic Tour.",
@@ -95,7 +95,7 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
       ctaLabel: "Ouvrir le document",
     },
   ],
-  r12: [
+  "course-de-cote-urcy": [
     {
       title: "Carte générale Urcy 2026",
       description: "Carte générale officielle de la Course de Côte d'Urcy 2026.",
@@ -117,7 +117,7 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
   ],
 };
 const MEETING_SHARED_DOCUMENTS = {
-  r12: [
+  "course-de-cote-urcy": [
     {
       title: "Carte générale Urcy 2026",
       description: "PDF carte générale du meeting.",
@@ -149,7 +149,7 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
   ],
-  r14: [
+  "tour-de-bourgogne-classic": [
     {
       title: "Tour de Bourgogne - Document",
       description: "Document PDF du Tour de Bourgogne.",
@@ -159,22 +159,22 @@ const MEETING_SHARED_DOCUMENTS = {
   ],
 };
 const MEETING_PROMOTER_LOGOS = {
-  r1: { src: "assets/promoters/fun-racing-cars.webp", alt: "Logo Fun Racing Cars" },
-  r2: { src: "assets/promoters/Catheram.webp", alt: "Logo Caterham" },
-  r3: { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
-  r4: {
+  "fun-racing-car": { src: "assets/promoters/fun-racing-cars.webp", alt: "Logo Fun Racing Cars" },
+  caterham: { src: "assets/promoters/Catheram.webp", alt: "Logo Caterham" },
+  "historic-tour": { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
+  "championnat-de-france-gt": {
     src: "assets/promoters/gt4.webp",
     alt: "Logo Championnat de France GT4",
   },
-  r5: {
+  "porsche-sprint-challenge-france": {
     src: "assets/promoters/porsche.webp",
     alt: "Logo Porsche Sprint Challenge France",
   },
-  r6: { src: "assets/promoters/peter-auto.webp", alt: "Logo Peter Auto" },
-  r7: { src: "assets/promoters/tte-2016.webp", alt: "Logo Trophee Tourisme Endurance" },
-  r8: { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
-  r9: { src: "assets/promoters/lamera-cup.webp", alt: "Logo Lamera Cup" },
-  r10: {
+  "grand-prix-de-l-age-d-or": { src: "assets/promoters/peter-auto.webp", alt: "Logo Peter Auto" },
+  "trophee-tourisme-endurance": { src: "assets/promoters/tte-2016.webp", alt: "Logo Trophee Tourisme Endurance" },
+  "dijon-motors-cup": { src: "assets/promoters/hvm.webp", alt: "Logo HVM" },
+  "lamera-cup": { src: "assets/promoters/lamera-cup.webp", alt: "Logo Lamera Cup" },
+  "coupe-de-france-des-circuits": {
     src: "assets/promoters/coupe-de-france-des-circuits.webp",
     alt: "Logo Coupe de France des Circuits",
   },
@@ -895,7 +895,7 @@ function canShowSignupForMeeting(profileKey, meeting) {
   return (
     meeting.kind === "rallye" ||
     meeting.kind === "course-de-cote" ||
-    meeting.id === "r10"
+    meeting.id === "coupe-de-france-des-circuits"
   );
 }
 
