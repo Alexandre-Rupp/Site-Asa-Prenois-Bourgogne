@@ -1,20 +1,19 @@
 // Main application orchestrator: renders views and binds feature modules.
-import {
-  CONTACT_PAGE_CONTENT,
-  LEGAL_PAGE_CONTENT,
-  MEETINGS,
-  NAV_ITEMS,
-  PAGE_SKELETONS,
-  PILOT_MEETING_DOCUMENTATION,
-  PILOT_MEETING_DOCUMENTATION_BY_MEETING,
-  PROFILE_CONTENT,
-  RUN_ESSENCE_ARCHIVES,
-  TARGET_YEAR,
-} from "./site-data.js?v=20260414-1";
+import { loadSiteContent } from "./src/core/content-loader.js?v=20260712-1";
 import {
   parseRoute,
   updateDocumentSeo,
 } from "./src/core/routing.js?v=20260413-8";
+
+// Contenus charges depuis data/*.json au demarrage (voir mount()).
+let MEETINGS = [];
+let RUN_ESSENCE_ARCHIVES = [];
+let PROFILE_CONTENT = {};
+let PAGE_SKELETONS = {};
+let CONTACT_PAGE_CONTENT = {};
+let LEGAL_PAGE_CONTENT = {};
+let PILOT_MEETING_DOCUMENTATION = {};
+let PILOT_MEETING_DOCUMENTATION_BY_MEETING = {};
 
 const MONTH_INDEX = {
   janvier: 0,
@@ -2636,12 +2635,55 @@ function bindClientRouteLinks() {
   });
 }
 
+function renderContentLoadError() {
+  const appRoot = byId("app");
+  if (!appRoot) return;
+
+  appRoot.innerHTML = `
+    <div class="view-stack">
+      <section class="section">
+        <div class="section-head">
+          <h2>Contenu momentanément indisponible</h2>
+          <p>
+            Le chargement des contenus du site a échoué. Vérifiez votre connexion
+            puis rechargez la page.
+          </p>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="window.location.reload()">
+          Recharger la page
+        </button>
+      </section>
+    </div>
+  `;
+}
+
+function applySiteContent(content) {
+  MEETINGS = content.meetings;
+  RUN_ESSENCE_ARCHIVES = content.runEssenceArchives;
+  PROFILE_CONTENT = content.profileContent;
+  PAGE_SKELETONS = content.pageSkeletons;
+  CONTACT_PAGE_CONTENT = content.contactPageContent;
+  LEGAL_PAGE_CONTENT = content.legalPageContent;
+  PILOT_MEETING_DOCUMENTATION = content.pilotMeetingDocumentation;
+  PILOT_MEETING_DOCUMENTATION_BY_MEETING =
+    content.pilotMeetingDocumentationByMeeting;
+}
+
 // Application bootstrap.
-function mount() {
+async function mount() {
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
   if (themeColorMeta) {
     themeColorMeta.setAttribute("content", DEFAULT_THEME_COLOR);
   }
+
+  try {
+    applySiteContent(await loadSiteContent());
+  } catch (error) {
+    console.error("Echec du chargement des contenus du site.", error);
+    renderContentLoadError();
+    return;
+  }
+
   bindClientRouteLinks();
   topbarMenuController = createTopbarMenuController({
     onMenuStateChange: updateTopbarHeightVar,
