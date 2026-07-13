@@ -64,6 +64,13 @@ vercel --prod
 ### Routing
 Les URLs applicatives (`/actualites`, `/meetings/...`, etc.) sont redirigees vers `index.html` via `vercel.json`, ce qui evite les 404 lors d'un refresh.
 
+## Administration du contenu (CMS)
+Les membres du bureau peuvent modifier textes, meetings, actualites,
+images et PDF depuis l'interface `/admin` (Sveltia CMS). Chaque
+publication cree un commit sur `main` et redeploye le site
+automatiquement. Installation et guide utilisateur:
+[CMS-SETUP.md](./docs/CMS-SETUP.md).
+
 ## Architecture
 ```mermaid
 flowchart LR
@@ -71,36 +78,57 @@ flowchart LR
   B --> C[src/core/routing.js]
   B --> D[src/core/topbar-menu.js]
   B --> E[src/utils/dom.js]
-  B --> F[site-data.js]
+  B --> H[src/core/content-loader.js]
+  H --> F[data/*.json]
   F --> G[Contenus metier]
+  I[admin/ Sveltia CMS] -->|commits Git| F
+  I --> J[api/ OAuth GitHub]
 ```
 
 Resume:
-- `site-data.js` contient uniquement des donnees metier.
-- `src/core/*` contient la logique transverse (routing/navigation).
+- `data/*.json` contient uniquement des donnees metier (editees via `/admin`).
+- `src/core/*` contient la logique transverse (chargement contenu/routing/navigation).
 - `app.js` orchestre les vues et branche les modules.
 - `src/utils/*` contient des fonctions reutilisables sans logique metier.
+- `admin/` et `api/` portent le CMS et son authentification GitHub.
 
 ## Structure du projet
 ```text
 Site-circuit/
+  admin/                 # Interface d'administration Sveltia CMS (/admin)
+    index.html
+    config.yml           # Collections editables (labels en francais)
+  api/
+    auth.js              # OAuth GitHub - autorisation (fonction Vercel)
+    callback.js          # OAuth GitHub - callback + postMessage CMS
   assets/                # Images, PDF, logos, medias
-  docs/                  # Documentation architecture + standards
+    uploads/             # Medias televerses depuis le CMS
+  data/                  # Donnees de contenu editables (JSON)
+    meetings.json        # Calendrier des meetings
+    actualites.json      # Articles commissaires + pilotes
+    profils.json         # Espaces commissaires/pilotes + formulaires
+    pages.json           # Textes des pages du site
+    contact.json         # Horaires bureau + email
+    legal.json           # Mentions legales / confidentialite / cookies
+    documents-pilotes.json # Listes de documents par epreuve/meeting
+    run-essence.json     # Numeros du journal Run Essence
+  docs/                  # Documentation architecture + standards + CMS
   src/
     core/
+      content-loader.js  # Chargement fetch() des data/*.json
       routing.js         # Parsing des routes et titre document
       topbar-menu.js     # Navigation topbar / burger mobile
     utils/
       dom.js             # Helpers DOM (escape, byId)
   app.js                 # Orchestrateur principal (render + cycle route)
   index.html             # Shell HTML
-  site-data.js           # Donnees de contenu (meetings, pages, textes)
   styles.css             # Styles globaux et responsive
-  vercel.json            # Rewrites Vercel pour routing SPA
+  vercel.json            # Rewrites Vercel (routing SPA, hors /admin et /api)
 ```
 
 ## Documentation
 - Architecture: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- CMS (installation + guide utilisateur): [CMS-SETUP.md](./docs/CMS-SETUP.md)
 - Standards de code: [CODING-STANDARDS.md](./docs/CODING-STANDARDS.md)
 - Contribution: [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 - Roadmap technique: [REFACTOR-ROADMAP.md](./docs/REFACTOR-ROADMAP.md)
