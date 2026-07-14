@@ -34,7 +34,9 @@ const MONTH_INDEX = {
 };
 
 const CANONICAL_ORIGIN = "https://www.asa-prenois-bourgogne.org";
-const MOBILE_NAV_BREAKPOINT = 980;
+// Doit rester aligne sur le breakpoint CSS de la navigation mobile
+// (@media max-width: 1419.98px dans styles.css).
+const MOBILE_NAV_BREAKPOINT = 1419;
 const FEED_CAROUSEL_AUTOPLAY_DELAY_MS = 4500;
 const FEED_TEXT_PREVIEW_LENGTH = 170;
 const COMMISSIONER_TRAINING_IMAGE_DIRECTORY = "assets/news/formation-commissaire";
@@ -1310,6 +1312,16 @@ function renderAccueilView() {
                       loading="lazy"
                     ></iframe>
                   </div>
+                  <p class="run-essence-home-mobile-open">
+                    <a
+                      class="btn btn-primary"
+                      href="${escapeHtml(runEssenceHomeIssue.href)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ouvrir le journal (PDF)
+                    </a>
+                  </p>
                 `
                 : `
                   <p>Le num\u00E9ro 2 de RUN ESSENCE sera publi\u00E9 prochainement.</p>
