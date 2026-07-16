@@ -320,23 +320,14 @@ body {
   transform: translate(3.65em, 0.25em);
 }
 
-.theme-sun-icon,
-.theme-moon-icon {
+.theme-sun-icon {
   display: block;
   height: 1.6em;
   width: 1.6em;
-}
-
-.theme-sun-icon {
   color: #ffbb52;
 }
 
-.theme-moon-icon {
-  color: #ffffff;
-}
-
-.theme-sun-icon-wrapper,
-.theme-moon-icon-wrapper {
+.theme-sun-icon-wrapper {
   position: absolute;
   height: 3em;
   width: 3em;
@@ -344,9 +335,6 @@ body {
   align-items: center;
   justify-content: center;
   transform-origin: 50% 50%;
-}
-
-.theme-sun-icon-wrapper {
   top: 0.25em;
   left: 0.3em;
   opacity: 1;
@@ -359,21 +347,6 @@ body {
 .theme-toggle-checkbox:checked ~ .theme-toggle-slot .theme-sun-icon-wrapper {
   opacity: 0;
   transform: translate(1em, 0) rotate(0deg);
-}
-
-.theme-moon-icon-wrapper {
-  top: 0.25em;
-  left: 3.65em;
-  opacity: 0;
-  transform: rotate(0deg);
-  transition:
-    opacity 150ms,
-    transform 500ms cubic-bezier(0.26, 2.5, 0.46, 0.71);
-}
-
-.theme-toggle-checkbox:checked ~ .theme-toggle-slot .theme-moon-icon-wrapper {
-  opacity: 1;
-  transform: translate(-1em, 0) rotate(-15deg);
 }
 
 .theme-toggle-checkbox:focus-visible ~ .theme-toggle-slot {

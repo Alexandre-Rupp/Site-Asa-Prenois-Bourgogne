@@ -2792,3 +2792,25 @@ th {
   }
 }
 
+/* Ajustement structurel pour le switch clair/sombre (ajoute apres le logo
+   FFSA) : la structure de la topbar est commune aux deux themes, seules les
+   couleurs different. Sans ceci, .topbar-right revient a 2 colonnes ici et
+   casse la mise en page a 3 elements (nav / switch / logo FFSA). */
+.topbar-right {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+
+@media (max-width: 640px) {
+  .theme-toggle-label {
+    justify-self: start;
+    order: 2;
+    padding: 0 0.85rem;
+  }
+
+  .ffsa-link {
+    justify-self: start;
+    order: 3;
+    padding: 0 0.85rem;
+  }
+}
+
