@@ -1204,6 +1204,7 @@ function renderAccueilUrcySignupCard() {
 
 function renderAccueilView() {
   const nextMeeting = getNextMeeting();
+  const urcySignupCard = renderAccueilUrcySignupCard();
   const commissaireProfile = PROFILE_CONTENT.commissaire;
   const runEssenceHomeIssue = getRunEssenceIssuesSorted().find(
     (issue) => issue.issueLabel === "No 2"
@@ -1224,7 +1225,9 @@ function renderAccueilView() {
         </div>
       </section>
 
-      <div class="home-body-grid">
+      <div class="home-body-grid${
+        urcySignupCard ? " home-body-grid--with-signup" : ""
+      }">
         <section class="section home-welcome-section">
           <div class="section-head">
             <h2>Bienvenue sur le site officiel de l\u2019ASA Prenois Bourgogne</h2>
@@ -1247,7 +1250,7 @@ function renderAccueilView() {
           </article>
         </section>
 
-        ${renderAccueilUrcySignupCard()}
+        ${urcySignupCard}
 
         <section class="section">
           <div class="section-head">

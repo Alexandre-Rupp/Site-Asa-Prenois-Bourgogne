@@ -1241,13 +1241,15 @@ textarea:focus-visible,
 }
 
 @media (min-width: 1200px) {
-  .home-body-grid {
+  /* Deux colonnes uniquement quand la carte d'inscription rapide est
+     affichee; sinon les sections occupent toute la largeur. */
+  .home-body-grid--with-signup {
     grid-template-columns: minmax(245px, 290px) minmax(0, 1fr);
     column-gap: 1rem;
     align-items: stretch;
   }
 
-  .home-welcome-section {
+  .home-body-grid--with-signup .home-welcome-section {
     grid-column: 2;
     grid-row: 1;
   }
@@ -1259,7 +1261,7 @@ textarea:focus-visible,
     height: 100%;
   }
 
-  .home-body-grid > .section:not(.home-welcome-section) {
+  .home-body-grid--with-signup > .section:not(.home-welcome-section) {
     grid-column: 1 / -1;
   }
 
