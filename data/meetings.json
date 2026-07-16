@@ -94,7 +94,8 @@
       "date": "25-26 juillet 2026",
       "seasonLabel": "Meetings Course de côte 2026",
       "kind": "course-de-cote",
-      "location": "Urcy"
+      "location": "Urcy",
+      "cancelled": true
     },
     {
       "id": "rallye-de-l-auxois",

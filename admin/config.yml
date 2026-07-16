@@ -217,6 +217,12 @@ collections:
                 required: false
                 default: false
                 hint: "Cochez pour retirer ce meeting de la page d'inscription des commissaires."
+              - name: cancelled
+                label: Meeting annulé
+                widget: boolean
+                required: false
+                default: false
+                hint: "Cochez si le meeting est annulé : il reste affiché dans le calendrier avec la mention ANNULÉ et les inscriptions sont fermées automatiquement."
               - name: detailParagraphs
                 label: Texte de présentation
                 widget: list

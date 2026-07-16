@@ -853,6 +853,35 @@ textarea:focus-visible,
   font-size: 0.84rem;
 }
 
+/* Meeting annule: badge rouge + carte estompee mais lisible. */
+.meeting-cancelled-badge {
+  margin: 0;
+  align-self: flex-start;
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #c81e2e;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.meeting-cancelled-badge--hero {
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+}
+
+.race-card--cancelled {
+  opacity: 0.72;
+}
+
+.race-card--cancelled h3 {
+  text-decoration: line-through;
+  text-decoration-color: #c81e2e;
+  text-decoration-thickness: 2px;
+}
+
 .race-card h3 {
   margin: 0;
   font-size: 1.1rem;

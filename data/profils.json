@@ -43,7 +43,6 @@
         "dijon-motors-cup",
         "lamera-cup",
         "coupe-de-france-des-circuits",
-        "course-de-cote-urcy",
         "tour-de-bourgogne-classic"
       ],
       "closedRaceFormsByMeeting": [
@@ -131,7 +130,6 @@
       "raceForm": "https://forms.office.com/r/PILOTE-COURSE-2026",
       "signupClosedAll": true,
       "openRaceFormsByMeeting": [
-        "course-de-cote-urcy",
         "rallye-de-l-auxois"
       ],
       "raceFormsByMeeting": [

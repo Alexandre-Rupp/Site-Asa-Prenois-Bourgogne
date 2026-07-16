@@ -795,7 +795,8 @@ function getNextMeeting() {
   const oneDayMs = 24 * 60 * 60 * 1000;
   return (
     getChronologicalMeetings().find(
-      (meeting) => parseMeetingDate(meeting.date) + oneDayMs > now
+      (meeting) =>
+        !meeting.cancelled && parseMeetingDate(meeting.date) + oneDayMs > now
     ) || null
   );
 }
@@ -1165,7 +1166,7 @@ function renderRunEssenceArchiveCards(issues) {
 
 function renderAccueilUrcySignupCard() {
   const urcyMeeting = MEETINGS.find((meeting) => meeting.id === ACCUEIL_URCY_MEETING_ID);
-  if (!urcyMeeting) return "";
+  if (!urcyMeeting || urcyMeeting.cancelled) return "";
 
   const urcyImagePath = withMeetingAssetVersion(getMeetingVisualPath(ACCUEIL_URCY_MEETING_ID));
   const pilotSignupHref = meetingDetailHref("pilote", ACCUEIL_URCY_MEETING_ID, "inscriptions");
@@ -1582,7 +1583,9 @@ function renderMeetingCards(
       const kindClass = meetingKindClass(meeting.kind);
       const toneClass = meetingCardToneClass(meeting.cardTone);
       const canShowSignup =
-        showSignup && canShowSignupForMeeting(profileKey, meeting);
+        showSignup &&
+        !meeting.cancelled &&
+        canShowSignupForMeeting(profileKey, meeting);
       const isSignupClosed =
         canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
       const raceFormUrl =
@@ -1594,21 +1597,30 @@ function renderMeetingCards(
         ? 'target="_blank" rel="noopener noreferrer"'
         : "";
 
+      const cancelledClass = meeting.cancelled ? "race-card--cancelled" : "";
+
       return `
         <article
-          class="race-card ${kindClass} ${toneClass} race-card--clickable js-meeting-card"
+          class="race-card ${kindClass} ${toneClass} ${cancelledClass} race-card--clickable js-meeting-card"
           tabindex="0"
           role="link"
           data-profile="${escapeHtml(profileKey)}"
           data-meeting-id="${escapeHtml(meeting.id)}"
           data-base-route="${escapeHtml(baseRoute)}"
-          aria-label="Ouvrir le détail du meeting ${escapeHtml(meeting.name)}"
+          aria-label="Ouvrir le détail du meeting ${escapeHtml(meeting.name)}${
+            meeting.cancelled ? " (annulé)" : ""
+          }"
         >
           <p class="race-meta-line">
             ${escapeHtml(meetingKindLabel(meeting.kind))} - ${escapeHtml(
               meeting.date
             )}
           </p>
+          ${
+            meeting.cancelled
+              ? '<p class="meeting-cancelled-badge">ANNULÉ</p>'
+              : ""
+          }
           <h3>${escapeHtml(meeting.name)}</h3>
           <p>${escapeHtml(meeting.seasonLabel)}</p>
           <p>${escapeHtml(meeting.location)}</p>
@@ -1790,7 +1802,9 @@ function renderMeetingDetailView(
     shouldRenderCommissaireMeetingDocs ||
     shouldRenderSharedMeetingDocs;
   const canShowSignup =
-    showSignup && canShowSignupForMeeting(profileKey, meeting);
+    showSignup &&
+    !meeting.cancelled &&
+    canShowSignupForMeeting(profileKey, meeting);
   const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
   const promoterLogo = getMeetingPromoterLogo(meeting.id);
   const externalUrl = getMeetingExternalUrl(meeting.id);
@@ -1830,11 +1844,20 @@ function renderMeetingDetailView(
             `
             : ""
         }
+        ${
+          meeting.cancelled
+            ? '<p class="meeting-cancelled-badge meeting-cancelled-badge--hero">ANNUL\u00C9</p>'
+            : ""
+        }
         <h1>${escapeHtml(meeting.name)}</h1>
         <p class="hero-sub">
-          Page d\u00E9taill\u00E9e du meeting pour le parcours ${escapeHtml(
-            profile.label.toLowerCase()
-          )}. Cette base est prête pour accueillir PDF et documents de référence.
+          ${
+            meeting.cancelled
+              ? "Ce meeting est annul\u00E9. Les inscriptions sont ferm\u00E9es."
+              : `Page d\u00E9taill\u00E9e du meeting pour le parcours ${escapeHtml(
+                  profile.label.toLowerCase()
+                )}. Cette base est prête pour accueillir PDF et documents de référence.`
+          }
         </p>
         <div class="hero-cta">
           ${
