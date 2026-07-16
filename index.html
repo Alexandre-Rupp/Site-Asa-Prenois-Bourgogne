@@ -61,7 +61,16 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="/styles.css?v=20260714-3" />
+    <link rel="stylesheet" href="/styles.css?v=20260714-3" id="theme-dark-css" />
+    <link rel="stylesheet" href="/styles-light.css?v=20260716-1" id="theme-light-css" disabled />
+    <script>
+      (function () {
+        var saved = localStorage.getItem("asa-theme");
+        window.__asaTheme = saved === "light" ? "light" : "dark";
+        var lightCss = document.getElementById("theme-light-css");
+        if (lightCss) lightCss.disabled = window.__asaTheme !== "light";
+      })();
+    </script>
     <link rel="modulepreload" href="/app.js?v=20260714-3" />
     <link rel="modulepreload" href="/src/core/content-loader.js?v=20260712-1" />
     <link rel="modulepreload" href="/src/core/routing.js?v=20260413-8" />
@@ -177,6 +186,30 @@
           <a href="/vie-asa" data-nav="vie-asa">LA VIE DE L'ASA</a>
           <a href="/contact" data-nav="contact">CONTACTS</a>
         </nav>
+        <label class="theme-toggle-label" for="theme-toggle-checkbox" aria-label="Basculer entre theme clair et theme sombre">
+          <input class="theme-toggle-checkbox" id="theme-toggle-checkbox" type="checkbox" checked />
+          <div class="theme-toggle-slot">
+            <div class="theme-sun-icon-wrapper">
+              <svg class="theme-sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div class="theme-toggle-button"></div>
+            <div class="theme-moon-icon-wrapper">
+              <svg class="theme-moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </div>
+          </div>
+        </label>
         <a
           class="ffsa-link"
           href="https://www.ffsa.org/"
@@ -193,6 +226,33 @@
         </a>
       </div>
     </header>
+
+    <script>
+      (function () {
+        var checkbox = document.getElementById("theme-toggle-checkbox");
+        var logoImg = document.querySelector(".logo-main");
+        var LOGO_LIGHT = "assets/logo-ptn-transparent.png?v=20260413-3";
+        var LOGO_DARK = "assets/logo-ptn-transparent.png?v=20260413-3";
+
+        function applyTheme(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          var lightCss = document.getElementById("theme-light-css");
+          if (lightCss) lightCss.disabled = theme !== "light";
+          if (logoImg) logoImg.src = theme === "light" ? LOGO_LIGHT : LOGO_DARK;
+          if (checkbox) checkbox.checked = theme === "dark";
+        }
+
+        applyTheme(window.__asaTheme || "dark");
+
+        if (checkbox) {
+          checkbox.addEventListener("change", function () {
+            var theme = checkbox.checked ? "dark" : "light";
+            localStorage.setItem("asa-theme", theme);
+            applyTheme(theme);
+          });
+        }
+      })();
+    </script>
 
     <main id="app" role="main" tabindex="-1"></main>
 
