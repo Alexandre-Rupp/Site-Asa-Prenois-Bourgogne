@@ -6,7 +6,7 @@
      but now carry light/paddock-night values instead of navy tones. */
   --blue-900: #f3f5fa;
   --blue-800: #cdd4e0;
-  --blue-700: #f4cf00;
+  --blue-700: #ffffff;
   --blue-500: #e10600;
   --blue-100: rgba(255, 255, 255, 0.06);
   --white: #ffffff;
@@ -17,9 +17,9 @@
   --danger: #ff4d5e;
   --racing-red: #e10600;
   --racing-red-dark: #a50706;
-  --racing-accent-1: #f4cf00;
+  --racing-accent-1: #2f6fe0;
   --racing-accent-2: #ffffff;
-  --racing-accent-3: #ff7a00;
+  --racing-accent-3: #2f6fe0;
   --panel-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
 
   /* Dark Paddock surfaces */
@@ -31,7 +31,7 @@
   --border-soft: rgba(255, 255, 255, 0.08);
   --border-medium: rgba(255, 255, 255, 0.14);
   --glow-red: rgba(225, 6, 0, 0.38);
-  --glow-yellow: rgba(244, 207, 0, 0.32);
+  --glow-blue: rgba(47, 111, 224, 0.32);
 }
 
 * {
@@ -93,9 +93,9 @@ body {
     ),
     radial-gradient(
       1040px 820px at 102% 62%,
-      rgba(244, 207, 0, 0.06) 0%,
-      rgba(244, 207, 0, 0.02) 40%,
-      rgba(244, 207, 0, 0) 70%
+      rgba(47, 111, 224, 0.06) 0%,
+      rgba(47, 111, 224, 0.02) 40%,
+      rgba(47, 111, 224, 0) 70%
     ),
     linear-gradient(160deg, #121319 0%, #0d0e11 55%, #0a0b0d 100%);
   z-index: -1;
@@ -583,8 +583,8 @@ textarea:focus-visible,
 }
 
 .btn-ghost:hover {
-  border-color: rgba(244, 207, 0, 0.55);
-  box-shadow: 0 0 0 1px rgba(244, 207, 0, 0.18) inset;
+  border-color: rgba(47, 111, 224, 0.55);
+  box-shadow: 0 0 0 1px rgba(47, 111, 224, 0.18) inset;
 }
 
 .hero .btn-ghost {
@@ -1120,10 +1120,10 @@ textarea:focus-visible,
 
 .profile-choice-card--commissaire {
   --choice-accent-solid: var(--racing-accent-1);
-  --choice-accent-soft: rgba(244, 207, 0, 0.2);
-  --choice-accent-lighter: rgba(244, 207, 0, 0.12);
-  --choice-border-hover: rgba(244, 207, 0, 0.5);
-  --choice-shadow-hover: rgba(244, 207, 0, 0.22);
+  --choice-accent-soft: rgba(47, 111, 224, 0.2);
+  --choice-accent-lighter: rgba(47, 111, 224, 0.12);
+  --choice-border-hover: rgba(47, 111, 224, 0.5);
+  --choice-shadow-hover: rgba(47, 111, 224, 0.22);
 }
 
 .home-grid {
@@ -2446,7 +2446,7 @@ th {
 
 .social-link:hover {
   transform: translateY(-1px);
-  border-color: rgba(244, 207, 0, 0.5);
+  border-color: rgba(47, 111, 224, 0.5);
   background: rgba(255, 255, 255, 0.1);
 }
 
