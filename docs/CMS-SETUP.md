@@ -132,11 +132,13 @@ l'administration: https://www.asa-prenois-bourgogne.org/admin/aide
 
 ## Personnalisation de l'interface
 
-- **Version figée du CMS**: `admin/index.html` charge une version précise
-  de Sveltia CMS (`@sveltia/cms@0.170.8` sur unpkg), et non « latest »,
-  pour que l'interface des éditeurs reste stable. La marche à suivre pour
-  mettre à jour est décrite en commentaire dans `admin/index.html`
-  (changer le numéro, tester `/admin`, merger).
+- **Version figée et auto-hébergée du CMS**: le bundle
+  `@sveltia/cms@0.170.8` est versionné dans `admin/vendor/` et chargé
+  localement via `admin/cms-init.js` (aucune dépendance à un CDN
+  externe; l'intégrité du paquet npm d'origine est notée en commentaire
+  dans `admin/index.html`). La marche à suivre pour mettre à jour est
+  décrite dans ce même commentaire (npm pack, vérification d'intégrité,
+  test de `/admin`, merge).
 - **Écran de chargement**: un écran aux couleurs de l'ASA (logo + message
   en français) s'affiche pendant l'initialisation du CMS, puis se masque
   automatiquement dès que l'interface apparaît (délai de secours: 15 s).
