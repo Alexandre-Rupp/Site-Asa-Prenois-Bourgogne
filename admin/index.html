@@ -130,14 +130,20 @@
     <a class="asa-aide-btn" href="/admin/aide.html">? Besoin d'aide</a>
 
     <!--
-      Version de Sveltia CMS volontairement figee pour garder une interface
-      stable pour les editeurs.
+      Sveltia CMS auto-heberge (version figee, sans dependance a un CDN
+      externe). Fichier extrait du paquet npm officiel @sveltia/cms@0.170.8
+      (integrite du paquet verifiee contre le registre npm:
+      sha512-NEINLayY9fT1LfGLeDzaJ6q9snBq+9CSB48gQIE6Y9LBMReD7QfyUzKQJ9ZG7Kfw9knnoKYNOBkOSLqY1WxNRw==).
       Pour mettre a jour :
-        1. Consulter les nouveautes sur https://github.com/sveltia/sveltia-cms/releases
-        2. Remplacer le numero de version (0.170.8) ci-dessous par le nouveau
-        3. Tester /admin (connexion, modification, publication) avant de merger
+        1. Consulter https://github.com/sveltia/sveltia-cms/releases
+        2. npm pack @sveltia/cms@NOUVELLE_VERSION puis extraire
+           package/dist/sveltia-cms.js vers admin/vendor/sveltia-cms-NOUVELLE_VERSION.js
+        3. Verifier l'integrite: npm view @sveltia/cms@NOUVELLE_VERSION dist.integrity
+           doit correspondre au sha512 du .tgz telecharge
+        4. Mettre a jour le src ci-dessous et supprimer l'ancien fichier vendor
+        5. Tester /admin (connexion, modification, publication) avant de merger
     -->
-    <script src="https://unpkg.com/@sveltia/cms@0.170.8/dist/sveltia-cms.js" type="module"></script>
+    <script src="/admin/cms-init.js" type="module"></script>
 
     <script src="/admin/splash.js" defer></script>
   </body>
