@@ -117,7 +117,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; media-src 'self' blob:; connect-src 'self' https://api.github.com https://github.com https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; media-src 'self' blob:; connect-src 'self' https://unpkg.com https://api.github.com https://github.com https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
         }
       ]
     },
@@ -126,7 +126,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; media-src 'self' blob:; connect-src 'self' https://api.github.com https://github.com https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' blob: data: https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; media-src 'self' blob:; connect-src 'self' https://unpkg.com https://api.github.com https://github.com https://*.githubusercontent.com https://www.asa-prenois-bourgogne.org; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
         }
       ]
     },
