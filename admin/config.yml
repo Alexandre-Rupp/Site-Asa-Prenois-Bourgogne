@@ -10,7 +10,7 @@ backend:
 
 site_url: https://www.asa-prenois-bourgogne.org
 display_url: https://www.asa-prenois-bourgogne.org
-logo_url: https://www.asa-prenois-bourgogne.org/assets/logo-asa-prenois-bourgogne-fit.png
+logo_url: /assets/logo-asa-prenois-bourgogne-fit.png
 
 media_folder: assets/uploads
 public_folder: /assets/uploads

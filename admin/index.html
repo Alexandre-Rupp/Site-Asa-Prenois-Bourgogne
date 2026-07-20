@@ -139,40 +139,6 @@
     -->
     <script src="https://unpkg.com/@sveltia/cms@0.170.8/dist/sveltia-cms.js" type="module"></script>
 
-    <script>
-      // Masque l'ecran de chargement des que l'application CMS est montee
-      // dans la page (avec un delai maximal de secours pour ne jamais bloquer).
-      (function () {
-        const splash = document.getElementById("asa-splash");
-        if (!splash) return;
-
-        const hideSplash = () => {
-          splash.classList.add("is-hidden");
-          observer.disconnect();
-        };
-
-        const isCmsNode = (node) =>
-          node.nodeType === Node.ELEMENT_NODE &&
-          node.id !== "asa-splash" &&
-          !node.classList.contains("asa-aide-btn") &&
-          node.tagName !== "SCRIPT" &&
-          node.tagName !== "STYLE";
-
-        const observer = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            for (const node of mutation.addedNodes) {
-              if (isCmsNode(node)) {
-                // Petite marge pour laisser l'UI se peindre.
-                setTimeout(hideSplash, 300);
-                return;
-              }
-            }
-          }
-        });
-
-        observer.observe(document.body, { childList: true });
-        setTimeout(hideSplash, 15000);
-      })();
-    </script>
+    <script src="/admin/splash.js" defer></script>
   </body>
 </html>
