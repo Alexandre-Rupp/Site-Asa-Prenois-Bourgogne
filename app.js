@@ -1,5 +1,6 @@
 // Main application orchestrator: renders views and binds feature modules.
 import { loadSiteContent } from "./src/core/content-loader.js?v=20260712-1";
+import { sanitizeUrl } from "./src/utils/dom.js?v=20260717-1";
 import {
   parseRoute,
   updateDocumentSeo,
@@ -488,7 +489,7 @@ function renderFeedCarousel(images, title, carouselId) {
                 aria-hidden="${index === 0 ? "false" : "true"}"
 	              >
 	                <img
-	                  src="${escapeHtml(image.src)}"
+	                  src="${escapeHtml(sanitizeUrl(image.src))}"
 	                  ${image.srcset ? `srcset="${escapeHtml(image.srcset)}"` : ""}
 	                  ${image.sizes ? `sizes="${escapeHtml(image.sizes)}"` : ""}
 	                  alt="${escapeHtml(image.alt)}"
@@ -672,7 +673,7 @@ function renderPartnerCards(partners) {
               <div class="partner-logo-wrap">
                 <img
                   class="partner-logo"
-                  src="${escapeHtml(partner.logo)}"
+                  src="${escapeHtml(sanitizeUrl(partner.logo))}"
                   alt="Logo ${escapeHtml(partner.name)}"
                   loading="lazy"
                 />
@@ -687,7 +688,7 @@ function renderPartnerCards(partners) {
         return `
           <a
             class="partner-card partner-card-link"
-            href="${escapeHtml(partner.url)}"
+            href="${escapeHtml(sanitizeUrl(partner.url))}"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Ouvrir le site ${escapeHtml(partner.name)}"
@@ -740,7 +741,7 @@ function renderVieAsaPilotShowcase(pilots) {
                 }"
                 role="listitem"
                 data-pilot-id="${escapeHtml(pilot.id || `pilot-${index}`)}"
-                data-image-src="${escapeHtml(imageSrc)}"
+                data-image-src="${escapeHtml(sanitizeUrl(imageSrc))}"
                 data-image-alt="${escapeHtml(imageAlt)}"
                 data-label="${escapeHtml(label)}"
                 aria-pressed="${isActive ? "true" : "false"}"
@@ -756,7 +757,7 @@ function renderVieAsaPilotShowcase(pilots) {
       <figure class="pilot-showcase-viewer">
         <img
           class="pilot-showcase-image js-vie-asa-pilot-image"
-          src="${escapeHtml(firstImageSrc)}"
+          src="${escapeHtml(sanitizeUrl(firstImageSrc))}"
           alt="${escapeHtml(firstImageAlt)}"
           loading="lazy"
           decoding="async"
@@ -933,7 +934,7 @@ function renderListItems(items) {
           const linkLabel = title || String(item.ctaLabel || "Ouvrir le document");
           return `
             <li>
-              <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
+              <a href="${escapeHtml(sanitizeUrl(href))}" target="_blank" rel="noopener noreferrer">
                 ${escapeHtml(linkLabel)}
               </a>
             </li>
@@ -1070,7 +1071,7 @@ function renderCommissaireMeetingDocsContent(documents) {
               }
               <a
                 class="btn btn-ghost"
-                href="${escapeHtml(documentItem.href)}"
+                href="${escapeHtml(sanitizeUrl(documentItem.href))}"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1150,7 +1151,7 @@ function renderRunEssenceArchiveCards(issues) {
           </p>
           <div class="link-row">
             <a
-              href="${escapeHtml(issue.href || "#")}"
+              href="${escapeHtml(sanitizeUrl(issue.href || "#"))}"
               class="btn btn-primary"
               target="_blank"
               rel="noopener noreferrer"
@@ -1309,7 +1310,7 @@ function renderAccueilView() {
                   <div class="run-essence-home-viewer-wrap">
                     <iframe
                       class="run-essence-home-viewer"
-                      src="${escapeHtml(runEssenceHomeIssue.href)}#view=FitH"
+                      src="${escapeHtml(sanitizeUrl(runEssenceHomeIssue.href))}#view=FitH"
                       title="${escapeHtml(
                         `PDF ${runEssenceHomeIssue.issueLabel} ${runEssenceHomeIssue.monthLabel}`
                       )}"
@@ -1319,7 +1320,7 @@ function renderAccueilView() {
                   <p class="run-essence-home-mobile-open">
                     <a
                       class="btn btn-primary"
-                      href="${escapeHtml(runEssenceHomeIssue.href)}"
+                      href="${escapeHtml(sanitizeUrl(runEssenceHomeIssue.href))}"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -1592,7 +1593,9 @@ function renderMeetingCards(
       const isSignupClosed =
         canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
       const raceFormUrl =
-        canShowSignup && !isSignupClosed ? getRaceFormUrl(profile, meeting.id) : "#";
+        canShowSignup && !isSignupClosed
+          ? sanitizeUrl(getRaceFormUrl(profile, meeting.id))
+          : "#";
       const externalUrl = getMeetingExternalUrl(meeting.id);
       const detailHref =
         externalUrl || meetingDetailHref(profileKey, meeting.id, baseRoute);
@@ -1876,7 +1879,7 @@ function renderMeetingDetailView(
                     : `
                       <a
                         class="btn btn-primary"
-                        href="${escapeHtml(getRaceFormUrl(profile, meeting.id))}"
+                        href="${escapeHtml(sanitizeUrl(getRaceFormUrl(profile, meeting.id)))}"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -2168,7 +2171,7 @@ function renderSkeletonPage(pageKey) {
               ? `
                 <div class="link-row">
                   <a
-                    href="${escapeHtml(page.commissionerTrainingLink)}"
+                    href="${escapeHtml(sanitizeUrl(page.commissionerTrainingLink))}"
                     class="btn btn-primary"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -2268,7 +2271,7 @@ function renderSkeletonPage(pageKey) {
                   ? `
                     <div class="link-row">
                       <a
-                        href="${escapeHtml(commissionersPage.commissionerTrainingLink)}"
+                        href="${escapeHtml(sanitizeUrl(commissionersPage.commissionerTrainingLink))}"
                         class="btn btn-primary"
                         target="_blank"
                         rel="noopener noreferrer"
