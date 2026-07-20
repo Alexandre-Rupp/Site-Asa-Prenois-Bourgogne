@@ -6,6 +6,20 @@ const crypto = require("node:crypto");
 module.exports = (req, res) => {
   const clientId = process.env.GITHUB_CLIENT_ID;
 
+  // Garde-fou anti-abus: le demarrage du flux OAuth n'a de sens que depuis
+  // notre propre site (popup ouverte par /admin -> same-origin) ou une
+  // navigation directe (favori, barre d'adresse -> none). Un site tiers qui
+  // declencherait le flux enverrait Sec-Fetch-Site: cross-site. On ne
+  // bloque que si le header est present (les anciens navigateurs ne
+  // l'envoient pas), donc aucun risque de casser le flux legitime.
+  const secFetchSite = String(req.headers["sec-fetch-site"] || "");
+  if (secFetchSite === "cross-site") {
+    res
+      .status(403)
+      .send("Demarrage du flux de connexion refuse depuis un site tiers.");
+    return;
+  }
+
   if (!clientId) {
     res
       .status(500)
