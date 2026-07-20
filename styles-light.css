@@ -552,6 +552,11 @@ textarea:focus-visible,
   box-shadow: 0 12px 26px rgba(18, 58, 112, 0.34);
 }
 
+/* Neutralise l'ombre rouge du theme sombre au survol du bouton principal. */
+.btn-primary:hover {
+  box-shadow: 0 14px 32px rgba(18, 58, 112, 0.42);
+}
+
 .btn-ghost {
   color: var(--blue-900);
   background: var(--white);
@@ -598,6 +603,12 @@ textarea:focus-visible,
   box-shadow: 0 20px 42px rgba(5, 16, 35, 0.2);
   padding: clamp(1rem, 2.6vw, 1.7rem);
   animation: reveal-up 0.9s ease both;
+}
+
+/* Neutralise le halo neon rouge du theme sombre au survol des sections. */
+.section:hover {
+  border-color: rgba(179, 198, 231, 0.52);
+  box-shadow: 0 20px 42px rgba(5, 16, 35, 0.2);
 }
 
 .section-head h2 {
