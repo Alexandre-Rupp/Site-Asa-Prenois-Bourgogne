@@ -2,6 +2,11 @@
 // Echange le code d'autorisation contre un jeton d'acces, puis repond au CMS
 // via postMessage selon le protocole attendu par Sveltia/Decap CMS.
 
+// Origines autorisees a recevoir le jeton. Le CMS n'est utilisable que
+// depuis le site de production; ajouter ici une origine de preview Vercel
+// si un test du CMS en preview devenait necessaire.
+const ALLOWED_OPENER_ORIGINS = ["https://www.asa-prenois-bourgogne.org"];
+
 function renderPostMessagePage(state, payload) {
   const provider = "github";
   const message = `authorization:${provider}:${state}:${JSON.stringify(payload)}`;
@@ -13,14 +18,22 @@ function renderPostMessagePage(state, payload) {
     <p>Authentification en cours. Cette fenetre va se fermer automatiquement.</p>
     <script>
       (() => {
+        const allowedOrigins = ${JSON.stringify(ALLOWED_OPENER_ORIGINS)};
         const message = ${JSON.stringify(message)};
         window.addEventListener("message", (event) => {
+          // Seule une fenetre d'une origine autorisee peut recevoir le jeton.
+          if (!allowedOrigins.includes(event.origin)) return;
           if (event.data !== "authorizing:github") return;
           window.opener.postMessage(message, event.origin);
           window.close();
         });
         if (window.opener) {
-          window.opener.postMessage("authorizing:github", "*");
+          // Handshake cible sur chaque origine autorisee (jamais "*"):
+          // si l'opener est d'une autre origine, le message est ignore
+          // par le navigateur et le jeton n'est jamais transmis.
+          for (const origin of allowedOrigins) {
+            window.opener.postMessage("authorizing:github", origin);
+          }
         } else {
           document.body.textContent =
             "Fenetre d'authentification invalide. Fermez cet onglet et reessayez depuis /admin.";
