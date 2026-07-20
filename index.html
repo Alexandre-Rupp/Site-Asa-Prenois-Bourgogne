@@ -214,14 +214,18 @@
       (function () {
         var checkbox = document.getElementById("theme-toggle-checkbox");
         var logoImg = document.querySelector(".logo-main");
+        var ffsaImg = document.querySelector(".logo-ffsa");
         var LOGO_LIGHT = "assets/logo-ptn-transparent.png?v=20260413-3";
         var LOGO_DARK = "assets/logo-ptn-dark.png?v=20260716-1";
+        var FFSA_LIGHT = "assets/logo-ffsa.webp";
+        var FFSA_DARK = "assets/logo-ffsa-dark.svg?v=20260720-1";
 
         function applyTheme(theme) {
           document.documentElement.setAttribute("data-theme", theme);
           var lightCss = document.getElementById("theme-light-css");
           if (lightCss) lightCss.disabled = theme !== "light";
           if (logoImg) logoImg.src = theme === "light" ? LOGO_LIGHT : LOGO_DARK;
+          if (ffsaImg) ffsaImg.src = theme === "light" ? FFSA_LIGHT : FFSA_DARK;
           if (checkbox) checkbox.checked = theme === "dark";
         }
 
