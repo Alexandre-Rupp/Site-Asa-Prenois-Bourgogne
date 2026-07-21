@@ -691,9 +691,8 @@ textarea:focus-visible,
    chemin (SVG natif: animateMotion + stroke-dashoffset). */
 .hero > .hero-track-anim {
   position: absolute;
-  right: clamp(1rem, 3vw, 3rem);
-  top: 50%;
-  transform: translateY(-50%);
+  right: clamp(0.9rem, 1.8vw, 1.8rem);
+  top: clamp(0.7rem, 1.6vw, 1.4rem);
   width: min(360px, 30%);
   color: #3ae8d2;
   pointer-events: none;
