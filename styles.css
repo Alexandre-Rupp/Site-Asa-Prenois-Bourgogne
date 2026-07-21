@@ -292,7 +292,7 @@ body {
   overflow: hidden;
   border-radius: 10em;
   background-color: #ffffff;
-  border: 1px solid var(--border-medium);
+  border: 1px solid rgba(120, 132, 150, 0.55);
   transition: background-color 250ms;
 }
 
@@ -527,20 +527,10 @@ main {
   object-fit: contain;
 }
 
-.hero::before,
 .hero::after {
   content: "";
   position: absolute;
   pointer-events: none;
-}
-
-.hero::before {
-  width: 420px;
-  height: 420px;
-  right: -180px;
-  top: -160px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .hero::after {
