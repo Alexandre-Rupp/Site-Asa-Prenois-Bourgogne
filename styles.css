@@ -49,6 +49,14 @@ body {
   color: var(--ink);
   background: var(--bg-base);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le contenu principal occupe l'espace disponible pour coller le footer
+   en bas de la fenetre meme quand la page est courte. */
+#app {
+  flex: 1 0 auto;
 }
 
 .skip-link {
@@ -2498,17 +2506,18 @@ th {
 }
 
 .footer {
-  width: min(1160px, 94vw);
-  margin: 0 auto 2rem;
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
   color: #c7cdda;
   text-align: center;
   font-size: 0.84rem;
   background: rgba(6, 7, 9, 0.7);
-  border: 1px solid var(--border-soft);
+  border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 16px;
-  padding: 0.9rem 0.8rem 1rem;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  padding: 1.15rem 1rem 1.3rem;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .footer-links {
