@@ -695,7 +695,7 @@ textarea:focus-visible,
   top: 50%;
   transform: translateY(-50%);
   width: min(360px, 30%);
-  color: #ffffff;
+  color: #3ae8d2;
   pointer-events: none;
 }
 

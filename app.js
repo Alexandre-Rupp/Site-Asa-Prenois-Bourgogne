@@ -1227,6 +1227,16 @@ function renderAccueilView() {
         <div class="hero-track-anim" aria-hidden="true">
           <svg viewBox="0 0 520 230" focusable="false">
             <path
+              class="hero-track-bg"
+              d="M70,204 L428,204 C452,204 470,198 480,184 C488,172 492,158 494,144 C496,130 494,116 486,106 C478,96 464,90 450,92 C436,94 424,102 414,112 C404,122 396,132 384,138 C372,144 360,144 352,136 C344,128 340,114 336,98 C332,82 330,64 324,48 C318,32 308,24 296,26 C284,28 276,38 272,54 C268,70 266,88 262,104 C258,120 250,132 238,138 C226,144 212,142 202,134 C192,126 184,114 172,108 C160,102 146,102 134,108 C122,114 110,124 98,132 C84,141 70,147 60,155 C48,165 44,182 52,194 C57,201 63,204 72,204 Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-opacity="0.25"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
               id="hero-track-path"
               d="M70,204 L428,204 C452,204 470,198 480,184 C488,172 492,158 494,144 C496,130 494,116 486,106 C478,96 464,90 450,92 C436,94 424,102 414,112 C404,122 396,132 384,138 C372,144 360,144 352,136 C344,128 340,114 336,98 C332,82 330,64 324,48 C318,32 308,24 296,26 C284,28 276,38 272,54 C268,70 266,88 262,104 C258,120 250,132 238,138 C226,144 212,142 202,134 C192,126 184,114 172,108 C160,102 146,102 134,108 C122,114 110,124 98,132 C84,141 70,147 60,155 C48,165 44,182 52,194 C57,201 63,204 72,204 Z"
               fill="none"
@@ -1246,7 +1256,7 @@ function renderAccueilView() {
                 repeatCount="indefinite"
               />
             </path>
-            <rect class="hero-track-car" x="-10" y="-5" width="20" height="10" rx="2" fill="#fff">
+            <rect class="hero-track-car" x="-10" y="-5" width="20" height="10" rx="5" fill="#fff">
               <animateMotion dur="5s" repeatCount="indefinite" rotate="auto">
                 <mpath href="#hero-track-path" />
               </animateMotion>
