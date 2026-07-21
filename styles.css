@@ -2679,6 +2679,14 @@ th {
     overflow: visible;
   }
 
+  /* Menu ouvert: on neutralise le backdrop-filter (et tout clipping) de la
+     topbar, sinon il devient le bloc contenant du tiroir fixe et le decale. */
+  .topbar.is-nav-open {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: visible;
+  }
+
   .nav-toggle {
     display: inline-flex;
     width: 52px;
@@ -2707,7 +2715,6 @@ th {
 
   .topbar-right {
     grid-column: 1 / -1;
-    width: 100vw;
     position: fixed;
     inset: 0;
     z-index: 70;
@@ -2715,11 +2722,9 @@ th {
     grid-template-columns: minmax(0, 1fr);
     align-content: start;
     gap: 0.72rem;
-    height: 100dvh;
+    min-height: 100dvh;
     padding: calc(var(--topbar-height) + 0.8rem) 0 1.1rem;
-    background:
-      linear-gradient(180deg, rgba(10, 11, 13, 0.98), rgba(18, 19, 25, 0.97));
-    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, #0a0b0d, #121319);
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
@@ -2972,3 +2977,30 @@ th {
   }
 }
 
+
+/* Version telephone: menu hamburger en grille 2x4 de boutons carres,
+   et masquage du trace du circuit (trop petit sur mobile). */
+@media (max-width: 767.98px) {
+  .hero > .hero-track-anim {
+    display: none;
+  }
+
+  .main-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .main-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    padding: 0.6rem;
+    font-size: 0.98rem;
+    line-height: 1.18;
+    white-space: normal;
+  }
+}

@@ -2527,6 +2527,14 @@ th {
     overflow: visible;
   }
 
+  /* Menu ouvert: on neutralise le backdrop-filter (et tout clipping) de la
+     topbar, sinon il devient le bloc contenant du tiroir fixe et le decale. */
+  .topbar.is-nav-open {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: visible;
+  }
+
   .nav-toggle {
     display: inline-flex;
     width: 52px;
@@ -2555,7 +2563,6 @@ th {
 
   .topbar-right {
     grid-column: 1 / -1;
-    width: 100vw;
     position: fixed;
     inset: 0;
     z-index: 70;
@@ -2563,11 +2570,9 @@ th {
     grid-template-columns: minmax(0, 1fr);
     align-content: start;
     gap: 0.72rem;
-    height: 100dvh;
+    min-height: 100dvh;
     padding: calc(var(--topbar-height) + 0.8rem) 0 1.1rem;
-    background:
-      linear-gradient(180deg, rgba(247, 251, 255, 0.98), rgba(233, 242, 255, 0.96));
-    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, #f7fbff, #e9f2ff);
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
@@ -2817,9 +2822,12 @@ th {
 /* Ajustement structurel pour le switch clair/sombre (ajoute apres le logo
    FFSA) : la structure de la topbar est commune aux deux themes, seules les
    couleurs different. Sans ceci, .topbar-right revient a 2 colonnes ici et
-   casse la mise en page a 3 elements (nav / switch / logo FFSA). */
-.topbar-right {
-  grid-template-columns: minmax(0, 1fr) auto auto;
+   casse la mise en page a 3 elements (nav / switch / logo FFSA).
+   Uniquement sur desktop: en mobile, le tiroir est en colonne unique. */
+@media (min-width: 1420px) {
+  .topbar-right {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2836,3 +2844,30 @@ th {
   }
 }
 
+
+/* Version telephone (theme clair): menu en grille 2x4 de boutons carres,
+   masquage du trace du circuit. */
+@media (max-width: 767.98px) {
+  .hero > .hero-track-anim {
+    display: none;
+  }
+
+  .main-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .main-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    padding: 0.6rem;
+    font-size: 0.98rem;
+    line-height: 1.18;
+    white-space: normal;
+  }
+}
