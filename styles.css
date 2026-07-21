@@ -692,7 +692,7 @@ textarea:focus-visible,
   right: clamp(0.9rem, 1.8vw, 1.8rem);
   top: clamp(0.7rem, 1.6vw, 1.4rem);
   width: min(360px, 30%);
-  color: #3ae8d2;
+  color: #e10600;
   pointer-events: none;
 }
 
