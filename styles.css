@@ -462,6 +462,7 @@ main {
 }
 
 .hero {
+  position: relative;
   background:
     linear-gradient(
       100deg,
@@ -683,6 +684,45 @@ textarea:focus-visible,
   color: #f4f6fa;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+/* Animation du trace du circuit Dijon-Prenois dans le hero de l'accueil:
+   le trait se dessine en boucle (5 s) et un rectangle blanc suit le
+   chemin (SVG natif: animateMotion + stroke-dashoffset). */
+.hero > .hero-track-anim {
+  position: absolute;
+  right: clamp(1rem, 3vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(360px, 30%);
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.hero-track-anim svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1199.98px) {
+  .hero > .hero-track-anim {
+    position: static;
+    transform: none;
+    width: min(420px, 92%);
+    margin: 1.3rem auto 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-track-anim path {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .hero-track-car {
+    display: none;
+  }
 }
 
 .hero-kpis {

@@ -460,6 +460,28 @@ main {
   z-index: 1;
 }
 
+/* Animation du trace Dijon-Prenois: memes regles de placement que le
+   theme sombre (la regle generique .hero > * ci-dessus repasse sinon
+   l'element en position relative). */
+.hero > .hero-track-anim {
+  position: absolute;
+  right: clamp(1rem, 3vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(360px, 30%);
+  color: #ffffff;
+  pointer-events: none;
+}
+
+@media (max-width: 1199.98px) {
+  .hero > .hero-track-anim {
+    position: static;
+    transform: none;
+    width: min(420px, 92%);
+    margin: 1.3rem auto 0;
+  }
+}
+
 .eyebrow {
   margin: 0;
   font-size: 0.85rem;
