@@ -55,7 +55,7 @@
     <script>
       (function () {
         var saved = localStorage.getItem("asa-theme");
-        window.__asaTheme = saved === "light" ? "light" : "dark";
+        window.__asaTheme = saved === "dark" ? "dark" : "light";
         var lightCss = document.getElementById("theme-light-css");
         if (lightCss) lightCss.disabled = window.__asaTheme !== "light";
       })();
@@ -176,7 +176,7 @@
           <a href="/contact" data-nav="contact">CONTACTS</a>
         </nav>
         <label class="theme-toggle-label" for="theme-toggle-checkbox" aria-label="Basculer entre theme clair et theme sombre">
-          <input class="theme-toggle-checkbox" id="theme-toggle-checkbox" type="checkbox" checked />
+          <input class="theme-toggle-checkbox" id="theme-toggle-checkbox" type="checkbox" />
           <div class="theme-toggle-slot">
             <div class="theme-sun-icon-wrapper">
               <svg class="theme-sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -229,7 +229,7 @@
           if (checkbox) checkbox.checked = theme === "dark";
         }
 
-        applyTheme(window.__asaTheme || "dark");
+        applyTheme(window.__asaTheme || "light");
 
         if (checkbox) {
           checkbox.addEventListener("change", function () {
