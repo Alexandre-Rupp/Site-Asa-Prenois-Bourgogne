@@ -67,7 +67,7 @@ const DEFAULT_THEME_COLOR = "#0d5fd0";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   "rallye-de-bligny-sur-ouche": "https://rallyedeblignysurouche.fr/",
-  "dijon-motors-cup": "https://www.facebook.com/p/Dijon-Motors-Cup-100067235634191/",
+  "dijon-motors-cup": "https://www.hvmracing.fr/17-dijon-motors-cup",
   "lamera-cup": "https://lameracup.fr/",
   "reves-d-enfants-malades": "https://www.lions-clubs-france.org/reves-denfants-malades/",
 };
@@ -864,9 +864,6 @@ function applyMeetingHeroBackground(meetingId) {
 }
 
 function getRaceFormUrl(profile, meetingId) {
-  const externalUrl = getMeetingExternalUrl(meetingId);
-  if (externalUrl) return externalUrl;
-
   if (!profile || !profile.forms) return "#";
   return (
     profile.forms.raceFormsByMeeting?.[meetingId] || profile.forms.raceForm || "#"
@@ -1639,12 +1636,8 @@ function renderMeetingCards(
         canShowSignup && !isSignupClosed
           ? sanitizeUrl(getRaceFormUrl(profile, meeting.id))
           : "#";
-      const externalUrl = getMeetingExternalUrl(meeting.id);
-      const detailHref =
-        externalUrl || meetingDetailHref(profileKey, meeting.id, baseRoute);
-      const detailLinkAttrs = externalUrl
-        ? 'target="_blank" rel="noopener noreferrer"'
-        : "";
+      const detailHref = meetingDetailHref(profileKey, meeting.id, baseRoute);
+      const detailLinkAttrs = "";
 
       const cancelledClass = meeting.cancelled ? "race-card--cancelled" : "";
 
@@ -1751,12 +1744,6 @@ function bindMeetingsProfileEvents(
       const meetingId = card.dataset.meetingId;
       if (!cardProfile || !meetingId) return;
 
-      const externalUrl = getMeetingExternalUrl(meetingId);
-      if (externalUrl) {
-        window.open(externalUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
-
       window.location.assign(meetingDetailHref(cardProfile, meetingId, baseRoute));
     });
 
@@ -1772,12 +1759,6 @@ function bindMeetingsProfileEvents(
       const cardProfile = card.dataset.profile;
       const meetingId = card.dataset.meetingId;
       if (!cardProfile || !meetingId) return;
-
-      const externalUrl = getMeetingExternalUrl(meetingId);
-      if (externalUrl) {
-        window.open(externalUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
 
       window.location.assign(meetingDetailHref(cardProfile, meetingId, baseRoute));
     });
@@ -1856,18 +1837,15 @@ function renderMeetingDetailView(
     canShowSignupForMeeting(profileKey, meeting);
   const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
   const promoterLogo = getMeetingPromoterLogo(meeting.id);
-  const externalUrl = getMeetingExternalUrl(meeting.id);
+  const promoterUrl = sanitizeUrl(getMeetingExternalUrl(meeting.id));
+  const hasPromoterUrl = Boolean(promoterUrl) && promoterUrl !== "#";
   const signupButtonLabel =
     profileKey === "commissaire"
       ? "Formulaire d'inscription"
       : `Formulaire ${profile.label.toLowerCase()}`;
-  const secondaryCtaHref = externalUrl || `/${baseRoute}/${profileKey}`;
-  const secondaryCtaLabel = externalUrl
-    ? "Site du promoteur"
-    : "Retour au calendrier";
-  const secondaryCtaAttrs = externalUrl
-    ? 'target="_blank" rel="noopener noreferrer"'
-    : "";
+  const secondaryCtaHref = `/${baseRoute}/${profileKey}`;
+  const secondaryCtaLabel = "Retour au calendrier";
+  const secondaryCtaAttrs = "";
   const meetingDetailParagraphs = Array.isArray(meeting.detailParagraphs)
     ? meeting.detailParagraphs.filter((paragraph) => String(paragraph || "").trim())
     : [];
@@ -1930,6 +1908,20 @@ function renderMeetingDetailView(
                       </a>
                     `
                 }
+              `
+              : ""
+          }
+          ${
+            hasPromoterUrl
+              ? `
+                <a
+                  class="btn btn-ghost"
+                  href="${escapeHtml(promoterUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Site de l'événement
+                </a>
               `
               : ""
           }
