@@ -42,12 +42,10 @@
       "openRaceFormsByMeeting": [
         "dijon-motors-cup",
         "lamera-cup",
-        "coupe-de-france-des-circuits",
-        "tour-de-bourgogne-classic"
+        "coupe-de-france-des-circuits"
       ],
       "closedRaceFormsByMeeting": [
-        "championnat-de-france-gt",
-        "tour-de-bourgogne-classic"
+        "championnat-de-france-gt"
       ],
       "raceFormsByMeeting": [
         {

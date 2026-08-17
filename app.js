@@ -152,14 +152,6 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
   ],
-  "tour-de-bourgogne-classic": [
-    {
-      title: "Tour de Bourgogne - Document",
-      description: "Document PDF du Tour de Bourgogne.",
-      href: "assets/meetings/Tour de Bourgogne.pdf",
-      ctaLabel: "Ouvrir le document",
-    },
-  ],
 };
 const MEETING_PROMOTER_LOGOS = {
   "fun-racing-car": { src: "assets/promoters/fun-racing-cars.webp", alt: "Logo Fun Racing Cars" },
@@ -2354,6 +2346,41 @@ function renderSkeletonPage(pageKey) {
             </article>
 
             <section id="vie-asa-partenaires" class="asa-section-anchor">
+              ${
+                partnersPage.visibilityPitch
+                  ? `
+                    <article class="panel partner-pitch">
+                      <h2>${escapeHtml(partnersPage.visibilityPitch.title || "")}</h2>
+                      ${(partnersPage.visibilityPitch.intro || [])
+                        .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+                        .join("")}
+                      ${
+                        partnersPage.visibilityPitch.reasonsTitle
+                          ? `<h3>${escapeHtml(partnersPage.visibilityPitch.reasonsTitle)}</h3>`
+                          : ""
+                      }
+                      ${
+                        partnersPage.visibilityPitch.reasons &&
+                        partnersPage.visibilityPitch.reasons.length
+                          ? `<ul class="partner-pitch-list">${partnersPage.visibilityPitch.reasons
+                              .map(
+                                (reason) =>
+                                  `<li><strong>${escapeHtml(
+                                    reason.label
+                                  )}</strong> : ${escapeHtml(reason.text)}</li>`
+                              )
+                              .join("")}</ul>`
+                          : ""
+                      }
+                      ${
+                        partnersPage.visibilityPitch.closing
+                          ? `<p>${escapeHtml(partnersPage.visibilityPitch.closing)}</p>`
+                          : ""
+                      }
+                    </article>
+                  `
+                  : ""
+              }
               <article class="panel">
                 <h2>${escapeHtml(partnersPage.annualPartnersTitle || "Nos partenaires")}</h2>
                 <div class="partner-grid">

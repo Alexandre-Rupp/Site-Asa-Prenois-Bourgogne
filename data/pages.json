@@ -334,7 +334,34 @@
         "logo": "assets/partners/cotedor.svg",
         "url": "https://www.cotedor.fr/"
       }
-    ]
+    ],
+    "visibilityPitch": {
+      "title": "Une Opportunité de Visibilité pour nos Partenaires",
+      "intro": [
+        "Soutenir notre association sportive automobile, c'est associer votre entreprise à la passion du sport mécanique, à la performance et à un territoire reconnu pour son patrimoine automobile, avec le circuit Dijon-Prenois comme véritable référence.",
+        "En devenant partenaire ou sponsor, vous bénéficiez d'une visibilité privilégiée auprès d'un public de passionnés, de familles, de pilotes et d'acteurs économiques de la région. Présents lors de nombreuses manifestations automobiles en Côte-d'Or, nous mettons en valeur nos partenaires à travers nos équipements, nos supports de communication et nos réseaux sociaux."
+      ],
+      "reasonsTitle": "Pourquoi nous accompagner ?",
+      "reasons": [
+        {
+          "label": "Une visibilité locale et régionale",
+          "text": "une présence sur les événements majeurs organisés en Côte-d'Or, notamment autour du circuit Dijon-Prenois, avec des milliers de visiteurs et de passionnés chaque année, mais également la mythique Course de Côte d'Urcy et deux rallyes, le rallye de Bligny-sur-Ouche et le rallye de l'Auxois."
+        },
+        {
+          "label": "Une communication dynamique",
+          "text": "valorisation de votre entreprise sur nos supports de communication, nos réseaux sociaux et lors de nos différentes manifestations."
+        },
+        {
+          "label": "Des valeurs fortes",
+          "text": "engagement, esprit d'équipe, performance, convivialité et partage, des valeurs que nous portons à travers chacune de nos actions."
+        },
+        {
+          "label": "Un partenariat de proximité",
+          "text": "nous construisons avec chaque partenaire une collaboration adaptée à ses objectifs de visibilité et de développement."
+        }
+      ],
+      "closing": "Rejoignez notre aventure et contribuez au rayonnement du sport automobile en Côte-d'Or. Ensemble, faisons vivre la passion de la compétition et donnons encore plus de visibilité à votre entreprise au cœur d'un territoire emblématique du sport mécanique."
+    }
   },
   "contact": {
     "title": "Contacts",

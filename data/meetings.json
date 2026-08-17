@@ -62,7 +62,12 @@
       "date": "10-11-12-13 septembre 2026",
       "seasonLabel": "Meetings Circuit 2026",
       "kind": "circuit",
-      "location": "Circuit Dijon-Prenois"
+      "location": "Circuit Dijon-Prenois",
+      "detailParagraphs": [
+        "9 plateaux et 19 courses seront au programme.",
+        "Focus sur les F3 Classic Interseries. Voitures : F3. Période : de 1971 à 1984. Courses : 2 x 17 tours.",
+        "Les espoirs passés par la F3 dans les années 1970 et 1980 ont tous rêvé de gagner à Monaco, sous le regard des patrons d'écuries de F1. La règle officieuse voulait que son vainqueur débute directement en F1 l'année suivante, sans passer par la F2. Au palmarès figurent Patrick Depailler, Jacques Laffite, Didier Pironi ou encore Alain Prost. Les voitures sont des Martini, Chevron, March ou Ralt, restaurées dans leur livrée d'origine."
+      ]
     },
     {
       "id": "lamera-cup",
@@ -70,7 +75,11 @@
       "date": "16-17-18 octobre 2026",
       "seasonLabel": "Meetings Circuit 2026",
       "kind": "circuit",
-      "location": "Circuit Dijon-Prenois"
+      "location": "Circuit Dijon-Prenois",
+      "detailParagraphs": [
+        "La Lamera Cup, c'est bien plus qu'un championnat : c'est une expérience unique où performance, convivialité et plaisir de piloter se rencontrent. Avec de nombreuses heures de roulage, une ambiance chaleureuse dans les paddocks et des animations tout au long de la saison, chaque week-end promet des souvenirs inoubliables pour les pilotes comme pour leurs proches.",
+        "Pour les spectateurs, c'est l'occasion de vivre la course au plus près de l'action, tandis que les commissaires profitent d'un événement dynamique où passion, esprit d'équipe et engagement rythment chaque journée sur le circuit."
+      ]
     },
     {
       "id": "coupe-de-france-des-circuits",
@@ -78,7 +87,19 @@
       "date": "23-24-25 octobre 2026",
       "seasonLabel": "Meetings Circuit 2026",
       "kind": "circuit",
-      "location": "Circuit Dijon-Prenois"
+      "location": "Circuit Dijon-Prenois",
+      "detailParagraphs": [
+        "Rendez-vous incontournable du sport automobile amateur, la Coupe de France des Circuits réunit chaque année des pilotes passionnés sur les plus beaux circuits français, dont Dijon-Prenois.",
+        "Entre spectacle en piste, diversité des catégories et ambiance conviviale, cet événement offre également aux spectateurs et aux commissaires une immersion au cœur de la compétition, où passion, engagement et esprit d'équipe se vivent à chaque instant.",
+        "Un rendez-vous où la grande famille du sport automobile, tous acteurs confondus, aime se retrouver dans un esprit de convivialité et de partage.",
+        "Journées Clubs & Passionnés - Coupe de France des Circuits",
+        "À l'occasion de la Coupe de France des Circuits, les 24 et 25 octobre 2026, l'ASA Prenois Bourgogne vous invite à vivre un week-end exceptionnel sur le mythique Circuit Dijon-Prenois.",
+        "Clubs automobiles et particuliers sont les bienvenus pour partager leur passion et découvrir les coulisses du circuit dans une ambiance conviviale.",
+        "Venez exposer votre véhicule, rouler sur la piste et profiter d'un championnat avec des Berlines GT, des monoplaces, des protos, les Twin'Cup et Club HTCC.",
+        "Au programme : accueil café par l'équipe de l'ASA Prenois Bourgogne ; accès paddock ; visite commentée des installations du circuit par Patrice Verdenet (chronométrage, poste speaker, direction sportive et PC vidéos) ; balade inter-villages autour de Prenois (limitée à 50 véhicules) ; tours de piste derrière le Safety Car, une dizaine de minutes, le samedi et le dimanche à la pause méridienne (limités à 50 voitures, casque obligatoire).",
+        "Tarif : 20 € par véhicule.",
+        "Réservez dès maintenant votre week-end et rejoignez-nous pour partager, exposer et échanger autour d'une même passion : le sport automobile. Envoyez votre bulletin de pré-inscription à l'ASA Prenois Bourgogne."
+      ]
     },
     {
       "id": "rallye-de-bligny-sur-ouche",
@@ -99,12 +120,18 @@
     },
     {
       "id": "rallye-de-l-auxois",
-      "name": "24ÈME RALLYE RÉGIONAL DE L'AUXOIS",
+      "name": "25ÈME RALLYE RÉGIONAL DE L'AUXOIS",
       "date": "19 septembre 2026",
       "seasonLabel": "Meetings Rallye 2026",
       "kind": "rallye",
       "location": "Auxois",
-      "hideFromCommissaireSignup": true
+      "hideFromCommissaireSignup": true,
+      "detailParagraphs": [
+        "Après de longues années d'absence et en remplacement du traditionnel rallye des Hautes-Côtes, nous vous donnons rendez-vous le 19 septembre prochain pour cette 25e édition, sous un format aussi simple qu'efficace.",
+        "Une seule journée de course, mais une spéciale inédite de 13 km à parcourir 3 fois.",
+        "De nombreux changements de rythme et du relief sont au programme de ce tracé inédit.",
+        "Moins d'une heure suffit pour effectuer l'intégralité de vos reconnaissances."
+      ]
     },
     {
       "id": "reves-d-enfants-malades",
@@ -122,14 +149,6 @@
         "BAPTÊME DE PISTE ADULTE/ENFANT : 70 €",
         "Ouverture au public dès 9h."
       ]
-    },
-    {
-      "id": "tour-de-bourgogne-classic",
-      "name": "TOUR DE BOURGOGNE CLASSIC",
-      "date": "23-24-25 octobre 2026",
-      "seasonLabel": "Meetings Rallye 2026",
-      "kind": "rallye",
-      "location": "Bourgogne"
     }
   ]
 }

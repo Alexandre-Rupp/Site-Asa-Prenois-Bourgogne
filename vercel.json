@@ -66,11 +66,6 @@
       "permanent": true
     },
     {
-      "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r14",
-      "destination": "/:base/:profile/tour-de-bourgogne-classic",
-      "permanent": true
-    },
-    {
       "source": "/:base(meetings|inscriptions)/:profile(commissaire|pilote)/r15",
       "destination": "/:base/:profile/reves-d-enfants-malades",
       "permanent": true
