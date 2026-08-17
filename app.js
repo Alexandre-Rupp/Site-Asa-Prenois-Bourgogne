@@ -67,6 +67,9 @@ const DEFAULT_THEME_COLOR = "#0d5fd0";
 const MEETING_BACKGROUND_ASSET_VERSION = "20260316-3";
 const MEETING_EXTERNAL_URLS = {
   "rallye-de-bligny-sur-ouche": "https://rallyedeblignysurouche.fr/",
+  "dijon-motors-cup": "https://www.facebook.com/p/Dijon-Motors-Cup-100067235634191/",
+  "lamera-cup": "https://lameracup.fr/",
+  "reves-d-enfants-malades": "https://www.lions-clubs-france.org/reves-denfants-malades/",
 };
 const MEETING_VISUALS = {
   "fun-racing-car": "assets/meetings/fun-racing-car.webp",
@@ -1860,7 +1863,7 @@ function renderMeetingDetailView(
       : `Formulaire ${profile.label.toLowerCase()}`;
   const secondaryCtaHref = externalUrl || `/${baseRoute}/${profileKey}`;
   const secondaryCtaLabel = externalUrl
-    ? "Site officiel du rallye"
+    ? "Site du promoteur"
     : "Retour au calendrier";
   const secondaryCtaAttrs = externalUrl
     ? 'target="_blank" rel="noopener noreferrer"'
