@@ -304,7 +304,7 @@
       {
         "name": "Gautier",
         "short": "Gautier",
-        "logo": "assets/partners/gautier.svg"
+        "logo": "assets/partners/gautier.webp"
       },
       {
         "name": "Vulco",
@@ -333,6 +333,11 @@
         "short": "Côte d'Or",
         "logo": "assets/partners/cotedor.svg",
         "url": "https://www.cotedor.fr/"
+      },
+      {
+        "name": "Lieutet'Elec",
+        "short": "Lieutet'Elec",
+        "logo": "assets/partners/lieutet-elec.webp"
       }
     ],
     "visibilityPitch": {
