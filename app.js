@@ -44,6 +44,8 @@ const COMMISSIONER_TRAINING_IMAGE_DIRECTORY = "assets/news/formation-commissaire
 const COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX = "formation-commissaire-";
 const FUN_CUP_NEWS_IMAGE_DIRECTORY = "assets/news/fun-cup";
 const FUN_CUP_NEWS_IMAGE_BASENAME_PREFIX = "IMG_";
+const LICENCIES_NEWS_IMAGE_DIRECTORY = "assets/news/licencies-monde";
+const LICENCIES_NEWS_IMAGE_BASENAME_PREFIX = "photo-";
 const COMMISSIONER_TRAINING_IMAGE_SIZES =
   "(max-width: 640px) 92vw, (max-width: 1200px) 86vw, 1040px";
 const RESPONSIVE_FEED_VARIANT_SUFFIX_RE = /-(640|1024|1600)\.webp$/i;
@@ -366,6 +368,7 @@ function getResponsiveFeedImageSourceSet(src) {
   const expectedPrefixes = [
     `${COMMISSIONER_TRAINING_IMAGE_DIRECTORY}/${COMMISSIONER_TRAINING_IMAGE_BASENAME_PREFIX}`,
     `${FUN_CUP_NEWS_IMAGE_DIRECTORY}/${FUN_CUP_NEWS_IMAGE_BASENAME_PREFIX}`,
+    `${LICENCIES_NEWS_IMAGE_DIRECTORY}/${LICENCIES_NEWS_IMAGE_BASENAME_PREFIX}`,
   ];
   const isResponsiveBaseImage =
     normalizedSrc.endsWith(".webp") &&

@@ -1,25 +1,25 @@
 {
   "commissaires": [
     {
-      "title": "Premier meeting de la saison en FunCup",
-      "date": "Avril 2026",
-      "text": "Premier meeting de la saison en FunCup, et quelle entrée en matière ! Malgré une météo capricieuse et une pluie bien présente, l’ambiance et le plaisir étaient au rendez-vous. Une expérience intense, pleine de sensations et de bons moments partagés. De quoi lancer la saison de la meilleure des façons !",
-      "collapsibleText": true,
-      "previewText": "Premier meeting de la saison en FunCup, et quelle entrée en matière !",
+      "title": "Les licenciés aux 4 coins du monde et de la France ces derniers mois",
+      "date": "Saison 2026",
       "images": [
-        "assets/news/fun-cup/IMG_0234.webp",
-        "assets/news/fun-cup/IMG_0239.webp",
-        "assets/news/fun-cup/IMG_0311.webp",
-        "assets/news/fun-cup/IMG_0382.webp",
-        "assets/news/fun-cup/IMG_0436.webp",
-        "assets/news/fun-cup/IMG_0445.webp",
-        "assets/news/fun-cup/IMG_0460.webp",
-        "assets/news/fun-cup/IMG_0463.webp",
-        "assets/news/fun-cup/IMG_0473.webp",
-        "assets/news/fun-cup/IMG_0475.webp",
-        "assets/news/fun-cup/IMG_0486.webp",
-        "assets/news/fun-cup/IMG_0491.webp",
-        "assets/news/fun-cup/IMG_0825.webp"
+        "assets/news/licencies-monde/photo-01.webp",
+        "assets/news/licencies-monde/photo-02.webp",
+        "assets/news/licencies-monde/photo-03.webp",
+        "assets/news/licencies-monde/photo-04.webp",
+        "assets/news/licencies-monde/photo-05.webp",
+        "assets/news/licencies-monde/photo-06.webp",
+        "assets/news/licencies-monde/photo-07.webp",
+        "assets/news/licencies-monde/photo-08.webp",
+        "assets/news/licencies-monde/photo-09.webp",
+        "assets/news/licencies-monde/photo-10.webp",
+        "assets/news/licencies-monde/photo-11.webp",
+        "assets/news/licencies-monde/photo-12.webp",
+        "assets/news/licencies-monde/photo-13.webp",
+        "assets/news/licencies-monde/photo-14.webp",
+        "assets/news/licencies-monde/photo-15.webp",
+        "assets/news/licencies-monde/photo-16.webp"
       ]
     }
   ],
