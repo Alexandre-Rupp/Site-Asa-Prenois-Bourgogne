@@ -2060,12 +2060,52 @@ function renderSkeletonPage(pageKey) {
   }
 
   if (pageKey === "contact") {
+    const contactAddress = CONTACT_PAGE_CONTENT.address || "";
+    const contactPhone = CONTACT_PAGE_CONTENT.phone || "";
+    const contactPhoneDigits = contactPhone.replace(/[^0-9+]/g, "");
+    const contactPhoneHref = contactPhoneDigits
+      ? sanitizeUrl(
+          `tel:${
+            contactPhoneDigits.startsWith("0")
+              ? `+33${contactPhoneDigits.slice(1)}`
+              : contactPhoneDigits
+          }`
+        )
+      : "";
     return `
       <div class="view-stack view-stack--info-pages">
         <section class="hero">
           <h1>${escapeHtml(page.title)}</h1>
           <p class="hero-sub">${escapeHtml(page.intro)}</p>
         </section>
+
+        ${
+          contactAddress || contactPhone
+            ? `
+        <section class="section">
+          <div class="section-head">
+            <h2>Coordonnées</h2>
+          </div>
+          <article class="panel contact-panel">
+            ${
+              contactAddress
+                ? `<p class="contact-address"><strong>Adresse :</strong> ${escapeHtml(
+                    contactAddress
+                  )}</p>`
+                : ""
+            }
+            ${
+              contactPhone
+                ? `<p class="contact-phone"><strong>Téléphone :</strong> <a href="${escapeHtml(
+                    contactPhoneHref
+                  )}">${escapeHtml(contactPhone)}</a></p>`
+                : ""
+            }
+          </article>
+        </section>
+        `
+            : ""
+        }
 
         <section class="section">
           <div class="section-head">
