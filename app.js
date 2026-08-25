@@ -133,6 +133,15 @@ const MEETING_SHARED_DOCUMENTS = {
       ctaLabel: "Ouvrir le PDF",
     },
   ],
+  "coupe-de-france-des-circuits": [
+    {
+      title: "Bulletin de pré-inscription - Journées Clubs & Passionnés",
+      description:
+        "Pré-inscription roulage clubs & passionnés (Coupe de France des Circuits, 24-25 octobre 2026).",
+      href: "assets/documents/bulletin-pre-inscription-journees-clubs-coupe-de-france-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+  ],
   "course-de-cote-urcy": [
     {
       title: "Carte générale Urcy 2026",
