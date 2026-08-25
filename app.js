@@ -125,6 +125,14 @@ const COMMISSAIRE_MEETING_DOCUMENTS = {
   ],
 };
 const MEETING_SHARED_DOCUMENTS = {
+  "rallye-de-l-auxois": [
+    {
+      title: "Additif organisation n° 1 - Rallye de l'Auxois 2026",
+      description: "Modification du règlement particulier (25ème Rallye de l'Auxois).",
+      href: "assets/documents/additif-organisation-1-rallye-auxois-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+  ],
   "course-de-cote-urcy": [
     {
       title: "Carte générale Urcy 2026",
