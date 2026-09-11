@@ -268,6 +268,11 @@
           "ctaLabel": "Ouvrir le PDF"
         },
         {
+          "title": "Road Book",
+          "href": "assets/documents/road-book-rallye-auxois-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        },
+        {
           "title": "Fiche équipements - Pilote",
           "href": "assets/documents/fiche-equipements-pilote-rallye-bligny-2026.pdf",
           "ctaLabel": "Ouvrir le PDF"
