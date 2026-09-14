@@ -890,6 +890,13 @@ function getRaceFormUrl(profile, meetingId) {
   );
 }
 
+// Vrai si l'URL d'inscription pointe vers une page interne du site (page
+// meeting/inscription) plutot que vers un document ou un formulaire externe.
+function isInternalMeetingPageUrl(url) {
+  const value = String(url || "");
+  return value.startsWith("/inscriptions/") || value.startsWith("/meetings/");
+}
+
 function isSignupClosedForMeeting(profile, meetingId) {
   if (!profile || !profile.forms) return false;
   if (profile.forms.signupClosedAll) {
@@ -1719,8 +1726,11 @@ function renderMeetingCards(
                         <a
                           class="btn btn-primary race-signup-link"
                           href="${escapeHtml(raceFormUrl)}"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          ${
+                            isInternalMeetingPageUrl(raceFormUrl)
+                              ? ""
+                              : 'target="_blank" rel="noopener noreferrer"'
+                          }
                         >
                           S'inscrire
                         </a>
@@ -1874,6 +1884,8 @@ function renderMeetingDetailView(
     !meeting.cancelled &&
     canShowSignupForMeeting(profileKey, meeting);
   const isSignupClosed = canShowSignup && isSignupClosedForMeeting(profile, meeting.id);
+  const raceFormUrl = sanitizeUrl(getRaceFormUrl(profile, meeting.id));
+  const signupIsInternalPage = isInternalMeetingPageUrl(raceFormUrl);
   const promoterLogo = getMeetingPromoterLogo(meeting.id);
   const promoterUrl = sanitizeUrl(getMeetingExternalUrl(meeting.id));
   const hasPromoterUrl = Boolean(promoterUrl) && promoterUrl !== "#";
@@ -1935,10 +1947,12 @@ function renderMeetingDetailView(
                         Inscriptions ferm\u00E9es
                       </button>
                     `
-                    : `
+                    : signupIsInternalPage
+                      ? ""
+                      : `
                       <a
                         class="btn btn-primary"
-                        href="${escapeHtml(sanitizeUrl(getRaceFormUrl(profile, meeting.id)))}"
+                        href="${escapeHtml(raceFormUrl)}"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
