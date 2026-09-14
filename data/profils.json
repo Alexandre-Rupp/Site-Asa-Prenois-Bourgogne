@@ -40,12 +40,12 @@
       "raceForm": "https://forms.office.com/r/5s11Uy4fWP",
       "signupClosedAll": true,
       "openRaceFormsByMeeting": [
-        "dijon-motors-cup",
         "lamera-cup",
         "coupe-de-france-des-circuits"
       ],
       "closedRaceFormsByMeeting": [
-        "championnat-de-france-gt"
+        "championnat-de-france-gt",
+        "dijon-motors-cup"
       ],
       "raceFormsByMeeting": [
         {
@@ -128,7 +128,8 @@
       "raceForm": "https://forms.office.com/r/PILOTE-COURSE-2026",
       "signupClosedAll": true,
       "openRaceFormsByMeeting": [
-        "rallye-de-l-auxois"
+        "rallye-de-l-auxois",
+        "coupe-de-france-des-circuits"
       ],
       "raceFormsByMeeting": [
         {
@@ -138,6 +139,10 @@
         {
           "meeting": "rallye-de-l-auxois",
           "url": "assets/documents/bulletin-engagement-rallye-auxois-2026.pdf"
+        },
+        {
+          "meeting": "coupe-de-france-des-circuits",
+          "url": "assets/documents/formulaire-engagement-coupe-de-france-2026.pdf"
         }
       ]
     }
