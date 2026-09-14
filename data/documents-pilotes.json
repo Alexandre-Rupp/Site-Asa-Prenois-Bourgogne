@@ -227,8 +227,7 @@
   "parMeeting": [
     {
       "meeting": "coupe-de-france-des-circuits",
-      "commonDocuments": [],
-      "pilotDocuments": [
+      "commonDocuments": [
         {
           "title": "Formulaire d'engagement (Word)",
           "href": "assets/documents/formulaire-engagement-coupe-de-france-2026.docx",
@@ -248,7 +247,9 @@
           "title": "Déclaration de responsabilité et garantie dégâts aux infrastructures",
           "href": "assets/documents/declaration-responsabilite-garantie-degats-infrastructures-coupe-de-france-2026.pdf",
           "ctaLabel": "Ouvrir le PDF"
-        },
+        }
+      ],
+      "pilotDocuments": [
         {
           "title": "Fiche horaires - Essais privés",
           "href": "assets/documents/fiche-horaires-essais-prives-coupe-de-france-2026.pdf",
@@ -260,7 +261,8 @@
           "ctaLabel": "Ouvrir le PDF"
         }
       ],
-      "pilotDocumentsTitle": "Dossier d'engagement pilote"
+      "pilotDocumentsTitle": "Horaires",
+      "commonDocumentsTitle": "Dossier d'engagement pilote"
     },
     {
       "meeting": "rallye-de-l-auxois",
