@@ -227,37 +227,40 @@
   "parMeeting": [
     {
       "meeting": "coupe-de-france-des-circuits",
-      "commonDocuments": [
-        {
-          "title": "VISA"
-        },
-        {
-          "title": "Horaires"
-        },
-        {
-          "title": "Informations générales"
-        }
-      ],
+      "commonDocuments": [],
       "pilotDocuments": [
         {
-          "title": "Feuilles d'engagement"
+          "title": "Formulaire d'engagement (Word)",
+          "href": "assets/documents/formulaire-engagement-coupe-de-france-2026.docx",
+          "ctaLabel": "Télécharger"
         },
         {
-          "title": "Assurances"
+          "title": "Formulaire d'engagement (PDF)",
+          "href": "assets/documents/formulaire-engagement-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
         },
         {
-          "title": "Feuilles techniques"
+          "title": "Fiche d'enregistrement des équipements de sécurité - Pilote",
+          "href": "assets/documents/fiche-equipements-securite-pilote-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
         },
         {
-          "title": "Book info"
+          "title": "Déclaration de responsabilité et garantie dégâts aux infrastructures",
+          "href": "assets/documents/declaration-responsabilite-garantie-degats-infrastructures-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
         },
         {
-          "title": "Listes engagés"
+          "title": "Fiche horaires - Essais privés",
+          "href": "assets/documents/fiche-horaires-essais-prives-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
         },
         {
-          "title": "Suivis résultats"
+          "title": "Fiche horaires - Samedi / Dimanche",
+          "href": "assets/documents/fiche-horaires-samedi-dimanche-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
         }
-      ]
+      ],
+      "pilotDocumentsTitle": "Dossier d'engagement pilote"
     },
     {
       "meeting": "rallye-de-l-auxois",

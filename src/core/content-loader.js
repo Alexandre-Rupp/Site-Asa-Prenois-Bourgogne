@@ -47,8 +47,14 @@ function buildPilotDocsByMeeting(parMeeting) {
   (parMeeting || []).forEach((entry) => {
     if (!entry || !entry.meeting) return;
     const docs = { commonDocuments: entry.commonDocuments || [] };
+    if (entry.commonDocumentsTitle) {
+      docs.commonDocumentsTitle = entry.commonDocumentsTitle;
+    }
     if (Array.isArray(entry.pilotDocuments) && entry.pilotDocuments.length) {
       docs.pilotDocuments = entry.pilotDocuments;
+    }
+    if (entry.pilotDocumentsTitle) {
+      docs.pilotDocumentsTitle = entry.pilotDocumentsTitle;
     }
     if (entry.vehicleDocuments && typeof entry.vehicleDocuments === "object") {
       docs.vehicleDocuments = entry.vehicleDocuments;

@@ -1047,21 +1047,39 @@ function renderPilotMeetingVehicleDocsContent(meetingId, meetingKind, vehicleTyp
 function renderPilotMeetingSpecificDocsContent(meetingDocs) {
   if (!meetingDocs) return "";
 
-  return `
-    <div class="meeting-doc-grid">
+  const cards = [];
+  if (
+    Array.isArray(meetingDocs.commonDocuments) &&
+    meetingDocs.commonDocuments.length
+  ) {
+    cards.push(`
       <article class="doc-card">
-        <h3>Documents communs</h3>
+        <h3>${escapeHtml(meetingDocs.commonDocumentsTitle || "Documents communs")}</h3>
         <ul class="doc-list">
           ${renderListItems(meetingDocs.commonDocuments)}
         </ul>
       </article>
-
+    `);
+  }
+  if (
+    Array.isArray(meetingDocs.pilotDocuments) &&
+    meetingDocs.pilotDocuments.length
+  ) {
+    cards.push(`
       <article class="doc-card">
-        <h3>Documents pilotes</h3>
+        <h3>${escapeHtml(meetingDocs.pilotDocumentsTitle || "Documents pilotes")}</h3>
         <ul class="doc-list">
           ${renderListItems(meetingDocs.pilotDocuments)}
         </ul>
       </article>
+    `);
+  }
+
+  if (!cards.length) return "";
+
+  return `
+    <div class="meeting-doc-grid">
+      ${cards.join("")}
     </div>
   `;
 }
