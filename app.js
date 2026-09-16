@@ -132,6 +132,54 @@ const MEETING_SHARED_DOCUMENTS = {
       href: "assets/documents/additif-organisation-1-rallye-auxois-2026.pdf",
       ctaLabel: "Ouvrir le PDF",
     },
+    {
+      title: "Programme & horaires - Rallye de l'Auxois 2026",
+      description: "Programme et horaires du 25ème Rallye de l'Auxois (19 septembre 2026).",
+      href: "assets/documents/programme-horaires-rallye-auxois-2026.jpg",
+      ctaLabel: "Voir le programme",
+    },
+    {
+      title: "Parcours de la spéciale - Rallye de l'Auxois 2026",
+      description: "Carte du parcours de l'épreuve spéciale et zones public.",
+      href: "assets/documents/parcours-speciale-rallye-auxois-2026.jpg",
+      ctaLabel: "Voir le parcours",
+    },
+    {
+      title: "Zone public - Les Granges de Vesvres",
+      description: "Plan d'accès spectateurs de la zone public des Granges de Vesvres.",
+      href: "assets/documents/zone-public-granges-de-vesvres-rallye-auxois-2026.jpg",
+      ctaLabel: "Voir le plan",
+    },
+    {
+      title: "Zone public - Soussey",
+      description: "Plan d'accès spectateurs de la zone public de Soussey.",
+      href: "assets/documents/zone-public-soussey-rallye-auxois-2026.jpg",
+      ctaLabel: "Voir le plan",
+    },
+    {
+      title: "Liste des engagés - Modernes",
+      description: "Liste des engagés Modernes (25ème Rallye de l'Auxois).",
+      href: "assets/documents/liste-engages-modernes-rallye-auxois-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Liste des engagés - VHC",
+      description: "Liste des engagés VHC (25ème Rallye de l'Auxois).",
+      href: "assets/documents/liste-engages-vhc-rallye-auxois-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Liste des engagés - VHRS",
+      description: "Liste des engagés VHRS (25ème Rallye de l'Auxois).",
+      href: "assets/documents/liste-engages-vhrs-rallye-auxois-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
+    {
+      title: "Liste des engagés - Démonstration",
+      description: "Liste des engagés Démonstration (25ème Rallye de l'Auxois).",
+      href: "assets/documents/liste-engages-demonstration-rallye-auxois-2026.pdf",
+      ctaLabel: "Ouvrir le PDF",
+    },
   ],
   "coupe-de-france-des-circuits": [
     {
