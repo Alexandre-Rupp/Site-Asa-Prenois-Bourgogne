@@ -262,7 +262,14 @@
         }
       ],
       "pilotDocumentsTitle": "Horaires",
-      "commonDocumentsTitle": "Dossier d'engagement pilote"
+      "commonDocumentsTitle": "Dossier d'engagement pilote",
+      "extraDocumentsTitle": "Plan du paddock",
+      "extraDocuments": [
+        {
+          "href": "assets/documents/plan-paddock-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        }
+      ]
     },
     {
       "meeting": "rallye-de-l-auxois",

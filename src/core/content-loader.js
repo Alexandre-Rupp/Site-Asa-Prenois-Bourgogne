@@ -56,6 +56,12 @@ function buildPilotDocsByMeeting(parMeeting) {
     if (entry.pilotDocumentsTitle) {
       docs.pilotDocumentsTitle = entry.pilotDocumentsTitle;
     }
+    if (Array.isArray(entry.extraDocuments) && entry.extraDocuments.length) {
+      docs.extraDocuments = entry.extraDocuments;
+    }
+    if (entry.extraDocumentsTitle) {
+      docs.extraDocumentsTitle = entry.extraDocumentsTitle;
+    }
     if (entry.vehicleDocuments && typeof entry.vehicleDocuments === "object") {
       docs.vehicleDocuments = entry.vehicleDocuments;
     }
