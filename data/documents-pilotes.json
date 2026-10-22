@@ -251,13 +251,18 @@
       ],
       "pilotDocuments": [
         {
-          "title": "Fiche horaires - Essais privés",
-          "href": "assets/documents/fiche-horaires-essais-prives-coupe-de-france-2026.pdf",
+          "title": "Horaires Vendredi",
+          "href": "assets/documents/horaires-vendredi-coupe-de-france-2026.pdf",
           "ctaLabel": "Ouvrir le PDF"
         },
         {
-          "title": "Fiche horaires - Samedi / Dimanche",
-          "href": "assets/documents/fiche-horaires-samedi-dimanche-coupe-de-france-2026.pdf",
+          "title": "Horaires Samedi",
+          "href": "assets/documents/horaires-samedi-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        },
+        {
+          "title": "Horaires Dimanche",
+          "href": "assets/documents/horaires-dimanche-coupe-de-france-2026.pdf",
           "ctaLabel": "Ouvrir le PDF"
         }
       ],
