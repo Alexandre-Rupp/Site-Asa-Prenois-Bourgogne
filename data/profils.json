@@ -39,10 +39,7 @@
       "memberForm": "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAAj12wxUMkFaVUkzNlEzTzdTRVVXMVJVS0NBNEFOVy4u",
       "raceForm": "https://forms.office.com/r/5s11Uy4fWP",
       "signupClosedAll": true,
-      "openRaceFormsByMeeting": [
-        "lamera-cup",
-        "coupe-de-france-des-circuits"
-      ],
+      "openRaceFormsByMeeting": [],
       "closedRaceFormsByMeeting": [
         "championnat-de-france-gt",
         "dijon-motors-cup"
@@ -127,10 +124,7 @@
       "memberForm": "https://forms.office.com/r/PILOTE-MEMBRE-2026",
       "raceForm": "https://forms.office.com/r/PILOTE-COURSE-2026",
       "signupClosedAll": true,
-      "openRaceFormsByMeeting": [
-        "rallye-de-l-auxois",
-        "coupe-de-france-des-circuits"
-      ],
+      "openRaceFormsByMeeting": [],
       "raceFormsByMeeting": [
         {
           "meeting": "course-de-cote-urcy",
