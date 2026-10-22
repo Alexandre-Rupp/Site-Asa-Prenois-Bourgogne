@@ -26,13 +26,25 @@
 - [Documentation](#documentation)
 
 
+## Apercu
+Site officiel de l'**ASA Prenois Bourgogne**, en ligne sur
+**[asa-prenois-bourgogne.org](https://www.asa-prenois-bourgogne.org)**.
+
+Application monopage (SPA) statique en HTML/CSS/JavaScript, sans etape de
+build, hebergee sur Vercel. Tout le contenu editorial (meetings, actualites,
+documents, textes) est stocke dans `data/*.json` et modifiable via le CMS
+`/admin`. Le site propose un **theme clair (par defaut) et un theme sombre**
+memorise par visiteur, des espaces dedies **pilotes** et **commissaires**
+(calendrier, inscriptions, documents par epreuve) et une interface
+entierement responsive (mobile/tablette/desktop).
+
 ## Objectifs
 - Afficher les parcours `calendrier`, `inscriptions`, `actualites`, `contacts` et `vie-asa`.
 - Rester simple a deployer (aucun build obligatoire).
 - Garder un code evolutif avec responsabilites claires et architecture modulaire.
 
 ## Demarrage local
-1. Ouvrir un terminal dans `Site-circuit`.
+1. Ouvrir un terminal dans `Site-Asa-Prenois-Bourgogne`.
 2. Demarrer un serveur statique:
    - `python -m http.server 5500`
 3. Ouvrir `http://localhost:5500`.
@@ -94,7 +106,7 @@ Resume:
 
 ## Structure du projet
 ```text
-Site-circuit/
+Site-Asa-Prenois-Bourgogne/
   admin/                 # Interface d'administration Sveltia CMS (/admin)
     index.html
     config.yml           # Collections editables (labels en francais)
@@ -122,12 +134,14 @@ Site-circuit/
       dom.js             # Helpers DOM (escape, byId)
   app.js                 # Orchestrateur principal (render + cycle route)
   index.html             # Shell HTML
-  styles.css             # Styles globaux et responsive
-  vercel.json            # Rewrites Vercel (routing SPA, hors /admin et /api)
+  styles.css             # Styles globaux et responsive (theme sombre)
+  styles-light.css       # Surcharges du theme clair (par defaut)
+  vercel.json            # Rewrites, redirects et en-tetes de securite (CSP, HSTS...)
 ```
 
 ## Documentation
 - Architecture: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- Audit de securite: [SECURITY-AUDIT.md](./SECURITY-AUDIT.md)
 - CMS (installation + guide utilisateur): [CMS-SETUP.md](./docs/CMS-SETUP.md)
 - Standards de code: [CODING-STANDARDS.md](./docs/CODING-STANDARDS.md)
 - Contribution: [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
