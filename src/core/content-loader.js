@@ -47,6 +47,12 @@ function buildPilotDocsByMeeting(parMeeting) {
   (parMeeting || []).forEach((entry) => {
     if (!entry || !entry.meeting) return;
     const docs = { commonDocuments: entry.commonDocuments || [] };
+    if (Array.isArray(entry.overviewDocuments) && entry.overviewDocuments.length) {
+      docs.overviewDocuments = entry.overviewDocuments;
+    }
+    if (entry.overviewDocumentsTitle) {
+      docs.overviewDocumentsTitle = entry.overviewDocumentsTitle;
+    }
     if (entry.commonDocumentsTitle) {
       docs.commonDocumentsTitle = entry.commonDocumentsTitle;
     }

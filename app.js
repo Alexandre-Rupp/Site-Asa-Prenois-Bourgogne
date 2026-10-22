@@ -1,5 +1,5 @@
 // Main application orchestrator: renders views and binds feature modules.
-import { loadSiteContent } from "./src/core/content-loader.js?v=20260712-3";
+import { loadSiteContent } from "./src/core/content-loader.js?v=20260712-4";
 import { sanitizeUrl } from "./src/utils/dom.js?v=20260717-1";
 import {
   parseRoute,
@@ -1103,6 +1103,19 @@ function renderPilotMeetingSpecificDocsContent(meetingDocs) {
   if (!meetingDocs) return "";
 
   const cards = [];
+  if (
+    Array.isArray(meetingDocs.overviewDocuments) &&
+    meetingDocs.overviewDocuments.length
+  ) {
+    cards.push(`
+      <article class="doc-card">
+        <h3>${escapeHtml(meetingDocs.overviewDocumentsTitle || "Documents")}</h3>
+        <ul class="doc-list">
+          ${renderListItems(meetingDocs.overviewDocuments)}
+        </ul>
+      </article>
+    `);
+  }
   if (
     Array.isArray(meetingDocs.commonDocuments) &&
     meetingDocs.commonDocuments.length

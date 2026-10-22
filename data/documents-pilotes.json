@@ -227,6 +227,13 @@
   "parMeeting": [
     {
       "meeting": "coupe-de-france-des-circuits",
+      "overviewDocumentsTitle": "Book Pilote",
+      "overviewDocuments": [
+        {
+          "href": "assets/documents/book-pilote-coupe-de-france-2026.pdf",
+          "ctaLabel": "Ouvrir le PDF"
+        }
+      ],
       "commonDocuments": [
         {
           "title": "Formulaire d'engagement (Word)",
